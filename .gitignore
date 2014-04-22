@@ -1,4 +1,8 @@
 *.iws
+*.ipr
+*.iml
+*.classpath
+*.project
 *Db.properties
 *Db.script
 .settings

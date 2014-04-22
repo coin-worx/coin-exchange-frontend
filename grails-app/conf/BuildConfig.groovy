@@ -71,7 +71,7 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
 
         // An alternative to the default resources plugin is the asset-pipeline plugin
-        compile ":asset-pipeline:1.8.1"
+        compile ":asset-pipeline:1.8.3"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.5.5"
