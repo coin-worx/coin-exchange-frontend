@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project relativePaths="false" version="4">
+  <component name="ProjectFileVersion" converted="true" />
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/coin-exchange-frontend.iml" filepath="$PROJECT_DIR$/coin-exchange-frontend.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="libraryTable">
+    <library name="Grails 2.3.7">
+      <CLASSES>
+        <root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-aether-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-aether-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-aether-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-async-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-async-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-async-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-bootstrap-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-bootstrap-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-bootstrap-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-core-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-core-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-core-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-databinding-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-databinding-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-databinding-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-docs-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-docs-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-docs-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-logging-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-logging-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-logging-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-async-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-async-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-async-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-codecs-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-codecs-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-codecs-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-controllers-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-controllers-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-controllers-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-converters-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-converters-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-converters-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-databinding-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-databinding-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-databinding-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-datasource-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-datasource-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-datasource-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-domain-class-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-domain-class-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-domain-class-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-filters-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-filters-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-filters-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-gsp-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-gsp-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-gsp-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-i18n-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-i18n-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-i18n-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-log4j-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-log4j-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-log4j-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-mimetypes-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-mimetypes-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-mimetypes-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-rest-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-rest-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-rest-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-services-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-services-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-services-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-servlets-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-servlets-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-servlets-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-testing-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-testing-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-testing-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-url-mappings-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-url-mappings-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-url-mappings-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-validation-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-validation-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-plugin-validation-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-resources-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-resources-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-resources-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-scripts-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-scripts-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-scripts-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-spring-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-spring-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-spring-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-test-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-test-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-test-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-web-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-web-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-web-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-wrapper-2.3.7-javadoc.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-wrapper-2.3.7-sources.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-wrapper-2.3.7.jar!/" />
+
+<root url="jar://C:\dev\grails\grails-2.3.7/dist/grails-wrapper-support-2.3.7.jar!/" />
+
+
+      </CLASSES>
+    </library>
+  </component>
+</project>
