@@ -57,14 +57,13 @@ grails.project.dependency.resolution = {
         build ":tomcat:7.0.52.1"
 
         // plugins for the compile step
-        compile ":scaffolding:2.0.2"
-        compile ':cache:1.1.1'
+        compile ":asset-pipeline:1.8.3",
+                ":scaffolding:2.0.2",
+                ':cache:1.1.1'
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate:3.6.10.13"
-        runtime ":database-migration:1.4.0"
-
-        compile ":asset-pipeline:1.8.3"
+        runtime ":hibernate:3.6.10.13",
+                ":database-migration:1.4.0"
 
     }
 }
