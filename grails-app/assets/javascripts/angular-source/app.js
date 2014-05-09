@@ -6,27 +6,27 @@ trade.config(function($routeProvider) {
    console.log('halo');
     $routeProvider
         .when('/trade/overview', {
-            templateUrl: 'views/trade/overview',
+            templateUrl: 'views/tradeOverview',
             controller: 'TradeNavigationController'
         })
         .when('/trade/newOrder', {
-            templateUrl: 'views/trade/overview',
+            templateUrl: 'views/tradeNewOrder',
             controller: 'TradeNavigationController'
         })
         .when('/trade/orders', {
-            templateUrl: 'views/trade/overview',
+            templateUrl: 'views/tradeOrders',
             controller: 'TradeNavigationController'
         })
         .when('/trade/positions', {
-            templateUrl: 'views/trade/overview',
+            templateUrl: 'views/tradePositions',
             controller: 'TradeNavigationController'
         })
         .when('/trade/trades', {
-            templateUrl: 'views/trade/overview',
+            templateUrl: 'views/tradeTrades',
             controller: 'TradeNavigationController'
         })
         .otherwise({
-            redirectTo: '/trade/overview'
+            redirectTo: '/views/tradeOverview'
         })
 });
 
