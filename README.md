@@ -12,8 +12,7 @@ JIRA project link: [COIN](https://aurorasolutions.atlassian.net/browse/COIN)
   - Tomcat
 
 #### How to set up
-  1. Clone the application from repo
-        git clone git@bitbucket.org:abaziz/coin-exchange-frontend.git
+  1. Clone the application from repo: `git clone git@bitbucket.org:abaziz/coin-exchange-frontend.git`
 
 #### How to run application
 Now after above given steps you have to go to your application's root folder and run following commands.
