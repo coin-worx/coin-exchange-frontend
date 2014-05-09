@@ -140,4 +140,4 @@ log4j = {
 }
 
 blancrock.key.api = 123456
-blancrock.key.secret = AuroraBitCoinExchange
+blancrock.key.secret = 'AuroraBitCoinExchange'
