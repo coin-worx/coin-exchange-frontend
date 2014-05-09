@@ -26,7 +26,7 @@ Now after above given steps you have to go to your application's root folder and
   1. If above commands are successful then you will see a log on your terminal saying that application can be accessed at: `localhost:8080/coin-exchange-frontend`.
   2. You have to write following url `localhost:8080/coin-exchange-frontend` in url browser window and press Enter.
 
-### BlancRock on IntelliJ
+#### BlancRock on IntelliJ
   1. Go to `coin-exchange-frontend` in console (or terminal)
   2. Run `grails integrate-with --intellij`
   3. In intellij idea _File -> Open_, go to coin-exchange-frontend and open _coin-exchange-frontend.ipr_
