@@ -33,4 +33,6 @@ Now after above given steps you have to go to your application's root folder and
   4. Press _Convert_ when IDE will ask.
   5. Run project always from console, not from IDE.
 
+## HOW TO ACCESS LOGS:
 
+- When running locally through `grails run-app`, then logs can be found under this location `...\coin-exchange-frontend\logs`.
