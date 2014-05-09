@@ -119,3 +119,6 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+blancrock.key.api = 123456
+blancrock.key.secret = AuroraBitCoinExchange

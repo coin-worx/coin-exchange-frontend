@@ -15,15 +15,15 @@
   <g:layoutHead/>
 </head>
 
-<body>
-<div id="grailsLogo" role="banner">
-  <a href="http://grails.org">
-    <asset:image src="grails_logo.png" alt="Grails"/>
-  </a>
+<body ng-app="blancrockExchangeApp">
+<div id="app-wrap">
+  <div id="main">
+    <g:render template="/commonTemplates/topSide"/>
+    <g:render template="/commonTemplates/navbar"/>
+    <g:render template="/commonTemplates/noScript"/>
+    <g:layoutBody/>
+  </div>
 </div>
-<g:layoutBody/>
-<div class="footer" role="contentinfo"></div>
-
-<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+<g:render template="/commonTemplates/footer"/>
 </body>
 </html>
