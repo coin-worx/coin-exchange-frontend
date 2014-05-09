@@ -32,6 +32,44 @@ Now after above given steps you have to go to your application's root folder and
   4. Press _Convert_ when IDE will ask.
   5. Run project always from console, not from IDE.
 
-## HOW TO ACCESS LOGS:
+## LOGS:
 
 - When running locally through `grails run-app`, then logs can be found under this location `...\coin-exchange-frontend\logs`.
+
+## TECHNOLOGIES:
+  - Grails: Server side MVC, Backend REST Integration
+  - AngularJS: Client MVC
+  - Spock: Grails Unit Testing
+  - Jasmine: JavaScript/AngularJS Unit (BDD) Testing
+  - Selenium: 
+  - Geb: 
+  - Protractor: AngularJS E2E functional testing
+  - HTML5/CSS3/JS: 
+  - jQuery: 
+  - Grunt: Task manages, needed to handle assets optimization
+  - Bower: Package manager
+  - Yeoman: Used for quickly & easily creating an angularJs based application
+  - Karma: Tool that allows to execute JavaScript tests
+  - HighCharts: Charting API
+
+## TESTING:
+
+#### Grails Unit Tests
+  - Grails Unit Tests can be found here: 
+  - To run Grails Unit Tests: 
+
+#### Grails Integration Tests
+  - Grails Integration Tests can be found here: 
+  - To run Grails Integration Tests: 
+
+#### Grails Functional/E2E Tests
+  - Grails Functional/E2E Tests can be found here: 
+  - To run Grails Functional/E2E Tests:
+ 
+#### JavaScript/AngularJS Unit Tests
+  - JavaScript/AngularJS Unit Tests can be found here: 
+  - To run JavaScript/AngularJS Integration Tests: 
+
+#### JavaScript/AngularJS Functional/E2E Tests
+  - JavaScript/AngularJS Functional/E2E Tests can be found here: 
+  - To run JavaScript/AngularJS Functional/E2E Tests:
