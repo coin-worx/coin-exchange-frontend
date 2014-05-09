@@ -23,8 +23,8 @@ Now after above given steps you have to go to your application's root folder and
   3. `grails run-app` (To run the application)
 
 #### How to access application?
-If above commands are successful then you will see a log on your terminal saying that application can be accessed at: `localhost:8080/coin-exchange-frontend`.
-You have to write following url `localhost:8080/coin-exchange-frontend` in url browser window and press Enter.
+  1. If above commands are successful then you will see a log on your terminal saying that application can be accessed at: `localhost:8080/coin-exchange-frontend`.
+  2. You have to write following url `localhost:8080/coin-exchange-frontend` in url browser window and press Enter.
 
 ## HOW TO SETUP:
 
