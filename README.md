@@ -42,10 +42,10 @@ Now after above given steps you have to go to your application's root folder and
   - Spock: Grails Unit Testing
   - Jasmine: JavaScript/AngularJS Unit (BDD) Testing
   - Selenium: 
-  - Geb: 
-  - Protractor: AngularJS E2E functional testing
+  - Geb: Grails E2E/Functional testing
+  - Protractor: AngularJS E2E/Functional testing
   - HTML5/CSS3/JS: 
-  - jQuery: 
+  - jQuery: A cross-platform JavaScript library designed to simplify the client-side scripting of HTML.
   - Grunt: Task manages, needed to handle assets optimization
   - Bower: Package manager
   - Yeoman: Used for quickly & easily creating an angularJs based application
@@ -68,7 +68,7 @@ Now after above given steps you have to go to your application's root folder and
  
 #### JavaScript/AngularJS Unit Tests
   - JavaScript/AngularJS Unit Tests can be found here: 
-  - To run JavaScript/AngularJS Integration Tests: 
+  - To run JavaScript/AngularJS Unit Tests: 
 
 #### JavaScript/AngularJS Functional/E2E Tests
   - JavaScript/AngularJS Functional/E2E Tests can be found here: 
