@@ -1,4 +1,4 @@
-package com.blackrock.template
+package com.blancrock.template
 
 /**
  * Created by Vladimir Havenchyk.
