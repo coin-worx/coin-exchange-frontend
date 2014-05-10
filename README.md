@@ -37,39 +37,40 @@ Now after above given steps you have to go to your application's root folder and
 - When running locally through `grails run-app`, then logs can be found under this location `...\coin-exchange-frontend\logs`.
 
 ## TECHNOLOGIES:
-  - Grails: Server side MVC, Backend REST Integration
-  - AngularJS: Client MVC
-  - Spock: Grails Unit Testing
-  - Jasmine: JavaScript/AngularJS Unit (BDD) Testing
-  - Selenium: 
-  - Geb: Grails E2E/Functional testing
-  - Protractor: AngularJS E2E/Functional testing
-  - HTML5/CSS3/JS: 
-  - jQuery: A cross-platform JavaScript library designed to simplify the client-side scripting of HTML.
+  - [Grails](https://grails.org/): Server side MVC, Backend REST Integration
+  - [Spock](https://code.google.com/p/spock/): Spock is a testing and specification framework for Java and Groovy applications
+  - [Selenium](https://code.google.com/p/selenium/): Browser automation framework
+  - [Geb](http://www.gebish.org/): Geb is a browser automation solution for e2e/functional testing
+  - [AngularJS](https://docs.angularjs.org/guide/introduction): Client side MVC, DI, Data Binding, etc.
+  - [Jasmine](https://github.com/pivotal/jasmine): JavaScript testing framework
+  - [jQuery](http://jquery.com/): A cross-platform JavaScript library designed to simplify the client-side scripting of HTML.
   - Grunt: Task manages, needed to handle assets optimization
-  - Bower: Package manager
+  - [Bower](http://bower.io/): Client-side code package manager
   - Yeoman: Used for quickly & easily creating an angularJs based application
-  - Karma: Tool that allows to execute JavaScript tests
+  - [Karma](https://github.com/karma-runner/karma): JavaScript unit test runner
+  - [Protractor](https://github.com/angular/protractor): JavaScript e2e test runner 
   - HighCharts: Charting API
+  - [Istanbul](https://github.com/gotwarlost/istanbul): A JS code coverage tool
+  - HTML5/CSS3/JS: 
 
 ## TESTING:
 
 #### Grails Unit Tests
-  - Grails Unit Tests can be found here: 
+  - Grails Unit Tests are kept here: 
   - To run Grails Unit Tests: 
 
 #### Grails Integration Tests
-  - Grails Integration Tests can be found here: 
+  - Grails Integration Tests are kept here: 
   - To run Grails Integration Tests: 
 
 #### Grails Functional/E2E Tests
-  - Grails Functional/E2E Tests can be found here: 
+  - Grails Functional/E2E Tests are kept here: 
   - To run Grails Functional/E2E Tests:
  
 #### JavaScript/AngularJS Unit Tests
-  - JavaScript/AngularJS Unit Tests can be found here: 
+  - JavaScript/AngularJS Unit Tests are kept here: 
   - To run JavaScript/AngularJS Unit Tests: 
 
 #### JavaScript/AngularJS Functional/E2E Tests
-  - JavaScript/AngularJS Functional/E2E Tests can be found here: 
+  - JavaScript/AngularJS Functional/E2E Tests are kept here: 
   - To run JavaScript/AngularJS Functional/E2E Tests:
