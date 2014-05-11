@@ -15,7 +15,7 @@
         <g:render template="/account/trade/overview"/>
         <g:render template="/account/trade/orders"/>
         <g:render template="/account/trade/positions"/>
-        <g:render template="/account/trade/trades"/>
+        <g:render template="/account/trade/trades/trades"/>
 
       </div>
     </div>
