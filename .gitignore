@@ -5,6 +5,7 @@
 /null/
 *.*~
 *~
+/node_modules/
 
 ######################
 # Eclipse

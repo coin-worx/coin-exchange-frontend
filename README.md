@@ -56,11 +56,11 @@ Now after above given steps you have to go to your application's root folder and
 ## TESTING:
 
 #### Grails Unit Tests
-  - Grails Unit Tests are kept here: 
+  - Grails Unit Tests are kept here: coin-exchange-frontend/test/unit
   - To run Grails Unit Tests: 
 
 #### Grails Integration Tests
-  - Grails Integration Tests are kept here: 
+  - Grails Integration Tests are kept here: coin-exchange-frontend/test/integration
   - To run Grails Integration Tests: 
 
 #### Grails Functional/E2E Tests
@@ -68,9 +68,9 @@ Now after above given steps you have to go to your application's root folder and
   - To run Grails Functional/E2E Tests:
  
 #### JavaScript/AngularJS Unit Tests
-  - JavaScript/AngularJS Unit Tests are kept here: 
+  - JavaScript/AngularJS Unit Tests are kept here: coin-exchange-frontend/test/javascript/unit
   - To run JavaScript/AngularJS Unit Tests: 
 
 #### JavaScript/AngularJS Functional/E2E Tests
-  - JavaScript/AngularJS Functional/E2E Tests are kept here: 
+  - JavaScript/AngularJS Functional/E2E Tests are kept here: coin-exchange-frontend/test/javascript/e2e
   - To run JavaScript/AngularJS Functional/E2E Tests:
