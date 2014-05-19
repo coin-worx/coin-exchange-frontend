@@ -141,3 +141,4 @@ log4j = {
 
 blancrock.key.api = 123456
 blancrock.key.secret = 'AuroraBitCoinExchange'
+blankrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
