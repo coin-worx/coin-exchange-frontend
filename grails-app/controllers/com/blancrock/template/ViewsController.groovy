@@ -23,4 +23,24 @@ class ViewsController {
     def about() {
         render template: '/views/about'
     }
+
+    def accountTrade() {
+        render template: '/account/trade/overview'
+    }
+    def accountFunding() {
+        render template: '/account/funding/deposit/deposit'
+    }
+    def accountSecurity() {
+        render template: '/account/trade/overview'
+    }
+    def accountSettings() {
+        render template: '/account/trade/overview'
+    }
+    def accountHistory() {
+        render template: '/account/trade/overview'
+    }
+    def accountGetVerified() {
+        render template: '/account/trade/overview'
+    }
+
 }

@@ -1,19 +1,19 @@
 <div id="trade-nav" class="clearfix subtab-wrap">
   <ul class="nav nav-pills nav-account dark spaced20 pull-left">
     <li class="active">
-      <a href="#overview" data-toggle="tab" data-trigger-active="1">Overview</a>
+      <a href="#/account/trade/overview" data-toggle="tab" data-trigger-active="1">Overview</a>
     </li>
     <li class="">
-      <a href="#new-order" data-toggle="tab" data-trigger-active="1">New Order</a>
+      <a href="#/account/trade/new-order" data-toggle="tab" data-trigger-active="1">New Order</a>
     </li>
     <li class="">
-      <a href="#orders" data-toggle="tab" data-trigger-active="1">Orders</a>
+      <a href="#/account/trade/orders" data-toggle="tab" data-trigger-active="1">Orders</a>
     </li>
     <li class="">
-      <a href="#positions" data-toggle="tab" data-trigger-active="1">Positions</a>
+      <a href="#/account/trade/positions" data-toggle="tab" data-trigger-active="1">Positions</a>
     </li>
     <li class="">
-      <a href="#trades" data-toggle="tab" data-trigger-active="1">Trades</a>
+      <a href="#/account/trade/trades" data-toggle="tab" data-trigger-active="1">Trades</a>
     </li>
   </ul>
 

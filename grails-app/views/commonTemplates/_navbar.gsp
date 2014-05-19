@@ -9,17 +9,17 @@
             </a>
           </h1>
           <ul class="nav">
-            <li class="active">
+            <li ng-class="{active: $routeSegment.startsWith('account')">
               <a href="#/account">
                 <span>Account</span>
               </a>
             </li>
-            <li class="">
+            <li ng-class="{active: $routeSegment.startsWith('market')">
               <a href="#/market">
                 <span>Market Data</span>
               </a>
             </li>
-            <li class="">
+            <li ng-class="{active: $routeSegment.startsWith('help')">
               <a href="#/help">
                 <span>Help</span>
               </a>

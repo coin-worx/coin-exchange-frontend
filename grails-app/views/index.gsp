@@ -6,6 +6,6 @@
 </head>
 
 <body>
-<ng-view></ng-view>
+<div app-view-segment="0"></div>
 </body>
 </html>
