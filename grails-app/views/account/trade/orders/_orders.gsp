@@ -1,4 +1,3 @@
-<div class="tab-pane" id="orders">
 <div class="slider" id="orderlist-wrap">
 <div class="transfer" style="width: 1900px;">
 <div class="frame" style="width: 950px;">
@@ -17,31 +16,35 @@
                  aria-describedby="DataTables_Table_0_info">
       <thead>
       <tr role="row"><th class="lalign nw sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0"
-                         rowspan="1" colspan="1" aria-label="Order: activate to sort column ascending"
-                         style="width: 55px;">Order</th><th class="lalign nw sorting" role="columnheader" tabindex="0"
-                                                            aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                            aria-label="Order Type: activate to sort column ascending"
-                                                            style="width: 165px;">Order Type</th><th
+                         rowspan="1" colspan="1" style="width: 55px;"
+                         aria-label="Order: activate to sort column ascending">Order</th><th class="lalign nw sorting"
+                                                                                             role="columnheader"
+                                                                                             tabindex="0"
+                                                                                             aria-controls="DataTables_Table_0"
+                                                                                             rowspan="1" colspan="1"
+                                                                                             style="width: 165px;"
+                                                                                             aria-label="Order Type: activate to sort column ascending">Order Type</th><th
           class="lalign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-          colspan="1" aria-label="Pair: activate to sort column ascending" style="width: 50px;">Pair</th><th
+          colspan="1" style="width: 50px;" aria-label="Pair: activate to sort column ascending">Pair</th><th
           class="ralign nw sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-          colspan="1" aria-label="Price: activate to sort column ascending" style="width: 80px;">Price</th><th
+          colspan="1" style="width: 80px;" aria-label="Price: activate to sort column ascending">Price</th><th
           class="ralign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-          colspan="1" aria-label="Volume Rem.: activate to sort column ascending"
-          style="width: 115px;">Volume Rem.</th><th class="ralign sorting" role="columnheader" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Cost Rem.: activate to sort column ascending"
-                                                    style="width: 115px;">Cost Rem.</th><th class="lalign sorting"
-                                                                                            role="columnheader"
-                                                                                            tabindex="0"
-                                                                                            aria-controls="DataTables_Table_0"
-                                                                                            rowspan="1" colspan="1"
-                                                                                            aria-label="Status: activate to sort column ascending"
-                                                                                            style="width: 65px;">Status</th><th
+          colspan="1" style="width: 115px;"
+          aria-label="Volume Rem.: activate to sort column ascending">Volume Rem.</th><th class="ralign sorting"
+                                                                                          role="columnheader"
+                                                                                          tabindex="0"
+                                                                                          aria-controls="DataTables_Table_0"
+                                                                                          rowspan="1" colspan="1"
+                                                                                          style="width: 115px;"
+                                                                                          aria-label="Cost Rem.: activate to sort column ascending">Cost Rem.</th><th
+          class="lalign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+          colspan="1" style="width: 65px;" aria-label="Status: activate to sort column ascending">Status</th><th
           class="lalign nw sorting_desc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-          colspan="1" aria-sort="descending" aria-label="Opened: activate to sort column ascending"
-          style="width: 160px;">Opened</th><th class="ralign sorting_disabled center" role="columnheader" rowspan="1"
-                                               colspan="1" aria-label="&amp;nbsp;" style="width: 35px;">&nbsp;</th></tr>
+          colspan="1" style="width: 160px;" aria-sort="descending"
+          aria-label="Opened: activate to sort column ascending">Opened</th><th class="ralign sorting_disabled center"
+                                                                                role="columnheader" rowspan="1"
+                                                                                colspan="1" style="width: 35px;"
+                                                                                aria-label="&amp;nbsp;">&nbsp;</th></tr>
       </thead>
 
       <tfoot>
@@ -70,30 +73,32 @@
                                                 id="DataTables_Table_1" aria-describedby="DataTables_Table_1_info">
         <thead>
         <tr role="row"><th class="lalign nw sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1"
-                           rowspan="1" colspan="1" aria-label="Order: activate to sort column ascending"
-                           style="width: 55px;">Order</th><th class="lalign nw sorting" role="columnheader" tabindex="0"
-                                                              aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
-                                                              aria-label="Order Type: activate to sort column ascending"
-                                                              style="width: 165px;">Order Type</th><th
+                           rowspan="1" colspan="1" style="width: 55px;"
+                           aria-label="Order: activate to sort column ascending">Order</th><th class="lalign nw sorting"
+                                                                                               role="columnheader"
+                                                                                               tabindex="0"
+                                                                                               aria-controls="DataTables_Table_1"
+                                                                                               rowspan="1" colspan="1"
+                                                                                               style="width: 165px;"
+                                                                                               aria-label="Order Type: activate to sort column ascending">Order Type</th><th
             class="lalign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
-            colspan="1" aria-label="Pair: activate to sort column ascending" style="width: 50px;">Pair</th><th
+            colspan="1" style="width: 50px;" aria-label="Pair: activate to sort column ascending">Pair</th><th
             class="ralign nw sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
-            colspan="1" aria-label="Price: activate to sort column ascending" style="width: 80px;">Price</th><th
+            colspan="1" style="width: 80px;" aria-label="Price: activate to sort column ascending">Price</th><th
             class="ralign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
-            colspan="1" aria-label="Volume Exec'd: activate to sort column ascending"
-            style="width: 120px;">Volume Exec'd</th><th class="ralign sorting" role="columnheader" tabindex="0"
-                                                        aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
-                                                        aria-label="Cost: activate to sort column ascending"
-                                                        style="width: 115px;">Cost</th><th class="lalign sorting"
-                                                                                           role="columnheader"
-                                                                                           tabindex="0"
-                                                                                           aria-controls="DataTables_Table_1"
-                                                                                           rowspan="1" colspan="1"
-                                                                                           aria-label="Status: activate to sort column ascending"
-                                                                                           style="width: 65px;">Status</th><th
+            colspan="1" style="width: 120px;"
+            aria-label="Volume Exec'd: activate to sort column ascending">Volume Exec'd</th><th class="ralign sorting"
+                                                                                                role="columnheader"
+                                                                                                tabindex="0"
+                                                                                                aria-controls="DataTables_Table_1"
+                                                                                                rowspan="1" colspan="1"
+                                                                                                style="width: 115px;"
+                                                                                                aria-label="Cost: activate to sort column ascending">Cost</th><th
+            class="lalign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
+            colspan="1" style="width: 65px;" aria-label="Status: activate to sort column ascending">Status</th><th
             class="lalign sorting_desc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
-            colspan="1" aria-sort="descending" aria-label="Closed: activate to sort column ascending"
-            style="width: 185px;">Closed</th></tr>
+            colspan="1" style="width: 185px;" aria-sort="descending"
+            aria-label="Closed: activate to sort column ascending">Closed</th></tr>
         </thead>
 
         <tbody role="alert" aria-live="polite" aria-relevant="all"><tr id="OR2V6A-ZL5L3-KJCRIK" class="odd"><td
@@ -489,7 +494,6 @@
     <tbody>
     </tbody>
   </table>
-</div>
 </div>
 </div>
 </div>
