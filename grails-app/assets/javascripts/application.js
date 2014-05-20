@@ -1,3 +1,7 @@
+//= require jquery/dist/jquery
+//= require jquery-migrate/jquery-migrate
+//= require jquery-cookie/jquery.cookie
+//= require big.js/big.js
 //= require angular/angular
 //= require angular-cookies/angular-cookies
 //= require angular-resource/angular-resource
