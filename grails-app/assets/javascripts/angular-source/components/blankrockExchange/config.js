@@ -7,5 +7,5 @@ angular.module('blancrockExchangeApp', [
     'ngRoute',
     'route-segment',
     'view-segment',
-    'tradeModule'
+    'app'
 ]);
