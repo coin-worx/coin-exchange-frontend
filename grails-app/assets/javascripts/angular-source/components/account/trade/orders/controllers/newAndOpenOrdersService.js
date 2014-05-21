@@ -1,17 +1,12 @@
+//=require angular-source/components/account/trade/orders/orders.module
 
 'use strict';
 
-angular.module('account');
-//angular.module('account.trade');
-//    .config(function() {
-//        console.log('123');
-//    });
-
-
-
-//    .service('newAndOpenOrdersService', [
-//    '$resource', function ($resource) {
-//        return $resource('/order/:id', {id: '@id'}, {
-//
-//        });
-//    } ]);
+angular.module('account.trade').service('NewAndOpenOrdersService', [
+    '$http', function ($http) {
+        return {
+            query: function () {
+                return $http.get('api/queryOpenOrders');
+            }
+        };
+    } ]);

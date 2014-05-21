@@ -1,8 +1,5 @@
-//=require ../account.module
+//=require angular-source/components/account/account.module
 
 'use strict';
 
-angular.module('account_trade', ['account_trade_orders'])
-    .controller(function () {
-        console.log('hello');
-    });
+angular.module('account.trade', ['account.trade.orders']);
