@@ -5,14 +5,13 @@ package com.blankrock.backend
 class QueryService {
     static transactional = false
 
-    def grailsApplication
     def interactionService
 
     String queryOpenOrders(Boolean includeTrades, String userRefId) {
         String path = '/orders/openorders'
         Map query = [includeTrades: includeTrades, userRefId: userRefId]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -33,7 +32,7 @@ class QueryService {
                 closeTime    : closeTime
         ]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -42,7 +41,7 @@ class QueryService {
         String path = '/trades/querytrades'
         Map query = [txId: txId, includeTrades: includeTrades]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -51,7 +50,7 @@ class QueryService {
         String path = '/trades/tradevolume'
         Map query = [pair: pair]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -60,7 +59,7 @@ class QueryService {
         String path = '/orders/createorder'
         Map query = [pair: pair, type: type, side: side, volume: volume, price: price]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -69,7 +68,7 @@ class QueryService {
         String path = '/orders/cancelorder'
         Map query = [txId: txId]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -78,7 +77,7 @@ class QueryService {
         String path = '/trades/tradeshistory'
         Map query = [offset: offset, type: type, trades: trades, start: start, end: end]
 
-        Object response = interactionService.postRequest(path, query)
+        String response = interactionService.makePostRequestToBackend(path, query)
 
         return response
     }

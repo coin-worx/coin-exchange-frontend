@@ -24,7 +24,7 @@ class RequestGenerator {
         [apiKey, nounce, cNounce, cNumber, getHash()].join(',')
     }
 
-    String getCNonce() {
+    String getCNounce() {
         if (!cNounce) {
             cNounce = RandomStringUtils.randomNumeric(4)
         }

@@ -8,29 +8,9 @@ import grails.converters.JSON
 class InteractionController {
     def queryService
 
-    def test() {
-//        String currencyPair = 'XBTUSD'
-        def result = queryService.queryOpenOrders(true, "")
-
-        println "result : ${result}"
+    def queryOpenOrders() {
+        def result = queryService.queryOpenOrders(true, '')
 
         render([result: result] as JSON)
     }
-
-    def test1() {
-        def result = queryService.queryTrades(true, "")
-
-        println "result : ${result}"
-
-        render([result: result] as JSON)
-    }
-
-    def test2() {
-        def result = queryService.queryClosedOrders(true, "", "", "", "", "")
-
-        println "result : ${result}"
-
-        render([result: result] as JSON)
-    }
-
 }

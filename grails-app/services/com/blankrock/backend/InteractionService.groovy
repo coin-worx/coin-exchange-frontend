@@ -14,14 +14,28 @@ class InteractionService {
     def grailsApplication
 
     final static String CONTENT_TYPE = "application/json; charset=utf-8"
+    final static String UNAUTHORIZED_STATUS = '401'
 
-    String postRequest(String path, Map query) {
+    String makePostRequestToBackend(String path, Map query, Integer iteration = 0) {
+        String value
+        String status
+
+        (value, status) = postRequest(path, query)
+
+        if (status == UNAUTHORIZED_STATUS && !iteration) {
+            value = postRequest(path, query)
+        }
+
+        return value
+    }
+
+    private List<String> postRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
             path = "/dev${path}"
 
             def http = new HTTPBuilder(baseUrl)
-            def responseValue
+            def responseValue = ""
             def session = RCH.currentRequestAttributes().session
 
             AuthParams authParams = AuthParams.findByApiKey('55555')
@@ -30,11 +44,11 @@ class InteractionService {
                     apiKey: authParams.apiKey, secretKey: authParams.secretKey, url: baseUrl + path
             )
 
+            String responseStatus = ""
             http.request(Method.POST) {
                 contentType = CONTENT_TYPE
                 uri.path = path
                 body = query
-                println 'requestGenerator.authParams ' + requestGenerator.authParams
                 headers["Auth"] = requestGenerator.authParams
 
                 response.success = { resp, reader ->
@@ -53,6 +67,7 @@ class InteractionService {
                 response.failure = { resp ->
                     requestGenerator.nounce = resp.headers.nounce
                     requestGenerator.cNumber++
+                    responseStatus = resp.status
                     //@todo: use values from bootstrap for now
                     //requestGenerator.apiKey = resp.headers['apiKey']
 
@@ -62,7 +77,7 @@ class InteractionService {
 
             session['requestGenerator'] = requestGenerator
 
-            responseValue
+            [responseValue, responseStatus]
 
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"

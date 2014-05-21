@@ -1,7 +1,9 @@
-<div id="table-orderlist-open-wrap" class="vmarg40bot">
+<div id="table-orderlist-open-wrap" class="vmarg40bot" ng-controller="NewAndOpenOrdersController as openOrdersCtrl">
   <h4 class="title">New &amp; Open Orders</h4>
 
-  <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline" role="grid">
+  <h1>orders : {{orders}}</h1>
+
+  <div class="form-inline" role="grid">
     <div class="row">
       <div class="span4"></div>
 
