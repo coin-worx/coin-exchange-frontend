@@ -48,11 +48,11 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         }
 
         $scope.updateSorting = function (columnName) {
-            if (this.sort.predicate === columnName) {
-                this.sort.reverse = !$scope.sort.reverse;
+            if ($scope.sort.predicate === columnName) {
+                $scope.sort.reverse = !$scope.sort.reverse;
             } else {
-                this.sort.predicate = columnName;
-                this.sort.reverse = true;
+                $scope.sort.predicate = columnName;
+                $scope.sort.reverse = true;
             }
         };
 
