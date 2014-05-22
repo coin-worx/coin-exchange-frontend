@@ -99,13 +99,32 @@ environments {
     }
 }
 
+def basePath = System.properties['base.dir']
+
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    //NOTE: If you’re deploying to a different container, adjust the log directory calculation appropriately!
+    String logDir = grails.util.Environment.warDeployed ? System.getProperty('catalina.home') + '/logs' : "${basePath}/logs/"
+
+    appenders {
+        console name: 'stdout',
+                layout: pattern(conversionPattern: '%d %-5r %-5p [%c] (%t:%x) %m%n'),
+                Threshold: "INFO",
+                Target: "System.out",
+                encoding: 'UTF-8'
+
+        rollingFile name: 'file',
+                    maxFileSize: 5120000,
+                    file: "$logDir/blancrock.log",
+                    maxBackupIndex: 10,
+                    layout: pattern(conversionPattern: '%d [%t] %-5p (%c) - %m%n'),
+                    encoding: 'UTF-8'
+    }
+
+    root {
+        info 'stdout', 'file'
+        additivity: false
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -119,3 +138,7 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+blancrock.key.api = 123456
+blancrock.key.secret = 'AuroraBitCoinExchange'
+blankrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'

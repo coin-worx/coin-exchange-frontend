@@ -1,17 +1,78 @@
+######################
+# Project Specific
+######################
+/logs/
+/null/
+*.*~
+*~
+/node_modules/
+
+######################
+# Eclipse
+######################
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+######################
+# Intellij
+######################
+.idea/
+*.iml
 *.iws
 *.ipr
-*.iml
-*.classpath
-*.project
-*Db.properties
-*Db.script
-.settings
-stacktrace.log
-/*.zip
-/plugin.xml
-/*.log
-/*DB.*
-/cobertura.ser
+*.ids
+
+######################
+# Maven
+######################
+log/
+target/
+
+######################
+# Package Files
+######################
+*.jar
+*.war
+*.ear
+*.db
+
+######################
+# Windows
+######################
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+######################
+# Mac OSX
+######################
 .DS_Store
 /target/
 /out/
