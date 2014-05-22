@@ -1,5 +1,6 @@
 package com.blankrock.backend
 
+import grails.converters.JSON
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
@@ -13,7 +14,7 @@ class InteractionService {
 
     def grailsApplication
 
-    final static String CONTENT_TYPE = "application/json; charset=utf-8"
+    final static String CONTENT_TYPE = 'application/json; charset=utf-8'
     final static String UNAUTHORIZED_STATUS = '401'
 
     String makePostRequestToBackend(String path, Map query, Integer iteration = 0) {
@@ -23,7 +24,7 @@ class InteractionService {
         (value, status) = postRequest(path, query)
 
         if (status == UNAUTHORIZED_STATUS && !iteration) {
-            value = postRequest(path, query)
+            (value) = postRequest(path, query)
         }
 
         return value
@@ -34,8 +35,6 @@ class InteractionService {
             String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
             path = "/dev${path}"
 
-            def http = new HTTPBuilder(baseUrl)
-            def responseValue = ""
             def session = RCH.currentRequestAttributes().session
 
             AuthParams authParams = AuthParams.findByApiKey('55555')
@@ -44,27 +43,26 @@ class InteractionService {
                     apiKey: authParams.apiKey, secretKey: authParams.secretKey, url: baseUrl + path
             )
 
-            String responseStatus = ""
-            http.request(Method.POST) {
-                contentType = CONTENT_TYPE
+            String responseStatus = ''
+            String responseValue = ''
+            HTTPBuilder http = new HTTPBuilder(baseUrl)
+            http.request(Method.POST, CONTENT_TYPE) {
                 uri.path = path
                 body = query
-                headers["Auth"] = requestGenerator.authParams
+                headers.Accept = CONTENT_TYPE
+                headers.Auth = requestGenerator.authParams
 
-                response.success = { resp, reader ->
-                    resp.headers.each { h ->
-                        log.info "header: ${h.name} : ${h.value}"
-                    }
-
+                response.success = { resp, json ->
                     requestGenerator.cNumber++
-                    responseValue = reader
+                    responseValue = json as JSON
+                    responseStatus = resp.status
 
                     log.info 'response data : '
                     log.info responseValue
                     log.info '----------------'
                 }
 
-                response.failure = { resp ->
+                response.failure = { resp, json ->
                     requestGenerator.nounce = resp.headers.nounce
                     requestGenerator.cNumber++
                     responseStatus = resp.status
