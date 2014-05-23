@@ -139,16 +139,26 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-grails.assets.excludes = []
-['json', 'md', 'gzip', 'map', 'html', 'lock', 'gitignore', 'ruby-version', 'yml', 'less', 'scss', 'java', 'class',
- 'jpg', 'swf', 'rb', 'pdf', 'txt'].each { String pattern ->
-    String url = 'bower_components/**/*.'
-    grails.assets.excludes << url + pattern
-}
+grails.assets.excludes = ['bower_components/**/*.*']
 
-['LICENCE', 'Gemfile', 'CNAME', 'Makefile', 'MIT-LICENSE', 'BigDecTest'].each { String pattern ->
-    String url = 'bower_components/**/'
-    grails.assets.excludes << url + pattern
+grails.assets.includes = []
+
+['jquery/dist/jquery',
+ 'jquery-migrate/jquery-migrate',
+ 'jquery-cookie/jquery.cookie',
+ 'big.js/big.js',
+ 'angular/angular',
+ 'angular-cookies/angular-cookies',
+ 'angular-resource/angular-resource',
+ 'angular-route/angular-route',
+ 'angular-route-segment/build/angular-route-segment',
+ 'angular-sanitize/angular-sanitize'].each {
+    grails.assets.includes << 'bower_components/' + it + '.js'
+}
+['css/*.css',
+ 'font/*.*',
+ '**/*.png'].each {
+    grails.assets.includes << 'bower_components/fontawesome/' + it
 }
 
 blancrock.key.api = 123456
