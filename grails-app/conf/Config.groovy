@@ -141,11 +141,15 @@ log4j = {
 
 grails.assets.excludes = []
 ['js', 'css', 'json', 'md', 'gzip', 'map', 'html', 'lock', 'gitignore', 'ruby-version', 'yml', 'less', 'scss', 'png',
- 'swf', 'rb', 'pdf', 'ico'].each {
+ 'java', 'class', 'jpg', 'swf', 'rb', 'pdf', 'ico'].each { String pattern ->
     String url = 'bower_components/**/*.'
-    grails.assets.excludes << url + it
+    grails.assets.excludes << url + pattern
 }
-grails.assets.excludes << 'bower_components/**/LICENCE'
+
+['LICENCE', 'Gemfile', 'CNAME', 'Makefile', 'MIT-LICENSE', 'BigDecTest'].each { String pattern ->
+    String url = 'bower_components/**/'
+    grails.assets.excludes << url + pattern
+}
 
 blancrock.key.api = 123456
 blancrock.key.secret = 'AuroraBitCoinExchange'
