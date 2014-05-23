@@ -145,6 +145,7 @@ grails.assets.excludes = []
     String url = 'bower_components/**/*.'
     grails.assets.excludes << url + it
 }
+grails.assets.excludes << 'bower_components/**/LICENCE'
 
 blancrock.key.api = 123456
 blancrock.key.secret = 'AuroraBitCoinExchange'
