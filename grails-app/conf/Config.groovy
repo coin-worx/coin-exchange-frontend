@@ -140,8 +140,8 @@ log4j = {
 }
 
 grails.assets.excludes = []
-['js', 'css', 'json', 'md', 'gzip', 'map', 'html', 'lock', 'gitignore', 'ruby-version', 'yml', 'less', 'scss', 'png',
- 'java', 'class', 'jpg', 'swf', 'rb', 'pdf', 'ico', 'txt'].each { String pattern ->
+['json', 'md', 'gzip', 'map', 'html', 'lock', 'gitignore', 'ruby-version', 'yml', 'less', 'scss', 'java', 'class',
+ 'jpg', 'swf', 'rb', 'pdf', 'txt'].each { String pattern ->
     String url = 'bower_components/**/*.'
     grails.assets.excludes << url + pattern
 }
