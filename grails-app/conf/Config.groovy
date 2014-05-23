@@ -139,6 +139,13 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+grails.assets.excludes = []
+['js', 'css', 'json', 'md', 'gzip', 'map', 'html', 'lock', 'gitignore', 'ruby-version', 'yml', 'less', 'scss', 'png',
+ 'swf', 'rb', 'pdf', 'ico'].each {
+    String url = 'bower_components/**/*.'
+    grails.assets.excludes << url + it
+}
+
 blancrock.key.api = 123456
 blancrock.key.secret = 'AuroraBitCoinExchange'
 blankrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
