@@ -85,6 +85,8 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:3.6.10.9",
                 ":database-migration:1.4.0"
 
+        //compile ":rest:0.7"
+
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.5.5"
         //compile ":less-asset-pipeline:1.5.3"
