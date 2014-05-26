@@ -2,24 +2,24 @@
   <div class="navbar-inner">
     <div class="container">
       <div class="row">
-        <div class="span6" ng-controller="NavigationController">
+        <div class="span6">
           <h1 class="brand-title">
             <a class="brand" href="#/">
               <asset:image src="logo.png" alt="Kraken"/>
             </a>
           </h1>
           <ul class="nav">
-            <li ng-class="{active:isActive('/account')}">
-              <a ng-href="#/account">
+            <li class="active">
+              <a href="#/account">
                 <span>Account</span>
               </a>
             </li>
-            <li ng-class="{active:isActive('/market')}">
-              <a ng-href="#/market">
+            <li class="">
+              <a href="#/market">
                 <span>Market Data</span>
               </a>
             </li>
-            <li ng-class="{active:isActive('/help')}">
+            <li class="">
               <a href="#/help">
                 <span>Help</span>
               </a>
