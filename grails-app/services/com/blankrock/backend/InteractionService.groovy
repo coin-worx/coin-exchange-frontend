@@ -69,7 +69,7 @@ class InteractionService {
                     //@todo: use values from bootstrap for now
                     //requestGenerator.apiKey = resp.headers['apiKey']
 
-                    log.error 'request fail'
+                    log.error 'request fail ' + responseStatus + ' ' + json
                 }
             }
 

@@ -17,4 +17,10 @@ class InteractionController {
 
         render result
     }
+
+    def getTradeHistory() {
+        def result = queryService.getTradeHistory('', '')
+
+        render result
+    }
 }

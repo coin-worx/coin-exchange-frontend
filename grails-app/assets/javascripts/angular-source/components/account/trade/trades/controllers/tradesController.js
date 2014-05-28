@@ -1,33 +1,29 @@
-//=require angular-source/components/account/trade/orders/orders.module
+//=require angular-source/components/account/trade/trades/trades.module
 
 'use strict';
 
-angular.module('account.trade.orders').controller('ClosedOrdersController', [
-    '$scope', 'ClosedOrdersService', function ($scope, closedOrdersService) {
+angular.module('account.trade.trades').controller('TradesController', [
+    '$scope', 'TradesService', function ($scope, tradesService) {
         var loaded = false;
 
-        closedOrdersService.query()
+        tradesService.query()
             .success(function (data) {
-                updateCost(data);
+                //updateCost(data);
                 console.log(data);
-                $scope.orders = data;
+                $scope.trades = data;
+                console.log("Scope: " + $scope.trades);
                 loaded = true;
             }).error(function () {
-                $scope.orders = [];
+                $scope.trades = [];
                 loaded = true;
             });
-
-       /* $scope.deleteOrder = function (order) {
-            var index = $scope.orders.indexOf(order);
-            $scope.orders.splice(index, 1);
-        };*/
 
         $scope.isLoaded = function () {
             return !loaded;
         };
 
         $scope.sort = {
-            predicate: 'OrderId',
+            predicate: 'TradeId',
             reverse: true
         };
 
@@ -41,11 +37,11 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
             return className;
         };
 
-        function updateCost(orders) {
-            orders.forEach(function (order) {
-                order['Cost'] = +order['Volume'] * +order['Price'];
+        /*function updateCost(trades) {
+            trades.forEach(function (trade) {
+                trade['Cost'] = +trade['Volume'] * +trade['Price'];
             });
-        }
+        }*/
 
         $scope.updateSorting = function (columnName) {
             if ($scope.sort.predicate === columnName) {

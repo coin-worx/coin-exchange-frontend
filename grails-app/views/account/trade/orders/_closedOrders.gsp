@@ -1,4 +1,4 @@
-<div id="table-orderlist-open-wrap" class="vmarg40bot" ng-controller="ClosedOrdersController">
+<div id="table-orderlist-close-wrap" class="vmarg40bot" ng-controller="ClosedOrdersController">
     <h4 class="title">Closed Orders</h4>
 
     <div class="form-inline" role="grid">
@@ -49,7 +49,7 @@
 
             <tbody ng-hide="orders.length">
             <tr class="odd">
-                <td valign="top" colspan="9" class="dataTables_empty">No orders currently available.</td>
+                <td valign="top" colspan="8" class="dataTables_empty">No orders currently available.</td>
             </tr>
             </tbody>
         </table>

@@ -1,6 +1,3 @@
-/**
- * Created by sohaiba on 5/24/14.
- */
 //=require angular-source/components/account/trade/orders/orders.module
 
 'use strict';
