@@ -1,5 +1,4 @@
 //=require angular-source/components/account/trade/trades/trades.module
-
 'use strict';
 
 angular.module('account.trade.trades').controller('TradesController', [
@@ -10,8 +9,9 @@ angular.module('account.trade.trades').controller('TradesController', [
             .success(function (data) {
                 //updateCost(data);
                 console.log(data);
-                $scope.trades = data;
-                console.log("Scope: " + $scope.trades);
+                var formattedString = insertKeys(data);
+                $scope.trades = formattedString;
+                console.log("Scope: " + $scope.trades + "Corrected: " + formattedString);
                 loaded = true;
             }).error(function () {
                 $scope.trades = [];
@@ -42,6 +42,21 @@ angular.module('account.trade.trades').controller('TradesController', [
                 trade['Cost'] = +trade['Volume'] * +trade['Price'];
             });
         }*/
+
+        function insertKeys(trades) {
+          var list = [];
+          trades.forEach(function(trade){
+              list.push({
+                  tradeId   :  trade[0],
+                  executionDateTime   :   trade[1],
+                  price    :   trade[2],
+                  volume :   trade[3],
+                  currencyPair  :   trade[4]
+              })
+          });
+          console.log("The list of objects contains: " + list);
+          return list;
+        }
 
         $scope.updateSorting = function (columnName) {
             if ($scope.sort.predicate === columnName) {

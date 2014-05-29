@@ -2,7 +2,7 @@
     <div class="transfer" style="width: 1900px;">
         <div class="frame" style="width: 950px;">
             <div class="vpad10 alert alert-block alert-error hidden2" style="display: none;"></div>
-            <div id="table-tradelist-open-wrap" class="vmarg40bot" ng-controller="TradesController">
+            <div id="table-tradelist-wrap" class="vmarg40bot" ng-controller="TradesController">
                 <h4 class="title">Trades</h4>
                 <div class="form-inline" role="grid">
                     <div class="row">
@@ -31,11 +31,11 @@
 
                         <tfoot>
                         <tr ng-repeat="trade in trades | orderBy:sort.predicate:sort.reverse" ng-cloak>
-                            <th class="nw">{{trade.TradeId | limitTo: 8}}</th>
-                            <th class="nw">{{trade.ExecutionDateTime | date : 'MM-dd-yy h:mm:ss'}}</th>
-                            <th class="nw ralign">{{trade.Price}}</th>
-                            <th class="ralign">{{trade.Volume}}</th>
-                            <th class="lalign">{{trade.CurrencyPair}}</th>
+                            <th class="nw">{{trade.tradeId| limitTo: 8}}</th>
+                            <th class="nw">{{trade.executionDateTime | date : 'MM-dd-yy h:mm:ss'}}</th>
+                            <th class="nw ralign">{{trade.price}}</th>
+                            <th class="ralign">{{trade.volume}}</th>
+                            <th class="lalign">{{trade.currencyPair}}</th>
                             <%--<th class="ralign">{{trade.Cost}}</th>--%>
                         </tr>
                         </tfoot>
