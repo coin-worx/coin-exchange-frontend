@@ -5,7 +5,7 @@
         <div class="span6">
           <h1 class="brand-title">
             <a class="brand" href="#/">
-              <asset:image src="logo.png" alt="Kraken"/>
+              <g:message code="brand.name"/>
             </a>
           </h1>
           <ul class="nav">

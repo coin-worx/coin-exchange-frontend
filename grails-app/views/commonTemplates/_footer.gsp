@@ -1,5 +1,6 @@
 <footer>
   <div class="container">
+%{--
     <div class="row fivecol top">
       <div class="span2">
         <ul>
@@ -51,11 +52,12 @@
         </ul>
       </div>
     </div>
+--}%
   </div>
 
   <div class="row bottom">
     <div class="span12">
-      <ul>
+      %{--<ul>
         <li>
           <p>© Payward, Inc. 2012–2014</p>
         </li>
@@ -65,7 +67,7 @@
             class="icon-facebook-sign icon-2x"></i> facebook.com/KrakenFX</a></li>
         <li class="social github"><a href="http://www.github.com/payward"><i
             class="icon-github icon-2x"></i> github.com/payward</a></li>
-      </ul>
+      </ul>--}%
     </div>
   </div>
 </footer>
