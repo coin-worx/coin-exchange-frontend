@@ -73,9 +73,9 @@ class QueryService {
         return response
     }
 
-    String getTradeHistory(String offset, String type, Boolean trades, String start, String end) {
-        String path = '/trades/tradeshistory'
-        Map query = [offset: offset, type: type, trades: trades, start: start, end: end]
+    String getTradeHistory(String start, String end) {
+        String path = '/trades/tradehistory'
+        Map query = [start: start, end: end]
 
         String response = interactionService.makePostRequestToBackend(path, query)
 
