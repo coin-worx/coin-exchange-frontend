@@ -32,28 +32,26 @@
       </tr>
       </thead>
 
-      <tfoot>
-      <tr ng-repeat="order in orders | orderBy:sort.predicate:sort.reverse" ng-cloak>
-        <th class="nw">{{order.OrderId | limitTo: 8}}</th>
-        <th class="nw">{{order.Type}}</th>
-        <th class="lalign">{{order.CurrencyPair}}</th>
-        <th class="nw ralign">{{order.Price}}</th>
-        <th class="ralign">{{order.OpenQuantity}}</th>
-        <th class="ralign">{{order.CostRem}}</th>
-        <th>
+      <tbody>
+      <tr ng-repeat="order in orders | orderBy:sort.predicate:sort.reverse"
+          ng-class="{even: $even, odd: $odd}" ng-cloak>
+        <td class="nw">{{order.OrderId | limitTo: 8}}</td>
+        <td class="nw">{{order.Type}}</td>
+        <td class="lalign">{{order.CurrencyPair}}</td>
+        <td class="nw ralign">{{order.Price}}</td>
+        <td class="ralign">{{order.OpenQuantity}}</td>
+        <td class="ralign">{{order.CostRem}}</td>
+        <td>
           <span class="label mono label-inverse">{{order.Status}}</span>
-        </th>
-        <th class="nw">{{order.DateTime | date : 'MM-dd-yy h:mm:ss'}}</th>
-        <th class="center">
+        </td>
+        <td class="nw">{{order.DateTime | date : 'MM-dd-yy h:mm:ss'}}</td>
+        <td class="center">
           <a name="cancel" ng-click="deleteOrder(order)" class="btn btn-danger thin tt btn-cancel">
             <i class="icon-remove icon-white"></i>
           </a>
-        </th>
+        </td>
       </tr>
-      </tfoot>
-
-      <tbody ng-hide="orders.length">
-      <tr class="odd">
+      <tr class="odd" ng-hide="orders.length">
         <td valign="top" colspan="9" class="dataTables_empty">No orders currently available.</td>
       </tr>
       </tbody>
