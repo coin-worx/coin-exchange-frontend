@@ -53,7 +53,7 @@
       </tbody>
     </table>
 
-    <div>
+    <div ng-cloak>
       <div class="pull-right">
         <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
                     previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"

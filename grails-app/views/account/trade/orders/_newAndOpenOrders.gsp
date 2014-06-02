@@ -9,9 +9,10 @@
 
       <div class="dataTables_processing" ng-show="isLoaded()">Loading...</div>
     </div>
+
     <table class="table table-hover table-striped dataTable">
       <thead>
-      <tr role="row">
+      <tr role="row" ng-cloak>
         <th ng-click="updateSorting('OrderId')" class="lalign nw"
             ng-class="getSortingClass('OrderId')" style="width: 55px;">Order</th>
         <th ng-click="updateSorting('Type')" class="lalign nw"
@@ -57,7 +58,7 @@
       </tbody>
     </table>
 
-    <div>
+    <div ng-cloak>
       <div class="pull-right">
         <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
                     previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
