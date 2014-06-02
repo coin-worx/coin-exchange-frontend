@@ -9,9 +9,9 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
     closedOrdersService.query()
       .success(function (data) {
         updateCost(data);
-        console.log(data);
         $scope.orders = data;
         setPaginationParams();
+        $scope.$parent.closedOrdersLoaded = true;
         loaded = true;
       }).error(function () {
         $scope.orders = [];

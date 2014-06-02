@@ -9,13 +9,13 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
     newAndOpenOrdersService.query()
       .success(function (data) {
         updateCostRems(data);
-        console.log(data);
         $scope.orders = data;
         setPaginationParams();
+
+        $scope.$parent.newAndOpenOrdersLoaded = true;
         loaded = true;
       }).error(function () {
         $scope.orders = [];
-        loaded = true;
       });
 
     $scope.deleteOrder = function (order) {

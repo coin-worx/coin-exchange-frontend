@@ -9,6 +9,7 @@
 
       <div class="dataTables_processing" ng-show="isLoaded()">Loading...</div>
     </div>
+
     <table class="table table-hover table-striped dataTable">
       <thead>
       <tr role="row">

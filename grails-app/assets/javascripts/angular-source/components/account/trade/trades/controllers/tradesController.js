@@ -4,23 +4,17 @@
 
 angular.module('account.trade.trades').controller('TradesController', [
   '$scope', 'TradesService', function ($scope, tradesService) {
-    var loaded = false;
+    $scope.loaded = false;
 
     tradesService.query()
       .success(function (data) {
-        console.log({trades: data});
-        var formattedString = insertKeys(data);
-        $scope.trades = formattedString;
+        $scope.trades = data;
         setPaginationParams($scope.trades.length);
-        loaded = true;
+        $scope.loaded = true;
       }).error(function () {
         $scope.trades = [];
-        loaded = true;
+        $scope.loaded = true;
       });
-
-    $scope.isLoaded = function () {
-      return !loaded;
-    };
 
     $scope.sort = {
       predicate: 'TradeId',
@@ -36,35 +30,6 @@ angular.module('account.trade.trades').controller('TradesController', [
 
       return className;
     };
-
-    function insertKeys(trades) {
-      var list = [];
-
-      trades.forEach(function (trade) {
-        var tradeObject = {
-          TradeId: trade[0],
-          ExecutionDateTime: trade[1],
-          Price: trade[2],
-          Volume: trade[3],
-          CurrencyPair: trade[4]
-        };
-        tradeObject.Cost = tradeObject.Price * tradeObject.Volume;
-
-        list.push(tradeObject);
-      });
-
-      return list;
-    }
-
-    function updateCost(orders) {
-      if (orders.length) {
-        orders.forEach(function (order) {
-          order['Cost'] = +order['Volume'] * +order['Price'];
-        });
-      } else {
-        alert('something wrong, closed orders is empty');
-      }
-    }
 
     $scope.updateSorting = function (columnName) {
       if ($scope.sort.predicate === columnName) {

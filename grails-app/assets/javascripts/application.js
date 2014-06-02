@@ -8,6 +8,7 @@
 //= require bower_components/angular-route/angular-route
 //= require bower_components/angular-route-segment/build/angular-route-segment
 //= require bower_components/angular-sanitize/angular-sanitize
+//= require bower_components/angular-animate/angular-animate
 //= require bower_components/angular-bootstrap/ui-bootstrap-tpls
 //= require_tree views
 //= require_tree angular-source

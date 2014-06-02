@@ -10,7 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder as RCH
 /**
  * Created by Vladimir Havenchyk.
  */
-class InteractionService {
+class BackendInteractionService {
     static transactional = false
 
     def grailsApplication

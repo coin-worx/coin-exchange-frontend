@@ -2,7 +2,7 @@
 
 'use strict';
 
-angular.module('account.trade').service('NewAndOpenOrdersService', [
+angular.module('account.trade.orders').service('NewAndOpenOrdersService', [
     '$http', function ($http) {
         return {
             query: function () {

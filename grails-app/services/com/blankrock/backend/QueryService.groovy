@@ -5,13 +5,14 @@ package com.blankrock.backend
 class QueryService {
     static transactional = false
 
-    def interactionService
+    def backendInteractionService
+    def jsonHelperService
 
     String queryOpenOrders(Boolean includeTrades, String userRefId) {
         String path = '/orders/openorders'
         Map query = [includeTrades: includeTrades, userRefId: userRefId]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -32,7 +33,7 @@ class QueryService {
                 closeTime    : closeTime
         ]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -41,7 +42,7 @@ class QueryService {
         String path = '/trades/querytrades'
         Map query = [txId: txId, includeTrades: includeTrades]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -50,7 +51,7 @@ class QueryService {
         String path = '/trades/tradevolume'
         Map query = [pair: pair]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -59,7 +60,7 @@ class QueryService {
         String path = '/orders/createorder'
         Map query = [pair: pair, type: type, side: side, volume: volume, price: price]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -68,7 +69,7 @@ class QueryService {
         String path = '/orders/cancelorder'
         Map query = [txId: txId]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
         return response
     }
@@ -77,8 +78,10 @@ class QueryService {
         String path = '/trades/tradehistory'
         Map query = [start: start, end: end]
 
-        String response = interactionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
 
-        return response
+        String jsonWithKeys = jsonHelperService.addNecessaryKeysToTradeHistoryJson(response)
+
+        return jsonWithKeys
     }
 }

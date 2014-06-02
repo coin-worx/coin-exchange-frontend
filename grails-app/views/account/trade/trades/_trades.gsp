@@ -5,11 +5,14 @@
         <h4 class="title">Trades</h4>
 
         <div class="form-inline" role="grid">
-          <div class="row">
-            <div class="dataTables_processing" ng-show="isLoaded()">Loading...</div>
+          <div class="row" ng-hide="loaded">
+            <p style="text-align: center">
+              <i class="icon-spinner icon-spin icon-large icon-5x"></i>
+              Loading...
+            </p>
           </div>
 
-          <table class="table table-hover table-striped dataTable">
+          <table class="table table-hover table-striped dataTable" ng-show="loaded">
             <thead>
             <tr role="row">
               <th ng-click="updateSorting('TradeId')" class="lalign nw"
