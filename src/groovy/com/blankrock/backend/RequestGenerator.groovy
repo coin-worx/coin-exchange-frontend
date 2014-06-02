@@ -23,12 +23,4 @@ class RequestGenerator {
     String getAuthParams() {
         [apiKey, nounce, cNounce, cNumber, getHash()].join(',')
     }
-
-    String getCNounce() {
-        if (!cNounce) {
-            cNounce = RandomStringUtils.randomNumeric(4)
-        }
-
-        cNounce
-    }
 }

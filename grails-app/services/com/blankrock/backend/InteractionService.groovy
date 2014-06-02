@@ -1,6 +1,7 @@
 package com.blankrock.backend
 
 import grails.converters.JSON
+import groovy.transform.Synchronized
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
@@ -17,6 +18,7 @@ class InteractionService {
     final static String CONTENT_TYPE = 'application/json; charset=utf-8'
     final static String UNAUTHORIZED_STATUS = '401'
 
+    @Synchronized
     String makePostRequestToBackend(String path, Map query, Integer iteration = 0) {
         String value
         String status
@@ -40,8 +42,10 @@ class InteractionService {
             AuthParams authParams = AuthParams.findByApiKey('55555')
 
             RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator ?: new RequestGenerator(
-                    apiKey: authParams.apiKey, secretKey: authParams.secretKey, url: baseUrl + path
+                    apiKey: authParams.apiKey, secretKey: authParams.secretKey
             )
+
+            requestGenerator.url = baseUrl + path
 
             String responseStatus = ''
             String responseValue = ''
@@ -57,9 +61,11 @@ class InteractionService {
                     responseValue = json as JSON
                     responseStatus = resp.status
 
-                    log.info 'response data : '
-                    log.info responseValue
-                    log.info '----------------'
+                    if (log.isInfoEnabled()) {
+                        log.info 'response data : '
+                        log.info responseValue
+                        log.info '----------------'
+                    }
                 }
 
                 response.failure = { resp, json ->

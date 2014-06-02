@@ -7,20 +7,20 @@ class InteractionController {
     def queryService
 
     def queryOpenOrders() {
-        def result = queryService.queryOpenOrders(true, '')
+        String response = queryService.queryOpenOrders(true, '')
 
-        render result
+        render response
     }
 
     def queryClosedOrders() {
-        def result = queryService.queryClosedOrders(true, '', '', '', '', '')
+        String response = queryService.queryClosedOrders(true, '', '', '', '', '')
 
-        render result
+        render response
     }
 
     def getTradeHistory() {
-        def result = queryService.getTradeHistory('', '')
+        String response = queryService.getTradeHistory('', '')
 
-        render result
+        render response
     }
 }

@@ -42,7 +42,7 @@
         <td class="ralign">{{order.OpenQuantity}}</td>
         <td class="ralign">{{order.CostRem}}</td>
         <td>
-          <span class="label mono label-inverse">{{order.Status}}</span>
+          <span class="label mono" ng-class="setLabelStyles(order.Status)">{{order.Status}}</span>
         </td>
         <td class="nw">{{order.DateTime | date : 'MM-dd-yy h:mm:ss'}}</td>
         <td class="center">
@@ -56,6 +56,22 @@
       </tr>
       </tbody>
     </table>
+
+    <div>
+      <div class="pull-right">
+        <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                    max-size="maxSize" class="pagination-sm"
+                    boundary-links="true" rotate="false"></pagination>
+      </div>
+
+      <div class="pull-left">
+        <div class="dataTables_info">
+          {{currentMinIndex}} - {{currentMaxIndex}} of {{totalItems}} orders
+        </div>
+      </div>
+
+    </div>
 
     <div class="row">
       <div class="span3">

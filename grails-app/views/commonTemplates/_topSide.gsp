@@ -1,6 +1,6 @@
 <div id="topside">
   <div id="ticker-chart-pulldown">
-    <div class="loading hidden2">
+    <div class="loading">
       <div class="progress progress-info progress-striped active">
         <div class="bar"></div>
       </div>
