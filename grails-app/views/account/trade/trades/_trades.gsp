@@ -31,14 +31,14 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="trade in trades | orderBy:sort.predicate:sort.reverse"
+            <tr ng-repeat="trade in filteredTrades | orderBy:sort.predicate:sort.reverse"
                 ng-class="{even: $even, odd: $odd}" ng-cloak>
-              <td class="nw">{{trade.TradeId| limitTo: 8}}</td>
-              <td class="nw">{{trade.ExecutionDateTime | date : 'MM-dd-yy h:mm:ss'}}</td>
-              <td class="nw ralign">{{trade.Price}}</td>
-              <td class="ralign">{{trade.Volume}}</td>
-              <td class="lalign">{{trade.CurrencyPair}}</td>
-              <td class="ralign">{{trade.Cost}}</td>
+              <td class="nw" ng-bind="trade.TradeId | limitTo: 8"></td>
+              <td class="nw" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy h:mm:ss'"></td>
+              <td class="nw ralign" ng-bind="trade.Price"></td>
+              <td class="ralign" ng-bind="trade.Volume"></td>
+              <td class="lalign" ng-bind="trade.CurrencyPair"></td>
+              <td class="ralign" ng-bind="trade.Cost"></td>
             </tr>
 
             <tr class="odd" ng-hide="trades.length">
@@ -47,20 +47,19 @@
             </tbody>
           </table>
 
-          <div>
+          <div ng-show="loaded">
             <div class="pull-right">
               <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
                           previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                          max-size="maxSize" class="pagination-sm"
+                          max-size="maxSize" class="pagination-sm" ng-change="pageChanged()"
                           boundary-links="true" rotate="false"></pagination>
             </div>
 
             <div class="pull-left">
-              <div class="dataTables_info">
-                {{currentMinIndex}} - {{currentMaxIndex}} of {{totalItems}} trades
+              <div class="dataTables_info" ng-cloak>
+                {{currentMinIndex + 1}} - {{currentMaxIndex}} of {{totalItems}} trades
               </div>
             </div>
-
           </div>
 
           <div class="row">

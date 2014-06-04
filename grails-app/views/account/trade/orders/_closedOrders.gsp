@@ -34,21 +34,21 @@
       </thead>
 
       <tbody>
-      <tr ng-repeat="order in orders | orderBy:sort.predicate:sort.reverse"
+      <tr ng-repeat="order in filteredOrders | orderBy:sort.predicate:sort.reverse"
           ng-class="{even: $even, odd: $odd}" ng-cloak>
-        <td class="nw">{{order.OrderId | limitTo: 8}}</td>
-        <td class="nw">{{order.Type}}</td>
-        <td class="lalign">{{order.CurrencyPair}}</td>
-        <td class="nw ralign">{{order.Price}}</td>
-        <td class="ralign">{{order.Volume}}</td>
-        <td class="ralign">{{order.Cost}}</td>
+        <td class="nw" ng-bind="order.OrderId | limitTo: 8"></td>
+        <td class="nw" ng-bind="order.Type"></td>
+        <td class="lalign" ng-bind="order.CurrencyPair"></td>
+        <td class="nw ralign" ng-bind="order.Price"></td>
+        <td class="ralign" ng-bind="order.Volume"></td>
+        <td class="ralign" ng-bind="order.Cost"></td>
         <td>
-          <span class="label mono" ng-class="setLabelStyles(order.Status)">{{order.Status}}</span>
+          <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>
         </td>
-        <td class="nw">{{order.DateTime | date : 'MM-dd-yy h:mm:ss'}}</td>
+        <td class="nw" ng-bind="order.DateTime | date : 'MM-dd-yy h:mm:ss'"></td>
       </tr>
 
-      <tr class="odd" ng-hide="orders.length">
+      <tr class="odd" ng-hide="filteredOrders.length">
         <td valign="top" colspan="8" class="dataTables_empty">No orders currently available.</td>
       </tr>
       </tbody>
@@ -58,13 +58,13 @@
       <div class="pull-right">
         <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
                     previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                    max-size="maxSize" class="pagination-sm"
+                    max-size="maxSize" class="pagination-sm" ng-change="pageChanged()"
                     boundary-links="true" rotate="false"></pagination>
       </div>
 
       <div class="pull-left">
         <div class="dataTables_info">
-          {{currentMinIndex}} - {{currentMaxIndex}} of {{totalItems}} orders
+          {{currentMinIndex + 1}} - {{currentMaxIndex}} of {{totalItems}} orders
         </div>
       </div>
     </div>

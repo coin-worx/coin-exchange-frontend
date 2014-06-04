@@ -5,11 +5,14 @@
 angular.module('account.trade.trades').controller('TradesController', [
   '$scope', 'TradesService', function ($scope, tradesService) {
     $scope.loaded = false;
+    $scope.filteredTrades = [];
 
     tradesService.query()
       .success(function (data) {
         $scope.trades = data;
-        setPaginationParams($scope.trades.length);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
         $scope.loaded = true;
       }).error(function () {
         $scope.trades = [];
@@ -41,12 +44,23 @@ angular.module('account.trade.trades').controller('TradesController', [
     };
 
     //Sorting params
-    function setPaginationParams(totalItems) {
+    function setPaginationParams() {
       $scope.currentPage = 1;
       $scope.maxSize = 5;
+      $scope.totalItems = $scope.trades.length;
+    }
 
-      $scope.totalItems = totalItems;
-      $scope.currentMinIndex = ($scope.currentPage - 1) * 10 + 1;
-      $scope.currentMaxIndex = Math.min(totalItems, $scope.currentPage * 10);
+    $scope.pageChanged = function () {
+      recalculateMinAndMax();
+      filterCollection();
+    };
+
+    function filterCollection() {
+      $scope.filteredTrades = $scope.trades.slice($scope.currentMinIndex, $scope.currentMaxIndex);
+    }
+
+    function recalculateMinAndMax() {
+      $scope.currentMinIndex = ($scope.currentPage - 1) * 10;
+      $scope.currentMaxIndex = Math.min($scope.totalItems, $scope.currentPage * 10);
     }
   }]);

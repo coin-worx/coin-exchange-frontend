@@ -11,6 +11,9 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
         updateCost(data);
         $scope.orders = data;
         setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
+
         $scope.$parent.closedOrdersLoaded = true;
         loaded = true;
       }).error(function () {
@@ -60,9 +63,20 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
     function setPaginationParams() {
       $scope.currentPage = 1;
       $scope.maxSize = 5;
-
       $scope.totalItems = $scope.orders.length;
-      $scope.currentMinIndex = ($scope.currentPage - 1) * 10 + 1;
+    }
+
+    $scope.pageChanged = function () {
+      recalculateMinAndMax();
+      filterCollection();
+    };
+
+    function filterCollection() {
+      $scope.filteredOrders = $scope.orders.slice($scope.currentMinIndex, $scope.currentMaxIndex);
+    }
+
+    function recalculateMinAndMax() {
+      $scope.currentMinIndex = ($scope.currentPage - 1) * 10;
       $scope.currentMaxIndex = Math.min($scope.totalItems, $scope.currentPage * 10);
     }
 
