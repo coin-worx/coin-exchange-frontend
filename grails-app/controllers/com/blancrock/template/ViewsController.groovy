@@ -100,4 +100,16 @@ class ViewsController {
         render template: '/account/trade/newOrder/orderBook'
     }
 
+    def accountTradeNewOrderSimple() {
+        render template: '/account/trade/newOrder/simpleOrder'
+    }
+
+    def accountTradeNewOrderIntermediate() {
+        render template: '/account/trade/newOrder/intermediateOrder'
+    }
+
+    def accountTradeNewOrderAdvanced() {
+        render template: '/account/trade/newOrder/advancedOrder'
+    }
+
 }

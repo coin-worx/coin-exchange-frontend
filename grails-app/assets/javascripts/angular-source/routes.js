@@ -25,8 +25,11 @@ angular.module('blancrockExchangeApp').config(
                 .when('/account/trade/newOrder/positions', 'account.trade.newOrder.positions')
                 .when('/account/trade/newOrder/orderBook', 'account.trade.newOrder.orderBook')
 
+              .when('/account/trade/newOrder/simple', 'account.trade.newOrder.simple')
+              .when('/account/trade/newOrder/intermediate', 'account.trade.newOrder.intermediate')
+              .when('/account/trade/newOrder/advanced', 'account.trade.newOrder.advanced')
 
-                .when('/account/trade/orders', 'account.trade.orders')
+              .when('/account/trade/orders', 'account.trade.orders')
                 .when('/account/trade/positions', 'account.trade.positions')
                 .when('/account/trade/trades', 'account.trade.trades')
 
@@ -85,6 +88,17 @@ angular.module('blancrockExchangeApp').config(
                 .segment('orderBook', {
                     templateUrl: 'views/accountTradeNewOrderBook'
                 })
+
+              .segment('simple', {
+                default: true,
+                templateUrl: 'views/accountTradeNewOrderSimple'
+              })
+              .segment('intermediate', {
+                templateUrl: 'views/accountTradeNewOrderIntermediate'
+              })
+              .segment('advanced', {
+                templateUrl: 'views/accountTradeNewOrderAdvanced'
+              })
 
                 .up()
 
