@@ -46,7 +46,6 @@ angular.module('blancrockExchangeApp').config(
 
                 .when('/market', 'market')
                 .when('/marketData', 'marketData')
-                .when('/marketData/orderBook', 'marketData.orderBook')
 
                 .when('/about', 'about')
                 .when('/help', 'help')

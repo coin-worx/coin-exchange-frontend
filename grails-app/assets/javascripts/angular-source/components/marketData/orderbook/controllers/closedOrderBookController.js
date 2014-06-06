@@ -1,4 +1,4 @@
-//=require angular-source/components/account/trade/orders/orders.module
+//=require angular-source/components/marketData/orderbook/orderbook.module
 
 'use strict';
 
