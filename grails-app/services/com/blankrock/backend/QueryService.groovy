@@ -84,4 +84,12 @@ class QueryService {
 
         return jsonWithKeys
     }
+
+    String getOrderBook(String currencyPair){
+        String path = '/marketdata/orderbook?currencypair=' + currencyPair
+
+        String response = backendInteractionService.makeGetRequestToBackend(path)
+
+        return response
+    }
 }

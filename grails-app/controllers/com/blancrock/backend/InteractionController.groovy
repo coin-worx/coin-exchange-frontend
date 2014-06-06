@@ -23,4 +23,10 @@ class InteractionController {
 
         render response
     }
+
+    def getOrderBook() {
+        String response = queryService.getOrderBook('XBTUSD')
+
+        render response
+    }
 }
