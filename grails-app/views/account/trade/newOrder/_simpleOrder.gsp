@@ -50,6 +50,7 @@
           <div class="ib">
             <div class="input-append">
               <input type="text" placeholder="Price" tabindex="2" class="input-small ralign hmarg0right"
+                     ng-disabled="parameters.orderType === 'Market'"
                      ng-model="price" ng-required="parameters.orderType === 'Limit'" name="price" autocomplete="off">
               <span class="add-on">XRP</span>
             </div>
@@ -74,6 +75,7 @@
         <div class="ib control-group">
           <div class="input-append">
             <input placeholder="Total" type="text" tabindex="3" autocomplete="off" ng-model="total"
+                   ng-disabled="parameters.orderType === 'Market'"
                    class="input-medium ralign hmarg0right" name="total">
             <span class="add-on">XRP</span>
           </div>

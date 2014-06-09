@@ -23,4 +23,18 @@ class InteractionController {
 
         render response
     }
+
+    def createNewOrder() {
+        println "params: ${params}"
+        println "request.json: ${request.JSON}"
+        String currencyPair = 'XBTUSD'
+        String type = 'limit'
+        String side = 'sell'
+        Integer volume = 5
+        Integer price = 5
+
+        String response = queryService.createOrder(currencyPair, type, side, volume, price)
+
+        render response
+    }
 }

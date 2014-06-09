@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.newOrder').controller('NewOrderSimpleController', [
-  '$scope', '$location', 'orderDetailsService', function ($scope, $location, orderDetailsService) {
+  '$scope', '$location', '$filter', 'orderDetailsService', function ($scope, $location, $filter, orderDetailsService) {
 
     $scope.submitted = false;
     $scope.parameters = {
