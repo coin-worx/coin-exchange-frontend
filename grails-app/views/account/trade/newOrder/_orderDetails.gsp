@@ -1,8 +1,10 @@
-<div class="frame review-wrap vmarg40bot frame-active" style="width: 950px; visibility: visible;">
+<div class="frame review-wrap vmarg40bot frame-active" ng-controller="OrderDetailsController">
   <div class="row">
     <div class="span12">
       <div class="center">
         <h4 class="centered title vmarg0top">Order Details</h4>
+
+        <h1>data : {{data}}</h1>
 
         <div class="well big well-data-list"><dl class="dl-horizontal lalign"><dt>Order</dt><dd>buy 22.0<span
             class="deczeros">0000000</span> XBTXRP @ market
@@ -13,10 +15,10 @@
           <div class="vpad10 alert alert-block alert-success"></div>
 
           <div class="center btn-toolbar">
-            <button autocomplete="off" type="button"
-                    class="btn-order-new btn btn-large hmarg30right">« Create New Order</button>
-            <a autocomplete="off" href="#tab=orders" class="btn btn-primary btn-large"><i
-                class="icon-list icon-white"></i> View Orders</a>
+            <button type="button" class="btn-order-new btn btn-large hmarg30right">« Create New Order</button>
+
+            <a href="#tab=orders" class="btn btn-primary btn-large">
+              <i class="icon-list icon-white"></i> View Orders</a>
           </div>
         </div>
       </div>
@@ -29,27 +31,11 @@
           </div>
         </div>
 
-        <div class="otp-wrap hidden2">
-          <div class="row">
-            <div class="span8 offset3">
-              <div class="control-group">
-                <label class="control-label ralign">One-time Password</label>
-
-                <div class="controls">
-                  <input type="password" disabled="disabled" name="otp" class="input-large" autocomplete="off" value="">
-
-                  <p class="control-hint">Enter the one-time password required by two-factor authentication.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="order-buttons">
           <div class="center btn-toolbar">
-            <button autocomplete="off" type="button" class="btn-order-back btn btn-large hmarg30right">« Back</button>
-            <button autocomplete="off" type="submit" class="btn-order-confirm btn btn-success btn-large"><i
-                class="icon-ok icon-white"></i> Submit Order</button>
+            <button type="button" class="btn-order-back btn btn-large hmarg30right" ng-click="back()">« Back</button>
+            <button type="submit" class="btn-order-confirm btn btn-success btn-large" ng-click="createNewOrder()">
+              <i class="icon-ok icon-white"></i> Submit Order</button>
           </div>
         </div>
       </form>

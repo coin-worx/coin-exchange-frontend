@@ -6,11 +6,10 @@
       <fieldset>
         <div class="ib hmarg20right">
           <div class="ib btn-group top" data-toggle="buttons-radio" name="type">
-            <button type="button" value="buy" class="btn" autocomplete="off"
-                    ng-click="changeType('Buy')"
+            <button type="button" value="buy" class="btn" ng-click="changeType('Buy')"
                     ng-class="{'active btn-success': parameters.type === 'Buy'}">Buy</button>
 
-            <button type="button" value="sell" class="btn" autocomplete="off" ng-click="changeType('Sell')"
+            <button type="button" value="sell" class="btn" ng-click="changeType('Sell')"
                     ng-class="{'active btn-danger': parameters.type === 'Sell'}">Sell</button>
           </div>
         </div>
@@ -22,19 +21,20 @@
                    class="input-medium ralign hmarg0right" name="volume" ng-model="volume">
 
             <div class="ib posrel">
-              <div class="dropdown">
+              <div class="dropdown" is-open="parameters.status.isOpen">
 
-                <a href="#" title="" data-value="XXBT"
-                   class="btn add-on volume-currency-toggle rounded dropdown-toggle tt"
-                   data-toggle="dropdown">{{parameters.currency.from}} <span class="caret"></span>
+                <a href="#" class="btn add-on volume-currency-toggle rounded dropdown-toggle">
+                  {{currency.amount}} <span class="caret"></span>
                 </a>
 
-                <ul class="dropdown-menu small">
-                  <li class="disabled">
-                    <a href ng-click="changeCurrency(parameters.currency.from)">Bitcoin (XBT)</a>
+                <ul class="dropdown-menu small" role="menu">
+                  <li ng-class="{disabled: currency.amount === currency.from}">
+                    <a href ng-click="changeCurrency(currency.from)"
+                       ng-bind-template="({{currency.from}})"></a>
                   </li>
-                  <li>
-                    <a href ng-click="changeCurrency(parameters.currency.to)">Ripple (XRP)</a>
+                  <li ng-class="{disabled: currency.amount === currency.to}">
+                    <a href ng-click="changeCurrency(currency.to)"
+                       ng-bind-template="({{currency.to}})"></a>
                   </li>
                 </ul>
               </div>
@@ -42,8 +42,8 @@
           </div>
 
           <p class="control-hint"
-             ng-bind-template="Amount of {{parameters.currency.from}} to
-             {{parameters.type === 'Buy' ? 'spend' : 'receive'}}."></p>
+             ng-bind-template="Amount of {{currency.from}} to
+             {{parameters.type === 'Buy' ? 'sell' : 'buy'}}."></p>
         </div>
 
         <div class="ib symbol calc-op-symbol" ng-bind="parameters.sign"></div>
@@ -54,26 +54,25 @@
               <input type="text" placeholder="Price" tabindex="2" class="input-small ralign hmarg0right"
                      ng-disabled="parameters.orderType === 'Market'"
                      ng-model="price" ng-required="parameters.orderType === 'Limit'" name="price" autocomplete="off">
-              <span class="add-on" ng-bind="parameters.currency.to"></span>
+              <span class="add-on" ng-bind="currency.to"></span>
             </div>
           </div>
 
           <div class="ib ordertype-wrap">
             <div class="btn-group" data-toggle="buttons-radio" name="ordertype">
-              <button type="button" class="btn btn-small" value="market" autocomplete="off"
+              <button type="button" class="btn btn-small" value="market"
                       ng-class="{active: parameters.orderType === 'Market'}"
                       ng-click="changeOrderType('Market')">Market</button>
               <button type="button" class="btn btn-small" ng-class="{active: parameters.orderType === 'Limit'}"
-                      value="limit" autocomplete="off"
-                      ng-click="changeOrderType('Limit')">Limit</button>
+                      value="limit" ng-click="changeOrderType('Limit')">Limit</button>
             </div>
           </div>
 
           <p class="control-hint" name="ordertype-hint" ng-show="parameters.orderType === 'Limit'"
-             ng-bind-template="{{parameters.type}} at a fixed price per {{parameters.currency.from}}."></p>
+             ng-bind-template="{{parameters.type}} at a fixed price per {{currency.from}}."></p>
 
           <p class="control-hint" name="ordertype-hint" ng-show="parameters.orderType === 'Market'"
-             ng-bind-template="{{parameters.type}} {{parameters.currency.from}} at the best market price."></p>
+             ng-bind-template="{{parameters.type}} {{currency.from}} at the best market price."></p>
         </div>
 
         <div class="ib symbol">=</div>
@@ -83,11 +82,11 @@
             <input placeholder="Total" type="text" tabindex="3" autocomplete="off" ng-model="total"
                    ng-disabled="parameters.orderType === 'Market'"
                    class="input-medium ralign hmarg0right" name="total">
-            <span class="add-on" ng-bind="parameters.currency.to"></span>
+            <span class="add-on" ng-bind="currency.total"></span>
           </div>
 
           <p class="control-hint" name="total-hint"
-             ng-bind-template="Estimated amount of {{parameters.currency.to}} to
+             ng-bind-template="Estimated amount of {{currency.total}} to
              {{parameters.type === 'Buy' ? 'spend' : 'receive'}}."></p>
         </div>
 
@@ -100,11 +99,11 @@
         </div>
 
         <div class="buttons center vmarg10">
-          <button tabindex="4" autocomplete="off" type="submit" class="btn-order-review btn btn-large submit"
+          <button tabindex="4" type="submit" class="btn-order-review btn btn-large submit"
                   ng-class="parameters.btnClass">
 
-            <span ng-bind-template="{{parameters.type}} {{parameters.currency.from}}
-                with {{parameters.currency.to}}"></span>
+            <span ng-bind-template="{{parameters.type}} {{currency.from}}
+                with {{currency.to}}"></span>
             »
           </button>
         </div>
