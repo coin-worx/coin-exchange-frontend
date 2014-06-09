@@ -33,11 +33,11 @@ class BackendInteractionService {
     }
 
     @Synchronized
-    String makeGetRequestToBackend(String path, Integer iteration = 0) {
+    String makeGetRequestToBackend(String path, Map query, Integer iteration = 0) {
         String value
         String status
 
-        (value, status) = getRequest(path)
+        (value, status) = getRequest(path, query)
 
         if (status == UNAUTHORIZED_STATUS && !iteration) {
             (value) = getRequest(path)
@@ -107,29 +107,20 @@ class BackendInteractionService {
         }
     }
 
-    private List<String> getRequest(String path) {
+    private List<String> getRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
             path = "/dev${path}"
 
-            def session = RCH.currentRequestAttributes().session
-
-            AuthParams authParams = AuthParams.findByApiKey('55555')
-
-            RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator ?: new RequestGenerator(
-                    apiKey: authParams.apiKey, secretKey: authParams.secretKey
-            )
-
-            requestGenerator.url = baseUrl + path
-
             String responseStatus = ''
             String responseValue = ''
             HTTPBuilder http = new HTTPBuilder(baseUrl)
-            http.request(Method.POST, CONTENT_TYPE) {
+            http.request(Method.GET, CONTENT_TYPE) {
                 uri.path = path
+                uri.query = query
+                headers.Accept = CONTENT_TYPE
 
                 response.success = { resp, json ->
-                    requestGenerator.cNumber++
                     responseValue = json as JSON
                     responseStatus = resp.status
 
@@ -141,8 +132,6 @@ class BackendInteractionService {
                 }
 
                 response.failure = { resp, json ->
-                    requestGenerator.nounce = resp.headers.nounce
-                    requestGenerator.cNumber++
                     responseStatus = resp.status
                     //@todo: use values from bootstrap for now
                     //requestGenerator.apiKey = resp.headers['apiKey']
@@ -150,8 +139,6 @@ class BackendInteractionService {
                     log.error 'request fail ' + responseStatus + ' ' + json
                 }
             }
-
-            session['requestGenerator'] = requestGenerator
 
             [responseValue, responseStatus]
 
@@ -161,6 +148,10 @@ class BackendInteractionService {
             return null
         } catch (ConnectException ex) {
             log.error "Unexpected connection error: ${ex.message}"
+            return null
+        }
+        catch (Exception ex){
+            log.error "Unexpected exception: ${ex.message}"
             return null
         }
     }

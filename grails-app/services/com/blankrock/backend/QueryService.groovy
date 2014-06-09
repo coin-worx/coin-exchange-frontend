@@ -1,4 +1,5 @@
 package com.blankrock.backend
+
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -86,10 +87,13 @@ class QueryService {
     }
 
     String getOrderBook(String currencyPair){
-        String path = '/marketdata/orderbook?currencypair=' + currencyPair
+        String path = '/marketdata/orderbook'
 
-        String response = backendInteractionService.makeGetRequestToBackend(path)
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
 
-        return response
+        def jsonOrderBook = jsonHelperService.parseOrderBookJson(currencyPair, response)
+
+        return jsonOrderBook
     }
 }

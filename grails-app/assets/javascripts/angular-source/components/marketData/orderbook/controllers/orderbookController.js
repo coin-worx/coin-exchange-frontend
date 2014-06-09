@@ -2,41 +2,27 @@
 
 'use strict';
 
-/*
-angular.module('marketData.orderBook').controller('OrderBookController',
-    ['$scope', function ($scope) {
-        $scope.newAndOpenOrdersLoaded = false;
-        $scope.closedOrdersLoaded = false;
-        $scope.loaded = false;
-
-        $scope.$watchCollection('[newAndOpenOrdersLoaded, closedOrdersLoaded]', function (newValues, oldValues) {
-            if (newValues[0] && newValues[1]) {
-                $scope.loaded = true;
-            }
-        });
-    }]);*/
-
 angular.module('marketData.orderBook').controller('OrderBookController', [
-    '$scope', 'OrderBookService', function ($scope, newAndOpenOrderBookService) {
+    '$scope', 'OrderBookService', function ($scope, orderBookService) {
         var loaded = false;
 
-        newAndOpenOrderBookService.query()
+        orderBookService.query()
             .success(function (data) {
                 //updateCostRems(data);
-                $scope.orders = data;
-                //setPaginationParams();
-                //recalculateMinAndMax();
-                //filterCollection();
+                $scope.orderBook = data;
+                setPaginationParams();
+                $scope.loaded = true;
 
-                //$scope.$parent.newAndOpenOrdersLoaded = true;
-               // loaded = true;
+                recalculateMinAndMax();
+                filterCollection();
+
             }).error(function () {
-                $scope.orders = [];
+                $scope.orderBook = [];
             });
 
         $scope.deleteOrder = function (order) {
-            var index = $scope.orders.indexOf(order);
-            $scope.orders.splice(index, 1);
+            var index = $scope.orderBook.indexOf(order);
+            $scope.orderBook.splice(index, 1);
             recalculateMinAndMax();
             filterCollection();
         };
@@ -46,8 +32,7 @@ angular.module('marketData.orderBook').controller('OrderBookController', [
         };
 
         $scope.sort = {
-            predicate: 'OrderId',
-            reverse: true
+            reverse: false
         };
 
         $scope.getSortingClass = function (columnName) {
@@ -59,16 +44,6 @@ angular.module('marketData.orderBook').controller('OrderBookController', [
 
             return className;
         };
-
-        function updateCostRems(orders) {
-            if (orders.length) {
-                orders.forEach(function (order) {
-                    order['CostRem'] = +order['OpenQuantity'] * +order['Price'];
-                });
-            } else {
-                alert('something wrong, orders is empty');
-            }
-        }
 
         $scope.updateSorting = function (columnName) {
             if ($scope.sort.predicate === columnName) {
@@ -82,8 +57,9 @@ angular.module('marketData.orderBook').controller('OrderBookController', [
         //Sorting params
         function setPaginationParams() {
             $scope.currentPage = 1;
-            $scope.maxSize = 5;
-            $scope.totalItems = $scope.orders.length;
+            $scope.maxSize = 1;
+            $scope.totalItems = $scope.orderBook.length;
+            $scope.itemsPerPage = 9;
         }
 
         $scope.pageChanged = function () {
@@ -92,7 +68,7 @@ angular.module('marketData.orderBook').controller('OrderBookController', [
         };
 
         function filterCollection() {
-            $scope.filteredOrders = $scope.orders.slice($scope.currentMinIndex, $scope.currentMaxIndex);
+            $scope.filteredOrders = $scope.orderBook.slice($scope.currentMinIndex, $scope.currentMaxIndex);
         }
 
         function recalculateMinAndMax() {
