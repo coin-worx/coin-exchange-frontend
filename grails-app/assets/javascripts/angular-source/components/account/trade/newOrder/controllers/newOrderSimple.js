@@ -13,7 +13,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
       orderType: 'Limit',
       currency: {
         from: 'XBT',
-        to: 'XRP'
+        to: 'USD'
       }
     };
 
@@ -31,6 +31,10 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
       }
     };
 
+    $scope.changeCurrency = function (currency) {
+      console.log(currency);
+    };
+
     $scope.changeOrderType = function (type) {
       $scope.parameters.orderType = type;
       $scope.submitted = false;
@@ -46,13 +50,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
     };
 
     $scope.$watchCollection('[volume, price]', function (newValues) {
-      console.log(newValues);
-      if (newValues) {
-        console.log(newValues[0]);
-        console.log(newValues[1]);
-      }
       if (newValues && newValues[0] && newValues[1]) {
-        console.log('changed');
         $scope.total = newValues[0] * newValues[1];
       } else {
         $scope.total = null;

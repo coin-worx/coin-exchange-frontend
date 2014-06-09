@@ -1,5 +1,5 @@
-<div class="transfer" style="width: 1900px;" ng-controller="NewOrderSimpleController">
-  <div class="frame" style="width: 950px;">
+<div class="transfer" ng-controller="NewOrderSimpleController">
+  <div class="frame">
     <form class="form-order form-order-simple jq-validate-form vmarg5top" method="post" autocomplete="off"
           novalidate="novalidate" name="simpleOrderForm" ng-submit="checkParamsBeforeSubmit(simpleOrderForm)">
 
@@ -23,25 +23,27 @@
 
             <div class="ib posrel">
               <div class="dropdown">
+
                 <a href="#" title="" data-value="XXBT"
                    class="btn add-on volume-currency-toggle rounded dropdown-toggle tt"
-                   data-toggle="dropdown"
-                   data-original-title="Click to switch amount currency.">XBT
-                  <span class="caret"></span>
+                   data-toggle="dropdown">{{parameters.currency.from}} <span class="caret"></span>
                 </a>
+
                 <ul class="dropdown-menu small">
-                  <li data-value="XXBT" data-display="XBT" class="disabled">
-                    <a href="#">Bitcoin (XBT)</a>
+                  <li class="disabled">
+                    <a href ng-click="changeCurrency(parameters.currency.from)">Bitcoin (XBT)</a>
                   </li>
-                  <li data-value="XXRP" data-display="XRP">
-                    <a href="#">Ripple (XRP)</a>
+                  <li>
+                    <a href ng-click="changeCurrency(parameters.currency.to)">Ripple (XRP)</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <p class="control-hint">Amount of XBT to buy.</p>
+          <p class="control-hint"
+             ng-bind-template="Amount of {{parameters.currency.from}} to
+             {{parameters.type === 'Buy' ? 'spend' : 'receive'}}."></p>
         </div>
 
         <div class="ib symbol calc-op-symbol" ng-bind="parameters.sign"></div>
@@ -52,7 +54,7 @@
               <input type="text" placeholder="Price" tabindex="2" class="input-small ralign hmarg0right"
                      ng-disabled="parameters.orderType === 'Market'"
                      ng-model="price" ng-required="parameters.orderType === 'Limit'" name="price" autocomplete="off">
-              <span class="add-on">XRP</span>
+              <span class="add-on" ng-bind="parameters.currency.to"></span>
             </div>
           </div>
 
@@ -67,7 +69,11 @@
             </div>
           </div>
 
-          <p class="control-hint" name="ordertype-hint">Buy at a fixed price per XBT.</p>
+          <p class="control-hint" name="ordertype-hint" ng-show="parameters.orderType === 'Limit'"
+             ng-bind-template="{{parameters.type}} at a fixed price per {{parameters.currency.from}}."></p>
+
+          <p class="control-hint" name="ordertype-hint" ng-show="parameters.orderType === 'Market'"
+             ng-bind-template="{{parameters.type}} {{parameters.currency.from}} at the best market price."></p>
         </div>
 
         <div class="ib symbol">=</div>
@@ -77,10 +83,12 @@
             <input placeholder="Total" type="text" tabindex="3" autocomplete="off" ng-model="total"
                    ng-disabled="parameters.orderType === 'Market'"
                    class="input-medium ralign hmarg0right" name="total">
-            <span class="add-on">XRP</span>
+            <span class="add-on" ng-bind="parameters.currency.to"></span>
           </div>
 
-          <p class="control-hint" name="total-hint">Estimated amount of XRP to spend.</p>
+          <p class="control-hint" name="total-hint"
+             ng-bind-template="Estimated amount of {{parameters.currency.to}} to
+             {{parameters.type === 'Buy' ? 'spend' : 'receive'}}."></p>
         </div>
 
         <div class="vmarg20top" ng-show="simpleOrderForm.$invalid && submitted">
@@ -94,7 +102,9 @@
         <div class="buttons center vmarg10">
           <button tabindex="4" autocomplete="off" type="submit" class="btn-order-review btn btn-large submit"
                   ng-class="parameters.btnClass">
-            <span>Buy XBT with XRP</span>
+
+            <span ng-bind-template="{{parameters.type}} {{parameters.currency.from}}
+                with {{parameters.currency.to}}"></span>
             »
           </button>
         </div>
