@@ -1,19 +1,25 @@
-<div class="transfer" style="width: 1900px;">
+<div class="transfer" style="width: 1900px;" ng-controller="NewOrderSimpleController">
   <div class="frame" style="width: 950px;">
     <form class="form-order form-order-simple jq-validate-form vmarg5top" method="post" autocomplete="off"
-          novalidate="novalidate">
+          novalidate="novalidate" name="simpleOrderForm" ng-submit="checkParamsBeforeSubmit(simpleOrderForm)">
+
       <fieldset>
         <div class="ib hmarg20right">
           <div class="ib btn-group top" data-toggle="buttons-radio" name="type">
-            <button type="button" value="buy" class="btn btn-success active" autocomplete="off">Buy</button><button
-              type="button" value="sell" class="btn" autocomplete="off">Sell</button>
+            <button type="button" value="buy" class="btn" autocomplete="off"
+                    ng-click="changeType('Buy')"
+                    ng-class="{'active btn-success': parameters.type === 'Buy'}">Buy</button>
+
+            <button type="button" value="sell" class="btn" autocomplete="off" ng-click="changeType('Sell')"
+                    ng-class="{'active btn-danger': parameters.type === 'Sell'}">Sell</button>
           </div>
         </div>
 
-        <div class="ib control-group">
+        <div class="ib control-group"
+             ng-class="{'error' : simpleOrderForm.volume.$invalid && submitted}">
           <div class="input-append">
-            <input placeholder="Amount" tabindex="1" type="text" autocomplete="off"
-                   class="input-medium ralign hmarg0right" value="" name="volume">
+            <input placeholder="Amount" tabindex="1" type="text" autocomplete="off" required=""
+                   class="input-medium ralign hmarg0right" name="volume" ng-model="volume">
 
             <div class="ib posrel">
               <div class="dropdown">
@@ -38,20 +44,25 @@
           <p class="control-hint">Amount of XBT to buy.</p>
         </div>
 
-        <div class="ib symbol calc-op-symbol">×</div>
+        <div class="ib symbol calc-op-symbol" ng-bind="parameters.sign"></div>
 
-        <div class="ib control-group">
+        <div class="ib control-group" ng-class="{'error' : simpleOrderForm.price.$invalid && submitted}">
           <div class="ib">
             <div class="input-append">
-              <input type="text" placeholder="Price" tabindex="2" class="input-small ralign hmarg0right" value=""
-                     name="price" autocomplete="off"><span class="add-on">XRP</span>
+              <input type="text" placeholder="Price" tabindex="2" class="input-small ralign hmarg0right"
+                     ng-model="price" ng-required="parameters.orderType === 'Limit'" name="price" autocomplete="off">
+              <span class="add-on">XRP</span>
             </div>
           </div>
 
           <div class="ib ordertype-wrap">
             <div class="btn-group" data-toggle="buttons-radio" name="ordertype">
-              <button type="button" class="btn btn-small" value="market" autocomplete="off">Market</button><button
-                type="button" class="btn btn-small active" value="limit" autocomplete="off">Limit</button>
+              <button type="button" class="btn btn-small" value="market" autocomplete="off"
+                      ng-class="{active: parameters.orderType === 'Market'}"
+                      ng-click="changeOrderType('Market')">Market</button>
+              <button type="button" class="btn btn-small" ng-class="{active: parameters.orderType === 'Limit'}"
+                      value="limit" autocomplete="off"
+                      ng-click="changeOrderType('Limit')">Limit</button>
             </div>
           </div>
 
@@ -62,86 +73,30 @@
 
         <div class="ib control-group">
           <div class="input-append">
-            <input placeholder="Total" type="text" tabindex="3" autocomplete="off"
-                   class="input-medium ralign hmarg0right" value="" name="total"><span class="add-on">XRP</span>
+            <input placeholder="Total" type="text" tabindex="3" autocomplete="off" ng-model="total"
+                   class="input-medium ralign hmarg0right" name="total">
+            <span class="add-on">XRP</span>
           </div>
 
           <p class="control-hint" name="total-hint">Estimated amount of XRP to spend.</p>
         </div>
 
-        <div class="vmarg20top">
-          <div class="alert alert-block alert-error hidden2 error-grouped" style="display: none;"></div>
+        <div class="vmarg20top" ng-show="simpleOrderForm.$invalid && submitted">
+          <div class="alert alert-block alert-error error-grouped">
+            <div class="error" ng-show="simpleOrderForm.volume.$invalid">Amount is a required field.</div>
+
+            <div class="error" ng-show="simpleOrderForm.price.$invalid">Price is required field.</div>
+          </div>
         </div>
 
         <div class="buttons center vmarg10">
-          <button tabindex="4" autocomplete="off" type="button"
-                  class="btn-order-review btn btn-success btn-large submit">
+          <button tabindex="4" autocomplete="off" type="submit" class="btn-order-review btn btn-large submit"
+                  ng-class="parameters.btnClass">
             <span>Buy XBT with XRP</span>
             »
           </button>
         </div>
       </fieldset>
     </form>
-  </div>
-
-  <div class="frame review-wrap vmarg40bot" style="width: 950px; visibility: hidden;">
-    <div class="row">
-      <div class="span12">
-        <div class="center">
-          <h4 class="centered title vmarg0top">Order Details</h4>
-
-          <div class="well big well-data-list">
-          </div>
-
-          <div class="order-complete">
-            <div class="vpad10 alert alert-block alert-success">
-            </div>
-
-            <div class="center btn-toolbar">
-              <button autocomplete="off" type="button"
-                      class="btn-order-new btn btn-large hmarg30right">« Create New Order</button>
-              <a autocomplete="off" href="#tab=orders" class="btn btn-primary btn-large"><i
-                  class="icon-list icon-white"></i> View Orders</a>
-            </div>
-          </div>
-        </div>
-
-        <form class="form-horizontal large form-control-left">
-          <div class="row">
-            <div class="span12 order-error-review-wrap vmarg10bot">
-              <div class="order-error-review vpad10 vmarg0 alert alert-block alert-error center hidden2"></div>
-            </div>
-          </div>
-
-          <div class="otp-wrap hidden2">
-            <div class="row">
-              <div class="span8 offset3">
-                <div class="control-group">
-                  <label class="control-label ralign">One-time Password</label>
-
-                  <div class="controls">
-                    <input type="password" disabled="disabled" name="otp" class="input-large" autocomplete="off"
-                           value="">
-
-                    <p class="control-hint">Enter the one-time password required by two-factor authentication.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="order-buttons">
-            <div class="center btn-toolbar">
-              <button autocomplete="off" type="button"
-                      class="btn-order-back btn btn-large hmarg30right">« Back</button>
-              <button autocomplete="off" type="submit" class="btn-order-confirm btn btn-success btn-large">
-                <i class="icon-ok icon-white"></i>
-                Submit Order
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
   </div>
 </div>
