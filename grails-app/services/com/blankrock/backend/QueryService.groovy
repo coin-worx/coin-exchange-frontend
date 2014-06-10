@@ -86,13 +86,35 @@ class QueryService {
         return jsonWithKeys
     }
 
-    String getOrderBook(String currencyPair){
+    String getRecentTrades(String currencyPair){
+        String path = '/trades/recenttrades'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.addKeysToRecentTradesJson(response)
+
+        return jsonOrderBook
+    }
+
+    String getBids(String currencyPair){
         String path = '/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)
 
-        def jsonOrderBook = jsonHelperService.parseOrderBookJson(currencyPair, response)
+        def jsonOrderBook = jsonHelperService.extractBidsJson(response)
+
+        return jsonOrderBook
+    }
+
+    String getAsks(String currencyPair){
+        String path = '/marketdata/orderbook'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractAsksJson(response)
 
         return jsonOrderBook
     }

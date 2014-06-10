@@ -2,11 +2,11 @@
 
 'use strict';
 
-angular.module('marketData.orderBook').service('OrderBookService', [
+angular.module('marketData.orderBook').service('BidsService', [
     '$http', function ($http) {
         return {
             query: function () {
-                return $http.get('api/getOrderBook');
+                return $http.get('api/getBids');
             }
         };
     } ]);

@@ -24,8 +24,20 @@ class InteractionController {
         render response
     }
 
-    def getOrderBook() {
-        String response = queryService.getOrderBook('XBTUSD')
+    def getRecentTrades() {
+        String response = queryService.getRecentTrades('XBTUSD')
+
+        render response
+    }
+
+    def getBids() {
+        String response = queryService.getBids('XBTUSD')
+
+        render response
+    }
+
+    def getAsks() {
+        String response = queryService.getAsks('XBTUSD')
 
         render response
     }

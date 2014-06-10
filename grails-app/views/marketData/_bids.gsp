@@ -1,4 +1,4 @@
-<div id="table-orderlist-open-wrap" class="vmarg40bot" ng-controller="OrderBookController">
+<div id="table-orderlist-open-wrap" class="vmarg40bot" ng-controller="BidsController">
   <h4 class="title">Buying</h4>
 
   <table class="table table-hover table-striped dataTable">
@@ -12,7 +12,8 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat="order in orderBook | orderBy:'BidPrice':sort.reverse"   >
+    <tr ng-repeat="order in orderBook | orderBy:'BidPrice':sort.reverse"
+        ng-class="{even: $even, odd: $odd}" ng-cloak>
       <td ng-if="order.BidPrice != '0'" class="nw ralign" ng-bind="order.BidPrice"></td>
       <td ng-if="order.BidVolume != '0'" class="ralign" ng-bind="order.BidVolume"></td>
     </tr>

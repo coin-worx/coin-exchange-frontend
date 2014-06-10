@@ -2,11 +2,11 @@
 
 'use strict';
 
-angular.module('marketData.orderBook').controller('OrderBookController', [
-    '$scope', 'OrderBookService', function ($scope, orderBookService) {
+angular.module('marketData.orderBook').controller('AsksController', [
+    '$scope', 'AsksService', function ($scope, asksService) {
         var loaded = false;
 
-        orderBookService.query()
+        asksService.query()
             .success(function (data) {
                 //updateCostRems(data);
                 $scope.orderBook = data;

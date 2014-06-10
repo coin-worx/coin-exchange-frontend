@@ -13,7 +13,7 @@ class ViewsController {
     }
 
     def marketData() {
-        render template: '/marketData/orderBook'
+        render template: '/marketData/marketData'
     }
 
     def account() {
