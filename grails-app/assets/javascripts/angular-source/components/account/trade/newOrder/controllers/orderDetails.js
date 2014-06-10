@@ -1,8 +1,8 @@
-//=require angular-source/components/account/trade/newOrder/newOrder.module
+//=require ../services/orderDetailsService
 
 'use strict';
 
-angular.module('account.trade.newOrder').controller('OrderDetailsController', ['$scope', '$location', 'OrderDetailsService',
+angular.module('account.trade.newOrder').controller('OrderDetailsController', ['$scope', '$location', 'orderDetailsService',
   function ($scope, $location, orderDetailsService) {
     console.log(orderDetailsService.getData());
 
@@ -13,7 +13,13 @@ angular.module('account.trade.newOrder').controller('OrderDetailsController', ['
     };
 
     $scope.submitOrder = function () {
-      var result = orderDetailsService.createNewOrder();
+      var result = orderDetailsService.createNewOrder()
+        .success(function (response) {
+          console.log('success and got response : ' + response);
+        })
+        .error(function (error) {
+          orderDetailsService.setError(error);
+        });
       console.log(result);
     };
   }]);

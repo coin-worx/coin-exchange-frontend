@@ -7,18 +7,18 @@
         <div class="ib hmarg20right">
           <div class="ib btn-group top" data-toggle="buttons-radio" name="type">
             <button type="button" value="buy" class="btn" ng-click="changeType('Buy')"
-                    ng-class="{'active btn-success': parameters.type === 'Buy'}">Buy</button>
+                    ng-class="{'active btn-success': isTypeMatch('Buy')}">Buy</button>
 
             <button type="button" value="sell" class="btn" ng-click="changeType('Sell')"
-                    ng-class="{'active btn-danger': parameters.type === 'Sell'}">Sell</button>
+                    ng-class="{'active btn-danger': isTypeMatch('Sell')}">Sell</button>
           </div>
         </div>
 
         <div class="ib control-group"
              ng-class="{'error' : simpleOrderForm.volume.$invalid && submitted}">
           <div class="input-append">
-            <input placeholder="Amount" tabindex="1" type="text" autocomplete="off" required=""
-                   class="input-medium ralign hmarg0right" name="volume" ng-model="volume">
+            <input placeholder="Amount" tabindex="1" type="number" min="0" step="0.000001" autocomplete="off"
+                   required="" class="input-medium ralign hmarg0right" name="volume" ng-model="volume">
 
             <div class="ib posrel">
               <div class="dropdown" is-open="parameters.status.isOpen">
@@ -43,7 +43,7 @@
 
           <p class="control-hint"
              ng-bind-template="Amount of {{currency.from}} to
-             {{parameters.type === 'Buy' ? 'sell' : 'buy'}}."></p>
+             {{isTypeMatch('Buy') ? 'sell' : 'buy'}}."></p>
         </div>
 
         <div class="ib symbol calc-op-symbol" ng-bind="parameters.sign"></div>
@@ -51,9 +51,9 @@
         <div class="ib control-group" ng-class="{'error' : simpleOrderForm.price.$invalid && submitted}">
           <div class="ib">
             <div class="input-append">
-              <input type="text" placeholder="Price" tabindex="2" class="input-small ralign hmarg0right"
-                     ng-disabled="parameters.orderType === 'Market'"
-                     ng-model="price" ng-required="parameters.orderType === 'Limit'" name="price" autocomplete="off">
+              <input type="number" placeholder="Price" min="0" tabindex="2" class="input-small ralign hmarg0right"
+                     ng-disabled="isOrderTypeMatch('Market')" step="0.000001"
+                     ng-model="price" ng-required="isOrderTypeMatch('Limit')" name="price" autocomplete="off">
               <span class="add-on" ng-bind="currency.to"></span>
             </div>
           </div>
@@ -61,17 +61,17 @@
           <div class="ib ordertype-wrap">
             <div class="btn-group" data-toggle="buttons-radio" name="ordertype">
               <button type="button" class="btn btn-small" value="market"
-                      ng-class="{active: parameters.orderType === 'Market'}"
+                      ng-class="{active: isOrderTypeMatch('Market')}"
                       ng-click="changeOrderType('Market')">Market</button>
-              <button type="button" class="btn btn-small" ng-class="{active: parameters.orderType === 'Limit'}"
+              <button type="button" class="btn btn-small" ng-class="{active: isOrderTypeMatch('Limit')}"
                       value="limit" ng-click="changeOrderType('Limit')">Limit</button>
             </div>
           </div>
 
-          <p class="control-hint" name="ordertype-hint" ng-show="parameters.orderType === 'Limit'"
+          <p class="control-hint" name="ordertype-hint" ng-show="isOrderTypeMatch('Limit')"
              ng-bind-template="{{parameters.type}} at a fixed price per {{currency.from}}."></p>
 
-          <p class="control-hint" name="ordertype-hint" ng-show="parameters.orderType === 'Market'"
+          <p class="control-hint" name="ordertype-hint" ng-show="isOrderTypeMatch('Market')"
              ng-bind-template="{{parameters.type}} {{currency.from}} at the best market price."></p>
         </div>
 
@@ -79,15 +79,15 @@
 
         <div class="ib control-group">
           <div class="input-append">
-            <input placeholder="Total" type="text" tabindex="3" autocomplete="off" ng-model="total"
-                   ng-disabled="parameters.orderType === 'Market'"
+            <input placeholder="Total" type="number" tabindex="3" autocomplete="off" ng-model="total"
+                   ng-disabled="isOrderTypeMatch('Market')" min="0" step="0.000001"
                    class="input-medium ralign hmarg0right" name="total">
             <span class="add-on" ng-bind="currency.total"></span>
           </div>
 
           <p class="control-hint" name="total-hint"
              ng-bind-template="Estimated amount of {{currency.total}} to
-             {{parameters.type === 'Buy' ? 'spend' : 'receive'}}."></p>
+             {{isTypeMatch('Buy') ? 'spend' : 'receive'}}."></p>
         </div>
 
         <div class="vmarg20top" ng-show="simpleOrderForm.$invalid && submitted">

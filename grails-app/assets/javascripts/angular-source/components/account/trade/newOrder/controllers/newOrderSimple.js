@@ -1,4 +1,4 @@
-//=require angular-source/components/account/trade/newOrder/newOrder.module
+//=require ../services/orderDetailsService
 
 'use strict';
 
@@ -61,9 +61,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
     $scope.changeCurrency = function (currency) {
       console.log(currency);
       $scope.parameters.status.isOpen = false;
-      $scope.currency.amount = currency;
-      $scope.currency.total = $scope.currency.total === $scope.currency.from ? $scope.currency.to : $scope.currency.from;
-      $scope.parameters.sign = $scope.parameters.sign === constants.sign.MULT ? constants.sign.DIV : constants.sign.MULT;
+      if (currency !== $scope.currency.amount) {
+        $scope.currency.amount = currency;
+        $scope.currency.total = $scope.currency.total === $scope.currency.from ? $scope.currency.to : $scope.currency.from;
+        $scope.parameters.sign = $scope.parameters.sign === constants.sign.MULT ? constants.sign.DIV : constants.sign.MULT;
+      }
     };
 
     $scope.changeOrderType = function (type) {
@@ -81,19 +83,29 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
       } else {
         orderDetailsService.setData(
           {
-            order: getOrderDetailsFirstLine(),
-            orderType: $scope.parameters.orderType,
-            toSpend: 'Estimated' + $scope.currency.from + ' to spend',
-            toReceive: $scope.currency.from + ' to receive'
+            order: getOrderDetailsInfo(),
+            toSpend: {
+              currency: $scope.currency.total,
+              volume: $scope.total
+            },
+            toReceive: {
+              currency: $scope.currency.amount,
+              volume: $scope.volume
+            }
           });
 
         $location.path('/account/trade/newOrder/details');
       }
     };
 
-    function getOrderDetailsFirstLine() {
-      return $scope.parameters.type + ' ' + $scope.volume + ' ' + getCurrencyPair() + ' '
-        + $scope.parameters.orderType + $scope.total;
+    function getOrderDetailsInfo() {
+      return {
+        type: $scope.parameters.type,
+        volume: $scope.volume,
+        pair: getCurrencyPair(),
+        orderType: $scope.parameters.orderType,
+        price: $scope.price
+      };
     }
 
     function getCurrencyPair() {
@@ -107,4 +119,26 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
         $scope.total = null;
       }
     });
-  }]);
+
+    $scope.isOrderTypeMatch = function (orderType) {
+      return $scope.parameters.orderType === orderType;
+    };
+
+    $scope.isTypeMatch = function (type) {
+      return $scope.parameters.type === type;
+    };
+
+    //@todo: implement automatic updating of inputs
+/*    $scope.$watch('total', function (newValue) {
+      if (newValue) {
+        if ($scope.parameters.sign === constants.sign.MULT) {
+          if ($scope.price) {
+            $scope.volume = newValue / $scope.price;
+          } else if ($scope.volume) {
+            $scope.price = newValue / $scope.volume;
+          }
+        }
+      }
+    })*/;
+  }])
+;

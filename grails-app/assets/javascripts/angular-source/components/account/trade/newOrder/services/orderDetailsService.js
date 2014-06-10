@@ -2,8 +2,9 @@
 
 'use strict';
 
-angular.module('account.trade.newOrder').service('orderDetailsService', [function () {
-  var data;
+angular.module('account.trade.newOrder').service('orderDetailsService', ['$http', function ($http) {
+  var data,
+    error;
 
   return {
     getData: function () {
@@ -14,8 +15,16 @@ angular.module('account.trade.newOrder').service('orderDetailsService', [functio
       data = newData;
     },
 
+    setError: function (newError) {
+      error = newError;
+    },
+
+    getError: function () {
+      return error;
+    },
+
     createNewOrder: function () {
-      return $http.post('/api/createNewOrder', this.getData());
+      return $http.post('api/createNewOrder', this.getData());
     }
   }
 }]);

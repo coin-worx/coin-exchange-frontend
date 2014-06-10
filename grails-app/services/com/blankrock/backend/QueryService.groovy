@@ -65,9 +65,9 @@ class QueryService {
         return response
     }
 
-    String cancelOrder(String txId) {
+    String cancelOrder(String orderId) {
         String path = '/orders/cancelorder'
-        Map query = [txId: txId]
+        Map query = [orderId: orderId]
 
         String response = backendInteractionService.makePostRequestToBackend(path, query)
 
