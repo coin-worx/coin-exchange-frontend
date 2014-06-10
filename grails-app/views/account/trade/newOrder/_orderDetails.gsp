@@ -19,16 +19,22 @@
           </dl>
         </div>
 
-        %{--<div class="order-complete" style="display: none;">--}%
-        %{--<div class="vpad10 alert alert-block alert-success"></div>--}%
+        <div class="order-complete" ng-show="order.created">
+          <div class="vpad10 alert alert-block alert-success">
+            <p>
+              Order <a href ng-bind="order.orderId"></a> successfully created!
+            </p>
+          </div>
 
-        %{--<div class="center btn-toolbar">--}%
-        %{--<button type="button" class="btn-order-new btn btn-large hmarg30right">« Create New Order</button>--}%
-
-        %{--<a href="#tab=orders" class="btn btn-primary btn-large">--}%
-        %{--<i class="icon-list icon-white"></i> View Orders</a>--}%
-        %{--</div>--}%
-        %{--</div>--}%
+          <div class="center btn-toolbar">
+            <button type="button" class="btn-order-new btn btn-large hmarg30right"
+                    ng-click="back()">« Create New Order</button>
+            <a href="#/account/trade/orders" class="btn btn-primary btn-large">
+              <i class="icon-list icon-white"></i>
+              View Orders
+            </a>
+          </div>
+        </div>
       </div>
 
       <form class="form-horizontal large form-control-left">
@@ -38,7 +44,7 @@
           </div>
         </div>
 
-        <div class="order-buttons">
+        <div class="order-buttons" ng-hide="order.created">
           <div class="center btn-toolbar">
             <button type="button" class="btn-order-back btn btn-large hmarg30right"
                     ng-click="back()">« Back</button>
