@@ -24,7 +24,7 @@ angular.module('account.trade.newOrder').controller('OrderDetailsController', ['
     $scope.submitOrder = function () {
       var result = orderDetailsService.createNewOrder()
         .success(function (response) {
-          console.log('success and got response : ' + response);
+          console.log(response);
           $scope.order.created = true;
           $scope.order.orderId = response['OrderId'];
         })

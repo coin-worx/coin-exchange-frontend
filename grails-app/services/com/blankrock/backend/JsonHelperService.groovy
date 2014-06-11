@@ -3,6 +3,7 @@ package com.blankrock.backend
 import grails.converters.JSON
 import net.sf.json.JSONObject
 import org.codehaus.groovy.grails.web.json.JSONArray
+import org.codehaus.groovy.grails.web.json.JSONElement
 
 /**
  * Created by Uladzimir_Havenchyk on 6/2/2014.
@@ -38,75 +39,96 @@ class JsonHelperService {
         return jsonArray as JSON
     }
 
-    String parseOrderBookJson(String currencyPair, String orderBookJson) {
-        try {
-        def orderBookJsonArray = JSON.parse(orderBookJson)
-        def askBook = orderBookJsonArray["Asks"] as JSONArray
-        def bidBook = orderBookJsonArray["Bids"] as JSONArray
+    String getObjectFromJsonArray(String jsonString) {
+        def json = JSON.parse(jsonString)
 
-        JSONArray jsonArray = new JSONArray()
-        for (int i=0; i < Math.max(askBook.length(), bidBook.length()); i++){
-            // Initialize the JSON Object only if there are values received for either bid or ask in the orderbook
-            if (askBook != null || bidBook != null){
-                JSONObject jsonObject = new JSONObject()
+        String result
+        if (json.size() == 1) {
+            def newJson = changeJsonKeysToLowerCase(json[0])
+            result = newJson
+        }
 
-                // Insert the value only if Ask for this index is present
-                if (askBook[i] != null){
-                    jsonObject.put("AskVolume", askBook[i].Volume)
-                    jsonObject.put("AskPrice", askBook[i].Price)
-                }
-                // Otherwise insert 0 a this index will be shown next to the Bids
-                else{
-                    jsonObject.put("AskVolume", 0)
-                    jsonObject.put("AskPrice", 0)
-                }
-                // Insert the value only if Bid for this index is present
-                if (bidBook[i] != null){
-                    jsonObject.put("BidVolume", bidBook[i].Volume)
-                    jsonObject.put("BidPrice", bidBook[i].Price)
-                }
-                // Otherwise insert 0 a this index will be shown next to the Asks
-                else{
-                    jsonObject.put("BidVolume", 0)
-                    jsonObject.put("BidPrice", 0)
-                }
-                jsonArray.put(jsonObject)
-            }
-        }
-        if (!jsonArray.any())
-        {
-            jsonArray = null
-        }
-        return jsonArray as JSON
-        }
-        catch (Exception ex){
-             log.error(ex)
-        }
+        return result
     }
 
-    String extractBidsJson(String orderBookJson) {
+    private String changeJsonKeysToLowerCase(JSONElement jsonElement) {
+        def newJson = [:]
+
+        jsonElement.each { String key, String value ->
+            newJson[key[0].toLowerCase() + key.substring(1)] = value
+        }
+
+
+        newJson as JSON
+    }
+
+    String parseOrderBookJson(String currencyPair, String orderBookJson) {
+        try {
             def orderBookJsonArray = JSON.parse(orderBookJson)
+            def askBook = orderBookJsonArray["Asks"] as JSONArray
             def bidBook = orderBookJsonArray["Bids"] as JSONArray
 
             JSONArray jsonArray = new JSONArray()
-            for (int i=0; i < bidBook.length(); i++){
+            for (int i = 0; i < Math.max(askBook.length(), bidBook.length()); i++) {
                 // Initialize the JSON Object only if there are values received for either bid or ask in the orderbook
-                if (bidBook != null){
+                if (askBook != null || bidBook != null) {
                     JSONObject jsonObject = new JSONObject()
 
+                    // Insert the value only if Ask for this index is present
+                    if (askBook[i] != null) {
+                        jsonObject.put("AskVolume", askBook[i].Volume)
+                        jsonObject.put("AskPrice", askBook[i].Price)
+                    }
+                    // Otherwise insert 0 a this index will be shown next to the Bids
+                    else {
+                        jsonObject.put("AskVolume", 0)
+                        jsonObject.put("AskPrice", 0)
+                    }
                     // Insert the value only if Bid for this index is present
-                    if (bidBook[i] != null){
+                    if (bidBook[i] != null) {
                         jsonObject.put("BidVolume", bidBook[i].Volume)
                         jsonObject.put("BidPrice", bidBook[i].Price)
+                    }
+                    // Otherwise insert 0 a this index will be shown next to the Asks
+                    else {
+                        jsonObject.put("BidVolume", 0)
+                        jsonObject.put("BidPrice", 0)
                     }
                     jsonArray.put(jsonObject)
                 }
             }
-            if (!jsonArray.any())
-            {
+            if (!jsonArray.any()) {
                 jsonArray = null
             }
             return jsonArray as JSON
+        }
+        catch (Exception ex) {
+            log.error(ex)
+        }
+    }
+
+    String extractBidsJson(String orderBookJson) {
+        def orderBookJsonArray = JSON.parse(orderBookJson)
+        def bidBook = orderBookJsonArray["Bids"] as JSONArray
+
+        JSONArray jsonArray = new JSONArray()
+        for (int i = 0; i < bidBook.length(); i++) {
+            // Initialize the JSON Object only if there are values received for either bid or ask in the orderbook
+            if (bidBook != null) {
+                JSONObject jsonObject = new JSONObject()
+
+                // Insert the value only if Bid for this index is present
+                if (bidBook[i] != null) {
+                    jsonObject.put("BidVolume", bidBook[i].Volume)
+                    jsonObject.put("BidPrice", bidBook[i].Price)
+                }
+                jsonArray.put(jsonObject)
+            }
+        }
+        if (!jsonArray.any()) {
+            jsonArray = null
+        }
+        return jsonArray as JSON
     }
 
     String extractAsksJson(String orderBookJson) {
@@ -114,21 +136,20 @@ class JsonHelperService {
         def askBook = orderBookJsonArray["Asks"] as JSONArray
 
         JSONArray jsonArray = new JSONArray()
-        for (int i=0; i < askBook.length(); i++){
+        for (int i = 0; i < askBook.length(); i++) {
             // Initialize the JSON Object only if there are values received for either bid or ask in the orderbook
-            if (askBook != null){
+            if (askBook != null) {
                 JSONObject jsonObject = new JSONObject()
 
                 // Insert the value only if Bid for this index is present
-                if (askBook[i] != null){
+                if (askBook[i] != null) {
                     jsonObject.put("AskVolume", askBook[i].Volume)
                     jsonObject.put("AskPrice", askBook[i].Price)
                 }
                 jsonArray.put(jsonObject)
             }
         }
-        if (!jsonArray.any())
-        {
+        if (!jsonArray.any()) {
             jsonArray = null
         }
         return jsonArray as JSON

@@ -86,7 +86,7 @@ class QueryService {
         return jsonWithKeys
     }
 
-    String getRecentTrades(String currencyPair){
+    String getRecentTrades(String currencyPair) {
         String path = '/trades/recenttrades'
 
         Map query = [currencyPair: currencyPair]
@@ -97,7 +97,7 @@ class QueryService {
         return jsonOrderBook
     }
 
-    String getBids(String currencyPair){
+    String getBids(String currencyPair) {
         String path = '/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
@@ -108,7 +108,7 @@ class QueryService {
         return jsonOrderBook
     }
 
-    String getAsks(String currencyPair){
+    String getAsks(String currencyPair) {
         String path = '/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
@@ -123,8 +123,9 @@ class QueryService {
         String path = '/trades/tradeablecurrencypair'
         Map query = [:]
 
-        //todo: change it to get type
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        response = jsonHelperService.getObjectFromJsonArray(response)
 
         return response
     }

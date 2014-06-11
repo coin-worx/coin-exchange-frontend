@@ -11,6 +11,7 @@ angular.module('account.trade.newOrder').service('orderDetailsService', ['$http'
       var deferred = $q.defer();
       deferred.resolve(data);
 
+      console.log(data);
       return deferred.promise;
     },
 
@@ -28,6 +29,10 @@ angular.module('account.trade.newOrder').service('orderDetailsService', ['$http'
 
     createNewOrder: function () {
       return $http.post('api/createNewOrder', data);
+    },
+
+    getCurrencyPair: function () {
+      return $http.get('api/getCurrencyPair');
     }
   }
 }]);

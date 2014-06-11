@@ -40,7 +40,7 @@ class BackendInteractionService {
         (value, status) = getRequest(path, query)
 
         if (status == UNAUTHORIZED_STATUS && !iteration) {
-            (value) = getRequest(path)
+            (value) = getRequest(path, query)
         }
 
         return value
@@ -67,8 +67,8 @@ class BackendInteractionService {
             http.request(Method.POST, CONTENT_TYPE) {
                 uri.path = path
                 body = query
-                headers.Accept = CONTENT_TYPE
-                headers.Auth = requestGenerator.authParams
+                headers['Accept'] = CONTENT_TYPE
+                headers['Auth'] = requestGenerator.authParams
 
                 response.success = { resp, json ->
                     requestGenerator.cNumber++
@@ -150,7 +150,7 @@ class BackendInteractionService {
             log.error "Unexpected connection error: ${ex.message}"
             return null
         }
-        catch (Exception ex){
+        catch (Exception ex) {
             log.error "Unexpected exception: ${ex.message}"
             return null
         }

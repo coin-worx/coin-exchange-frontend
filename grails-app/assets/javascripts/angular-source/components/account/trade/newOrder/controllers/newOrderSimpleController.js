@@ -2,144 +2,125 @@
 
 'use strict';
 
-angular.module('account.trade.newOrder').constant('constants', {
-  type: {
-    BUY: 'Buy',
-    SELL: 'Sell'
-  },
-  orderType: {
-    LIMIT: 'Limit',
-    MARKET: 'Market'
-  },
-  btnClass: {
-    SUCCESS: 'btn-success',
-    DANGER: 'btn-danger'
-  },
-  sign: {
-    MULT: '×',
-    DIV: '÷'
-  }
-});
-
-angular.module('account.trade.newOrder').controller('NewOrderSimpleController', [
-  '$scope', '$location', '$filter', 'constants', 'orderDetailsService', function ($scope, $location, $filter, constants, orderDetailsService) {
-
-    $scope.submitted = false;
-    $scope.parameters = {
-      type: constants.type.BUY,
-      btnClass: constants.btnClass.SUCCESS,
-      sign: constants.sign.MULT,
-      orderType: constants.orderType.LIMIT,
-      status: {
+angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
+  [ '$scope', '$location', '$filter', 'constants', 'orderDetailsService',
+    function ($scope, $location, $filter, constants, orderDetailsService) {
+      $scope.submitted = false;
+      $scope.side = constants.side.BUY;
+      $scope.btnClass = constants.btnClass.SUCCESS;
+      $scope.sign = constants.sign.MULT;
+      $scope.type = constants.type.LIMIT;
+      $scope.sideDropdown = {
         isOpen: false
-      }
-    };
-
-    $scope.currency = {
-      from: 'XBT',
-      to: 'USD'
-    };
-
-    $scope.currency.amount = $scope.currency.from;
-    $scope.currency.price = $scope.currency.to;
-    $scope.currency.total = $scope.currency.to;
-
-    $scope.changeType = function (type) {
-      console.log(type);
-      $scope.parameters.type = type;
-      $scope.submitted = false;
-
-      if (type === constants.type.BUY) {
-        $scope.parameters.btnClass = constants.btnClass.SUCCESS;
-        $scope.parameters.type = constants.type.BUY;
-      } else {
-        $scope.parameters.btnClass = constants.btnClass.DANGER;
-        $scope.parameters.type = constants.type.SELL;
-      }
-    };
-
-    $scope.changeCurrency = function (currency) {
-      $scope.parameters.status.isOpen = false;
-
-      if (currency !== $scope.currency.amount) {
-        $scope.currency.amount = currency;
-        $scope.currency.total = $scope.currency.total === $scope.currency.from ? $scope.currency.to : $scope.currency.from;
-        $scope.parameters.sign = $scope.parameters.sign === constants.sign.MULT ? constants.sign.DIV : constants.sign.MULT;
-      }
-    };
-
-    $scope.changeOrderType = function (type) {
-      $scope.parameters.orderType = type;
-      $scope.submitted = false;
-
-      if (type === constants.orderType.MARKET) {
-        $scope.price = null;
-      }
-    };
-
-    $scope.checkParamsBeforeSubmit = function (form) {
-      if (form.$invalid) {
-        $scope.submitted = true;
-      } else {
-        orderDetailsService.setData(
-          {
-            order: getOrderDetailsInfo(),
-            toSpend: {
-              currency: $scope.currency.total,
-              volume: $scope.total
-            },
-            toReceive: {
-              currency: $scope.currency.amount,
-              volume: $scope.volume
-            }
-          });
-
-        $location.path('/account/trade/newOrder/details');
-      }
-    };
-
-    function getOrderDetailsInfo() {
-      return {
-        type: $scope.parameters.type,
-        volume: $scope.volume,
-        pair: getCurrencyPair(),
-        orderType: $scope.parameters.orderType,
-        price: $scope.price
       };
-    }
+      $scope.currency = {};
 
-    function getCurrencyPair() {
-      return $scope.currency.from + $scope.currency.to;
-    }
+      orderDetailsService.getCurrencyPair()
+        .success(function (response) {
+          $scope.currency.base = response['baseCurrency'];
+          $scope.currency.pair = response['currencyPairName'];
+          $scope.currency.quote = response['quoteCurrency'];
+          $scope.currency.amount = $scope.currency.quote;
+          $scope.currency.price = $scope.currency.base;
+          $scope.currency.total = $scope.currency.base;
+        }).error(function (error) {
+          console.log('error');
+          console.log(error);
+        });
 
-    $scope.$watchCollection('[volume, price]', function (newValues) {
-      if (newValues && newValues[0] && newValues[1]) {
-        $scope.total = newValues[0] * newValues[1];
-      } else {
-        $scope.total = null;
+      $scope.changeType = function (side) {
+        $scope.side = side;
+        $scope.submitted = false;
+
+        if (side === constants.side.BUY) {
+          $scope.btnClass = constants.btnClass.SUCCESS;
+        } else {
+          $scope.btnClass = constants.btnClass.DANGER;
+        }
+      };
+
+      //@todo: fix it
+      $scope.changeCurrency = function (currency) {
+        $scope.status.isOpen = false;
+
+        if (currency !== $scope.currency.amount) {
+          $scope.currency.amount = currency;
+          $scope.currency.basetal = $scope.currency.basetal === $scope.currency.quote ? $scope.currency.base : $scope.currency.quote;
+          $scope.sign = $scope.sign === constants.sign.MULT ? constants.sign.DIV : constants.sign.MULT;
+        }
+      };
+
+      $scope.changeOrderType = function (type) {
+        $scope.orderType = type;
+        $scope.submitted = false;
+
+        if (type === constants.type.MARKET) {
+          $scope.price = null;
+        }
+      };
+
+      $scope.checkParamsBeforeSubmit = function (form) {
+        if (form.$invalid) {
+          $scope.submitted = true;
+        } else {
+          orderDetailsService.setData(
+            {
+              order: getOrderDetailsInfo(),
+              toSpend: {
+                currency: $scope.currency.basetal,
+                volume: $scope.total
+              },
+              toReceive: {
+                currency: $scope.currency.amount,
+                volume: $scope.volume
+              }
+            });
+
+          $location.path('/account/trade/newOrder/details');
+        }
+      };
+
+      function getOrderDetailsInfo() {
+        return {
+          side: $scope.side,
+          volume: $scope.volume,
+          pair: $scope.currency.pair,
+          type: $scope.type,
+          price: $scope.price
+        };
       }
-    });
 
-    $scope.isOrderTypeMatch = function (orderType) {
-      return $scope.parameters.orderType === orderType;
-    };
+      $scope.isTypeMatch = function (type) {
+        return $scope.type === type;
+      };
 
-    $scope.isTypeMatch = function (type) {
-      return $scope.parameters.type === type;
-    };
+      $scope.isSideMatch = function (side) {
+        return $scope.side === side;
+      };
 
-    //@todo: implement automatic updating of inputs
-    /*    $scope.$watch('total', function (newValue) {
-     if (newValue) {
-     if ($scope.parameters.sign === constants.sign.MULT) {
-     if ($scope.price) {
-     $scope.volume = newValue / $scope.price;
-     } else if ($scope.volume) {
-     $scope.price = newValue / $scope.volume;
-     }
-     }
-     }
-     })*/
-    ;
-  }])
+      $scope.$watch('total', function (newTotal) {
+        if (newTotal) {
+          if (!$scope.price) $scope.volume = null;
+          else $scope.volume = newTotal / $scope.price;
+        } else {
+          $scope.volume = null;
+        }
+      });
+
+      $scope.$watch('volume', function (newVolume) {
+        if (newVolume) {
+          if (!$scope.price) $scope.total = null;
+          else $scope.total = newVolume * $scope.price;
+        } else {
+          $scope.total = null;
+        }
+      });
+
+      $scope.$watch('price', function (newPrice) {
+        if (newPrice && $scope.volume) {
+          $scope.total = newPrice * $scope.volume;
+        }
+      });
+    }
+  ])
 ;

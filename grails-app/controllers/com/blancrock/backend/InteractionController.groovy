@@ -1,5 +1,7 @@
 package com.blancrock.backend
 
+import grails.converters.JSON
+
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -26,11 +28,13 @@ class InteractionController {
 
     def createNewOrder() {
         def orderParams = request.JSON
+
+        println "order params : $orderParams"
         def order = orderParams.order
 
         String currencyPair = order.pair
-        String type = order.orderType
-        String side = order.type
+        String type = order.type
+        String side = order.side
         BigDecimal volume = new BigDecimal(order.volume as String)
         BigDecimal price = new BigDecimal(order.price as String)
 
@@ -42,7 +46,6 @@ class InteractionController {
     def getCurrencyPair() {
         String response = queryService.getCurrencyPair()
 
-        println "response: $response"
         render response
     }
 
