@@ -6,6 +6,24 @@ package com.blancrock.backend
 class InteractionController {
     def queryService
 
+    def getTickerInfo() {
+        String response = queryService.getTickerInfo('XBTUSD')
+
+        render response
+    }
+
+    def getCurrencyPairs() {
+        String response = queryService.getCurrencyPairs()
+
+        render response
+    }
+
+    def getRates() {
+        String response = queryService.getRates()
+
+        render response
+    }
+
     def queryOpenOrders() {
         String response = queryService.queryOpenOrders(true, '')
 

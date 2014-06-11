@@ -1,4 +1,4 @@
-<div class="span6">
+<div class="span6" ng-controller="OverviewController">
     <div class="hpad20left">
         <div class="clearfix">
             <h4 class="pull-left title">Rates</h4>
@@ -6,17 +6,26 @@
             <p class="pull-right table-title-hint">Exchange rates used for trade balance calculations.</p>
         </div>
 
-        <div id="DataTables_Table_3_wrapper" class="dataTables_wrapper form-inline" role="grid"><table class="table table-hover table-striped dataTable table-rate" id="DataTables_Table_3">
+        <table class="table table-hover table-striped dataTable">
             <thead>
-            <tr role="row"><th class="lalign nw sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Currency Pair: activate to sort column ascending">Currency Pair</th><th class="ralign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Rate: activate to sort column ascending">Rate</th></tr>
+            <tr role="row" ng-cloak>
+                <th ng-click="updateSorting('CurrencyPair')" class="lalign nw"
+                    ng-class="getSortingClass('CurrencyPair')" style="width: 55px;">CurrencyPair</th>
+                <th ng-click="updateSorting('Rate')" class="lalign nw"
+                    ng-class="getSortingClass('Rate')" style="width: 165px;">Rate</th>
+            </tr>
             </thead>
 
-            <tfoot>
-            <tr><th class="nw" rowspan="1" colspan="1"></th><th class="ralign" rowspan="1" colspan="1"></th></tr>
-            </tfoot>
-            <tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="odd"><td class="nw">KRW/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ0</span><span style="width: 7px;">.</span><span style="width: 35px;">3555<span class="deczeros">0</span></span></div></td></tr><tr class="even"><td class="nw">LTC/EUR</td><td class="ralign"><div class="textAlignDecimal"><span>€7</span><span style="width: 7px;">.</span><span style="width: 35px;">67362</span></div></td></tr><tr class="odd"><td class="nw">XVN/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ8</span><span style="width: 7px;">.</span><span style="width: 35px;">4<span class="deczeros">00</span></span></div>
-            </td></tr><tr class="even"><td class="nw">LTC/USD</td><td class="ralign"><div class="textAlignDecimal"><span>$10</span><span style="width: 7px;">.</span><span style="width: 35px;">58579</span></div></td></tr><tr class="odd"><td class="nw">XBT/LTC</td><td class="ralign"><div class="textAlignDecimal"><span>Ł41</span><span style="width: 7px;">.</span><span style="width: 35px;">59744</span></div></td></tr><tr class="even"><td class="nw">USD/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ159</span><span style="width: 7px;">.</span><span style="width: 35px;">053</span></div></td></tr><tr class="odd"><td class="nw">XBT/NMC</td><td class="ralign"><div class="textAlignDecimal"><span>ℕ215</span><span style="width: 7px;">.</span><span style="width: 35px;">40624</span></div></td></tr><tr class="even"><td class="nw">EUR/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ222</span><span style="width: 7px;">.</span><span style="width: 35px;">394</span></div></td></tr><tr class="odd"><td class="nw">XBT/EUR</td><td class="ralign"><div class="textAlignDecimal"><span>€318</span><span style="width: 7px;">.</span><span style="width: 35px;">82569</span></div></td></tr><tr class="even"><td class="nw">NMC/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ333</span><span style="width: 7px;">.</span><span style="width: 35px;">521</span></div></td></tr><tr class="odd"><td class="nw">XBT/USD</td><td class="ralign"><div class="textAlignDecimal"><span>$444</span><span style="width: 7px;">.</span><span style="width: 35px;">54636</span></div></td></tr><tr class="even"><td class="nw">LTC/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ1,725</span><span style="width: 7px;">.</span><span style="width: 35px;">0<span class="deczeros">00</span></span></div></td></tr><tr class="odd"><td class="nw">XBT/XVN</td><td class="ralign"><div class="textAlignDecimal"><span>℣10,250</span><span style="width: 7px;">.</span><span style="width: 35px;">0<span class="deczeros">0000</span></span></div>
-            </td></tr><tr class="even"><td class="nw">LTC/XDG</td><td class="ralign"><div class="textAlignDecimal"><span>Ð22,724</span><span style="width: 7px;">.</span><span style="width: 35px;">99</span></div></td></tr><tr class="odd"><td class="nw">LTC/KRW</td><td class="ralign"><div class="textAlignDecimal"><span>₩42,000</span><span style="width: 7px;">.</span><span style="width: 35px;">0<span class="deczeros">00</span></span></div></td></tr><tr class="even"><td class="nw">XBT/XRP</td><td class="ralign"><div class="textAlignDecimal"><span>Ʀ72,124</span><span style="width: 7px;">.</span><span style="width: 35px;">999</span></div></td></tr><tr class="odd"><td class="nw">XBT/KRW</td><td class="ralign"><div class="textAlignDecimal"><span>₩649,500</span><span style="width: 7px;">.</span><span style="width: 35px;">0<span class="deczeros">00</span></span></div>
-            </td></tr><tr class="even"><td class="nw">XBT/XDG</td><td class="ralign"><div class="textAlignDecimal"><span>Ð942,653</span><span style="width: 7px;">.</span><span style="width: 35px;">5</span></div></td></tr></tbody></table></div>
+            <tbody>
+            <tr ng-repeat="rate in rates | orderBy:sort.predicate:sort.reverse"
+                ng-class="{even: $even, odd: $odd}" ng-cloak>
+                <td class="nw ralign" ng-bind="rate.CurrencyPair"></td>
+                <td class="ralign" ng-bind="rate.Rate"></td>
+            </tr>
+            <tr class="odd" ng-hide="rates.length">
+                <td valign="top" colspan="9" class="dataTables_empty">No Rates currently available.</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

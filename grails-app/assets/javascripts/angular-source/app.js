@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('app', ['account','marketData']);
+angular.module('app', ['account','marketData','currencyPairs']);

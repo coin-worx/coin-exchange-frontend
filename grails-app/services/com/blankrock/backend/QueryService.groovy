@@ -9,6 +9,35 @@ class QueryService {
     def backendInteractionService
     def jsonHelperService
 
+    String getTickerInfo(String currencyPair){
+        String path = '/marketdata/tickerinfo'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        return response
+    }
+
+    String getCurrencyPairs(){
+        String path = '/trades/tradeablecurrencypair'
+
+        Map query = [:]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        return response
+    }
+
+    String getRates(){
+        String path = '/marketdata/rates'
+
+        Map query = [:]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractRatesJson(response)
+
+        return jsonOrderBook
+    }
+
     String queryOpenOrders(Boolean includeTrades, String userRefId) {
         String path = '/orders/openorders'
         Map query = [includeTrades: includeTrades, userRefId: userRefId]
