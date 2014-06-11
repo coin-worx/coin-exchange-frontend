@@ -1,4 +1,4 @@
-//=require angular-source/components/account/trade/trades.module
+//=require angular-source/components/account/trade/trade.module
 
 'use strict';
 

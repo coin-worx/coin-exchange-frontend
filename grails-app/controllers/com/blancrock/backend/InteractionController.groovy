@@ -38,4 +38,11 @@ class InteractionController {
 
         render response
     }
+
+    def getCurrencyPair() {
+        String response = queryService.getCurrencyPair()
+
+        println "response: $response"
+        render response
+    }
 }

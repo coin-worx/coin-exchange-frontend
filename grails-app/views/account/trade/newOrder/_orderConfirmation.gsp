@@ -1,34 +1,32 @@
-<div class="frame review-wrap vmarg40bot frame-active" style="width: 950px; visibility: visible;">
-  <div class="row">
-    <div class="span12">
-      <div class="center">
-        <h4 class="centered title vmarg0top">Order Details</h4>
+<div class="order-complete" ng-show="order.created">
+  <div class="vpad10 alert alert-block alert-success">
+    <p>
+      Order <a href ng-bind="order.orderId"></a> successfully created!
+    </p>
+  </div>
 
-        <div class="well big well-data-list">
-          <dl class="dl-horizontal lalign">
-            <dt>Order</dt><dd>buy 1.0<span class="deczeros">0000000</span> XBTXRP @ limit 100000.0
-            <span class="deczeros">00</span>
-          </dd>
-            <dt>Order Type</dt>
-            <dd>limit</dd>
-            <hr>
-            <dt>Estimated XRP to spend</dt>
-            <dd>Ʀ100,000.000</dd>
-            <dt>XBT to receive</dt>
-            <dd>฿1.000</dd>
-          </dl></div>
+  <div class="center btn-toolbar">
+    <button type="button" class="btn-order-new btn btn-large hmarg30right"
+            ng-click="backToNewSimpleOrder()">« Create New Order</button>
+    <a href="#/account/trade/orders" class="btn btn-primary btn-large">
+      <i class="icon-list icon-white"></i>
+      View Orders
+    </a>
+  </div>
+</div>
 
-        <div class="order-complete" style="display: none;">
-          <div class="vpad10 alert alert-block alert-success"></div>
+<div class="row" ng-show="errors.length">
+  <div class="span12 order-error-review-wrap vmarg10bot">
+    <div class="order-error-review vpad10 vmarg0 alert alert-block alert-error center"></div>
+  </div>
+</div>
 
-          <div class="center btn-toolbar">
-            <button autocomplete="off" type="button"
-                    class="btn-order-new btn btn-large hmarg30right">« Create New Order</button>
-            <a autocomplete="off" href="#tab=orders" class="btn btn-primary btn-large"><i
-                class="icon-list icon-white"></i> View Orders</a>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="order-buttons" ng-hide="order.created">
+  <div class="center btn-toolbar">
+    <button type="button" class="btn-order-back btn btn-large hmarg30right"
+            ng-click="backToNewSimpleOrder()">« Back</button>
+    <button type="submit" class="btn-order-confirm btn btn-success btn-large"
+            ng-click="submitOrder()">
+      <i class="icon-ok icon-white"></i> Submit Order</button>
   </div>
 </div>

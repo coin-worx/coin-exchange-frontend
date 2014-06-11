@@ -59,8 +59,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
     };
 
     $scope.changeCurrency = function (currency) {
-      console.log(currency);
       $scope.parameters.status.isOpen = false;
+
       if (currency !== $scope.currency.amount) {
         $scope.currency.amount = currency;
         $scope.currency.total = $scope.currency.total === $scope.currency.from ? $scope.currency.to : $scope.currency.from;
@@ -129,16 +129,17 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
     };
 
     //@todo: implement automatic updating of inputs
-/*    $scope.$watch('total', function (newValue) {
-      if (newValue) {
-        if ($scope.parameters.sign === constants.sign.MULT) {
-          if ($scope.price) {
-            $scope.volume = newValue / $scope.price;
-          } else if ($scope.volume) {
-            $scope.price = newValue / $scope.volume;
-          }
-        }
-      }
-    })*/;
+    /*    $scope.$watch('total', function (newValue) {
+     if (newValue) {
+     if ($scope.parameters.sign === constants.sign.MULT) {
+     if ($scope.price) {
+     $scope.volume = newValue / $scope.price;
+     } else if ($scope.volume) {
+     $scope.price = newValue / $scope.volume;
+     }
+     }
+     }
+     })*/
+    ;
   }])
 ;

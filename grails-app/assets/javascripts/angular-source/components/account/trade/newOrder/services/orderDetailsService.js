@@ -2,13 +2,16 @@
 
 'use strict';
 
-angular.module('account.trade.newOrder').service('orderDetailsService', ['$http', function ($http) {
+angular.module('account.trade.newOrder').service('orderDetailsService', ['$http', '$q', function ($http, $q) {
   var data,
     error;
 
   return {
     getData: function () {
-      return data;
+      var deferred = $q.defer();
+      deferred.resolve(data);
+
+      return deferred.promise;
     },
 
     setData: function (newData) {
@@ -24,7 +27,7 @@ angular.module('account.trade.newOrder').service('orderDetailsService', ['$http'
     },
 
     createNewOrder: function () {
-      return $http.post('api/createNewOrder', this.getData());
+      return $http.post('api/createNewOrder', data);
     }
   }
 }]);

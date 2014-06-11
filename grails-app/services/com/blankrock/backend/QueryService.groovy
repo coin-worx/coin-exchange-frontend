@@ -84,4 +84,14 @@ class QueryService {
 
         return jsonWithKeys
     }
+
+    String getCurrencyPair() {
+        String path = '/trades/tradeablecurrencypair'
+        Map query = [:]
+
+        //todo: change it to get type
+        String response = backendInteractionService.makePostRequestToBackend(path, query)
+
+        return response
+    }
 }
