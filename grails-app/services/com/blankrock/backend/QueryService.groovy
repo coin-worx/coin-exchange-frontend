@@ -1,4 +1,5 @@
 package com.blankrock.backend
+
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -83,6 +84,39 @@ class QueryService {
         String jsonWithKeys = jsonHelperService.addNecessaryKeysToTradeHistoryJson(response)
 
         return jsonWithKeys
+    }
+
+    String getRecentTrades(String currencyPair){
+        String path = '/trades/recenttrades'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.addKeysToRecentTradesJson(response)
+
+        return jsonOrderBook
+    }
+
+    String getBids(String currencyPair){
+        String path = '/marketdata/orderbook'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractBidsJson(response)
+
+        return jsonOrderBook
+    }
+
+    String getAsks(String currencyPair){
+        String path = '/marketdata/orderbook'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractAsksJson(response)
+
+        return jsonOrderBook
     }
 
     String getCurrencyPair() {

@@ -14,8 +14,8 @@
                 <span>Account</span>
               </a>
             </li>
-            <li ng-class="{active: ('market' | routeSegmentStartsWith)}">
-              <a href="#/market">
+            <li ng-class="{active: ('marketData' | routeSegmentStartsWith)}">
+              <a href="#/marketData">
                 <span>Market Data</span>
               </a>
             </li>

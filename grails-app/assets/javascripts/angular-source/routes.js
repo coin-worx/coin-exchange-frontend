@@ -49,6 +49,7 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/getVerified', 'account.getVerified')
 
         .when('/market', 'market')
+        .when('/marketData', 'marketData')
 
         .when('/about', 'about')
         .when('/help', 'help')
@@ -166,6 +167,14 @@ angular.module('blancrockExchangeApp').config(
 
         .segment('history', {
           templateUrl: 'views/accountHistory'
+        })
+        
+        .segment('market', {
+          templateUrl: 'views/market'
+        })
+
+        .segment('marketData', {
+          templateUrl: 'views/marketData'
         })
 
         .segment('getVerified', {
