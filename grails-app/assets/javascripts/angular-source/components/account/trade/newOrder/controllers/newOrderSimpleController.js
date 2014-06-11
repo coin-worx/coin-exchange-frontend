@@ -39,19 +39,18 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         }
       };
 
-      //@todo: fix it
       $scope.changeCurrency = function (currency) {
         $scope.status.isOpen = false;
 
         if (currency !== $scope.currency.amount) {
           $scope.currency.amount = currency;
-          $scope.currency.basetal = $scope.currency.basetal === $scope.currency.quote ? $scope.currency.base : $scope.currency.quote;
+          $scope.currency.total = $scope.currency.total === $scope.currency.quote ? $scope.currency.base : $scope.currency.quote;
           $scope.sign = $scope.sign === constants.sign.MULT ? constants.sign.DIV : constants.sign.MULT;
         }
       };
 
       $scope.changeOrderType = function (type) {
-        $scope.orderType = type;
+        $scope.type = type;
         $scope.submitted = false;
 
         if (type === constants.type.MARKET) {
@@ -67,7 +66,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
             {
               order: getOrderDetailsInfo(),
               toSpend: {
-                currency: $scope.currency.basetal,
+                currency: $scope.currency.total,
                 volume: $scope.total
               },
               toReceive: {
@@ -79,6 +78,18 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
           $location.path('/account/trade/newOrder/details');
         }
       };
+
+      function getCurrencyToSpendInfo() {
+        //todo: implement it
+      }
+
+      function getCurrencyToReceiveInfo () {
+        var result;
+
+        if ($scope.side === constants.side.BUY) {
+          //todo: implement it
+        }
+      }
 
       function getOrderDetailsInfo() {
         return {
@@ -100,8 +111,15 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
 
       $scope.$watch('total', function (newTotal) {
         if (newTotal) {
-          if (!$scope.price) $scope.volume = null;
-          else $scope.volume = newTotal / $scope.price;
+          if (!$scope.price) {
+            $scope.volume = null;
+          } else {
+            if ($scope.sign === constants.sign.MULT) {
+              $scope.volume = newTotal / $scope.price;
+            } else {
+              $scope.volume = newTotal * $scope.price;
+            }
+          }
         } else {
           $scope.volume = null;
         }
@@ -109,16 +127,45 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
 
       $scope.$watch('volume', function (newVolume) {
         if (newVolume) {
-          if (!$scope.price) $scope.total = null;
-          else $scope.total = newVolume * $scope.price;
+          if (!$scope.price) {
+            $scope.total = null;
+          } else {
+            if ($scope.sign === constants.sign.MULT) {
+              $scope.total = newVolume * $scope.price;
+            } else {
+              $scope.total = newVolume / $scope.price;
+            }
+          }
         } else {
           $scope.total = null;
         }
       });
 
       $scope.$watch('price', function (newPrice) {
-        if (newPrice && $scope.volume) {
-          $scope.total = newPrice * $scope.volume;
+        if (newPrice) {
+          if ($scope.volume) {
+            if ($scope.sign === constants.sign.MULT) {
+              $scope.total = newPrice * $scope.volume;
+            } else {
+              $scope.total = $scope.volume / newPrice;
+            }
+          } else if ($scope.total) {
+            if ($scope.sign === constants.sign.MULT) {
+              $scope.volume = $scope.total / newPrice;
+            } else {
+              $scope.volume = $scope.total * newPrice;
+            }
+          }
+        }
+      });
+
+      $scope.$watch('sign', function (newSign) {
+        if ($scope.volume) {
+          if (newSign === constants.sign.MULT) {
+            $scope.total = $scope.price * $scope.volume;
+          } else {
+            $scope.total = $scope.volume / $scope.price;
+          }
         }
       });
     }
