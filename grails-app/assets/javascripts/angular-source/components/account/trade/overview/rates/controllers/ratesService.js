@@ -1,8 +1,8 @@
-//=require angular-source/components/account/trade/overview/overview.module
+//=require angular-source/components/account/trade/overview/rates/rates.module
 
 'use strict';
 
-angular.module('account.trade.overview').service('OverviewService', [
+angular.module('account.trade.overview.rates').service('RatesService', [
     '$http', function ($http) {
         return {
             query: function () {

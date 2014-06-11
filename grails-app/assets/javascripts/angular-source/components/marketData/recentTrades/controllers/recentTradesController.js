@@ -10,7 +10,9 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
             .success(function (data) {
                 $scope.trades = data;
                 setPaginationParams();
-                $scope.loaded = true;
+
+                $scope.$parent.recentTradesLoaded = true;
+                loaded = true;
 
                 recalculateMinAndMax();
                 filterCollection();

@@ -1,13 +1,20 @@
-<div class="container">
+<div class="container" ng-controller="MarketDataController">
     <div class="row">
         <div class="span12">
-            <div class="content-wrap clearfix" id="marketdata">
+            <div class="row" ng-hide="loaded">
+                <p style="text-align: center">
+                    <i class="icon-spinner icon-spin icon-large icon-5x"></i> <br>
+                    Loading...
+                </p>
+            </div>
+            <div class="content-wrap clearfix" id="marketdata" ng-show="loaded">
                 <div class="clearfix vmarg20bot">
                     <div class="pull-right">
                         <p class="control-hint" name="last-update">Last Updated: 05-08-14 23:15:27 +00:00</p>
                     </div>
                 </div>
                 <div name="error" class="hidden2" style="display: none;"></div>
+
                 <div name="data-wrap" class="hidden2" style="display: block;">
                     <div class="row">
                         <div class="span12">

@@ -1,4 +1,4 @@
-<div class="span6" ng-controller="OverviewController">
+<div class="span6" ng-controller="RatesController">
     <div class="hpad20left">
         <div class="clearfix">
             <h4 class="pull-left title">Rates</h4>

@@ -11,7 +11,9 @@ angular.module('marketData.orderBook').controller('AsksController', [
                 //updateCostRems(data);
                 $scope.orderBook = data;
                 setPaginationParams();
-                $scope.loaded = true;
+
+                $scope.$parent.asksLoaded = true;
+                loaded = true;
 
                 recalculateMinAndMax();
                 filterCollection();

@@ -2,4 +2,4 @@
 
 'use strict';
 
-angular.module('account.trade.overview', []);
+angular.module('account.trade.overview', ['account.trade.overview.rates']);
