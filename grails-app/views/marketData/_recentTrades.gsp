@@ -36,7 +36,7 @@
 
     <div ng-cloak>
         <div class="pull-right">
-            <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" num-pages="numPages"
+            <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
                         previous-text="&lsaquo;" next-text="&rsaquo;"
                         max-size="maxSize" class="pagination-sm" ng-change="pageChanged()"
                         boundary-links="false" rotate="false"></pagination>

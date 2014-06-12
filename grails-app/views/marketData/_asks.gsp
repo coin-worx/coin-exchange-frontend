@@ -12,7 +12,7 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="order in orderBook | orderBy:'AskPrice':sort.reverse"
+        <tr ng-repeat="order in filteredOrderBook | orderBy:'AskPrice':sort.reverse"
             ng-class="{even: $even, odd: $odd}" ng-cloak>
             <td ng-if="order.AskPrice != '0'" class="nw ralign" ng-bind="order.AskPrice"></td>
             <td ng-if="order.AskVolume != '0'" class="ralign" ng-bind="order.AskVolume"></td>
@@ -25,7 +25,7 @@
 
     <div ng-cloak>
         <div class="pull-right">
-            <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" num-pages="numPages"
+            <pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
                         previous-text="&lsaquo;" next-text="&rsaquo;"
                         max-size="maxSize" class="pagination-sm" ng-change="pageChanged()"
                         boundary-links="false" rotate="false"></pagination>

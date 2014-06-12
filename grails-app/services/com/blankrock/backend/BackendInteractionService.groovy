@@ -40,7 +40,7 @@ class BackendInteractionService {
         (value, status) = getRequest(path, query)
 
         if (status == UNAUTHORIZED_STATUS && !iteration) {
-            (value) = getRequest(path)
+            (value) = getRequest(path, query)
         }
 
         return value

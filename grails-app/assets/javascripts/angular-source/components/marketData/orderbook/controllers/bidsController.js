@@ -8,15 +8,13 @@ angular.module('marketData.orderBook').controller('BidsController', [
 
         bidsService.query()
             .success(function (data) {
-                //updateCostRems(data);
                 $scope.orderBook = data;
                 setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
 
                 $scope.$parent.bidsLoaded = true;
                 loaded = true;
-
-                recalculateMinAndMax();
-                filterCollection();
 
             }).error(function () {
                 $scope.orderBook = [];
@@ -61,7 +59,6 @@ angular.module('marketData.orderBook').controller('BidsController', [
             $scope.currentPage = 1;
             $scope.maxSize = 1;
             $scope.totalItems = $scope.orderBook.length;
-            $scope.itemsPerPage = 9;
         }
 
         $scope.pageChanged = function () {
@@ -70,7 +67,7 @@ angular.module('marketData.orderBook').controller('BidsController', [
         };
 
         function filterCollection() {
-            $scope.filteredOrders = $scope.orderBook.slice($scope.currentMinIndex, $scope.currentMaxIndex);
+            $scope.filteredOrderBook = $scope.orderBook.slice($scope.currentMinIndex, $scope.currentMaxIndex);
         }
 
         function recalculateMinAndMax() {

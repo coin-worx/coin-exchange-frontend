@@ -61,7 +61,6 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
             $scope.currentPage = 1;
             $scope.maxSize = 1;
             $scope.totalItems = $scope.trades.length;
-            $scope.itemsPerPage = 9;
         }
 
         $scope.pageChanged = function () {
