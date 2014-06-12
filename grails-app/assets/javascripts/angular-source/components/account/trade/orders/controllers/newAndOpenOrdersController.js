@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('NewAndOpenOrdersController', [
-  '$scope', 'NewAndOpenOrdersService', function ($scope, newAndOpenOrdersService) {
+  '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', function ($scope, newAndOpenOrdersService, cancelOrderService) {
     var loaded = false;
 
     newAndOpenOrdersService.query()
@@ -20,12 +20,25 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         $scope.orders = [];
       });
 
-    $scope.deleteOrder = function (order) {
+        $scope.deleteOrder = function (order) {
+        var index = $scope.orders.indexOf(order);
+        var orderId = $scope.currentOrderId
+        cancelOrderService.query(order)
+            .success(function (data) {
+                $scope.orders.splice(index, 1);
+                recalculateMinAndMax();
+                filterCollection();
+            }).error(function () {
+                $scope.orders = [];
+            })
+        };
+
+    /*$scope.deleteOrder = function (order) {
       var index = $scope.orders.indexOf(order);
       $scope.orders.splice(index, 1);
       recalculateMinAndMax();
       filterCollection();
-    };
+    };*/
 
     $scope.isLoaded = function () {
       return !loaded;

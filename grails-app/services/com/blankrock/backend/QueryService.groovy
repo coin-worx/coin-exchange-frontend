@@ -97,9 +97,8 @@ class QueryService {
 
     String cancelOrder(String orderId) {
         String path = '/orders/cancelorder'
-        Map query = [orderId: orderId]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
 
         return response
     }

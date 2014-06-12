@@ -55,6 +55,13 @@ class InteractionController {
 
         render response
     }
+
+    def cancelOrder(String orderId) {
+        String orderIdInt = "abc"
+        String response = queryService.cancelOrder(orderIdInt)
+
+        render response
+    }
     def getRecentTrades() {
         String response = queryService.getRecentTrades('XBTUSD')
 
@@ -71,4 +78,5 @@ class InteractionController {
         String response = queryService.getAsks('XBTUSD')
 
         render response
-    }}
+    }
+}

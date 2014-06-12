@@ -155,4 +155,79 @@ class BackendInteractionService {
             return null
         }
     }
+
+    @Synchronized
+    String makeStringParamPostRequestToBackend(String path, String query, Integer iteration = 0) {
+        String value
+        String status
+
+        (value, status) = postRequestStringParam(path, query)
+
+        if (status == UNAUTHORIZED_STATUS && !iteration) {
+            (value) = postRequestStringParam(path, query)
+        }
+
+        return value
+    }
+
+    private List<String> postRequestStringParam(String path, String query) {
+        try {
+            String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
+            path = "/dev${path}"
+
+            def session = RCH.currentRequestAttributes().session
+
+            AuthParams authParams = AuthParams.findByApiKey('55555')
+
+            RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator ?: new RequestGenerator(
+                    apiKey: authParams.apiKey, secretKey: authParams.secretKey
+            )
+
+            requestGenerator.url = baseUrl + path
+
+            String responseStatus = ''
+            String responseValue = ''
+            HTTPBuilder http = new HTTPBuilder(baseUrl)
+            http.request(Method.POST, CONTENT_TYPE) {
+                uri.path = path
+                body = "\"" + query + "\""
+                headers.Accept = CONTENT_TYPE
+                headers.Auth = requestGenerator.authParams
+
+                response.success = { resp, json ->
+                    requestGenerator.cNumber++
+                    responseValue = json as JSON
+                    responseStatus = resp.status
+
+                    if (log.isInfoEnabled()) {
+                        log.info 'response data : '
+                        log.info responseValue
+                        log.info '----------------'
+                    }
+                }
+
+                response.failure = { resp, json ->
+                    requestGenerator.nounce = resp.headers.nounce
+                    requestGenerator.cNumber++
+                    responseStatus = resp.status
+                    //@todo: use values from bootstrap for now
+                    //requestGenerator.apiKey = resp.headers['apiKey']
+
+                    log.error 'request fail ' + responseStatus + ' ' + json
+                }
+            }
+
+            session['requestGenerator'] = requestGenerator
+
+            [responseValue, responseStatus]
+
+        } catch (HttpResponseException ex) {
+            log.error "Unexpected response error: ${ex.statusCode}"
+            log.error ex.cause.message
+            return null
+        } catch (ConnectException ex) {
+            log.error "Unexpected connection error: ${ex.message}"
+            return null
+        }
+    }
 }
