@@ -1,7 +1,5 @@
 package com.blankrock.backend
 
-import org.codehaus.groovy.grails.validation.Validateable
-
 /**
  * Created by Vladimir Havenchyk.
  */
