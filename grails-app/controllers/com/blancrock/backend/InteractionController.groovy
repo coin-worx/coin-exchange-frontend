@@ -56,12 +56,14 @@ class InteractionController {
         render response
     }
 
-    def cancelOrder(String orderId) {
-        String orderIdInt = "abc"
-        String response = queryService.cancelOrder(orderIdInt)
+    def cancelOrder() {
+        def orderParams = request.JSON
+        def orderId = orderParams.OrderId
+        String response = queryService.cancelOrder(orderId)
 
         render response
     }
+
     def getRecentTrades() {
         String response = queryService.getRecentTrades('XBTUSD')
 

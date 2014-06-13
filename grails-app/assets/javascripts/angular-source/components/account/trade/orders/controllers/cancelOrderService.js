@@ -5,8 +5,8 @@
 angular.module('account.trade.orders').service('CancelOrderService', [
     '$http', function ($http) {
         return {
-            query: function (data) {
-                return $http.get('api/cancelOrder', data);
+            query: function (order) {
+                return $http.post('api/cancelOrder', order);
             }
         };
     } ]);
