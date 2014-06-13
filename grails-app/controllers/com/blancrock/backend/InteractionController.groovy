@@ -55,6 +55,15 @@ class InteractionController {
 
         render response
     }
+
+    def cancelOrder() {
+        def orderParams = request.JSON
+        def orderId = orderParams.OrderId
+        String response = queryService.cancelOrder(orderId)
+
+        render response
+    }
+
     def getRecentTrades() {
         String response = queryService.getRecentTrades('XBTUSD')
 
@@ -71,4 +80,5 @@ class InteractionController {
         String response = queryService.getAsks('XBTUSD')
 
         render response
-    }}
+    }
+}
