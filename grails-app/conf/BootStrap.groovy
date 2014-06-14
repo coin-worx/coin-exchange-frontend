@@ -1,4 +1,4 @@
-import com.blankrock.backend.AuthParams
+import com.blancrock.backend.AuthParams
 
 class BootStrap {
 
