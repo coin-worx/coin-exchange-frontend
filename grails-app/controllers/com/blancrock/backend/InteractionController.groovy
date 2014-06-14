@@ -43,13 +43,13 @@ class InteractionController {
     }
     def createNewOrder() {
         def orderParams = request.JSON
-        def order = orderParams.order
+        def order = orderParams['order']
 
-        String currencyPair = order.pair
-        String type = order.orderType
-        String side = order.type
-        BigDecimal volume = new BigDecimal(order.volume as String)
-        BigDecimal price = new BigDecimal(order.price as String)
+        String currencyPair = order['pair']
+        String type = order['orderType']
+        String side = order['type']
+        BigDecimal volume = new BigDecimal(order['volume'] as String)
+        BigDecimal price = new BigDecimal(order['price'] as String)
 
         String response = queryService.createOrder(currencyPair, type, side, volume, price)
 
@@ -58,7 +58,7 @@ class InteractionController {
 
     def cancelOrder() {
         def orderParams = request.JSON
-        def orderId = orderParams.OrderId
+        String orderId = orderParams['OrderId']
         String response = queryService.cancelOrder(orderId)
 
         render response

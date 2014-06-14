@@ -1,4 +1,4 @@
-package com.blankrock.backend
+package com.blancrock.backend
 
 import org.codehaus.groovy.grails.validation.Validateable
 
@@ -12,7 +12,7 @@ class QueryService {
     def jsonHelperService
 
     String getTickerInfo(String currencyPair){
-        String path = '/marketdata/tickerinfo'
+        String path = '/dev/marketdata/tickerinfo'
 
         Map query = [currencyPair: currencyPair]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)
@@ -21,7 +21,7 @@ class QueryService {
     }
 
     String getCurrencyPairs(){
-        String path = '/trades/tradeablecurrencypair'
+        String path = '/dev/trades/tradeablecurrencypair'
 
         Map query = [:]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)
@@ -30,7 +30,7 @@ class QueryService {
     }
 
     String getRates(){
-        String path = '/marketdata/rates'
+        String path = '/dev/marketdata/rates'
 
         Map query = [:]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)
@@ -41,7 +41,7 @@ class QueryService {
     }
 
     String queryOpenOrders(Boolean includeTrades, String userRefId) {
-        String path = '/orders/openorders'
+        String path = '/dev/orders/openorders'
         Map query = [includeTrades: includeTrades, userRefId: userRefId]
 
         String response = backendInteractionService.makePostRequestToBackend(path, query)
@@ -55,7 +55,7 @@ class QueryService {
                              String endTime,
                              String offset,
                              String closeTime) {
-        String path = '/orders/closedorders'
+        String path = '/dev/orders/closedorders'
         Map query = [
                 includeTrades: includeTrades,
                 userRefId    : userRefId,
@@ -71,7 +71,7 @@ class QueryService {
     }
 
     String queryTrades(String txId, Boolean includeTrades) {
-        String path = '/trades/querytrades'
+        String path = '/dev/trades/querytrades'
         Map query = [txId: txId, includeTrades: includeTrades]
 
         String response = backendInteractionService.makePostRequestToBackend(path, query)
@@ -80,7 +80,7 @@ class QueryService {
     }
 
     String getTradeVolume(String pair) {
-        String path = '/trades/tradevolume'
+        String path = '/dev/trades/tradevolume'
         Map query = [pair: pair]
 
         String response = backendInteractionService.makePostRequestToBackend(path, query)
@@ -89,7 +89,7 @@ class QueryService {
     }
 
     String createOrder(String pair, String type, String side, BigDecimal volume, BigDecimal price = 0) {
-        String path = '/orders/createorder'
+        String path = '/dev/orders/createorder'
         Map query = [pair: pair, type: type, side: side, volume: volume, price: price]
 
         String response = backendInteractionService.makePostRequestToBackend(path, query)
@@ -98,7 +98,7 @@ class QueryService {
     }
 
     String cancelOrder(String orderId) {
-        String path = '/orders/cancelorder'
+        String path = '/dev/orders/cancelorder'
 
         String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
 
@@ -106,7 +106,7 @@ class QueryService {
     }
 
     String getTradeHistory(String start, String end) {
-        String path = '/trades/tradehistory'
+        String path = '/dev/trades/tradehistory'
         Map query = [start: start, end: end]
 
         String response = backendInteractionService.makePostRequestToBackend(path, query)
@@ -117,7 +117,7 @@ class QueryService {
     }
 
     String getRecentTrades(String currencyPair){
-        String path = '/trades/recenttrades'
+        String path = '/dev/trades/recenttrades'
 
         Map query = [currencyPair: currencyPair]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)
@@ -128,7 +128,7 @@ class QueryService {
     }
 
     String getBids(String currencyPair){
-        String path = '/marketdata/orderbook'
+        String path = '/dev/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)
@@ -139,7 +139,7 @@ class QueryService {
     }
 
     String getAsks(String currencyPair){
-        String path = '/marketdata/orderbook'
+        String path = '/dev/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
         String response = backendInteractionService.makeGetRequestToBackend(path, query)

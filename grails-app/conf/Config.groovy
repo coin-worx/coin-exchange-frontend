@@ -163,4 +163,5 @@ grails.assets.includes = []
 
 blancrock.key.api = 123456
 blancrock.key.secret = 'AuroraBitCoinExchange'
-blankrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
+blancrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
+blancrock.backend.loginPath = '/login/v1/admin/login'

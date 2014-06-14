@@ -1,4 +1,4 @@
-package com.blankrock.backend
+package com.blancrock.backend
 
 import grails.converters.JSON
 import groovy.transform.Synchronized
@@ -46,10 +46,23 @@ class BackendInteractionService {
         return value
     }
 
+    @Synchronized
+    String makeStringParamPostRequestToBackend(String path, String query, Integer iteration = 0) {
+        String value
+        String status
+
+        (value, status) = postRequestStringParam(path, query)
+
+        if (status == UNAUTHORIZED_STATUS && !iteration) {
+            (value) = postRequestStringParam(path, query)
+        }
+
+        return value
+    }
+
     private List<String> postRequest(String path, Map query) {
         try {
-            String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
-            path = "/dev${path}"
+            String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
             def session = RCH.currentRequestAttributes().session
 
@@ -109,8 +122,7 @@ class BackendInteractionService {
 
     private List<String> getRequest(String path, Map query) {
         try {
-            String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
-            path = "/dev${path}"
+            String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
             String responseStatus = ''
             String responseValue = ''
@@ -150,30 +162,15 @@ class BackendInteractionService {
             log.error "Unexpected connection error: ${ex.message}"
             return null
         }
-        catch (Exception ex){
+        catch (Exception ex) {
             log.error "Unexpected exception: ${ex.message}"
             return null
         }
     }
 
-    @Synchronized
-    String makeStringParamPostRequestToBackend(String path, String query, Integer iteration = 0) {
-        String value
-        String status
-
-        (value, status) = postRequestStringParam(path, query)
-
-        if (status == UNAUTHORIZED_STATUS && !iteration) {
-            (value) = postRequestStringParam(path, query)
-        }
-
-        return value
-    }
-
     private List<String> postRequestStringParam(String path, String query) {
         try {
-            String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
-            path = "/dev${path}"
+            String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
             def session = RCH.currentRequestAttributes().session
 

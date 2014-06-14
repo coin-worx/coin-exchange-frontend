@@ -1,4 +1,4 @@
-package com.blankrock.backend
+package com.blancrock.backend
 
 /**
  * Created by Vladimir Havenchyk.
