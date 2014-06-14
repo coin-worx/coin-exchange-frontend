@@ -27,4 +27,13 @@ class LoginController {
 
         render response
     }
+
+    def wrongLogin() {
+        String username = "wrong"
+        String password = "wrong"
+
+        String response = authorizationService.makeLoginAttempt(username, password)
+
+        render response ?: 'wrong login parameters'
+    }
 }
