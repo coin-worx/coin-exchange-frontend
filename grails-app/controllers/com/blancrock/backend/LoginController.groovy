@@ -19,6 +19,12 @@ class LoginController {
         render response
     }
 
+    def logout() {
+        String response = authorizationService.makeLogoutAttempt()
+
+        render response
+    }
+
     def testLogin() {
         String username = "user"
         String password = "123"
@@ -35,5 +41,21 @@ class LoginController {
         String response = authorizationService.makeLoginAttempt(username, password)
 
         render response ?: 'wrong login parameters'
+    }
+
+    def authParams() {
+        def authParams = AuthParams.first()
+
+        render authParams.sessionLogoutTime
+    }
+
+    def resetAuthParams() {
+        def authParams = AuthParams.first()
+
+        authParams.resetLogoutTime()
+
+        println "reset to : ${authParams.sessionLogoutTime}"
+
+        render authParams.sessionLogoutTime
     }
 }

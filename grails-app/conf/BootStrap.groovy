@@ -3,11 +3,11 @@ import com.blancrock.backend.AuthParams
 class BootStrap {
 
     def init = { servletContext ->
-        createAuthParams([apiKey: '55555', secretKey: 's3cr3t'])
-        createAuthParams([apiKey: '44444', secretKey: 's3cr3t'])
-        createAuthParams([apiKey: '33333', secretKey: 's3cr3t'])
-        createAuthParams([apiKey: '22222', secretKey: 's3cr3t'])
-        createAuthParams([apiKey: '11111', secretKey: 's3cr3t'])
+        createAuthParams([apiKey: '55555', secretKey: 's3cr3t', sessionLogoutTime: new Date()])
+        createAuthParams([apiKey: '44444', secretKey: 's3cr3t', sessionLogoutTime: new Date()])
+        createAuthParams([apiKey: '33333', secretKey: 's3cr3t', sessionLogoutTime: new Date()])
+        createAuthParams([apiKey: '22222', secretKey: 's3cr3t', sessionLogoutTime: new Date()])
+        createAuthParams([apiKey: '11111', secretKey: 's3cr3t', sessionLogoutTime: new Date()])
     }
 
     def destroy = {

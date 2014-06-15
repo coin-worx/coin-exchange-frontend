@@ -17,4 +17,13 @@ class AuthorizationService {
 
         return response
     }
+
+    String makeLogoutAttempt() {
+        String path = grailsApplication.config.blancrock.backend.logoutPath
+        Map query = [:]
+
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        return response
+    }
 }
