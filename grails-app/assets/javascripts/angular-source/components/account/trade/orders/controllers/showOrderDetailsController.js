@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('ShowOrderDetailsController', [
-    '$scope', 'ShowOrderDetailsService', 'OrdersSharedService', function ($scope, showOrderDetailsService, ordersSharedService) {
+    '$scope', '$location', 'ShowOrderDetailsService', 'OrdersSharedService', function ($scope, $location, showOrderDetailsService, ordersSharedService) {
         var loaded = false;
 
         var orderId = ordersSharedService.getOrderIdOfOrder();
@@ -17,4 +17,8 @@ angular.module('account.trade.orders').controller('ShowOrderDetailsController', 
             }).error(function () {
                 $scope.orderDetails = [];
             });
+
+        $scope.goToUrl = function (path) {
+            $location.path( path );
+        };
     }]);

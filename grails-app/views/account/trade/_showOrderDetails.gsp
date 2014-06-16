@@ -15,7 +15,9 @@
 <div class="clearfix vmarg10bot">
     <h4 class="title pull-left" name="title">Order {{orderDetails.OrderId}}</h4>
     <div class="pull-right">
-        <button class="btn btn-small back">« Back</button>
+        <button class="btn btn-small back" %{--ng-class="{active: ('account.trade.overview' | routeSegmentStartsWith)}"--}% ng-click='goToUrl("/account/trade/orders")'>
+          « Back
+          </button>
     </div>
 </div>
 <div>
