@@ -35,6 +35,8 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/trade/trades', 'account.trade.trades')
         .when('/account/trade/showOrderDetails', 'account.trade.showOrderDetails')
 
+        .when('/account/trade/tradeDetails', 'account.trade.tradeDetails')
+
         .when('/account/funding', 'account.funding')
 
         .when('/account/funding/deposit', 'account.funding.deposit')
@@ -50,7 +52,7 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/getVerified', 'account.getVerified')
 
         .when('/market', 'market')
-                .when('/marketData', 'marketData')
+        .when('/marketData', 'marketData')
 
         .when('/about', 'about')
         .when('/help', 'help')
@@ -125,6 +127,10 @@ angular.module('blancrockExchangeApp').config(
 
         .segment('trades', {
           templateUrl: 'views/accountTradeTrades'
+        })
+
+        .segment('tradeDetails', {
+            templateUrl: 'views/accountTradeTradeDetails'
         })
 
         .up()

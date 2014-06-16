@@ -105,12 +105,32 @@ class QueryService {
         return response
     }
 
+    // Gets the details when a trade is clicked
+    String getTradeDetails(String orderId) {
+        String path = '/orders/queryorders'
+
+        String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
+
+        return response
+    }
+
     String showOrderDetails(String orderId) {
         String path = '/orders/queryorders'
 
         String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
 
         return response
+    }
+
+    // Gets teh trades when an order is clicked for order details
+    String showTradeDetails(String orderId) {
+        String path = '/trades/querytrades'
+
+        String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
+
+        String jsonWithKeys = jsonHelperService.addNecessaryKeysToTradeHistoryJson(response)
+
+        return jsonWithKeys
     }
 
     String getTradeHistory(String start, String end) {

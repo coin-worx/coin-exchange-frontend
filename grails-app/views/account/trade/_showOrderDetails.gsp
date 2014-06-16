@@ -294,10 +294,39 @@
     <h5 class="title">Trades</h5>
     <div id="DataTables_Table_12_wrapper" class="dataTables_wrapper form-inline" role="grid"><div class="dataTables_table_wrapper"><table class="table table-hover table-striped table-trades table-trades-basic dataTable" id="DataTables_Table_12" aria-describedby="DataTables_Table_12_info">
         <thead>
+        <tr role="row" ng-cloak>
+            <th ng-click="updateSorting('TradeId')" class="lalign nw"
+                ng-class="getSortingClass('TradeId')" style="width: 55px;">Trade Id</th>
+            <th ng-click="updateSorting('ExecutionDateTime')" class="lalign nw"
+                ng-class="getSortingClass('ExecutionDateTime')" style="width: 165px;">Execution Time</th>
+            <th ng-click="updateSorting('Price')" class="lalign"
+                ng-class="getSortingClass('Price')" style="width: 50px;">Price</th>
+            <th ng-click="updateSorting('Volume')" class="ralign nw"
+                ng-class="getSortingClass('Volume')" style="width: 80px;">Volume</th>
+            <th ng-click="updateSorting('CurrencyPair')" class="ralign"
+                ng-class="getSortingClass('Currencypair')" style="width: 115px;">CurrencyPair</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="trade in filteredTradesDetails | orderBy:sort.predicate:sort.reverse"
+            ng-class="{even: $even, odd: $odd}" ng-cloak>
+            <td class="nw" ng-bind="trade.TradeId">
+            <td class="nw" ng-bind="trade.ExecutionDateTime"></td>
+            <td class="lalign" ng-bind="trade.Price"></td>
+            <td class="nw ralign" ng-bind="trade.Volume"></td>
+            <td class="ralign" ng-bind="trade.CurrencyPair"></td>
+        </tr>
+        <tr class="odd" ng-hide="orderDetailsTrades.length">
+            <td valign="top" colspan="9" class="dataTables_empty">No trades currently available.</td>
+        </tr>
+        </tbody>
+
+        %{--<thead>
         <tr role="row"><th class="lalign nw sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-label="Transaction ID: activate to sort column ascending" style="width: 115px;">Transaction ID</th><th class="lalign sorting_desc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-sort="descending" aria-label="Executed: activate to sort column ascending" style="width: 185px;">Executed</th><th class="lalign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-label="Order Type: activate to sort column ascending" style="width: 100px;">Order Type</th><th class="lalign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-label="Pair: activate to sort column ascending">Pair</th><th class="ralign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Price</th><th class="ralign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-label="Volume: activate to sort column ascending">Volume</th><th class="ralign sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_12" rowspan="1" colspan="1" aria-label="Cost: activate to sort column ascending">Cost</th></tr>
         </thead>
 
-        <tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">No trades currently available.</td></tr></tbody></table></div><div><div class="pull-left"><div class="dataTables_info" id="DataTables_Table_12_info"></div></div><div class="pull-right"><div class="dataTables_paginate paging_bootstrap pagination"><ul><li class="disabled"><a href="javascript: void(0);">‹</a></li><li class="disabled"><a href="javascript: void(0);">›</a></li></ul></div></div><div class="clearfix"></div></div></div>
+        <tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">No trades currently available.</td></tr></tbody></table></div><div><div class="pull-left"><div class="dataTables_info" id="DataTables_Table_12_info"></div></div><div class="pull-right"><div class="dataTables_paginate paging_bootstrap pagination"><ul><li class="disabled"><a href="javascript: void(0);">‹</a></li><li class="disabled"><a href="javascript: void(0);">›</a></li></ul></div></div><div class="clearfix"></div></div></div>--}%
 </div>
 </div>
 </div>

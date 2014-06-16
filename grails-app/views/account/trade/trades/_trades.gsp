@@ -12,6 +12,9 @@
             </p>
           </div>
 
+            <li ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
+                <a href="#/account/trade/tradeDetails">Overview</a>
+            </li>
           <table class="table table-hover table-striped dataTable" ng-show="loaded">
             <thead>
             <tr role="row">
@@ -33,7 +36,11 @@
             <tbody>
             <tr ng-repeat="trade in filteredTrades | orderBy:sort.predicate:sort.reverse"
                 ng-class="{even: $even, odd: $odd}" ng-cloak>
-              <td class="nw" ng-bind="trade.TradeId | limitTo: 8"></td>
+              <td class="nw" ng-click="setTradeId(order.OrderId)">
+                  <li ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
+                      <a href="#/account/trade/tradeDetails">{{trade.TradeId | limitTo : 8}}</a>
+                  </li>
+              </td>
               <td class="nw" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy h:mm:ss'"></td>
               <td class="nw ralign" ng-bind="trade.Price"></td>
               <td class="ralign" ng-bind="trade.Volume"></td>

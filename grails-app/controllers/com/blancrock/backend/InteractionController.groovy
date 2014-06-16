@@ -41,6 +41,17 @@ class InteractionController {
 
         render response
     }
+
+    // Gets the details when a trade is clicked
+    def getTradeDetails(){
+        def orderParams = request.JSON
+        // ToDo: Get teh trade Id from the Trades page
+        def tradeId = orderParams.tradeId
+        String response = queryService.getTradeDetails(tradeId)
+
+        render response
+    }
+
     def createNewOrder() {
         def orderParams = request.JSON
         def order = orderParams.order
@@ -68,6 +79,15 @@ class InteractionController {
         def orderParams = request.JSON
         def orderId = orderParams.orderId
         String response = queryService.showOrderDetails(orderId)
+
+        render response
+    }
+
+    // Gets teh trades when an order is clicked for order details
+    def showTradeDetails() {
+        def orderParams = request.JSON
+        def orderId = orderParams.orderId
+        String response = queryService.showTradeDetails(orderId)
 
         render response
     }

@@ -7,6 +7,9 @@ angular.module('account.trade.orders').service('ShowOrderDetailsService', [
         return {
             query: function (orderId) {
                 return $http.post('api/showOrderDetails',orderId);
+            },
+            tradesQuery: function (orderId) {
+                return $http.post('api/showTradeDetails',orderId);
             }
         };
     } ]);

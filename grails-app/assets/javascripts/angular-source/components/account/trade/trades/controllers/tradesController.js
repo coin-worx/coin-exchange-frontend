@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.trades').controller('TradesController', [
-  '$scope', 'TradesService', function ($scope, tradesService) {
+  '$scope', 'TradesService', 'TradesSharedService', function ($scope, tradesService, tradesSharedService) {
     $scope.loaded = false;
     $scope.filteredTrades = [];
 
@@ -18,6 +18,10 @@ angular.module('account.trade.trades').controller('TradesController', [
         $scope.trades = [];
         $scope.loaded = true;
       });
+
+      $scope.setTradeId = function (tradeId) {
+          orderSharedService.setTradeId(tradeId);
+      };
 
     $scope.sort = {
       predicate: 'TradeId',

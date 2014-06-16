@@ -3,10 +3,6 @@
 'use strict';
 
 angular.module('account.trade.orders').service('OrdersSharedService', function() {
-    var stringValue = 'test string value';
-    var objectValue = {
-        data: 'test object value'
-    };
     var orderId = {
         orderId: ''
     };

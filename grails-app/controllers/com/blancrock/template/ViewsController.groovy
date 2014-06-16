@@ -56,6 +56,10 @@ class ViewsController {
         render template: '/account/trade/trades/trades'
     }
 
+    def accountTradeTradeDetails() {
+        render template: '/account/trade/tradeDetails'
+    }
+
     def accountFunding() {
         render template: '/account/funding/funding'
     }
