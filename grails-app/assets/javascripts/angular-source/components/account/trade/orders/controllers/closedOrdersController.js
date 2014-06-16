@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('ClosedOrdersController', [
-  '$scope', 'ClosedOrdersService', function ($scope, closedOrdersService) {
+  '$scope', 'ClosedOrdersService', 'OrdersSharedService', function ($scope, closedOrdersService, orderSharedService) {
     var loaded = false;
 
     closedOrdersService.query()
@@ -20,6 +20,10 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
         $scope.orders = [];
         loaded = true;
       });
+
+        $scope.setOrderId = function (orderId) {
+            orderSharedService.setOrderIdOfOrder(orderId);
+        };
 
     $scope.isLoaded = function () {
       return !loaded;

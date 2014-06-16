@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('NewAndOpenOrdersController', [
-  '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', function ($scope, newAndOpenOrdersService, cancelOrderService) {
+  '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
     var loaded = false;
 
     newAndOpenOrdersService.query()
@@ -28,6 +28,10 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
                 recalculateMinAndMax();
                 filterCollection();
             })
+        };
+
+        $scope.setOrderId = function (orderId) {
+            orderSharedService.setOrderIdOfOrder(orderId);
         };
 
     $scope.isLoaded = function () {

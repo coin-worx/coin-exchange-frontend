@@ -12,6 +12,9 @@
 
       <div class="vpad10 alert alert-block alert-error hidden2" id="error-orderlist"></div>
 
+        <li ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
+            <a href="#/account/trade/showOrderDetails">Nederandaaandd</a>
+        </li>
       <g:render template="/account/trade/orders/newAndOpenOrders"/>
 
       <g:render template="/account/trade/orders/closedOrders"/>

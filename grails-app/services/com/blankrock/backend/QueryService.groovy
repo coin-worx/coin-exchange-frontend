@@ -105,6 +105,14 @@ class QueryService {
         return response
     }
 
+    String showOrderDetails(String orderId) {
+        String path = '/orders/queryorders'
+
+        String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
+
+        return response
+    }
+
     String getTradeHistory(String start, String end) {
         String path = '/trades/tradehistory'
         Map query = [start: start, end: end]

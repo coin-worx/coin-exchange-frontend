@@ -64,6 +64,14 @@ class InteractionController {
         render response
     }
 
+    def showOrderDetails() {
+        def orderParams = request.JSON
+        def orderId = orderParams.orderId
+        String response = queryService.showOrderDetails(orderId)
+
+        render response
+    }
+
     def getRecentTrades() {
         String response = queryService.getRecentTrades('XBTUSD')
 

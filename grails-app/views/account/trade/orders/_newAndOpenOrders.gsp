@@ -27,7 +27,10 @@
     <tbody>
     <tr ng-repeat="order in filteredOrders | orderBy:sort.predicate:sort.reverse"
         ng-class="{even: $even, odd: $odd}" ng-cloak>
-      <td class="nw" ng-bind="order.OrderId | limitTo: 8"></td>
+      <td class="nw" ng-click="setOrderId(order.OrderId)">
+          <li ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
+          <a href="#/account/trade/showOrderDetails">{{order.OrderId | limitTo : 8}}</a>
+      </li></td>
       <td class="nw" ng-bind="order.Type"></td>
       <td class="lalign" ng-bind="order.CurrencyPair"></td>
       <td class="nw ralign" ng-bind="order.Price"></td>
