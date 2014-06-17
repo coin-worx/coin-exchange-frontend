@@ -9,4 +9,4 @@ angular.module('account.trade').service('TradesService', [
                 return $http.get('api/getTradeHistory');
             }
         };
-    } ]);
+    }]);

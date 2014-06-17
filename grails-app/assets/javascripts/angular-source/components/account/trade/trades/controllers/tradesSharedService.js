@@ -2,7 +2,7 @@
 
 'use strict';
 
-angular.module('account.trade.orders').service('TradesSharedService', function() {
+angular.module('account.trade.trades').service('TradesSharedService', function() {
     var tradeId = {
         tradeId: ''
     };

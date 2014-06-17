@@ -20,7 +20,7 @@ angular.module('account.trade.trades').controller('TradesController', [
       });
 
       $scope.setTradeId = function (tradeId) {
-          orderSharedService.setTradeId(tradeId);
+          tradesSharedService.setTradeIdOfTrade(tradeId);
       };
 
     $scope.sort = {
