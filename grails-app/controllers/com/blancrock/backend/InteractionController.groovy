@@ -45,7 +45,6 @@ class InteractionController {
     // Gets the details when a trade is clicked
     def getTradeDetails(){
         def orderParams = request.JSON
-        // ToDo: Get teh trade Id from the Trades page
         def tradeId = orderParams.tradeId
         String response = queryService.getTradeDetails(tradeId)
 
