@@ -161,8 +161,7 @@ grails.assets.includes = []
     grails.assets.includes << 'bower_components/fontawesome/' + it
 }
 
-blancrock.key.api = 123456
-blancrock.key.secret = 'AuroraBitCoinExchange'
 blancrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
 blancrock.backend.loginPath = '/login/v1/admin/login'
 blancrock.backend.logoutPath = '/dev/private/admin/logout'
+blancrock.auth.nounce = ''

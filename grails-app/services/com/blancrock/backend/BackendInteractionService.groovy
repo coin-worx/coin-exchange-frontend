@@ -1,6 +1,7 @@
 package com.blancrock.backend
 
 import grails.converters.JSON
+import grails.util.Holders
 import groovy.transform.Synchronized
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
@@ -16,7 +17,6 @@ class BackendInteractionService {
     def grailsApplication
 
     final static String CONTENT_TYPE = 'application/json; charset=utf-8'
-    final static String UNAUTHORIZED_STATUS = '401'
 
     @Synchronized
     String makePostRequestToBackend(String path, Map query, Integer iteration = 0) {
@@ -25,7 +25,7 @@ class BackendInteractionService {
 
         (value, status) = postRequest(path, query)
 
-        if (status == UNAUTHORIZED_STATUS && !iteration) {
+        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
             (value) = postRequest(path, query)
         }
 
@@ -39,7 +39,7 @@ class BackendInteractionService {
 
         (value, status) = getRequest(path, query)
 
-        if (status == UNAUTHORIZED_STATUS && !iteration) {
+        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
             (value) = getRequest(path, query)
         }
 
@@ -53,7 +53,7 @@ class BackendInteractionService {
 
         (value, status) = postRequestStringParam(path, query)
 
-        if (status == UNAUTHORIZED_STATUS && !iteration) {
+        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
             (value) = postRequestStringParam(path, query)
         }
 
@@ -96,9 +96,9 @@ class BackendInteractionService {
                 }
 
                 response.failure = { resp, json ->
-                    requestGenerator.nounce = resp.headers.nounce
+                    Holders.config.blancrock.auth.nounce = resp.headers['nounce']
                     requestGenerator.cNumber++
-                    responseStatus = resp.status
+                    responseStatus = resp['status']
                     //@todo: use values from bootstrap for now
                     //requestGenerator.apiKey = resp.headers['apiKey']
 
@@ -204,7 +204,9 @@ class BackendInteractionService {
                 }
 
                 response.failure = { resp, json ->
-                    requestGenerator.nounce = resp.headers.nounce
+                    if (resp.status == ResponseStatus.UNAUTHORIZED) {
+                        Holders.config.blancrock.auth.nounce = resp.headers['nounce']
+                    }
                     requestGenerator.cNumber++
                     responseStatus = resp.status
                     //@todo: use values from bootstrap for now
