@@ -59,7 +59,10 @@ class InteractionController {
         String type = order.orderType
         String side = order.type
         BigDecimal volume = new BigDecimal(order.volume as String)
-        BigDecimal price = new BigDecimal(order.price as String)
+        BigDecimal price = 0
+        if (type == 'Limit'){
+           price = new BigDecimal(order.price as String)
+        }
 
         String response = queryService.createOrder(currencyPair, type, side, volume, price)
 
