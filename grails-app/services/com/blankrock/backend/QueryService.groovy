@@ -1,7 +1,4 @@
 package com.blankrock.backend
-
-import org.codehaus.groovy.grails.validation.Validateable
-
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -106,10 +103,10 @@ class QueryService {
     }
 
     // Gets the details when a trade is clicked
-    String getTradeDetails(String orderId) {
-        String path = '/orders/queryorders'
+    String getTradeDetails(String tradeId) {
+        String path = '/trades/tradedetails'
 
-        String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
+        String response = backendInteractionService.makeStringParamPostRequestToBackend(path, tradeId)
 
         return response
     }

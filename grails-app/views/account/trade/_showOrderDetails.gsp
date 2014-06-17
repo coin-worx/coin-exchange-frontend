@@ -1,6 +1,3 @@
-%{--<div class="frame frame-active" id="orderdetail-wrap" style="width: 950px;">
-<div class="vpad10 alert alert-block alert-error hidden2"></div>--}%
-
 <div class="slider" id="orderdetail-wrap" ng-controller="ShowOrderDetailsController">
 <div class="transfer">
 
@@ -15,7 +12,7 @@
 <div class="clearfix vmarg10bot">
     <h4 class="title pull-left" name="title">Order {{orderDetails.OrderId}}</h4>
     <div class="pull-right">
-        <button class="btn btn-small back" %{--ng-class="{active: ('account.trade.overview' | routeSegmentStartsWith)}"--}% ng-click='goToUrl("/account/trade/orders")'>
+        <button class="btn btn-small back"  ng-click='goToUrl("/account/trade/orders")'>
           « Back
           </button>
     </div>
@@ -52,7 +49,7 @@
                 <tbody><tr>
                     <td class="k">Status</td>
                     <td class="dots"></td>
-                    <td name="status"><span class="label mono label-inverse">Untouched</span></td>
+                    <td name="status"><span class="label mono label-inverse">{{orderDetails.Status}}</span></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="control-hint ralign"> </td>
@@ -164,7 +161,7 @@
                     <tbody><tr>
                         <td class="k">P/L/Fee Currency</td>
                         <td class="dots"></td>
-                        <td name="plinbase">XRP</td>
+                        <td name="plinbase"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>
@@ -327,6 +324,9 @@
         </thead>
 
         <tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">No trades currently available.</td></tr></tbody></table></div><div><div class="pull-left"><div class="dataTables_info" id="DataTables_Table_12_info"></div></div><div class="pull-right"><div class="dataTables_paginate paging_bootstrap pagination"><ul><li class="disabled"><a href="javascript: void(0);">‹</a></li><li class="disabled"><a href="javascript: void(0);">›</a></li></ul></div></div><div class="clearfix"></div></div></div>--}%
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
