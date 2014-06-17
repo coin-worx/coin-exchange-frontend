@@ -25,14 +25,13 @@ class BackendInteractionService {
 
         (value, status) = postRequest(path, query)
 
-        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
+        if (Integer.parseInt(status) == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
             (value) = postRequest(path, query)
         }
 
         return value
     }
 
-    @Synchronized
     String makeGetRequestToBackend(String path, Map query, Integer iteration = 0) {
         String value
         String status
@@ -60,7 +59,58 @@ class BackendInteractionService {
         return value
     }
 
-    private List<String> postRequest(String path, Map query) {
+    def unauthorizedRequest(String path, Map query) {
+        try {
+            String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
+            Integer responseStatus = ResponseStatus.OK
+            String responseValue = ''
+
+            HTTPBuilder http = new HTTPBuilder(baseUrl)
+
+            http.request(Method.POST, CONTENT_TYPE) {
+                uri.path = path
+                body = query
+                headers.Accept = CONTENT_TYPE
+
+                response.success = { resp, json ->
+                    responseValue = json as JSON
+                    responseStatus = resp.status
+
+                    def session = RCH.currentRequestAttributes().session
+
+                    session['requestGenerator'] = new RequestGenerator(apiKey: json.apiKey, secretKey: json.secretKey, sessionLogoutTime: json.sessionLogoutTime)
+
+                    log.error "request generator: " + session['requestGenerator']
+
+                    if (log.isInfoEnabled()) {
+                        log.info 'response data : '
+                        log.info responseValue
+                        log.info '----------------'
+                    }
+                }
+
+                response.failure = { resp, json ->
+                    responseStatus = resp.status
+
+                    log.error 'request fail ' + responseStatus + ' ' + json
+                }
+            }
+
+            [responseStatus, responseValue]
+
+        } catch (HttpResponseException ex) {
+            log.error "Unexpected response error: ${ex.statusCode}"
+            log.error ex.cause.message
+            return null
+        } catch (ConnectException ex) {
+            log.error "Unexpected connection error: ${ex.message}"
+            return null
+        }
+
+    }
+
+    @Synchronized
+    private List postRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -96,7 +146,10 @@ class BackendInteractionService {
                 }
 
                 response.failure = { resp, json ->
-                    Holders.config.blancrock.auth.nounce = resp.headers['nounce']
+                    if (resp.status == ResponseStatus.UNAUTHORIZED.value()) {
+                        Holders.config.blancrock.auth.nounce = resp.headers.nounce
+                    }
+
                     requestGenerator.cNumber++
                     responseStatus = resp['status']
                     //@todo: use values from bootstrap for now
@@ -204,8 +257,8 @@ class BackendInteractionService {
                 }
 
                 response.failure = { resp, json ->
-                    if (resp.status == ResponseStatus.UNAUTHORIZED) {
-                        Holders.config.blancrock.auth.nounce = resp.headers['nounce']
+                    if (resp.status == ResponseStatus.UNAUTHORIZED.value()) {
+                        Holders.config.blancrock.auth.nounce = resp.headers.nounce
                     }
                     requestGenerator.cNumber++
                     responseStatus = resp.status

@@ -42,20 +42,4 @@ class LoginController {
 
         render response ?: 'wrong login parameters'
     }
-
-    def authParams() {
-        def authParams = AuthParams.first()
-
-        render authParams.sessionLogoutTime
-    }
-
-    def resetAuthParams() {
-        def authParams = AuthParams.first()
-
-        authParams.resetLogoutTime()
-
-        println "reset to : ${authParams.sessionLogoutTime}"
-
-        render authParams.sessionLogoutTime
-    }
 }

@@ -14,6 +14,7 @@ class RequestGenerator {
     String url
     String cNounce
     Integer cNumber = 1
+    Date sessionLogoutTime
 
     String getHash() {
         "$apiKey:$url:$secretKey".encodeAsMD5()

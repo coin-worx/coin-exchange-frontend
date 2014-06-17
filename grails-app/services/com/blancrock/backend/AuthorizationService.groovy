@@ -9,13 +9,13 @@ class AuthorizationService {
     def grailsApplication
     def backendInteractionService
 
-    String makeLoginAttempt(String username, String password) {
+    def makeLoginAttempt(String username, String password) {
         String path = grailsApplication.config.blancrock.backend.loginPath
         Map query = [username: username, password: password]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        def (Integer responseStatus, String responseValue) = backendInteractionService.unauthorizedRequest(path, query)
 
-        return response
+        return [responseStatus, responseValue]
     }
 
     String makeLogoutAttempt() {
