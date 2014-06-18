@@ -3,6 +3,7 @@ package com.blancrock.backend
 import grails.converters.JSON
 import grails.util.Holders
 import groovy.transform.Synchronized
+import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
@@ -29,14 +30,14 @@ class BackendInteractionService {
         return value
     }
 
-    String makeGetRequestToBackend(String path, Map query, Integer iteration = 0) {
+    String makeGetRequestToBackend(String path, Map query) {
         def (String value, Integer status) = getRequest(path, query)
 
         return value
     }
 
     String makeAuthorizedGetRequest(String path, query) {
-        def (String value, Integer status) = getRequest(path, query, true)
+        def (String value, Integer status) = authorizedGetRequest(path, query)
 
         return value
     }
@@ -152,7 +153,7 @@ class BackendInteractionService {
         }
     }
 
-    private List<String> getRequest(String path, query, Boolean isAuthorized = false) {
+    private List<String> getRequest(String path, query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -163,21 +164,6 @@ class BackendInteractionService {
                 uri.path = path
                 uri.query = query
                 headers.Accept = CONTENT_TYPE
-
-                if (isAuthorized) {
-                    println "*******************************************"
-                    def session = RCH.currentRequestAttributes().session
-
-                    RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator
-
-                    if (!requestGenerator) {
-                        return [null, ResponseStatus.BAD_REQUEST.value()]
-                    }
-
-                    requestGenerator.url = baseUrl + path
-
-                    headers.Auth = requestGenerator.authParams
-                }
 
                 response.success = { resp, json ->
                     responseValue = json as JSON
@@ -211,5 +197,57 @@ class BackendInteractionService {
             log.error "Unexpected exception: ${ex.message}"
             return [null, ResponseStatus.BAD_REQUEST.value()]
         }
+    }
+
+    private List authorizedGetRequest(String path, query) {
+        try {
+            String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
+
+            Integer responseStatus = ResponseStatus.OK.value()
+            String responseValue = ''
+            HTTPBuilder http = new HTTPBuilder(baseUrl)
+            http.request(Method.GET, ContentType.TEXT) {
+                uri.path = path
+                uri.query = query
+
+                def session = RCH.currentRequestAttributes().session
+
+                RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator
+
+                if (!requestGenerator) {
+                    return [null, ResponseStatus.BAD_REQUEST.value()]
+                }
+
+                requestGenerator.url = baseUrl + path
+
+                headers.Auth = requestGenerator.authParams
+
+                response.success = { resp, reader ->
+                    responseValue = reader
+                    responseStatus = resp.status
+                }
+
+                response.failure = { resp, reader ->
+                    responseStatus = resp.status
+
+                    log.error 'request fail ' + responseStatus + ' ' + reader
+                }
+            }
+
+            [responseValue, responseStatus]
+
+        } catch (HttpResponseException ex) {
+            log.error "Unexpected response error: ${ex.statusCode}"
+            log.error ex.cause.message
+            return [null, ResponseStatus.BAD_REQUEST.value()]
+        } catch (ConnectException ex) {
+            log.error "Unexpected connection error: ${ex.message}"
+            return [null, ResponseStatus.BAD_REQUEST.value()]
+        }
+        catch (Exception ex) {
+            log.error "Unexpected exception: ${ex.message}"
+            return [null, ResponseStatus.BAD_REQUEST.value()]
+        }
+
     }
 }
