@@ -109,5 +109,17 @@
         </div>
       </fieldset>
     </form>
+
+      <tabset>
+          <tab heading="New & Open Orders">
+              <g:render template="/account/trade/orders/newAndOpenOrders"/>
+          </tab>
+          <tab heading="Positions">
+              <g:render template="/account/trade/positions/positions"/>
+          </tab>
+          <tab heading="Order Book">
+              <g:render template="/account/trade/newOrder/orderBook"/>
+          </tab>
+      </tabset>
   </div>
 </div>
