@@ -135,7 +135,7 @@
                     <tr>
                         <td class="k">Status</td>
                         <td class="dots"></td>
-                        <td ng-bind="tradeDetails.Status"></td>
+                        <td ng-bind="tradeDetails.Order.Status"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign">&nbsp;</td>
