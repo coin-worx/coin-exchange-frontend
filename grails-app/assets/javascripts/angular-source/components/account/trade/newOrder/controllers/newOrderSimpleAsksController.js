@@ -1,19 +1,19 @@
-//=require angular-source/components/marketData/orderbook/orderbook.module
+//=require ../services/newOrderSimpleAsksService
 
 'use strict';
 
-angular.module('marketData.orderBook').controller('BidsController', [
-    '$scope', 'BidsService', function ($scope, bidsService) {
+angular.module('account.trade.newOrder').controller('NewOrderSimpleAsksController', [
+    '$scope', 'NewOrderSimpleAsksService', function ($scope, asksService) {
         var loaded = false;
 
-        bidsService.query()
+        asksService.query()
             .success(function (data) {
                 $scope.orderBook = data;
                 setPaginationParams();
                 recalculateMinAndMax();
                 filterCollection();
 
-                $scope.$parent.bidsLoaded = true;
+                $scope.$parent.asksLoaded = true;
                 loaded = true;
 
             }).error(function () {
@@ -32,7 +32,7 @@ angular.module('marketData.orderBook').controller('BidsController', [
         };
 
         $scope.sort = {
-            reverse: true
+            reverse: false
         };
 
         $scope.getSortingClass = function (columnName) {

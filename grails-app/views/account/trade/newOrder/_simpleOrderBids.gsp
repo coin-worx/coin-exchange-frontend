@@ -1,16 +1,16 @@
-<div ng-controller="BidsController">
+<div ng-controller="NewOrderSimpleBidsController">
     <h5 class="center vmarg0top">Buying</h5>
     <div id="DataTables_Table_11_wrapper" class="dataTables_wrapper form-inline" role="grid">
         <div class="dataTables_table_wrapper" style="min-height: 318px;">
             <table class="table table-hover table-striped dataTable" name="table-bids" id="DataTables_Table_11" style="width: 464px;">
                 <thead>
                 <tr role="row" ng-cloak>
-                    <th ng-click="updateSorting('AskPrice')" class="lalign nw"
-                        ng-class="getSortingClass('AskPrice')" style="width: 60px;">Cm. Vol</th>
-                    <th ng-click="updateSorting('AskPrice')" class="lalign nw"
-                        ng-class="getSortingClass('AskPrice')" style="width: 80px;">Cm. Cost</th>
-                    <th ng-click="updateSorting('AskVolume')" class="lalign nw"
-                        ng-class="getSortingClass('AskVolume')" style="width: 80px;">Cost</th>
+                    <th ng-click="updateSorting('CmVol')" class="lalign nw"
+                        ng-class="getSortingClass('CmVol')" style="width: 60px;">Cm. Vol</th>
+                    <th ng-click="updateSorting('CmCost')" class="lalign nw"
+                        ng-class="getSortingClass('CmCost')" style="width: 80px;">Cm. Cost</th>
+                    <th ng-click="updateSorting('Cost')" class="lalign nw"
+                        ng-class="getSortingClass('Cost')" style="width: 80px;">Cost</th>
                     <th ng-click="updateSorting('BidPrice')" class="lalign nw"
                         ng-class="getSortingClass('BidPrice')" style="width: 60px;">Price</th>
                     <th ng-click="updateSorting('BidVolume')" class="lalign nw"
@@ -21,9 +21,9 @@
                 <tbody>
                 <tr ng-repeat="order in filteredOrderBook | orderBy:'BidPrice':sort.reverse"
                     ng-class="{even: $even, odd: $odd}" ng-cloak>
-                    <td class="nw ralign" ng-bind=""></td>
-                    <td class="nw ralign" ng-bind=""></td>
-                    <td class="ralign" ng-bind=""></td>
+                    <td class="nw ralign" ng-bind="order.CmVol"></td>
+                    <td class="nw ralign" ng-bind="order.CmCost"></td>
+                    <td class="ralign" ng-bind="order.Cost"></td>
                     <td class="nw ralign" ng-bind="order.BidPrice"></td>
                     <td class="ralign" ng-bind="order.BidVolume"></td>
                 </tr>
