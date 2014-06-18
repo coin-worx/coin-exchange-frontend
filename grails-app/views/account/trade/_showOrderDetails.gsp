@@ -10,7 +10,7 @@
 
 <div class="orderdetail-data-wrap" class="vmarg40bot"  ng-show="detailsLoaded">
 <div class="clearfix vmarg10bot">
-    <h4 class="title pull-left" name="title">Order {{orderDetails.OrderId}}</h4>
+    <h4 class="title pull-left" ng-bind-template="Order {{orderDetails.OrderId}}" name="title"></h4>
     <div class="pull-right">
         <button class="btn btn-small back"  ng-click='goToUrl("/account/trade/orders")'>
           « Back
@@ -25,7 +25,7 @@
                 <tbody><tr>
                     <td class="k">Order</td>
                     <td class="dots"></td>
-                    <td name="order">{{orderDetails.Side}} {{orderDetails.Volume}}<span class="deczeros">000000</span> {{orderDetails.Currency}} @ {{orderDetails.Type}} {{orderDetails.Price}}<span class="deczeros">00</span></td>
+                    <td name="order" ng-bind-template="{{orderDetails.Side}} {{orderDetails.Volume}} {{orderDetails.Currency}} @ {{orderDetails.Type}} {{orderDetails.Price}}"><span class="deczeros">000000</span> <span class="deczeros">00</span></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="control-hint ralign"> </td>
@@ -49,7 +49,7 @@
                 <tbody><tr>
                     <td class="k">Status</td>
                     <td class="dots"></td>
-                    <td name="status"><span class="label mono label-inverse">{{orderDetails.Status}}</span></td>
+                    <td name="status"><span class="label mono label-inverse" ng-bind-template="{{orderDetails.Status}}"></span></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="control-hint ralign"> </td>
@@ -77,7 +77,7 @@
                     <tbody><tr>
                         <td class="k">Order Type</td>
                         <td class="dots"></td>
-                        <td name="fordertype">{{orderDetails.Side}}/{{orderDetails.Type}}</td>
+                        <td name="fordertype" ng-bind-template="{{orderDetails.Side}}/{{orderDetails.Type}}"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>
@@ -253,7 +253,7 @@
                     <tbody><tr>
                         <td class="k">Cost</td>
                         <td class="dots"></td>
-                        <td name="cost" class="mono">{{orderDetails.Price * orderDetails.Volume}}<span class="deczeros">00</span></td>
+                        <td name="cost" class="mono" ng-bind-template="{{orderDetails.Price * orderDetails.Volume}}"><span class="deczeros">00</span></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>
@@ -267,7 +267,7 @@
                     <tbody><tr>
                         <td class="k">Opened</td>
                         <td class="dots"></td>
-                        <td name="opentime" ng-bind="orderDetails.DateTime">06-10-14 23:33:41 +02:00</td>
+                        <td name="opentime" ng-bind="orderDetails.DateTime"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>

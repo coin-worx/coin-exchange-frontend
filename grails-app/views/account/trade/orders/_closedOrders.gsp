@@ -40,7 +40,7 @@
            <a href="#/account/trade/showOrderDetails">{{order.OrderId | limitTo : 8}}</a>
         </td>
         </td>
-        <td class="nw">{{order.Type}}/{{order.Side}}</td>
+        <td class="nw" ng-bind-template="{{order.Type}}/{{order.Side}}"></td>
         <td class="lalign" ng-bind="order.CurrencyPair"></td>
         <td class="nw ralign" ng-bind="order.Price"></td>
         <td class="ralign" ng-bind="order.Volume"></td>
