@@ -308,7 +308,9 @@
         <tbody>
         <tr ng-repeat="trade in filteredTradesDetails | orderBy:sort.predicate:sort.reverse"
             ng-class="{even: $even, odd: $odd}" ng-cloak>
-            <td class="nw" ng-bind="trade.TradeId">
+            <td class="nw" ng-click="setTradeId(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
+                <a href="#/account/trade/tradeDetails">{{trade.TradeId}}</a>
+            </td>
             <td class="nw" ng-bind="trade.ExecutionDateTime"></td>
             <td class="lalign" ng-bind="trade.Price"></td>
             <td class="nw ralign" ng-bind="trade.Volume"></td>

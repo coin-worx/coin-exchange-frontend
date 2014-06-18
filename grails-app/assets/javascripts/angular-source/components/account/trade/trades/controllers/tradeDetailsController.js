@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.trades').controller('TradeDetailsController', [
-    '$scope', 'TradeDetailService', 'TradesSharedService', 'OrdersSharedService', function ($scope, tradeDetailsService, tradesSharedService, orderSharedService) {
+    '$scope', '$location', 'TradeDetailService', 'TradesSharedService', 'OrdersSharedService', function ($scope, $location, tradeDetailsService, tradesSharedService, orderSharedService) {
         $scope.tradeDetailsLoaded = false;
         $scope.filteredTrades = [];
 
@@ -18,5 +18,9 @@ angular.module('account.trade.trades').controller('TradeDetailsController', [
 
         $scope.setOrderId = function (orderId) {
             orderSharedService.setOrderIdOfOrder(orderId);
+        };
+
+        $scope.goToUrl = function (path) {
+            $location.path( path );
         };
     }]);

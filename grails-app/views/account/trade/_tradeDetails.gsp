@@ -11,9 +11,9 @@
 <div class="frame frame-active" style="width: 950px;" ng-show="tradeDetailsLoaded">
     <div>
     <div class="clearfix vmarg20bot">
-        <h4 class="title pull-left">Trade {{tradeDetails.Side}}</h4>
+        <h4 class="title pull-left" ng-bind-template="Trade {{tradeDetails.TradeId}}"></h4>
         <div class="pull-right">
-            <button class="btn btn-small back">« Back</button>
+            <button class="btn btn-small back" ng-click='goToUrl("/account/trade/trades")'>« Back</button>
         </div>
     </div>
     <div class="row stats-dots-wrap">
@@ -28,7 +28,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="control-hint ralign">{{tradeDetails.Order.Side}} {{tradeDetails.Order.Volume}} {{tradeDetails.Order.CurrencyPair}} @ {{tradeDetails.Order.Type}}</td>
+                        <td colspan="3" class="control-hint ralign" ng-bind-template="{{tradeDetails.Order.Side}} {{tradeDetails.Order.Volume}} {{tradeDetails.Order.CurrencyPair}} @ {{tradeDetails.Order.Type}}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -58,7 +58,7 @@
                     <tr>
                         <td class="k">Order Type</td>
                         <td class="dots"></td>
-                        <td>{{tradeDetails.Order.Side}}/{{tradeDetails.Order.Type}}</td>
+                        <td ng-bind-template="{{tradeDetails.Order.Side}}/{{tradeDetails.Order.Type}}"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign">&nbsp;</td>
@@ -123,7 +123,7 @@
                         <td class="k">Cost</td>
                         <td class="dots">
 
-                        </td> <td class="mono">{{tradeDetails.ExecutionPrice * tradeDetails.Volume}}</td>
+                        </td> <td class="mono" ng-bind-template="{{tradeDetails.ExecutionPrice * tradeDetails.Volume}}"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign">Total cost of the trade.</td>

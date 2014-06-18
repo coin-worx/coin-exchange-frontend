@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('ShowOrderDetailsController', [
-    '$scope', '$location', 'ShowOrderDetailsService', 'OrdersSharedService', function ($scope, $location, showOrderDetailsService, ordersSharedService) {
+    '$scope', '$location', 'ShowOrderDetailsService', 'OrdersSharedService', 'TradesSharedService', function ($scope, $location, showOrderDetailsService, ordersSharedService, tradesSharedService) {
         var orderId = ordersSharedService.getOrderIdOfOrder();
 
         showOrderDetailsService.query(orderId)
@@ -27,6 +27,10 @@ angular.module('account.trade.orders').controller('ShowOrderDetailsController', 
 
         $scope.isLoaded = function () {
             return !loaded;
+        };
+
+        $scope.setTradeId = function (tradeId) {
+            tradesSharedService.setTradeIdOfTrade(tradeId);
         };
 
         $scope.sort = {
