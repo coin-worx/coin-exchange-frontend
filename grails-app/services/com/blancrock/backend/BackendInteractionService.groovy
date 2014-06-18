@@ -20,12 +20,9 @@ class BackendInteractionService {
 
     @Synchronized
     String makePostRequestToBackend(String path, Map query, Integer iteration = 0) {
-        String value
-        String status
+        def (String value, Integer status) = postRequest(path, query)
 
-        (value, status) = postRequest(path, query)
-
-        if (Integer.parseInt(status) == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
+        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
             (value) = postRequest(path, query)
         }
 
@@ -33,28 +30,13 @@ class BackendInteractionService {
     }
 
     String makeGetRequestToBackend(String path, Map query, Integer iteration = 0) {
-        String value
-        String status
-
-        (value, status) = getRequest(path, query)
-
-        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
-            (value) = getRequest(path, query)
-        }
+        def (String value, Integer status) = getRequest(path, query)
 
         return value
     }
 
-    @Synchronized
-    String makeStringParamPostRequestToBackend(String path, String query, Integer iteration = 0) {
-        String value
-        String status
-
-        (value, status) = postRequestStringParam(path, query)
-
-        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
-            (value) = postRequestStringParam(path, query)
-        }
+    String makeAuthorizedGetRequest(String path, query) {
+        def (String value, Integer status) = getRequest(path, query, true)
 
         return value
     }
@@ -62,7 +44,7 @@ class BackendInteractionService {
     def unauthorizedRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
-            Integer responseStatus = ResponseStatus.OK
+            Integer responseStatus = ResponseStatus.OK.value()
             String responseValue = ''
 
             HTTPBuilder http = new HTTPBuilder(baseUrl)
@@ -70,7 +52,6 @@ class BackendInteractionService {
             http.request(Method.POST, CONTENT_TYPE) {
                 uri.path = path
                 body = query
-                headers.Accept = CONTENT_TYPE
 
                 response.success = { resp, json ->
                     responseValue = json as JSON
@@ -78,7 +59,8 @@ class BackendInteractionService {
 
                     def session = RCH.currentRequestAttributes().session
 
-                    session['requestGenerator'] = new RequestGenerator(apiKey: json.apiKey, secretKey: json.secretKey, sessionLogoutTime: json.sessionLogoutTime)
+                    session['requestGenerator'] = new RequestGenerator(apiKey: json['ApiKey'],
+                            secretKey: json['SecretKey'])
 
                     log.error "request generator: " + session['requestGenerator']
 
@@ -101,30 +83,29 @@ class BackendInteractionService {
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"
             log.error ex.cause.message
-            return null
+            return [ResponseStatus.BAD_REQUEST.value(), null]
         } catch (ConnectException ex) {
             log.error "Unexpected connection error: ${ex.message}"
-            return null
+            return [ResponseStatus.BAD_REQUEST.value(), null]
         }
 
     }
 
-    @Synchronized
     private List postRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
             def session = RCH.currentRequestAttributes().session
 
-            AuthParams authParams = AuthParams.findByApiKey('55555')
+            RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator
 
-            RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator ?: new RequestGenerator(
-                    apiKey: authParams.apiKey, secretKey: authParams.secretKey
-            )
+            if (!requestGenerator) {
+                return [ResponseStatus.BAD_REQUEST.value(), null]
+            }
 
             requestGenerator.url = baseUrl + path
 
-            String responseStatus = ''
+            Integer responseStatus = ResponseStatus.OK.value()
             String responseValue = ''
             HTTPBuilder http = new HTTPBuilder(baseUrl)
             http.request(Method.POST, CONTENT_TYPE) {
@@ -151,9 +132,7 @@ class BackendInteractionService {
                     }
 
                     requestGenerator.cNumber++
-                    responseStatus = resp['status']
-                    //@todo: use values from bootstrap for now
-                    //requestGenerator.apiKey = resp.headers['apiKey']
+                    responseStatus = resp.status
 
                     log.error 'request fail ' + responseStatus + ' ' + json
                 }
@@ -166,18 +145,18 @@ class BackendInteractionService {
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"
             log.error ex.cause.message
-            return null
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         } catch (ConnectException ex) {
             log.error "Unexpected connection error: ${ex.message}"
-            return null
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         }
     }
 
-    private List<String> getRequest(String path, Map query) {
+    private List<String> getRequest(String path, query, Boolean isAuthorized = false) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
-            String responseStatus = ''
+            Integer responseStatus = ResponseStatus.OK.value()
             String responseValue = ''
             HTTPBuilder http = new HTTPBuilder(baseUrl)
             http.request(Method.GET, CONTENT_TYPE) {
@@ -185,6 +164,21 @@ class BackendInteractionService {
                 uri.query = query
                 headers.Accept = CONTENT_TYPE
 
+                if (isAuthorized) {
+                    println "*******************************************"
+                    def session = RCH.currentRequestAttributes().session
+
+                    RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator
+
+                    if (!requestGenerator) {
+                        return [null, ResponseStatus.BAD_REQUEST.value()]
+                    }
+
+                    requestGenerator.url = baseUrl + path
+
+                    headers.Auth = requestGenerator.authParams
+                }
+
                 response.success = { resp, json ->
                     responseValue = json as JSON
                     responseStatus = resp.status
@@ -198,8 +192,6 @@ class BackendInteractionService {
 
                 response.failure = { resp, json ->
                     responseStatus = resp.status
-                    //@todo: use values from bootstrap for now
-                    //requestGenerator.apiKey = resp.headers['apiKey']
 
                     log.error 'request fail ' + responseStatus + ' ' + json
                 }
@@ -210,76 +202,14 @@ class BackendInteractionService {
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"
             log.error ex.cause.message
-            return null
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         } catch (ConnectException ex) {
             log.error "Unexpected connection error: ${ex.message}"
-            return null
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         }
         catch (Exception ex) {
             log.error "Unexpected exception: ${ex.message}"
-            return null
-        }
-    }
-
-    private List<String> postRequestStringParam(String path, String query) {
-        try {
-            String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
-
-            def session = RCH.currentRequestAttributes().session
-
-            AuthParams authParams = AuthParams.findByApiKey('55555')
-
-            RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator ?: new RequestGenerator(
-                    apiKey: authParams.apiKey, secretKey: authParams.secretKey
-            )
-
-            requestGenerator.url = baseUrl + path
-
-            String responseStatus = ''
-            String responseValue = ''
-            HTTPBuilder http = new HTTPBuilder(baseUrl)
-            http.request(Method.POST, CONTENT_TYPE) {
-                uri.path = path
-                body = "\"" + query + "\""
-                headers.Accept = CONTENT_TYPE
-                headers.Auth = requestGenerator.authParams
-
-                response.success = { resp, json ->
-                    requestGenerator.cNumber++
-                    responseValue = json as JSON
-                    responseStatus = resp.status
-
-                    if (log.isInfoEnabled()) {
-                        log.info 'response data : '
-                        log.info responseValue
-                        log.info '----------------'
-                    }
-                }
-
-                response.failure = { resp, json ->
-                    if (resp.status == ResponseStatus.UNAUTHORIZED.value()) {
-                        Holders.config.blancrock.auth.nounce = resp.headers.nounce
-                    }
-                    requestGenerator.cNumber++
-                    responseStatus = resp.status
-                    //@todo: use values from bootstrap for now
-                    //requestGenerator.apiKey = resp.headers['apiKey']
-
-                    log.error 'request fail ' + responseStatus + ' ' + json
-                }
-            }
-
-            session['requestGenerator'] = requestGenerator
-
-            [responseValue, responseStatus]
-
-        } catch (HttpResponseException ex) {
-            log.error "Unexpected response error: ${ex.statusCode}"
-            log.error ex.cause.message
-            return null
-        } catch (ConnectException ex) {
-            log.error "Unexpected connection error: ${ex.message}"
-            return null
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         }
     }
 }

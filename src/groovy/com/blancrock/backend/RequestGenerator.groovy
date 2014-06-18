@@ -26,7 +26,11 @@ class RequestGenerator {
         println "*******************************************************"
         println "nounce is : ${nounce}"
         println "*******************************************************"
+        String hash = this.getHash()
 
-        [apiKey, nounce, cNounce, cNumber, getHash()].join(',')
+        def result = [apiKey, nounce, cNounce, cNumber, hash].join(',')
+
+        println "result : ${result}"
+        result
     }
 }

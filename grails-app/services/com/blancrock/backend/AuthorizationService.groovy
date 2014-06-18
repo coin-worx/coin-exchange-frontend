@@ -22,7 +22,7 @@ class AuthorizationService {
         String path = grailsApplication.config.blancrock.backend.logoutPath
         Map query = [:]
 
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedGetRequest(path, query)
 
         return response
     }
