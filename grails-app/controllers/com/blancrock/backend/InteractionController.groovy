@@ -69,6 +69,18 @@ class InteractionController {
         render response
     }
 
+    def newOrderSimpleBids() {
+        String response = queryService.newOrderSimpleBids('XBTUSD')
+
+        render response
+    }
+
+    def newOrderSimpleAsks() {
+        String response = queryService.newOrderSimpleAsks('XBTUSD')
+
+        render response
+    }
+
     def cancelOrder() {
         def orderParams = request.JSON
         def orderId = orderParams.OrderId

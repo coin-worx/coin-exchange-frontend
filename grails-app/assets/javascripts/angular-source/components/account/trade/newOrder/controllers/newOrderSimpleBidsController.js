@@ -1,9 +1,9 @@
-//=require angular-source/components/marketData/orderbook/orderbook.module
+//=require ../services/newOrderSimpleBidsService
 
 'use strict';
 
-angular.module('marketData.orderBook').controller('BidsController', [
-    '$scope', 'BidsService', function ($scope, bidsService) {
+angular.module('account.trade.newOrder').controller('NewOrderSimpleBidsController', [
+    '$scope', 'NewOrderSimpleBidsService', function ($scope, bidsService) {
         var loaded = false;
 
         bidsService.query()

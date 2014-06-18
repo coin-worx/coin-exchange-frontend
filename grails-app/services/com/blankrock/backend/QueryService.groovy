@@ -94,6 +94,28 @@ class QueryService {
         return response
     }
 
+    String newOrderSimpleBids(String currencyPair){
+        String path = '/marketdata/orderbook'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractNewOrderSimpleBidsJson(response)
+
+        return jsonOrderBook
+    }
+
+    String newOrderSimpleAsks(String currencyPair){
+        String path = '/marketdata/orderbook'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractNewOrderSimpleAsksJson(response)
+
+        return jsonOrderBook
+    }
+
     String cancelOrder(String orderId) {
         String path = '/orders/cancelorder'
 
