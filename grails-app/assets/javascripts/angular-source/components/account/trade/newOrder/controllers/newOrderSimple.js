@@ -127,6 +127,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
         else if($scope.parameters.orderType == constants.orderType.MARKET){
             var totalVolume = 0;
             var totalCost = 0;
+            // Get the bids order book using the bids service
             if($scope.bids ===  null){
                 bidsService.query()
                     .success(function (data) {
@@ -136,6 +137,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
                         $scope.bids = null;
                     });
             }
+            // Get the asks order book using the asks service
             if($scope.asks ===  null){
                 asksService.query()
                     .success(function (data) {
