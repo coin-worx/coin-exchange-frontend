@@ -1,4 +1,6 @@
 //=require ../services/orderDetailsService
+//=require ../services/NewOrderSimpleAsksService
+//=require ../services/NewOrderSimpleBidsService
 
 'use strict';
 
@@ -22,9 +24,11 @@ angular.module('account.trade.newOrder').constant('constants', {
 });
 
 angular.module('account.trade.newOrder').controller('NewOrderSimpleController', [
-  '$scope', '$location', '$filter', 'constants', 'orderDetailsService', function ($scope, $location, $filter, constants, orderDetailsService) {
+  '$scope', '$location', '$filter', 'constants', 'orderDetailsService', 'NewOrderSimpleBidsService', 'NewOrderSimpleAsksService', function ($scope, $location, $filter, constants, orderDetailsService, bidsService, asksService) {
 
     $scope.submitted = false;
+    $scope.bids = null;
+    $scope.asks = null;
     $scope.parameters = {
       type: constants.type.BUY,
       btnClass: constants.btnClass.SUCCESS,
@@ -113,11 +117,89 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
     }
 
     $scope.$watchCollection('[volume, price]', function (newValues) {
-      if (newValues && newValues[0] && newValues[1]) {
-        $scope.total = newValues[0] * newValues[1];
-      } else {
-        $scope.total = null;
-      }
+        if($scope.parameters.orderType == constants.orderType.LIMIT){
+          if (newValues && newValues[0] && newValues[1]) {
+            $scope.total = newValues[0] * newValues[1];
+          } else {
+            $scope.total = null;
+          }
+        }
+        else if($scope.parameters.orderType == constants.orderType.MARKET){
+            var totalVolume = 0;
+            var totalCost = 0;
+            if($scope.bids ===  null){
+                bidsService.query()
+                    .success(function (data) {
+                        $scope.bids = data;
+
+                    }).error(function () {
+                        $scope.bids = null;
+                    });
+            }
+            if($scope.asks ===  null){
+                asksService.query()
+                    .success(function (data) {
+                        $scope.asks = data;
+
+                    }).error(function () {
+                        $scope.asks = null;
+                    });
+            }
+            if($scope.parameters.type === constants.type.SELL){
+                // Variable that causes the circuit to break
+                var breakLoop = false;
+                angular.forEach($scope.bids, function(value, key) {
+                    if(!breakLoop){
+                        var bidVolume = parseFloat(value.BidVolume);
+                        var bidPrice = parseFloat(value.BidPrice);
+                        // If the total volume plus this iteration's volume is greater than the user entered volume, then
+                        // this is the last iteration
+                        if((totalVolume + bidVolume) >= newValues[0]){
+                            // Get the difference between the current total volume and the user entered volume
+                            var difference = (totalVolume + bidVolume) - newValues[0];
+                            // Only get that volume which is required for the cost that the user entered volume will have
+                            bidVolume -= difference;
+                            totalCost += bidPrice * bidVolume;
+                            $scope.total = totalCost;
+                            breakLoop = true;
+                        }
+                        // If the total volume plus the current volume is less than the user entered volume, then add the cost in
+                        // the total cost
+                        else if((totalVolume + bidVolume) < newValues[0]){
+                            totalCost += bidPrice * bidVolume;
+                            totalVolume += bidVolume;
+                        }
+                    }
+                });
+            }
+            else if($scope.parameters.type === constants.type.BUY){
+                // Variable that causes the circuit to break
+                var breakLoop = false;
+                angular.forEach($scope.asks, function(value, key) {
+                    if(!breakLoop){
+                        var askVolume = parseFloat(value.AskVolume);
+                        var askPrice = parseFloat(value.AskPrice);
+                        // If the total volume plus this iteration's volume is greater than the user entered volume, then
+                        // this is the last iteration
+                        if((totalVolume + askVolume) >= newValues[0]){
+                            // Get the difference between the current total volume and the user entered volume
+                            var difference = (totalVolume + askVolume) - newValues[0];
+                            // Only get that volume which is required for the cost that the user entered volume will have
+                            askVolume -= difference;
+                            totalCost += askPrice * askVolume;
+                            $scope.total = totalCost;
+                            breakLoop = true;
+                        }
+                        // If the total volume plus the current volume is less than the user entered volume, then add the cost in
+                        // the total cost
+                        else if((totalVolume + askVolume) < newValues[0]){
+                            totalCost += askPrice * askVolume;
+                            totalVolume += askVolume;
+                        }
+                    }
+                });
+            }
+        }
     });
 
     $scope.isOrderTypeMatch = function (orderType) {
