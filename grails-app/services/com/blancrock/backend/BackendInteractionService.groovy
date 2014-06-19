@@ -20,29 +20,36 @@ class BackendInteractionService {
     final static String CONTENT_TYPE = 'application/json; charset=utf-8'
 
     @Synchronized
-    String makePostRequestToBackend(String path, Map query, Integer iteration = 0) {
-        def (String value, Integer status) = postRequest(path, query)
+    String makeAuthorizedPostRequest(String path, Map query, Integer iteration = 0) {
+        def (String value, Integer status) = authorizedPostRequest(path, query)
 
         if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
-            (value) = postRequest(path, query)
+            (value) = authorizedPostRequest(path, query)
         }
 
         return value
     }
 
-    String makeGetRequestToBackend(String path, Map query) {
-        def (String value, Integer status) = getRequest(path, query)
+    @Synchronized
+    String makeUnauthorizedGetRequest(String path, Map query) {
+        def (String value, Integer status) = unauthorizedGetRequest(path, query)
 
         return value
     }
 
-    String makeAuthorizedGetRequest(String path, query) {
+    @Synchronized
+    List makeAuthorizedGetRequest(String path, query, Integer iteration = 0) {
         def (String value, Integer status) = authorizedGetRequest(path, query)
 
-        return value
+        if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
+            (value, status) = authorizedGetRequest(path, query)
+        }
+
+        return [value, status]
     }
 
-    def unauthorizedRequest(String path, Map query) {
+    @Synchronized
+    List makeUnauthorizedPostRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
             Integer responseStatus = ResponseStatus.OK.value()
@@ -79,7 +86,7 @@ class BackendInteractionService {
                 }
             }
 
-            [responseStatus, responseValue]
+            [responseValue, responseStatus]
 
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"
@@ -92,7 +99,7 @@ class BackendInteractionService {
 
     }
 
-    private List postRequest(String path, Map query) {
+    private List authorizedPostRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -153,7 +160,7 @@ class BackendInteractionService {
         }
     }
 
-    private List<String> getRequest(String path, query) {
+    private List unauthorizedGetRequest(String path, query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -229,6 +236,11 @@ class BackendInteractionService {
 
                 response.failure = { resp, reader ->
                     responseStatus = resp.status
+                    responseValue = reader
+
+                    if (resp.status == ResponseStatus.UNAUTHORIZED.value()) {
+                        Holders.config.blancrock.auth.nounce = resp.headers.nounce
+                    }
 
                     log.error 'request fail ' + responseStatus + ' ' + reader
                 }

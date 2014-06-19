@@ -1,7 +1,4 @@
 package com.blancrock.backend
-
-import org.codehaus.groovy.grails.validation.Validateable
-
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -15,7 +12,7 @@ class QueryService {
         String path = '/login/v1/marketdata/tickerinfo'
 
         Map query = [currencyPair: currencyPair]
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         return response
     }
@@ -24,7 +21,7 @@ class QueryService {
         String path = '/login/v1/trades/tradeablecurrencypair'
 
         Map query = [:]
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         return response
     }
@@ -33,7 +30,7 @@ class QueryService {
         String path = '/login/v1/marketdata/rates'
 
         Map query = [:]
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         def jsonOrderBook = jsonHelperService.extractRatesJson(response)
 
@@ -44,7 +41,7 @@ class QueryService {
         String path = '/login/v1/orders/openorders'
         Map query = [includeTrades: includeTrades, userRefId: userRefId]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         return response
     }
@@ -65,7 +62,7 @@ class QueryService {
                 closeTime    : closeTime
         ]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         return response
     }
@@ -74,7 +71,7 @@ class QueryService {
         String path = '/login/v1/trades/querytrades'
         Map query = [txId: txId, includeTrades: includeTrades]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         return response
     }
@@ -83,7 +80,7 @@ class QueryService {
         String path = '/login/v1/trades/tradevolume'
         Map query = [pair: pair]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         return response
     }
@@ -92,7 +89,7 @@ class QueryService {
         String path = '/login/v1/orders/createorder'
         Map query = [pair: pair, type: type, side: side, volume: volume, price: price]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         return response
     }
@@ -100,6 +97,7 @@ class QueryService {
     String cancelOrder(String orderId) {
         String path = '/login/v1/orders/cancelorder'
 
+        //@todo: invoke correct method
         String response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
 
         return response
@@ -109,7 +107,7 @@ class QueryService {
         String path = '/login/v1/trades/tradehistory'
         Map query = [start: start, end: end]
 
-        String response = backendInteractionService.makePostRequestToBackend(path, query)
+        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         String jsonWithKeys = jsonHelperService.addNecessaryKeysToTradeHistoryJson(response)
 
@@ -120,7 +118,7 @@ class QueryService {
         String path = '/login/v1/trades/recenttrades'
 
         Map query = [currencyPair: currencyPair]
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         def jsonOrderBook = jsonHelperService.addKeysToRecentTradesJson(response)
 
@@ -131,7 +129,7 @@ class QueryService {
         String path = '/login/v1/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         def jsonOrderBook = jsonHelperService.extractBidsJson(response)
 
@@ -142,7 +140,7 @@ class QueryService {
         String path = '/login/v1/marketdata/orderbook'
 
         Map query = [currencyPair: currencyPair]
-        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+        String response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         def jsonOrderBook = jsonHelperService.extractAsksJson(response)
 

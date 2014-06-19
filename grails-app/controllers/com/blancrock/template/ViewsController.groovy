@@ -120,4 +120,11 @@ class ViewsController {
         render template: '/account/trade/newOrder/advancedOrder'
     }
 
+    def login() {
+        render template: '/login/login'
+    }
+
+    def signUp() {
+        render template: '/login/signUp'
+    }
 }

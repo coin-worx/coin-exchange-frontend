@@ -1,5 +1,7 @@
 package com.blancrock.backend
 
+import org.springframework.web.context.request.RequestContextHolder as RCH
+
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -9,21 +11,31 @@ class AuthorizationService {
     def grailsApplication
     def backendInteractionService
 
-    def makeLoginAttempt(String username, String password) {
+    Map makeLoginAttempt(String username, String password) {
         String path = grailsApplication.config.blancrock.backend.loginPath
         Map query = [username: username, password: password]
 
-        def (Integer responseStatus, String responseValue) = backendInteractionService.unauthorizedRequest(path, query)
+        def (String value, Integer status) = backendInteractionService.makeUnauthorizedPostRequest(path, query)
 
-        return [responseStatus, responseValue]
+        return [status: status, value: value]
     }
 
-    String makeLogoutAttempt() {
+    Map makeLogoutAttempt() {
         String path = grailsApplication.config.blancrock.backend.logoutPath
         Map query = [:]
 
-        String response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+        def (String value, Integer status) = backendInteractionService.makeAuthorizedGetRequest(path, query)
 
-        return response
+        if (status == ResponseStatus.OK.value()) {
+            def session = RCH.currentRequestAttributes().session
+
+            session['requestGenerator'] = null
+
+            if (log.isInfoEnabled()) {
+                log.info 'session was invalidated'
+            }
+        }
+
+        return [status: status, value: value]
     }
 }

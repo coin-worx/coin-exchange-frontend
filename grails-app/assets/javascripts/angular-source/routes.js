@@ -13,6 +13,10 @@ angular.module('blancrockExchangeApp').config(
       $routeSegmentProvider
 
         .when('/', 'index')
+
+        .when('/login', 'login')
+        .when('/signUp', 'signUp')
+
         .when('/account', 'account')
 
         .when('/account/trade', 'account.trade')
@@ -49,10 +53,18 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/getVerified', 'account.getVerified')
 
         .when('/market', 'market')
-                .when('/marketData', 'marketData')
+        .when('/marketData', 'marketData')
 
         .when('/about', 'about')
         .when('/help', 'help')
+
+        .segment('login', {
+          templateUrl: 'views/login'
+        })
+
+        .segment('signUp', {
+          templateUrl: 'views/signUp'
+        })
 
         .segment('account', {
           templateUrl: 'views/account'
