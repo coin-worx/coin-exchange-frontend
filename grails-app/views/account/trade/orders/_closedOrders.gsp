@@ -43,7 +43,7 @@
         <td class="nw" ng-bind-template="{{order.Type}}/{{order.Side}}"></td>
         <td class="lalign" ng-bind="order.CurrencyPair"></td>
         <td class="nw ralign" ng-bind="order.Price"></td>
-        <td class="ralign" ng-bind="order.Volume"></td>
+        <td class="ralign" ng-bind="order.VolumeExecuted"></td>
         <td class="ralign" ng-bind="order.Cost"></td>
         <td>
           <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>
