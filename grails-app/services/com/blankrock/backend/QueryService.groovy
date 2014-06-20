@@ -195,4 +195,13 @@ class QueryService {
 
         return jsonOrderBook
     }
+
+    String getDepth(String currencyPair){
+        String path = '/marketdata/depth'
+
+        Map query = [currencyPair: currencyPair]
+        String response = backendInteractionService.makeGetRequestToBackend(path, query)
+
+        return response
+    }
 }

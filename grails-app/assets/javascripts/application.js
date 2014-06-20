@@ -10,6 +10,8 @@
 //= require bower_components/angular-sanitize/angular-sanitize
 //= require bower_components/angular-animate/angular-animate
 //= require bower_components/angular-bootstrap/ui-bootstrap-tpls
+//= require bower_components/highcharts-release/highcharts.js
+//= require bower_components/highcharts-ng/dist/highcharts-ng.js
 //= require_tree views
 //= require_tree angular-source
 //= require kraken
