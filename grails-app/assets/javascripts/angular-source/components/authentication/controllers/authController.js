@@ -10,25 +10,12 @@ angular.module('auth').controller('AuthController', ['$scope', '$location', 'Aut
       if ($scope.loginForm.$invalid) {
         return false;
       } else {
-        AuthService.login($scope.credentials.username, $scope.credentials.password)
-          .success(function (response) {
-            $location.path('/');
-          }).error(function (error) {
-            console.log(error);
-          })
+        AuthService.login($scope.credentials.username, $scope.credentials.password);
       }
     };
 
     $scope.logout = function () {
-      AuthService.logout()
-        .success(function (response) {
-          $location.path('/login');
-          console.log(response);
-        })
-        .error(function (error) {
-          console.log('show error');
-          console.log(error);
-        })
+      AuthService.logout();
     };
 
   }]);

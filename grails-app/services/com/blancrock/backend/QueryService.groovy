@@ -99,7 +99,7 @@ class QueryService {
         String path = getPathWithPrefix('/orders/cancelorder')
 
         //@todo: invoke correct method
-        Map response = backendInteractionService.makeStringParamPostRequestToBackend(path, orderId)
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, orderId)
 
         return [status: response.status, value: response.value]
     }

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('blancrockExchangeApp').config(
-  ['$routeProvider', '$routeSegmentProvider', '$httpProvider', '$locationProvider',
-    function ($routeProvider, $routeSegmentProvider, $httpProvider, $locationProvider) {
+  ['$routeProvider', '$routeSegmentProvider', '$httpProvider', '$locationProvider', '$injector',
+    function ($routeProvider, $routeSegmentProvider, $httpProvider, $locationProvider, $injector) {
 
       $routeSegmentProvider.options.autoLoadTemplates = true;
 
@@ -15,6 +15,7 @@ angular.module('blancrockExchangeApp').config(
         .when('/', 'index')
 
         .when('/login', 'login')
+        .when('/logout', 'logout')
         .when('/signUp', 'signUp')
 
         .when('/account', 'account')
@@ -60,6 +61,10 @@ angular.module('blancrockExchangeApp').config(
 
         .segment('login', {
           templateUrl: 'views/login'
+        })
+
+        .segment('logout', {
+          templateUrl: 'views/logout'
         })
 
         .segment('signUp', {
@@ -211,19 +216,36 @@ angular.module('blancrockExchangeApp').config(
         redirectTo: '/'
       });
 
-      $httpProvider.interceptors.push(function ($q, $location) {
+      $httpProvider.interceptors.push(function ($q, $location, $injector) {
         return {
+          'response': function (response) {
+            var AuthService = $injector.get('AuthService'),
+              $routeSegmentProvider = $injector.get('$routeSegment');
+
+//            var deferred = $q.defer();
+//
+//            if (AuthService.isLoggedIn()) {
+//              return response;
+//            } else {
+////              $location.path('/login');
+//              return response;
+//            }
+
+            return response;
+          },
+
           'responseError': function (response) {
 
-            //@todo change response from backend to 401, 500 etc
-            var deferred = $q.defer();
+            var AuthService = $injector.get('AuthService');
 
-            console.log(response);
-            if (response.status === 401 || response.status === 500) {
-              $location.path('/login');
+            if (response.status === 400 || response.status === 401 || response.status === 500) {
+              if (AuthService.isLoggedIn()) {
+                AuthService.logout();
+              }
+              console.log(response.status);
             }
 
-            return deferred.reject();
+            return $q.reject(response);
           }
         };
       });

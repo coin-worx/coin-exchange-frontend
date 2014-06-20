@@ -124,6 +124,10 @@ class ViewsController {
         render template: '/login/login'
     }
 
+    def logout() {
+        render template: '/login/logout'
+    }
+
     def signUp() {
         render template: '/login/signUp'
     }

@@ -1,7 +1,7 @@
 <div class="container page-wrap" ng-controller="AuthController">
   <div class="row posrel">
     <div class="secimg-wrap login">
-      <img src="/monsterid" alt="Security Image">
+      <asset:image src="monsterid.png" alt="Security Image"/>
 
       <div class="caption">
         <p>

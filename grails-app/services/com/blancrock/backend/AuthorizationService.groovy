@@ -24,9 +24,9 @@ class AuthorizationService {
         String path = grailsApplication.config.blancrock.backend.logoutPath
         Map query = [:]
 
-        def (String value, Integer status) = backendInteractionService.makeAuthorizedGetRequest(path, query)
+        Map backendResponse = backendInteractionService.makeAuthorizedGetRequest(path, query)
 
-        if (status == ResponseStatus.OK.value()) {
+        if (backendResponse.status == ResponseStatus.OK.value()) {
             def session = RCH.currentRequestAttributes().session
 
             session['requestGenerator'] = null
@@ -36,6 +36,6 @@ class AuthorizationService {
             }
         }
 
-        return [status: status, value: value]
+        return [status: backendResponse.status, value: backendResponse.value]
     }
 }

@@ -20,25 +20,25 @@ class BackendInteractionService {
     final static String CONTENT_TYPE = 'application/json; charset=utf-8'
 
     @Synchronized
-    Map makeAuthorizedPostRequest(String path, Map query, Integer iteration = 0) {
+    Map makeAuthorizedPostRequest(String path, Object query, Integer iteration = 0) {
         def (String value, Integer status) = authorizedPostRequest(path, query)
 
         if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
-            (value) = authorizedPostRequest(path, query)
+            (value, status) = authorizedPostRequest(path, query)
         }
 
         return [value: value, status: status]
     }
 
     @Synchronized
-    Map makeUnauthorizedGetRequest(String path, Map query) {
+    Map makeUnauthorizedGetRequest(String path, Object query) {
         def (String value, Integer status) = unauthorizedGetRequest(path, query)
 
         return [value: value, status: status]
     }
 
     @Synchronized
-    List makeAuthorizedGetRequest(String path, query, Integer iteration = 0) {
+    Map makeAuthorizedGetRequest(String path, Object query, Integer iteration = 0) {
         def (String value, Integer status) = authorizedGetRequest(path, query)
 
         if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
@@ -91,15 +91,15 @@ class BackendInteractionService {
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"
             log.error ex.cause.message
-            return [ResponseStatus.BAD_REQUEST.value(), null]
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         } catch (ConnectException ex) {
             log.error "Unexpected connection error: ${ex.message}"
-            return [ResponseStatus.BAD_REQUEST.value(), null]
+            return [null, ResponseStatus.BAD_REQUEST.value()]
         }
 
     }
 
-    private List authorizedPostRequest(String path, Map query) {
+    private List authorizedPostRequest(String path, Object query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -108,10 +108,12 @@ class BackendInteractionService {
             RequestGenerator requestGenerator = session['requestGenerator'] as RequestGenerator
 
             if (!requestGenerator) {
-                return [ResponseStatus.BAD_REQUEST.value(), null]
+                return [null, ResponseStatus.BAD_REQUEST.value()]
             }
 
             requestGenerator.url = baseUrl + path
+
+            query = prepareQueryForRequest(query)
 
             Integer responseStatus = ResponseStatus.OK.value()
             String responseValue = ''
@@ -160,7 +162,7 @@ class BackendInteractionService {
         }
     }
 
-    private List unauthorizedGetRequest(String path, query) {
+    private List unauthorizedGetRequest(String path, Object query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -206,7 +208,7 @@ class BackendInteractionService {
         }
     }
 
-    private List authorizedGetRequest(String path, query) {
+    private List authorizedGetRequest(String path, Object query) {
         try {
             String baseUrl = grailsApplication.config.blancrock.backend.baseUrl
 
@@ -260,5 +262,16 @@ class BackendInteractionService {
             return [null, ResponseStatus.BAD_REQUEST.value()]
         }
 
+    }
+
+    private Object prepareQueryForRequest(query) {
+        def resultedQuery
+        if (query && query instanceof String) {
+            resultedQuery = '"' + query + '"'
+        } else {
+            resultedQuery = query
+        }
+
+        resultedQuery
     }
 }
