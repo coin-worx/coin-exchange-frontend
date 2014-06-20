@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('blancrockExchangeApp').config(
-  ['$routeProvider', '$routeSegmentProvider',
-    function ($routeProvider, $routeSegmentProvider) {
+  ['$routeProvider', '$routeSegmentProvider', '$httpProvider', '$locationProvider',
+    function ($routeProvider, $routeSegmentProvider, $httpProvider, $locationProvider) {
 
       $routeSegmentProvider.options.autoLoadTemplates = true;
 
@@ -209,5 +209,22 @@ angular.module('blancrockExchangeApp').config(
 
       $routeProvider.otherwise({
         redirectTo: '/'
+      });
+
+      $httpProvider.interceptors.push(function ($q, $location) {
+        return {
+          'responseError': function (response) {
+
+            //@todo change response from backend to 401, 500 etc
+            var deferred = $q.defer();
+
+            console.log(response);
+            if (response.status === 401 || response.status === 500) {
+              $location.path('/login');
+            }
+
+            return deferred.reject();
+          }
+        };
       });
     }]);

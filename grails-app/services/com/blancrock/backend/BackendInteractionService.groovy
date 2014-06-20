@@ -20,21 +20,21 @@ class BackendInteractionService {
     final static String CONTENT_TYPE = 'application/json; charset=utf-8'
 
     @Synchronized
-    String makeAuthorizedPostRequest(String path, Map query, Integer iteration = 0) {
+    Map makeAuthorizedPostRequest(String path, Map query, Integer iteration = 0) {
         def (String value, Integer status) = authorizedPostRequest(path, query)
 
         if (status == ResponseStatus.UNAUTHORIZED.value() && !iteration) {
             (value) = authorizedPostRequest(path, query)
         }
 
-        return value
+        return [value: value, status: status]
     }
 
     @Synchronized
-    String makeUnauthorizedGetRequest(String path, Map query) {
+    Map makeUnauthorizedGetRequest(String path, Map query) {
         def (String value, Integer status) = unauthorizedGetRequest(path, query)
 
-        return value
+        return [value: value, status: status]
     }
 
     @Synchronized
@@ -45,7 +45,7 @@ class BackendInteractionService {
             (value, status) = authorizedGetRequest(path, query)
         }
 
-        return [value, status]
+        return [value: value, status: status]
     }
 
     @Synchronized
@@ -250,7 +250,6 @@ class BackendInteractionService {
 
         } catch (HttpResponseException ex) {
             log.error "Unexpected response error: ${ex.statusCode}"
-            log.error ex.cause.message
             return [null, ResponseStatus.BAD_REQUEST.value()]
         } catch (ConnectException ex) {
             log.error "Unexpected connection error: ${ex.message}"

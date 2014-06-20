@@ -162,6 +162,7 @@ grails.assets.includes = []
 }
 
 blancrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
-blancrock.backend.loginPath = '/login/v1/admin/login'
-blancrock.backend.logoutPath = '/login/v1/private/admin/logout'
+blancrock.backend.login.prefix = '/login/v1'
+blancrock.backend.loginPath = blancrock.backend.login.prefix + '/admin/login'
+blancrock.backend.logoutPath = blancrock.backend.login.prefix + '/private/admin/logout'
 blancrock.auth.nounce = ''

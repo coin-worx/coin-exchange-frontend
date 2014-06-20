@@ -14,32 +14,16 @@ class LoginController {
         String username = jsonParams['username']
         String password = jsonParams['password']
 
-        Map response = authorizationService.makeLoginAttempt(username, password)
+        Map requestResult = authorizationService.makeLoginAttempt(username, password)
 
-        render response.status
+        response.status = requestResult.status
+        render requestResult.status
     }
 
     def logout() {
-        Map response = authorizationService.makeLogoutAttempt()
+        Map requestResult = authorizationService.makeLogoutAttempt()
 
-        render response.status
-    }
-
-    def testLogin() {
-        String username = "user"
-        String password = "123"
-
-        Map response = authorizationService.makeLoginAttempt(username, password)
-
-        render response.status
-    }
-
-    def wrongLogin() {
-        String username = "wrong"
-        String password = "wrong"
-
-        String response = authorizationService.makeLoginAttempt(username, password)
-
-        render response ?: 'wrong login parameters'
+        response.status = requestResult.status
+        render requestResult.status
     }
 }

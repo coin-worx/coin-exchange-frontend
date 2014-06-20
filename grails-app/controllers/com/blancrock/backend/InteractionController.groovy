@@ -7,39 +7,44 @@ class InteractionController {
     def queryService
 
     def getTickerInfo() {
-        String response = queryService.getTickerInfo('XBTUSD')
+        Map queryResult = queryService.getTickerInfo('XBTUSD')
 
-        render response
+        render queryResult.value
     }
 
     def getCurrencyPairs() {
-        String response = queryService.getCurrencyPairs()
+        Map queryResult = queryService.getCurrencyPairs()
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def getRates() {
-        String response = queryService.getRates()
+        Map queryResult = queryService.getRates()
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def queryOpenOrders() {
-        String response = queryService.queryOpenOrders(true, '')
+        Map queryResult = queryService.queryOpenOrders(true, '')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def queryClosedOrders() {
-        String response = queryService.queryClosedOrders(true, '', '', '', '', '')
+        Map queryResult = queryService.queryClosedOrders(true, '', '', '', '', '')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def getTradeHistory() {
-        String response = queryService.getTradeHistory('', '')
+        Map queryResult = queryService.getTradeHistory('', '')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
     def createNewOrder() {
         def orderParams = request.JSON
@@ -51,34 +56,39 @@ class InteractionController {
         BigDecimal volume = new BigDecimal(order['volume'] as String)
         BigDecimal price = new BigDecimal(order['price'] as String)
 
-        String response = queryService.createOrder(currencyPair, type, side, volume, price)
+        Map queryResult = queryService.createOrder(currencyPair, type, side, volume, price)
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def cancelOrder() {
         def orderParams = request.JSON
         String orderId = orderParams['OrderId']
-        String response = queryService.cancelOrder(orderId)
+        Map queryResult = queryService.cancelOrder(orderId)
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def getRecentTrades() {
-        String response = queryService.getRecentTrades('XBTUSD')
+        Map queryResult = queryService.getRecentTrades('XBTUSD')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def getBids() {
-        String response = queryService.getBids('XBTUSD')
+        Map queryResult = queryService.getBids('XBTUSD')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def getAsks() {
-        String response = queryService.getAsks('XBTUSD')
+        Map queryResult = queryService.getAsks('XBTUSD')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 }
