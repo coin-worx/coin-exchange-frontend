@@ -9,7 +9,7 @@ class QueryService {
     def jsonHelperService
     def grailsApplication
 
-    Map getTickerInfo(String currencyPair){
+    Map getTickerInfo(String currencyPair) {
         String path = getPathWithPrefix('/marketdata/tickerinfo')
 
         Map query = [currencyPair: currencyPair]
@@ -18,7 +18,7 @@ class QueryService {
         return [status: response.status, value: response.value]
     }
 
-    Map getCurrencyPairs(){
+    Map getCurrencyPairs() {
         String path = getPathWithPrefix('/trades/tradeablecurrencypair')
 
         Map query = [:]
@@ -27,7 +27,7 @@ class QueryService {
         return [status: response.status, value: response.value]
     }
 
-    Map getRates(){
+    Map getRates() {
         String path = getPathWithPrefix('/marketdata/rates')
 
         Map query = [:]
@@ -48,11 +48,11 @@ class QueryService {
     }
 
     Map queryClosedOrders(Boolean includeTrades,
-                             String userRefId,
-                             String startTime,
-                             String endTime,
-                             String offset,
-                             String closeTime) {
+                          String userRefId,
+                          String startTime,
+                          String endTime,
+                          String offset,
+                          String closeTime) {
         String path = getPathWithPrefix('/orders/closedorders')
         Map query = [
                 includeTrades: includeTrades,
@@ -86,6 +86,47 @@ class QueryService {
         return [status: response.status, value: response.value]
     }
 
+    Map newOrderSimpleBids(String currencyPair) {
+        String path = getPathWithPrefix('/marketdata/orderbook')
+
+        Map query = [currencyPair: currencyPair]
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractNewOrderSimpleBidsJson(response.value)
+
+        return [status: response.status, value: jsonOrderBook]
+    }
+
+    Map newOrderSimpleAsks(String currencyPair) {
+        String path = getPathWithPrefix('/marketdata/orderbook')
+
+        Map query = [currencyPair: currencyPair]
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        def jsonOrderBook = jsonHelperService.extractNewOrderSimpleAsksJson(response.value)
+
+        return [status: response.status, value: jsonOrderBook]
+    }
+
+    Map showOrderDetails(String orderId) {
+        String path = '/orders/queryorders'
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, orderId)
+
+        return [value: response.value, status: response.status]
+    }
+
+    // Gets teh trades when an order is clicked for order details
+    Map showTradeDetails(String orderId) {
+        String path = '/trades/querytrades'
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, orderId)
+
+        String jsonWithKeys = jsonHelperService.addNecessaryKeysToTradeHistoryJson(response.value)
+
+        return [value: jsonWithKeys, status: response.status]
+    }
+
     Map createOrder(String pair, String type, String side, BigDecimal volume, BigDecimal price = 0) {
         String path = getPathWithPrefix('/orders/createorder')
         Map query = [pair: pair, type: type, side: side, volume: volume, price: price]
@@ -115,7 +156,7 @@ class QueryService {
         return [value: jsonWithKeys, status: response.status]
     }
 
-    Map getRecentTrades(String currencyPair){
+    Map getRecentTrades(String currencyPair) {
         String path = getPathWithPrefix('/trades/recenttrades')
 
         Map query = [currencyPair: currencyPair]
@@ -126,7 +167,7 @@ class QueryService {
         return [value: jsonOrderBook, status: response.status]
     }
 
-    Map getBids(String currencyPair){
+    Map getBids(String currencyPair) {
         String path = getPathWithPrefix('/marketdata/orderbook')
 
         Map query = [currencyPair: currencyPair]
@@ -137,7 +178,7 @@ class QueryService {
         return [value: jsonOrderBook, status: response.status]
     }
 
-    Map getAsks(String currencyPair){
+    Map getAsks(String currencyPair) {
         String path = getPathWithPrefix('/marketdata/orderbook')
 
         Map query = [currencyPair: currencyPair]

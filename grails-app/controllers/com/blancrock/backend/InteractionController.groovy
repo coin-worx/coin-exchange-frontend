@@ -92,7 +92,7 @@ class InteractionController {
 
     def cancelOrder() {
         def orderParams = request.JSON
-        def orderId = orderParams['OrderId']
+        String orderId = orderParams['OrderId']
         
         Map queryResult = queryService.cancelOrder(orderId)
 
@@ -103,7 +103,7 @@ class InteractionController {
     def showOrderDetails() {
         def orderParams = request.JSON
         //@todo: need to use only style for all calls
-        def orderId = orderParams['orderId']
+        String orderId = orderParams['orderId']
         
         Map queryResult = queryService.showOrderDetails(orderId)
 
@@ -114,7 +114,7 @@ class InteractionController {
     // Gets teh trades when an order is clicked for order details
     def showTradeDetails() {
         def orderParams = request.JSON
-        def orderId = orderParams['orderId']
+        String orderId = orderParams['orderId']
         
         Map queryResult = queryService.showTradeDetails(orderId)
 
