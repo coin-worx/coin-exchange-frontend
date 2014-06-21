@@ -127,6 +127,15 @@ class QueryService {
         return [value: jsonWithKeys, status: response.status]
     }
 
+    // Gets the details when a trade is clicked
+    Map getTradeDetails(String tradeId) {
+        String path = getPathWithPrefix('/trades/tradedetails')
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, tradeId)
+
+        return [value: response.value, status: response.status]
+    }
+
     Map createOrder(String pair, String type, String side, BigDecimal volume, BigDecimal price = 0) {
         String path = getPathWithPrefix('/orders/createorder')
         Map query = [pair: pair, type: type, side: side, volume: volume, price: price]
@@ -186,6 +195,15 @@ class QueryService {
         def jsonOrderBook = jsonHelperService.extractAsksJson(response.value)
 
         return [value: jsonOrderBook, status: response.status]
+    }
+
+    Map getDepth(String currencyPair) {
+        String path = '/marketdata/depth'
+        Map query = [currencyPair: currencyPair]
+
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
     }
 
     private String getPathWithPrefix(String path) {

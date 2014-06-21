@@ -51,10 +51,12 @@ class InteractionController {
     // Gets the details when a trade is clicked
     def getTradeDetails(){
         def orderParams = request.JSON
-        def tradeId = orderParams.tradeId
-        String response = queryService.getTradeDetails(tradeId)
+        String tradeId = orderParams['tradeId']
 
-        render response
+        Map queryResult = queryService.getTradeDetails(tradeId)
+
+        response.status = queryResult.status
+        render queryResult.value
     }
 
     def createNewOrder() {
@@ -144,8 +146,9 @@ class InteractionController {
     }
 
     def getDepth() {
-        String response = queryService.getDepth('XBTUSD')
+        Map queryResult = queryService.getDepth('XBTUSD')
 
-        render response
+        response.status = queryResult.status
+        render queryResult.value
     }
 }
