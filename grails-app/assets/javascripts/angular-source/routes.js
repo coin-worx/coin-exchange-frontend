@@ -223,7 +223,7 @@ angular.module('blancrockExchangeApp').config(
         redirectTo: '/'
       });
 
-      $httpProvider.interceptors.push(function ($q, $location, $injector) {
+      $httpProvider.interceptors.push(['$q', '$location', '$injector', function ($q, $location, $injector) {
         return {
           'responseError': function (response) {
 
@@ -239,7 +239,7 @@ angular.module('blancrockExchangeApp').config(
             return $q.reject(response);
           }
         };
-      });
+      }]);
     }])
   .run(['$rootScope', '$location', 'AuthService', '$routeSegment', '$route',
     function ($rootScope, $location, AuthService, $routeSegment, $route) {
@@ -258,7 +258,7 @@ angular.module('blancrockExchangeApp').config(
         }
       );
 
-      $rootScope.$on("routeSegmentChange", function (event, route) {
+      $rootScope.$on('routeSegmentChange', function (event, route) {
         var parentSegment = $routeSegment.chain[0],
           access = parentSegment.params.access;
 
