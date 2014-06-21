@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('blancrockExchangeApp').config(
-  ['$routeProvider', '$routeSegmentProvider',
-    function ($routeProvider, $routeSegmentProvider) {
+  ['$routeProvider', '$routeSegmentProvider', '$httpProvider', '$locationProvider', '$injector',
+    function ($routeProvider, $routeSegmentProvider, $httpProvider, $locationProvider, $injector) {
 
       $routeSegmentProvider.options.autoLoadTemplates = true;
 
@@ -13,6 +13,11 @@ angular.module('blancrockExchangeApp').config(
       $routeSegmentProvider
 
         .when('/', 'index')
+
+        .when('/login', 'login')
+        .when('/logout', 'logout')
+        .when('/signUp', 'signUp')
+
         .when('/account', 'account')
 
         .when('/account/trade', 'account.trade')
@@ -57,15 +62,29 @@ angular.module('blancrockExchangeApp').config(
         .when('/about', 'about')
         .when('/help', 'help')
 
+        .segment('login', {
+          templateUrl: 'views/login'
+        })
+
+        .segment('logout', {
+          templateUrl: 'views/logout'
+        })
+
+        .segment('signUp', {
+          templateUrl: 'views/signUp'
+        })
+
         .segment('account', {
-          templateUrl: 'views/account'
+          templateUrl: 'views/account',
+          access: 'private'
         })
 
         .within()
 
         .segment('trade', {
           default: true,
-          templateUrl: 'views/accountTrade'
+          templateUrl: 'views/accountTrade',
+          access: 'private'
         })
 
         .within()
@@ -136,7 +155,8 @@ angular.module('blancrockExchangeApp').config(
         .up()
 
         .segment('funding', {
-          templateUrl: 'views/accountFunding'
+          templateUrl: 'views/accountFunding',
+          access: 'private'
         })
 
         .within()
@@ -157,7 +177,8 @@ angular.module('blancrockExchangeApp').config(
         .up()
 
         .segment('security', {
-          templateUrl: 'views/accountSecurity'
+          templateUrl: 'views/accountSecurity',
+          access: 'private'
         })
 
         .within()
@@ -174,15 +195,18 @@ angular.module('blancrockExchangeApp').config(
         .up()
 
         .segment('settings', {
-          templateUrl: 'views/accountSettings'
+          templateUrl: 'views/accountSettings',
+          access: 'private'
         })
 
         .segment('history', {
-          templateUrl: 'views/accountHistory'
+          templateUrl: 'views/accountHistory',
+          access: 'private'
         })
 
         .segment('getVerified', {
-          templateUrl: 'views/accountGetVerified'
+          templateUrl: 'views/accountGetVerified',
+          access: 'private'
         })
 
         .up()
@@ -208,5 +232,49 @@ angular.module('blancrockExchangeApp').config(
 
       $routeProvider.otherwise({
         redirectTo: '/'
+      });
+
+      $httpProvider.interceptors.push(['$q', '$location', '$injector', function ($q, $location, $injector) {
+        return {
+          'responseError': function (response) {
+
+            var AuthService = $injector.get('AuthService');
+
+            if (response.status === 400 || response.status === 401 || response.status === 500) {
+              if (AuthService.isLoggedIn()) {
+                AuthService.logout();
+                $location.path('/login');
+              }
+            }
+
+            return $q.reject(response);
+          }
+        };
+      }]);
+    }])
+  .run(['$rootScope', '$location', 'AuthService', '$routeSegment', '$route',
+    function ($rootScope, $location, AuthService, $routeSegment, $route) {
+      $rootScope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
+          var nextPath = $location.path(),
+            nextRoute = $route.routes[nextPath],
+            nextSegment = nextRoute.segment;
+
+
+          //todo: handle private routes
+          if (AuthService.isLoggedIn() && (nextSegment === 'login' || nextSegment === 'signUp')) {
+            $location.path('/');
+          } else if (!AuthService.isLoggedIn() && nextSegment === 'logout') {
+            $location.path('/');
+          }
+        }
+      );
+
+      $rootScope.$on('routeSegmentChange', function (event, route) {
+        var parentSegment = $routeSegment.chain[0],
+          access = parentSegment.params.access;
+
+        if (!AuthService.isLoggedIn() && access === 'private') {
+          $location.path('/login');
+        }
       });
     }]);

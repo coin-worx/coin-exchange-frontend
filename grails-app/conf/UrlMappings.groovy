@@ -8,6 +8,7 @@ class UrlMappings {
         }
 
         "/api/$action"(controller: 'interaction')
+        "/auth/$action"(controller: 'login')
 
         "/"(view: "/index")
         "500"(view: '/error')

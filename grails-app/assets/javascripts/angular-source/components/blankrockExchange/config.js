@@ -9,5 +9,6 @@ angular.module('blancrockExchangeApp', [
   'route-segment',
   'view-segment',
   'ui.bootstrap',
+  'LocalStorageModule',
   'app'
 ]);

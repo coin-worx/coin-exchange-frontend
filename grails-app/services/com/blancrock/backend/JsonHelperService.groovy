@@ -1,11 +1,11 @@
-package com.blankrock.backend
+package com.blancrock.backend
 
 import grails.converters.JSON
 import net.sf.json.JSONObject
 import org.codehaus.groovy.grails.web.json.JSONArray
 
 /**
- * Created by Uladzimir_Havenchyk on 6/2/2014.
+ * Created by Vladimir Havenchyk.
  */
 class JsonHelperService {
     static transactional = false
