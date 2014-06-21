@@ -72,14 +72,16 @@ angular.module('blancrockExchangeApp').config(
         })
 
         .segment('account', {
-          templateUrl: 'views/account'
+          templateUrl: 'views/account',
+          access: 'private'
         })
 
         .within()
 
         .segment('trade', {
           default: true,
-          templateUrl: 'views/accountTrade'
+          templateUrl: 'views/accountTrade',
+          access: 'private'
         })
 
         .within()
@@ -142,7 +144,8 @@ angular.module('blancrockExchangeApp').config(
         .up()
 
         .segment('funding', {
-          templateUrl: 'views/accountFunding'
+          templateUrl: 'views/accountFunding',
+          access: 'private'
         })
 
         .within()
@@ -163,7 +166,8 @@ angular.module('blancrockExchangeApp').config(
         .up()
 
         .segment('security', {
-          templateUrl: 'views/accountSecurity'
+          templateUrl: 'views/accountSecurity',
+          access: 'private'
         })
 
         .within()
@@ -180,15 +184,18 @@ angular.module('blancrockExchangeApp').config(
         .up()
 
         .segment('settings', {
-          templateUrl: 'views/accountSettings'
+          templateUrl: 'views/accountSettings',
+          access: 'private'
         })
 
         .segment('history', {
-          templateUrl: 'views/accountHistory'
+          templateUrl: 'views/accountHistory',
+          access: 'private'
         })
 
         .segment('getVerified', {
-          templateUrl: 'views/accountGetVerified'
+          templateUrl: 'views/accountGetVerified',
+          access: 'private'
         })
 
         .up()
@@ -218,22 +225,6 @@ angular.module('blancrockExchangeApp').config(
 
       $httpProvider.interceptors.push(function ($q, $location, $injector) {
         return {
-          'response': function (response) {
-            var AuthService = $injector.get('AuthService'),
-              $routeSegmentProvider = $injector.get('$routeSegment');
-
-//            var deferred = $q.defer();
-//
-//            if (AuthService.isLoggedIn()) {
-//              return response;
-//            } else {
-////              $location.path('/login');
-//              return response;
-//            }
-
-            return response;
-          },
-
           'responseError': function (response) {
 
             var AuthService = $injector.get('AuthService');
@@ -241,12 +232,37 @@ angular.module('blancrockExchangeApp').config(
             if (response.status === 400 || response.status === 401 || response.status === 500) {
               if (AuthService.isLoggedIn()) {
                 AuthService.logout();
+                $location.path('/login');
               }
-              console.log(response.status);
             }
 
             return $q.reject(response);
           }
         };
       });
-    }]);
+    }])
+  .run(function ($rootScope, $location, AuthService, $routeSegment, $route) {
+    $rootScope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
+        var nextPath = $location.path(),
+          nextRoute = $route.routes[nextPath],
+          nextSegment = nextRoute.segment;
+
+
+        //todo: handle private routes
+        if (AuthService.isLoggedIn() && (nextSegment === 'login' || nextSegment === 'signUp')) {
+          $location.path('/');
+        } else if (!AuthService.isLoggedIn() && nextSegment === 'logout') {
+          $location.path('/');
+        }
+      }
+    );
+
+    $rootScope.$on("routeSegmentChange", function (event, route) {
+      var parentSegment = $routeSegment.chain[0],
+        access = $routeSegment.chain[0].params.access;
+
+      if (!AuthService.isLoggedIn() && access === 'private') {
+        $location.path('/login');
+      }
+    });
+  });

@@ -18,4 +18,8 @@ angular.module('auth').controller('AuthController', ['$scope', '$location', 'Aut
       AuthService.logout();
     };
 
+    $scope.getErrors = function () {
+      return AuthService.getErrors();
+    }
+
   }]);

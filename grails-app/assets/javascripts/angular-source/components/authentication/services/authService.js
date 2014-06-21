@@ -6,7 +6,8 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
   function ($http, $location, $log, localStorageService) {
     var _username = localStorageService.get('username') || '',
       _isLoggedIn = _username,
-      _sessionLogoutTime;
+      _sessionLogoutTime,
+      _errors = '';
 
     return {
       login: function (username, password) {
@@ -15,12 +16,14 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
             //@Todo: update username and session logout time
             _isLoggedIn = true;
             _username = username;
+            _errors = '';
             localStorageService.set('username', _username);
-            console.log("_username: " + _username);
             $location.path('/');
           })
-          .error(function (error) {
-            $log.error('something wrong with login');
+          .error(function (errorMessage) {
+//            $log.error('something wrong with login');
+            console.log(errorMessage);
+            _errors = errorMessage;
           });
       },
       logout: function () {
@@ -28,18 +31,21 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
           .success(function (response) {
             //@Todo: update username and session logout time
             _isLoggedIn = false;
+            _errors = '';
             localStorageService.remove('username');
           })
           .error(function (error) {
-            $log.error('something wrong with logout');
+            console.log(error);
           });
       },
       isLoggedIn: function () {
         return _isLoggedIn;
       },
       getUserName: function () {
-        console.log('return ' + _username);
         return _username;
+      },
+      getErrors: function () {
+        return _errors;
       }
     }
   }]);

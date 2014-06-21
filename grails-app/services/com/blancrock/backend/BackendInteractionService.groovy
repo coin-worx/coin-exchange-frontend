@@ -81,6 +81,7 @@ class BackendInteractionService {
 
                 response.failure = { resp, json ->
                     responseStatus = resp.status
+                    responseValue = json['Message']
 
                     log.error 'request fail ' + responseStatus + ' ' + json
                 }

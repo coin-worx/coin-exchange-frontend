@@ -17,7 +17,7 @@ class LoginController {
         Map requestResult = authorizationService.makeLoginAttempt(username, password)
 
         response.status = requestResult.status
-        render requestResult.status
+        render requestResult.value
     }
 
     def logout() {

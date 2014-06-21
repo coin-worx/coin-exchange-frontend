@@ -18,7 +18,9 @@
       </div>
     </div>
 
-    <div class="center vpad10"></div>
+    <div class="center vpad10" ng-show="getErrors()">
+      <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
+    </div>
 
     <div class="form-center-wrap center">
       <div>
