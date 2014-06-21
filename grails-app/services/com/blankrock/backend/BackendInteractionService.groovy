@@ -1,5 +1,7 @@
 package com.blankrock.backend
 
+import com.blancrock.backend.AuthParams
+import com.blancrock.backend.RequestGenerator
 import grails.converters.JSON
 import groovy.transform.Synchronized
 import groovyx.net.http.HTTPBuilder
