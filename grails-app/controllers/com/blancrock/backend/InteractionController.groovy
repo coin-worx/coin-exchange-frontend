@@ -142,4 +142,10 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def getDepth() {
+        String response = queryService.getDepth('XBTUSD')
+
+        render response
+    }
 }

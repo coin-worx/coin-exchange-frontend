@@ -10,5 +10,6 @@ angular.module('blancrockExchangeApp', [
   'view-segment',
   'ui.bootstrap',
   'LocalStorageModule',
+  'highcharts-ng',
   'app'
 ]);

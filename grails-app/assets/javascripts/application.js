@@ -1,4 +1,5 @@
 //= require bower_components/jquery/dist/jquery
+//= require bower_components/jquery/dist/jquery.min
 //= require bower_components/jquery-migrate/jquery-migrate
 //= require bower_components/jquery-cookie/jquery.cookie
 //= require bower_components/big.js/big.js
@@ -11,6 +12,8 @@
 //= require bower_components/angular-animate/angular-animate
 //= require bower_components/angular-bootstrap/ui-bootstrap-tpls
 //= require bower_components/angular-local-storage/angular-local-storage
+//= require bower_components/highcharts-release/highcharts.js
+//= require bower_components/highcharts-ng/dist/highcharts-ng.js
 //= require_tree views
 //= require_tree angular-source
 //= require kraken
