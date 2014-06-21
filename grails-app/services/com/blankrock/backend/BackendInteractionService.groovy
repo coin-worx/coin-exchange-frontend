@@ -110,7 +110,7 @@ class BackendInteractionService {
     private List<String> getRequest(String path, Map query) {
         try {
             String baseUrl = grailsApplication.config.blankrock.backend.baseUrl
-            path = "/dev${path}"
+            path = "/dev/v1${path}"
 
             String responseStatus = ''
             String responseValue = ''

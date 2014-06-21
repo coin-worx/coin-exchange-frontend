@@ -1,4 +1,5 @@
 //= require bower_components/jquery/dist/jquery
+//= require bower_components/jquery/dist/jquery.min
 //= require bower_components/jquery-migrate/jquery-migrate
 //= require bower_components/jquery-cookie/jquery.cookie
 //= require bower_components/big.js/big.js
