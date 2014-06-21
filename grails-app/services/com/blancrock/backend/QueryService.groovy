@@ -77,13 +77,13 @@ class QueryService {
         return [status: response.status, value: response.value]
     }
 
-    String getTradeVolume(String pair) {
+    Map getTradeVolume(String pair) {
         String path = getPathWithPrefix('/trades/tradevolume')
         Map query = [pair: pair]
 
-        String response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
-        return response
+        return [status: response.status, value: response.value]
     }
 
     Map createOrder(String pair, String type, String side, BigDecimal volume, BigDecimal price = 0) {

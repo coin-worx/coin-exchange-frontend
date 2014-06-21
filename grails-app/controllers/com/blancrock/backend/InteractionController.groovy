@@ -9,6 +9,7 @@ class InteractionController {
     def getTickerInfo() {
         Map queryResult = queryService.getTickerInfo('XBTUSD')
 
+        response.status = queryResult.status
         render queryResult.value
     }
 
