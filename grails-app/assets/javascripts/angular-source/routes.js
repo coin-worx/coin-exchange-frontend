@@ -241,28 +241,29 @@ angular.module('blancrockExchangeApp').config(
         };
       });
     }])
-  .run(function ($rootScope, $location, AuthService, $routeSegment, $route) {
-    $rootScope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
-        var nextPath = $location.path(),
-          nextRoute = $route.routes[nextPath],
-          nextSegment = nextRoute.segment;
+  .run(['$rootScope', '$location', 'AuthService', '$routeSegment', '$route',
+    function ($rootScope, $location, AuthService, $routeSegment, $route) {
+      $rootScope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
+          var nextPath = $location.path(),
+            nextRoute = $route.routes[nextPath],
+            nextSegment = nextRoute.segment;
 
 
-        //todo: handle private routes
-        if (AuthService.isLoggedIn() && (nextSegment === 'login' || nextSegment === 'signUp')) {
-          $location.path('/');
-        } else if (!AuthService.isLoggedIn() && nextSegment === 'logout') {
-          $location.path('/');
+          //todo: handle private routes
+          if (AuthService.isLoggedIn() && (nextSegment === 'login' || nextSegment === 'signUp')) {
+            $location.path('/');
+          } else if (!AuthService.isLoggedIn() && nextSegment === 'logout') {
+            $location.path('/');
+          }
         }
-      }
-    );
+      );
 
-    $rootScope.$on("routeSegmentChange", function (event, route) {
-      var parentSegment = $routeSegment.chain[0],
-        access = $routeSegment.chain[0].params.access;
+      $rootScope.$on("routeSegmentChange", function (event, route) {
+        var parentSegment = $routeSegment.chain[0],
+          access = parentSegment.params.access;
 
-      if (!AuthService.isLoggedIn() && access === 'private') {
-        $location.path('/login');
-      }
-    });
-  });
+        if (!AuthService.isLoggedIn() && access === 'private') {
+          $location.path('/login');
+        }
+      });
+    }]);
