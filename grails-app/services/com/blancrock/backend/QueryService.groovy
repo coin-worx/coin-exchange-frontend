@@ -198,7 +198,7 @@ class QueryService {
     }
 
     Map getDepth(String currencyPair) {
-        String path = '/marketdata/depth'
+        String path = getPathWithPrefix('/marketdata/depth')
         Map query = [currencyPair: currencyPair]
 
         Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
