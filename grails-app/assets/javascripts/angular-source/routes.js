@@ -149,7 +149,7 @@ angular.module('blancrockExchangeApp').config(
         })
 
         .segment('tradeDetails', {
-            templateUrl: 'views/accountTradeTradeDetails'
+          templateUrl: 'views/accountTradeTradeDetails'
         })
 
         .up()
@@ -234,17 +234,21 @@ angular.module('blancrockExchangeApp').config(
         redirectTo: '/'
       });
 
-      $httpProvider.interceptors.push(['$q', '$location', '$injector', function ($q, $location, $injector) {
+      $httpProvider.interceptors.push(['$q', '$location', '$injector', '$log', function ($q, $location, $injector, $log) {
         return {
           'responseError': function (response) {
 
             var AuthService = $injector.get('AuthService');
 
-            if (response.status === 400 || response.status === 401 || response.status === 500) {
+            if (response.status === 400 || response.status === 401) {
               if (AuthService.isLoggedIn()) {
-                AuthService.logout();
+                AuthService.logoutOnUI();
                 $location.path('/login');
               }
+            }
+
+            if (response.status === 500) {
+              $log.error('response status 500');
             }
 
             return $q.reject(response);

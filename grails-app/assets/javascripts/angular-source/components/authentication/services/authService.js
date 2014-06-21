@@ -9,6 +9,12 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
       _sessionLogoutTime,
       _errors = '';
 
+    function logoutOnUI() {
+      _isLoggedIn = false;
+      _errors = '';
+      localStorageService.remove('username');
+    }
+
     return {
       login: function (username, password) {
         return $http.post('auth/login', {username: username, password: password})
@@ -30,9 +36,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
         return $http.post('auth/logout')
           .success(function (response) {
             //@Todo: update username and session logout time
-            _isLoggedIn = false;
-            _errors = '';
-            localStorageService.remove('username');
+            logoutOnUI();
           })
           .error(function (error) {
             console.log(error);
@@ -46,6 +50,9 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
       },
       getErrors: function () {
         return _errors;
+      },
+      logoutOnUI: function () {
+        logoutOnUI();
       }
     }
   }]);
