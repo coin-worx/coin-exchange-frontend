@@ -109,7 +109,7 @@ class QueryService {
     }
 
     Map showOrderDetails(String orderId) {
-        String path = '/orders/queryorders'
+        String path = getPathWithPrefix('/orders/queryorders')
 
         Map response = backendInteractionService.makeAuthorizedPostRequest(path, orderId)
 
@@ -118,7 +118,7 @@ class QueryService {
 
     // Gets teh trades when an order is clicked for order details
     Map showTradeDetails(String orderId) {
-        String path = '/trades/querytrades'
+        String path = getPathWithPrefix('/trades/querytrades')
 
         Map response = backendInteractionService.makeAuthorizedPostRequest(path, orderId)
 
