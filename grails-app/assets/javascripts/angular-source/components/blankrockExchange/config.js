@@ -9,5 +9,7 @@ angular.module('blancrockExchangeApp', [
   'route-segment',
   'view-segment',
   'ui.bootstrap',
-  'LocalStorageModule',  'highcharts-ng',  'app'
+  'LocalStorageModule',
+  'highcharts-ng',
+  'app'
 ]);

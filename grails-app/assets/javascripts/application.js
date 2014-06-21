@@ -13,7 +13,8 @@
 //= require bower_components/angular-bootstrap/ui-bootstrap-tpls
 //= require bower_components/angular-local-storage/angular-local-storage
 //= require bower_components/highcharts-release/highcharts.js
-//= require bower_components/highcharts-ng/dist/highcharts-ng.js//= require_tree views
+//= require bower_components/highcharts-ng/dist/highcharts-ng.js
+//= require_tree views
 //= require_tree angular-source
 //= require kraken
 //= require_self
