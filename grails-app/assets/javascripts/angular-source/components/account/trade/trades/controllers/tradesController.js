@@ -24,7 +24,7 @@ angular.module('account.trade.trades').controller('TradesController', [
       };
 
     $scope.sort = {
-      predicate: 'TradeId',
+      predicate: 'ExecutionDateTime',
       reverse: true
     };
 
