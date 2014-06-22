@@ -240,14 +240,14 @@ angular.module('blancrockExchangeApp').config(
 
             var AuthService = $injector.get('AuthService');
 
-            if (response.status === 400 || response.status === 401) {
+            if (response.status === 401) {
               if (AuthService.isLoggedIn()) {
                 AuthService.logoutOnUI();
                 $location.path('/login');
               }
-            }
-
-            if (response.status === 500) {
+            } else if (response.status === 400) {
+              $log.error('response status 400');
+            } else if (response.status === 500) {
               $log.error('response status 500');
             }
 
