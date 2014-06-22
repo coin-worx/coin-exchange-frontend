@@ -32,6 +32,6 @@ angular.module('account.trade.newOrder').controller('OrderDetailsController', ['
 
     $scope.setOrderId = function (orderId) {
       ordersSharedService.setOrderIdOfOrder(orderId);
-      $location.path('//account/trade/showOrderDetails');
+      $location.path('/account/trade/showOrderDetails');
     };
   }]);
