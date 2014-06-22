@@ -24,7 +24,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
             _username = username;
             _errors = '';
             localStorageService.set('username', _username);
-            $location.path('/');
+            $location.path('/account');
           })
           .error(function (errorMessage) {
 //            $log.error('something wrong with login');
