@@ -38,24 +38,27 @@ angular.module('marketData.orderBook').controller('SpreadController', [
             var spreadTag = 'Difference';
 
             series.push({
-                name: 'Bids',
+                name: 'Bid',
                 color: '#B40404',
                 pointInterval: 36000,
                 pointStart: Date.UTC(2014, 0, 1),
+                step: true,
                 data: []
             });
 
             series.push({
-                name: 'Asks',
+                name: 'Ask',
                 color: '#424242',
                 pointInterval: 36000,
                 pointStart: Date.UTC(2014, 0, 1),
+                step: true,
                 data: []
             });
 
             spreadSeries.push({
                 name: 'Spread',
                 color: '#2E64FE',
+                pointStart: Date.UTC(2014, 0, 1),
                 data: []
             });
 
@@ -69,19 +72,28 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                     // For bids series
                     bidsData[i] = {
                         x: Date.UTC(dateArray[0],dateArray[1], dateArray[2], timeArray[0], timeArray[1], timeArray[2].split('.')[0]),
-                        y: data[i][bidTag]
+                        y: data[i][bidTag],
+                        Bid: data[i][bidTag]//,
+                        /*Ask: data[i][askTag],
+                        Spread: data[i][spreadTag]*/
                     };
 
                     // For asks series
                     asksData[i] = {
                         x: Date.UTC(dateArray[0],dateArray[1], dateArray[2], timeArray[0], timeArray[1], timeArray[2].split('.')[0]),
-                        y: data[i][askTag]
+                        y: data[i][askTag],
+                       // Bid: data[i][bidTag],
+                        ask: data[i][askTag]//,
+                        //Spread: data[i][spreadTag]
                     };
 
                     // For spreads series
                     spreadsData[i] = {
                         x: Date.UTC(dateArray[0],dateArray[1], dateArray[2], timeArray[0], timeArray[1], timeArray[2].split('.')[0]),
-                        y: data[i][spreadTag]
+                        y: data[i][spreadTag],
+                       // Bid: data[i][bidTag],
+                       // Ask: data[i][askTag],
+                        Spread: data[i][spreadTag]
                     };
                 };
             }
@@ -114,7 +126,22 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                     style: {
                         padding: 10,
                         fontWeight: 'bold'
-                    }
+                    },
+                    formatter: function() {
+                        var s = [];
+                        $.each(this.points, function(i, point) {
+                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ point.series.name +' : '+
+                                point.y +'<span>');
+                        });
+                        return s.join(' <br /> ');
+                    },
+                    shared:true
+                },
+                rangeSelector : {
+                    enabled: false
+                },
+                navigator: {
+                    enabled: false
                 }
             },
             //The below properties are watched separately for changes.
@@ -158,7 +185,7 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 }
             },*/
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
-            useHighStocks: false
+            useHighStocks: true
         }
 
         $scope.spreadChartConfig = {
@@ -173,7 +200,22 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                     style: {
                         padding: 10,
                         fontWeight: 'bold'
-                    }
+                    },
+                    formatter: function() {
+                        var s = [];
+                        $.each(this.points, function(i, point) {
+                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ point.series.name +' : '+
+                                point.y +'<span>');
+                        });
+                        return s.join(' <br /> ');
+                    },
+                    shared:true
+                },
+                rangeSelector : {
+                    enabled: false
+                },
+                navigator: {
+                    enabled: false
                 }
             },
             //The below properties are watched separately for changes.
@@ -216,6 +258,6 @@ angular.module('marketData.orderBook').controller('SpreadController', [
              }
              },*/
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
-            useHighStocks: false
+            useHighStocks: true
         }
     }]);
