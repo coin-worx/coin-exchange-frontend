@@ -154,6 +154,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
                     if(!breakLoop){
                         var bidVolume = parseFloat(value.BidVolume);
                         var bidPrice = parseFloat(value.BidPrice);
+                        // If there is no volume entered currently, make the price = zero
+                        if(newValues[0] === undefined || newValues[0] === null){
+                            $scope.total = 0;
+                            breakLoop = true;
+                        }
                         // If the total volume plus this iteration's volume is greater than the user entered volume, then
                         // this is the last iteration
                         if((totalVolume + bidVolume) >= newValues[0]){
@@ -169,6 +174,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
                         // the total cost
                         else if((totalVolume + bidVolume) < newValues[0]){
                             totalCost += bidPrice * bidVolume;
+                            $scope.total = totalCost;
                             totalVolume += bidVolume;
                         }
                     }
@@ -181,6 +187,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
                     if(!breakLoop){
                         var askVolume = parseFloat(value.AskVolume);
                         var askPrice = parseFloat(value.AskPrice);
+                        // If there is no volume entered currently, make the price = zero
+                        if(newValues[0] === undefined || newValues[0] === null){
+                            $scope.total = 0;
+                            breakLoop = true;
+                        }
                         // If the total volume plus this iteration's volume is greater than the user entered volume, then
                         // this is the last iteration
                         if((totalVolume + askVolume) >= newValues[0]){
@@ -196,6 +207,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
                         // the total cost
                         else if((totalVolume + askVolume) < newValues[0]){
                             totalCost += askPrice * askVolume;
+                            $scope.total = totalCost;
                             totalVolume += askVolume;
                         }
                     }
