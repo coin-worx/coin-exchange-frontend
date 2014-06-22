@@ -1,9 +1,10 @@
 //=require ../services/orderDetailsService
+//=require ../../orders/controllers/orderSharedService
 
 'use strict';
 
-angular.module('account.trade.newOrder').controller('OrderDetailsController', ['$scope', '$location', 'orderDetailsService', 'OrderSharedService',
-  function ($scope, $location, orderDetailsService, orderSharedService) {
+angular.module('account.trade.newOrder').controller('OrderDetailsController', ['$scope', '$location', 'orderDetailsService', 'OrdersSharedService',
+  function ($scope, $location, orderDetailsService, ordersSharedService) {
     console.log(orderDetailsService.getData());
 
     $scope.data = orderDetailsService.getData();
@@ -30,7 +31,7 @@ angular.module('account.trade.newOrder').controller('OrderDetailsController', ['
     };
 
     $scope.setOrderId = function (orderId) {
-      orderSharedService.setOrderIdOfOrder(orderId);
+      ordersSharedService.setOrderIdOfOrder(orderId);
       $location.path('//account/trade/showOrderDetails');
     };
   }]);
