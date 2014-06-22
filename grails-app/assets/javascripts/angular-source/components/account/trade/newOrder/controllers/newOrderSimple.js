@@ -148,70 +148,80 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController', 
                     });
             }
             if($scope.parameters.type === constants.type.SELL){
-                // Variable that causes the circuit to break
-                var breakLoop = false;
-                angular.forEach($scope.bids, function(value, key) {
-                    if(!breakLoop){
-                        var bidVolume = parseFloat(value.BidVolume);
-                        var bidPrice = parseFloat(value.BidPrice);
-                        // If there is no volume entered currently, make the price = zero
-                        if(newValues[0] === undefined || newValues[0] === null){
-                            $scope.total = 0;
-                            breakLoop = true;
+                if($scope.parameters.sign === constants.sign.DIV){
+                    $scope.total = newValues[0] / $scope.bids[0].BidPrice;
+                }
+                else if($scope.parameters.sign === constants.sign.MULT){
+                    // Variable that causes the circuit to break
+                    var breakLoop = false;
+                    angular.forEach($scope.bids, function(value, key) {
+                        if(!breakLoop){
+                            var bidVolume = parseFloat(value.BidVolume);
+                            var bidPrice = parseFloat(value.BidPrice);
+                            // If there is no volume entered currently, make the price = zero
+                            if(newValues[0] === undefined || newValues[0] === null){
+                                $scope.total = 0;
+                                breakLoop = true;
+                            }
+                            // If the total volume plus this iteration's volume is greater than the user entered volume, then
+                            // this is the last iteration
+                            if((totalVolume + bidVolume) >= newValues[0]){
+                                // Get the difference between the current total volume and the user entered volume
+                                var difference = (totalVolume + bidVolume) - newValues[0];
+                                // Only get that volume which is required for the cost that the user entered volume will have
+                                bidVolume -= difference;
+                                totalCost += bidPrice * bidVolume;
+                                $scope.total = totalCost;
+                                breakLoop = true;
+                            }
+                            // If the total volume plus the current volume is less than the user entered volume, then add the cost in
+                            // the total cost
+                            else if((totalVolume + bidVolume) < newValues[0]){
+                                totalCost += bidPrice * bidVolume;
+                                $scope.total = totalCost;
+                                totalVolume += bidVolume;
+                            }
                         }
-                        // If the total volume plus this iteration's volume is greater than the user entered volume, then
-                        // this is the last iteration
-                        if((totalVolume + bidVolume) >= newValues[0]){
-                            // Get the difference between the current total volume and the user entered volume
-                            var difference = (totalVolume + bidVolume) - newValues[0];
-                            // Only get that volume which is required for the cost that the user entered volume will have
-                            bidVolume -= difference;
-                            totalCost += bidPrice * bidVolume;
-                            $scope.total = totalCost;
-                            breakLoop = true;
-                        }
-                        // If the total volume plus the current volume is less than the user entered volume, then add the cost in
-                        // the total cost
-                        else if((totalVolume + bidVolume) < newValues[0]){
-                            totalCost += bidPrice * bidVolume;
-                            $scope.total = totalCost;
-                            totalVolume += bidVolume;
-                        }
-                    }
-                });
+                    });
+                }
             }
             else if($scope.parameters.type === constants.type.BUY){
-                // Variable that causes the circuit to break
-                var breakLoop = false;
-                angular.forEach($scope.asks, function(value, key) {
-                    if(!breakLoop){
-                        var askVolume = parseFloat(value.AskVolume);
-                        var askPrice = parseFloat(value.AskPrice);
-                        // If there is no volume entered currently, make the price = zero
-                        if(newValues[0] === undefined || newValues[0] === null){
-                            $scope.total = 0;
-                            breakLoop = true;
+                if($scope.parameters.sign === constants.sign.DIV){
+                    $scope.total = newValues[0] / $scope.asks[0].AskPrice;
+                }
+                else if($scope.parameters.sign === constants.sign.MULT){
+                    // Variable that causes the circuit to break
+                    var breakLoop = false;
+                    angular.forEach($scope.asks, function(value, key) {
+                        if(!breakLoop){
+                            var askVolume = parseFloat(value.AskVolume);
+                            var askPrice = parseFloat(value.AskPrice);
+                            // If there is no volume entered currently, make the price = zero
+                            if(newValues[0] === undefined || newValues[0] === null){
+                                $scope.total = 0;
+                                breakLoop = true;
+                            }
+                            // If the total volume plus this iteration's volume is greater than the user entered volume, then
+                            // this is the last iteration
+                            if((totalVolume + askVolume) >= newValues[0]){
+                                // Get the difference between the current total volume and the user entered volume
+                                var difference = (totalVolume + askVolume) - newValues[0];
+                                // Only get that volume which is required for the cost that the user entered volume will have
+                                askVolume -= difference;
+                                totalCost += askPrice * askVolume;
+                                $scope.total = totalCost;
+                                breakLoop = true;
+                            }
+                            // If the total volume plus the current volume is less than the user entered volume, then add the cost in
+                            // the total cost
+                            else if((totalVolume + askVolume) < newValues[0]){
+                                totalCost += askPrice * askVolume;
+                                $scope.total = totalCost;
+                                totalVolume += askVolume;
+                            }
                         }
-                        // If the total volume plus this iteration's volume is greater than the user entered volume, then
-                        // this is the last iteration
-                        if((totalVolume + askVolume) >= newValues[0]){
-                            // Get the difference between the current total volume and the user entered volume
-                            var difference = (totalVolume + askVolume) - newValues[0];
-                            // Only get that volume which is required for the cost that the user entered volume will have
-                            askVolume -= difference;
-                            totalCost += askPrice * askVolume;
-                            $scope.total = totalCost;
-                            breakLoop = true;
-                        }
-                        // If the total volume plus the current volume is less than the user entered volume, then add the cost in
-                        // the total cost
-                        else if((totalVolume + askVolume) < newValues[0]){
-                            totalCost += askPrice * askVolume;
-                            $scope.total = totalCost;
-                            totalVolume += askVolume;
-                        }
-                    }
-                });
+                    });
+                }
             }
         }
     });
