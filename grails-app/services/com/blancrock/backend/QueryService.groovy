@@ -206,6 +206,15 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getSpread(String currencyPair) {
+        String path = getPathWithPrefix('/marketData/spread')
+        Map query = [currencyPair: currencyPair]
+
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

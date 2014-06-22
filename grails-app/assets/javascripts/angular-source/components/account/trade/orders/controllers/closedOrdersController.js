@@ -30,7 +30,7 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
     };
 
     $scope.sort = {
-      predicate: 'OrderId',
+      predicate: 'DateTime',
       reverse: true
     };
 
@@ -47,7 +47,7 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
     function updateCost(orders) {
       if (orders.length) {
         orders.forEach(function (order) {
-          order['Cost'] = +order['Volume'] * +order['Price'];
+          order['Cost'] = +order['AveragePrice'] * +order['VolumeExecuted'];
         });
       } else {
         alert('something wrong, closed orders is empty');

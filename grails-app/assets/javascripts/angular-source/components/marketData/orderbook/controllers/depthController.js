@@ -48,14 +48,24 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 });
         }
 
+        // In order to HighCharts to work, we must provide x-Axis(price in this case) data in ascending order
+        function reverseBids(sideList){
+            var newSideList = [];
+            for(var i = sideList.length - 1; i >=0; i--){
+                newSideList.push(sideList[i])
+            }
+            return newSideList;
+        }
+
         function generateDepthData() {
             var series = [];
             if(bids != null && bids != undefined && bids.length != 0)  {
-                makeDepthSeries('Bids', series, bids, bids.length, 0, '#B40404');
+                var ascendingBids = reverseBids(bids);
+                makeDepthSeries('Bid', series, ascendingBids, ascendingBids.length, 0, '#B40404');
             }
 
             if(asks != null  && asks != undefined && asks.length != 0){
-                makeDepthSeries('Asks', series, asks, asks.length, 1, '#424242');
+                makeDepthSeries('Ask', series, asks, asks.length, 1, '#424242');
             }
 
             return series;
@@ -87,10 +97,11 @@ angular.module('marketData.orderBook').controller('DepthController', [
         function generateVolumeData(bids, asks) {
             var series = [];
             if(bids != null && bids != undefined && bids.length != 0)  {
-                makeVolumeSeries('Bids', series, bids, bids.length, 0, '#B40404');
+                var ascendingBids = reverseBids(bids);
+                makeVolumeSeries('Bid', series, ascendingBids, ascendingBids.length, 0, '#B40404');
             }
             if(asks != null  && asks != undefined && asks.length != 0){
-                makeVolumeSeries('Asks', series, asks, asks.length, 1, '#424242');
+                makeVolumeSeries('Ask', series, asks, asks.length, 1, '#424242');
             }
 
             return series;
@@ -185,7 +196,22 @@ angular.module('marketData.orderBook').controller('DepthController', [
                     style: {
                         padding: 10,
                         fontWeight: 'bold'
-                    }
+                    },
+                    formatter: function() {
+                        var s = [];
+                        $.each(this.points, function(i, point) {
+                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
+                                point.y + '<br/>' + 'Price' + ' : ' + point.x + '<span>');
+                        });
+                        return s.join(' <br /> ');
+                    },
+                    shared:true
+                },
+                rangeSelector : {
+                    enabled: false
+                },
+                navigator: {
+                    enabled: false
                 }
             },
             //The below properties are watched separately for changes.
@@ -219,22 +245,9 @@ angular.module('marketData.orderBook').controller('DepthController', [
             },
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: false
-            //series: bidSeries
         }
 
         $scope.volumeChartConfig = {
-            tooltip: {
-                backgroundColor: {
-                    linearGradient: [0, 0, 0, 60],
-                    stops: [
-                        [0, '#FFFFFF'],
-                        [1, '#E0E0E0']
-                    ]
-                },
-                borderWidth: 1,
-                borderColor: '#AAA',
-                crosshairs: [true]
-            },
             //This is not a highcharts object. It just looks a little like one!
             options: {
                 //This is the Main Highcharts chart config. Any Highchart options are valid here.
@@ -246,7 +259,22 @@ angular.module('marketData.orderBook').controller('DepthController', [
                     style: {
                         padding: 10,
                         fontWeight: 'bold'
-                    }
+                    },
+                    formatter: function() {
+                        var s = [];
+                        $.each(this.points, function(i, point) {
+                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
+                                point.y + '<br/>' + 'Price' + ' : ' + point.x + '<span>');
+                        });
+                        return s.join(' <br /> ');
+                    },
+                    shared:true
+                },
+                rangeSelector : {
+                    enabled: false
+                },
+                navigator: {
+                    enabled: false
                 }
             },
 
@@ -272,15 +300,31 @@ angular.module('marketData.orderBook').controller('DepthController', [
             yAxis: {
                 //currentMin: 0,
                 //currentMax: 20,
-                title: {text: 'Cummulative Volume'}
+                title: {text: 'Volume'}
             },
             //size (optional) if left out the chart will default to size of the div or something sensible.
             size: {
                 width: 400,
                 height: 300
             },
+            tooltip: {
+                formatter: function() {return ' ' +
+                    'Locked: ' + this.point.x + '<br />' +
+                    'Unlocked: ' + this.point.y + '<br />' +
+                    'Potential: ' + this.point.y;
+                },
+                backgroundColor: {
+                    linearGradient: [0, 0, 0, 60],
+                    stops: [
+                        [0, '#FFFFFF'],
+                        [1, '#E0E0E0']
+                    ]
+                },
+                borderWidth: 1,
+                borderColor: '#AAA',
+                crosshairs: [true]
+            },
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: false
-            //series: bidSeries
         }
     }]);

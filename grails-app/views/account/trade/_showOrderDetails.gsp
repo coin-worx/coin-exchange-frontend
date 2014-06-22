@@ -233,7 +233,7 @@
                     <tbody><tr>
                         <td class="k">Avg. Price</td>
                         <td class="dots"></td>
-                        <td name="avgprice" class="mono">0.0<span class="deczeros">00</span></td>
+                        <td name="avgprice" class="mono" ng-bind="orderDetails.AveragePrice">%{--<span class="deczeros">00</span>--}%</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>
@@ -253,7 +253,7 @@
                     <tbody><tr>
                         <td class="k">Cost</td>
                         <td class="dots"></td>
-                        <td name="cost" class="mono" ng-bind-template="{{orderDetails.Price * orderDetails.Volume}}"><span class="deczeros">00</span></td>
+                        <td name="cost" class="mono" ng-bind-template="{{orderDetails.AveragePrice * orderDetails.VolumeExecuted}}"><span class="deczeros">00</span></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>
@@ -277,7 +277,7 @@
                     <tbody><tr>
                         <td class="k">Closed</td>
                         <td class="dots"></td>
-                        <td name="closetime">——</td>
+                        <td name="closetime" ng-bind="orderDetails.ClosingDateTime"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="control-hint ralign"> </td>

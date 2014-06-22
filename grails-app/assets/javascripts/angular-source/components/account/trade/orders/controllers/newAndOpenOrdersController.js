@@ -39,7 +39,7 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
     };
 
     $scope.sort = {
-      predicate: 'OrderId',
+      predicate: 'DateTime',
       reverse: true
     };
 

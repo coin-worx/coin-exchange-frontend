@@ -151,4 +151,11 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def getSpread() {
+        Map queryResult = queryService.getSpread('XBTUSD')
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
 }
