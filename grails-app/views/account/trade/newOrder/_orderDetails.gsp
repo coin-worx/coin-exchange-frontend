@@ -22,7 +22,7 @@
         <div class="order-complete" ng-show="order.created">
           <div class="vpad10 alert alert-block alert-success">
             <p>
-              Order <a href ng-bind="order.orderId"></a> successfully created!
+              Order <a href ng-click="setOrderId(order.orderId)" ng-bind="order.orderId"></a> successfully created!
             </p>
           </div>
 

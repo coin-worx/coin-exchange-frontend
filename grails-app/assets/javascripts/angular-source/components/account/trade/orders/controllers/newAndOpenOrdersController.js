@@ -20,19 +20,19 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         $scope.orders = [];
       });
 
-        $scope.deleteOrder = function (order) {
-        var index = $scope.orders.indexOf(order);
-        cancelOrderService.query(order)
-            .success(function (data) {
-                $scope.orders.splice(index, 1);
-                recalculateMinAndMax();
-                filterCollection();
-            })
-        };
+    $scope.deleteOrder = function (order) {
+      var index = $scope.orders.indexOf(order);
+      cancelOrderService.query(order)
+        .success(function (data) {
+          $scope.orders.splice(index, 1);
+          recalculateMinAndMax();
+          filterCollection();
+        })
+    };
 
-        $scope.setOrderId = function (orderId) {
-            orderSharedService.setOrderIdOfOrder(orderId);
-        };
+    $scope.setOrderId = function (orderId) {
+      orderSharedService.setOrderIdOfOrder(orderId);
+    };
 
     $scope.isLoaded = function () {
       return !loaded;

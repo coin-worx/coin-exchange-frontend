@@ -2,8 +2,8 @@
 
 'use strict';
 
-angular.module('account.trade.newOrder').controller('OrderDetailsController', ['$scope', '$location', 'orderDetailsService',
-  function ($scope, $location, orderDetailsService) {
+angular.module('account.trade.newOrder').controller('OrderDetailsController', ['$scope', '$location', 'orderDetailsService', 'OrderSharedService',
+  function ($scope, $location, orderDetailsService, orderSharedService) {
     console.log(orderDetailsService.getData());
 
     $scope.data = orderDetailsService.getData();
@@ -17,16 +17,20 @@ angular.module('account.trade.newOrder').controller('OrderDetailsController', ['
     };
 
     $scope.submitOrder = function () {
-      var result = orderDetailsService.createNewOrder()
+      orderDetailsService.createNewOrder()
         .success(function (response) {
-          console.log('success and got response : ' + response);
           $scope.order.created = true;
           $scope.order.orderId = response['OrderId'];
         })
         .error(function (error) {
           console.log(error);
           orderDetailsService.setError(error);
+          $location.path('/account/trade/newOrder/simple')
         });
-      console.log(result);
+    };
+
+    $scope.setOrderId = function (orderId) {
+      orderSharedService.setOrderIdOfOrder(orderId);
+      $location.path('//account/trade/showOrderDetails');
     };
   }]);
