@@ -1,36 +1,36 @@
 <ul class="dropdown-menu">
   <li>
-    <a href="#/trade"><i class="icon-retweet"></i>
+    <a href="#/account/trade"><i class="icon-retweet"></i>
       Trade
     </a>
   </li>
   <li>
-    <a href="#/funding/deposit"><i class="icon-download-alt"></i>
+    <a href="#/account/funding/deposit"><i class="icon-download-alt"></i>
       Deposit
     </a>
   </li>
   <li>
-    <a href="#/funding/withdraw"><i class="icon-share"></i>
+    <a href="#/account/funding/withdraw"><i class="icon-share"></i>
       Withdraw
     </a>
   </li>
   <li>
-    <a href="#/security"><i class="icon-lock"></i>
+    <a href="#/account/security"><i class="icon-lock"></i>
       Security
     </a>
   </li>
   <li>
-    <a href="#/settings"><i class="icon-wrench"></i>
+    <a href="#/account/settings"><i class="icon-wrench"></i>
       Settings
     </a>
   </li>
   <li>
-    <a href="#/history"><i class="icon-time"></i>
+    <a href="#/account/history"><i class="icon-time"></i>
       History
     </a>
   </li>
   <li>
-    <a href="#/verify"><i class="icon-check"></i>
+    <a href="#/account/getVerified"><i class="icon-check"></i>
       Get Verified
     </a>
   </li>
