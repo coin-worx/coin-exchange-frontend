@@ -17,8 +17,8 @@
         <div class="ib control-group"
              ng-class="{'error' : simpleOrderForm.volume.$invalid && submitted}">
           <div class="input-append">
-            <input placeholder="Amount" tabindex="1" type="number" min="0" step="0.000001" autocomplete="off"
-                   required="" class="input-medium ralign hmarg0right" name="volume" ng-model="volume">
+            <input placeholder="Amount" tabindex="1" type="number" min="0" autocomplete="off" required=""
+                   class="input-medium ralign hmarg0right" name="volume" ng-model="volume">
 
             <div class="ib posrel">
               <div class="dropdown" is-open="parameters.status.isOpen">
@@ -52,8 +52,8 @@
           <div class="ib">
             <div class="input-append">
               <input type="number" placeholder="Price" min="0" tabindex="2" class="input-small ralign hmarg0right"
-                     ng-disabled="isOrderTypeMatch('Market')" step="0.000001"
-                     ng-model="price" ng-required="isOrderTypeMatch('Limit')" name="price" autocomplete="off">
+                     ng-disabled="isOrderTypeMatch('Market')" ng-model="price" ng-required="isOrderTypeMatch('Limit')"
+                     name="price" autocomplete="off">
               <span class="add-on" ng-bind="currency.to"></span>
             </div>
           </div>
@@ -77,10 +77,10 @@
 
         <div class="ib symbol">=</div>
 
-        <div class="ib control-group">
+        <div class="ib control-group" ng-class="{'error' : simpleOrderForm.total.$invalid && submitted}">
           <div class="input-append">
             <input placeholder="Total" type="number" tabindex="3" autocomplete="off" ng-model="total"
-                   ng-disabled="isOrderTypeMatch('Market')" min="0" step="0.000001"
+                   ng-disabled="isOrderTypeMatch('Market')" min="0" required=""
                    class="input-medium ralign hmarg0right" name="total">
             <span class="add-on" ng-bind="currency.total"></span>
           </div>
@@ -95,6 +95,11 @@
             <div class="error" ng-show="simpleOrderForm.volume.$invalid">Amount is a required field.</div>
 
             <div class="error" ng-show="simpleOrderForm.price.$invalid">Price is required field.</div>
+
+            <div class="error" ng-show="simpleOrderForm.total.$invalid">Total is required field.</div>
+
+            <div class="error" ng-show="parameters.error" ng-bind="parameters.error"></div>
+
           </div>
         </div>
 
@@ -110,16 +115,16 @@
       </fieldset>
     </form>
 
-      <tabset>
-          <tab heading="New & Open Orders">
-              <g:render template="/account/trade/orders/newAndOpenOrders"/>
-          </tab>
-          <tab heading="Positions">
-              <g:render template="/account/trade/positions/positions"/>
-          </tab>
-          <tab heading="Order Book">
-              <g:render template="/account/trade/newOrder/orderBook"/>
-          </tab>
-      </tabset>
+    <tabset>
+      <tab heading="New & Open Orders">
+        <g:render template="/account/trade/orders/newAndOpenOrders"/>
+      </tab>
+      <tab heading="Positions">
+        <g:render template="/account/trade/positions/positions"/>
+      </tab>
+      <tab heading="Order Book">
+        <g:render template="/account/trade/newOrder/orderBook"/>
+      </tab>
+    </tabset>
   </div>
 </div>

@@ -81,6 +81,8 @@ class BackendInteractionService {
 
                 response.failure = { resp, json ->
                     responseStatus = resp.status
+
+                    //@todo: only for status 401?
                     responseValue = json ? json['Message'] : 'Something was wrong'
 
                     log.error 'request fail ' + responseStatus + ' ' + json
@@ -140,6 +142,8 @@ class BackendInteractionService {
                 response.failure = { resp, json ->
                     if (resp.status == ResponseStatus.UNAUTHORIZED.value()) {
                         Holders.config.blancrock.auth.nounce = resp.headers.nounce
+                    } else if (resp.status == ResponseStatus.BAD_REQUEST.value()) {
+                        responseValue = json['Message']
                     }
 
                     requestGenerator.cNumber++

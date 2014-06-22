@@ -24,6 +24,7 @@ angular.module('account.trade.newOrder').controller('OrderDetailsController', ['
           $scope.order.orderId = response['OrderId'];
         })
         .error(function (error) {
+          console.log(error);
           orderDetailsService.setError(error);
         });
       console.log(result);

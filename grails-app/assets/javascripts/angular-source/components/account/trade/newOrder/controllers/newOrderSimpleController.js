@@ -37,9 +37,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         orderType: constants.orderType.LIMIT,
         status: {
           isOpen: false
-        }
+        },
+        error: orderDetailsService.getError()
       };
 
+      //@todo: use global currencies
       $scope.currency = {
         from: 'XBT',
         to: 'USD'
@@ -125,32 +127,30 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
             $scope.total = null;
           }
         } else if ($scope.parameters.orderType === constants.orderType.MARKET) {
-          // Get the bids order book using the bids service
-          if ($scope.bids === null) {
-            bidsService.query()
-              .success(function (data) {
-                $scope.bids = data;
+          getBidsOrderBookUsingBidService();
+          getAsksOrderBookUsingAsksService();
 
-              }).error(function () {
-                $scope.bids = null;
-              });
-          }
-          // Get the asks order book using the asks service
-          if ($scope.asks === null) {
-            asksService.query()
-              .success(function (data) {
-                $scope.asks = data;
-
-              }).error(function () {
-                $scope.asks = null;
-              });
-          }
-          
-          updateOrderVariables();
+          updateOrderVariables(newValues);
         }
       });
 
-      function updateOrderVariables() {
+      function getBidsOrderBookUsingBidService() {
+        if ($scope.bids === null) {
+          bidsService.query().success(function (bids) {
+            $scope.bids = bids;
+          });
+        }
+      }
+
+      function getAsksOrderBookUsingAsksService() {
+        if ($scope.asks === null) {
+          asksService.query().success(function (asks) {
+            $scope.asks = asks;
+          });
+        }
+      }
+
+      function updateOrderVariables(newValues) {
         var totalVolume = 0,
           totalCost = 0;
 
@@ -159,8 +159,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
           var breakLoop = false;
           angular.forEach($scope.bids, function (value, key) {
             if (!breakLoop) {
-              var bidVolume = parseFloat(value.BidVolume);
-              var bidPrice = parseFloat(value.BidPrice);
+              var bidVolume = parseFloat(value['BidVolume']),
+                bidPrice = parseFloat(value['BidPrice']);
               // If the total volume plus this iteration's volume is greater than the user entered volume, then
               // this is the last iteration
               if ((totalVolume + bidVolume) >= newValues[0]) {
@@ -186,8 +186,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
 
           angular.forEach($scope.asks, function (value, key) {
             if (!breakLoop) {
-              var askVolume = parseFloat(value.AskVolume);
-              var askPrice = parseFloat(value.AskPrice);
+              var askVolume = parseFloat(value['AskVolume']),
+                askPrice = parseFloat(value['AskPrice']);
               // If the total volume plus this iteration's volume is greater than the user entered volume, then
               // this is the last iteration
               if ((totalVolume + askVolume) >= newValues[0]) {
@@ -217,19 +217,4 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       $scope.isTypeMatch = function (type) {
         return $scope.parameters.type === type;
       };
-
-      //@todo: implement automatic updating of inputs
-      /*    $scope.$watch('total', function (newValue) {
-       if (newValue) {
-       if ($scope.parameters.sign === constants.sign.MULT) {
-       if ($scope.price) {
-       $scope.volume = newValue / $scope.price;
-       } else if ($scope.volume) {
-       $scope.price = newValue / $scope.volume;
-       }
-       }
-       }
-       })*/
-      ;
-    }])
-;
+    }]);
