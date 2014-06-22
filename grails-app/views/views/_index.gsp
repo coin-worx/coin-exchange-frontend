@@ -10,10 +10,11 @@
       <div class="span4">
         <div class="flist-wrap">
           <ul class="flist">
-            <li>Secure platform on protected hardware</li><li>Advanced ordering platform</li><li>Fast deposits and withdrawals</li><li>Litecoin, Namecoin and Ripple (XRP) too</li>
+            <li>Secure platform on protected hardware</li><li>Advanced ordering platform</li><li>Fast deposits and withdrawals</li>
+            <li>Litecoin, Namecoin and Ripple (XRP) too</li>
           </ul>
         </div>
-        <a href="/signup" class="btn2 btn-call2action orange"><strong>Free Signup</strong> • <span
+        <a href="#/signUp" class="btn2 btn-call2action orange"><strong>Free Signup</strong> • <span
             class="hmarg10right">Start Trading</span>
           <asset:image src="arrow-circle-white.png"/>
         </a>
