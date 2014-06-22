@@ -23,6 +23,10 @@ angular.module('account.trade.newOrder').service('orderDetailsService', ['$http'
       return error;
     },
 
+    clearError: function () {
+      error = null;
+    },
+
     createNewOrder: function () {
       return $http.post('api/createNewOrder', this.getData());
     }

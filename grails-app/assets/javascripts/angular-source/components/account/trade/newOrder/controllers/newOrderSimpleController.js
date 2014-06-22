@@ -40,6 +40,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         },
         error: orderDetailsService.getError()
       };
+      orderDetailsService.clearError();
 
       //@todo: use global currencies
       $scope.currency = {
