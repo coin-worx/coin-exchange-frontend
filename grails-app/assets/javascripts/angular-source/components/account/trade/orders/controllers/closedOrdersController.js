@@ -30,7 +30,7 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
     };
 
     $scope.sort = {
-      predicate: 'OrderId',
+      predicate: 'DateTime',
       reverse: true
     };
 
