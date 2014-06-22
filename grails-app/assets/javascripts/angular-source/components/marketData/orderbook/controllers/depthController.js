@@ -223,18 +223,6 @@ angular.module('marketData.orderBook').controller('DepthController', [
         }
 
         $scope.volumeChartConfig = {
-            tooltip: {
-                backgroundColor: {
-                    linearGradient: [0, 0, 0, 60],
-                    stops: [
-                        [0, '#FFFFFF'],
-                        [1, '#E0E0E0']
-                    ]
-                },
-                borderWidth: 1,
-                borderColor: '#AAA',
-                crosshairs: [true]
-            },
             //This is not a highcharts object. It just looks a little like one!
             options: {
                 //This is the Main Highcharts chart config. Any Highchart options are valid here.
@@ -278,6 +266,23 @@ angular.module('marketData.orderBook').controller('DepthController', [
             size: {
                 width: 400,
                 height: 300
+            },
+            tooltip: {
+                formatter: function() {return ' ' +
+                    'Locked: ' + this.point.x + '<br />' +
+                    'Unlocked: ' + this.point.y + '<br />' +
+                    'Potential: ' + this.point.y;
+                },
+                backgroundColor: {
+                    linearGradient: [0, 0, 0, 60],
+                    stops: [
+                        [0, '#FFFFFF'],
+                        [1, '#E0E0E0']
+                    ]
+                },
+                borderWidth: 1,
+                borderColor: '#AAA',
+                crosshairs: [true]
             },
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: false
