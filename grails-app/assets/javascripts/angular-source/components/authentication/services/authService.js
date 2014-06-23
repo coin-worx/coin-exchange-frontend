@@ -6,7 +6,8 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
   function ($http, $location, $log, localStorageService) {
     var userInfo = localStorageService.get('userInfo') || {
       username: '',
-      sessionLogoutTime: ''
+      sessionLogoutTime: '',
+      lastLogin: ''
     };
 
     var _errors = '';
@@ -20,6 +21,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
     function getSessionLogoutTime() {
       var sessionExpiredTime = new Date();
       sessionExpiredTime.setMinutes(sessionExpiredTime.getMinutes() + 10); //todo: update this hardcoded value with value from response
+
       return sessionExpiredTime;
     }
 
@@ -31,12 +33,15 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
             //@todo: for now use hardcoded values
             _errors = '';
 
-//            console.log('success login');
+            $log.info('login response');
+            $log.info(response);
+
             var newSessionLogoutTime = getSessionLogoutTime();
-            userInfo = {username: username, sessionLogoutTime: newSessionLogoutTime};
-//            console.log('userinfo: ');
-//            console.log(userInfo);
-            localStorageService.set('userInfo', {username: username, sessionLogoutTime: newSessionLogoutTime});
+
+            userInfo = {username: username, sessionLogoutTime: newSessionLogoutTime, lastLogin: response['lastLogin']};
+
+            localStorageService.set('userInfo', {username: username, sessionLogoutTime: newSessionLogoutTime,
+              lastLogin: response['lastLogin']});
             $location.path('/account');
           })
           .error(function (errorMessage) {
@@ -70,9 +75,13 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
       logoutFromUI: function () {
         logoutFromUI();
       },
+      getLastLogin: function () {
+        return new Date(userInfo.lastLogin);
+      },
       updateSessionLogoutTime: function () {
         userInfo.sessionLogoutTime = getSessionLogoutTime();
-        localStorageService.add('userInfo', {username: userInfo.username, sessionLogoutTime: userInfo.sessionLogoutTime});
+        localStorageService.set('userInfo', {username: userInfo.username, sessionLogoutTime: userInfo.sessionLogoutTime,
+          lastLogin: userInfo.lastLogin});
       }
     }
   }]);

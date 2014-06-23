@@ -90,13 +90,13 @@
                     <div class="username">
                       <span id="header-username">
                         <i class="icon-user"></i>
-                        {{getUserName()}}
+                        <span ng-bind="getUserName()"></span>
                       </span>
                       <b class="caret"></b>
                     </div>
 
                     <div class="under">
-                      <span>Last login: 05-07-14 21:31:53 +0200</span>
+                      <span ng-bind-template="Last login: {{getLastLogin() | date:'yyyy-MM-dd HH:mm:ss Z'}}"></span>
                     </div>
                   </a>
                   <g:render template="/commonTemplates/headerDropdown"/>

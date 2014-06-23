@@ -62,15 +62,13 @@ class BackendInteractionService {
                 body = query
 
                 response.success = { resp, json ->
-                    responseValue = json as JSON
+                    responseValue = [sessionLogoutTime: json['SessionLogoutTime'], lastLogin: json['LastLogin']] as JSON
                     responseStatus = resp.status
 
                     def session = RCH.currentRequestAttributes().session
 
                     session['requestGenerator'] = new RequestGenerator(apiKey: json['ApiKey'],
                             secretKey: json['SecretKey'])
-
-                    log.error "request generator: " + session['requestGenerator']
 
                     if (log.isInfoEnabled()) {
                         log.info 'response data : '
