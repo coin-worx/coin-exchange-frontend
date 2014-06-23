@@ -52,7 +52,9 @@ angular.module('marketData.orderBook').controller('DepthController', [
         function reverseBids(sideList){
             var newSideList = [];
             for(var i = sideList.length - 1; i >=0; i--){
-                newSideList.push(sideList[i])
+                if(sideList[i] != null){
+                    newSideList.push(sideList[i])
+                }
             }
             return newSideList;
         }
