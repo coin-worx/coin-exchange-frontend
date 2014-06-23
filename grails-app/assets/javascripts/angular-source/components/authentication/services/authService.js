@@ -4,31 +4,43 @@
 
 angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'localStorageService',
   function ($http, $location, $log, localStorageService) {
-    var _username = localStorageService.get('username') || '',
-      _isLoggedIn = _username,
-      _sessionLogoutTime,
-      _errors = '';
+    var userInfo = localStorageService.get('userInfo') || {
+      username: '',
+      sessionLogoutTime: ''
+    };
 
-    function logoutOnUI() {
-      _isLoggedIn = false;
+    var _errors = '';
+
+    function logoutFromUI() {
       _errors = '';
-      localStorageService.remove('username');
+      userInfo = {};
+      localStorageService.remove('userInfo');
+    }
+
+    function getSessionLogoutTime() {
+      var sessionExpiredTime = new Date();
+      sessionExpiredTime.setMinutes(sessionExpiredTime.getMinutes() + 10); //todo: update this hardcoded value with value from response
+      return sessionExpiredTime;
     }
 
     return {
       login: function (username, password) {
         return $http.post('auth/login', {username: username, password: password})
           .success(function (response) {
-            //@Todo: update username and session logout time
-            _isLoggedIn = true;
-            _username = username;
+            //@Todo: update username and session logout time with response from backend.
+            //@todo: for now use hardcoded values
             _errors = '';
-            localStorageService.set('username', _username);
+
+//            console.log('success login');
+            var newSessionLogoutTime = getSessionLogoutTime();
+            userInfo = {username: username, sessionLogoutTime: newSessionLogoutTime};
+//            console.log('userinfo: ');
+//            console.log(userInfo);
+            localStorageService.set('userInfo', {username: username, sessionLogoutTime: newSessionLogoutTime});
             $location.path('/account');
           })
           .error(function (errorMessage) {
-//            $log.error('something wrong with login');
-            console.log(errorMessage);
+            $log.error(errorMessage);
             _errors = errorMessage;
           });
       },
@@ -36,23 +48,31 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
         return $http.post('auth/logout')
           .success(function (response) {
             //@Todo: update username and session logout time
-            logoutOnUI();
+            logoutFromUI();
           })
           .error(function (error) {
             console.log(error);
           });
       },
       isLoggedIn: function () {
-        return _isLoggedIn;
+        return userInfo && userInfo.username;
       },
-      getUserName: function () {
-        return _username;
+      isSessionExpired: function () {
+        $log.info(new Date(userInfo.sessionLogoutTime));
+        return (new Date(userInfo.sessionLogoutTime) - new Date()) < 0
+      },
+      getUserInfo: function () {
+        return userInfo;
       },
       getErrors: function () {
         return _errors;
       },
-      logoutOnUI: function () {
-        logoutOnUI();
+      logoutFromUI: function () {
+        logoutFromUI();
+      },
+      updateSessionLogoutTime: function () {
+        userInfo.sessionLogoutTime = getSessionLogoutTime();
+        localStorageService.add('userInfo', {username: userInfo.username, sessionLogoutTime: userInfo.sessionLogoutTime});
       }
     }
   }]);

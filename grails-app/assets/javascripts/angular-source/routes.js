@@ -236,13 +236,28 @@ angular.module('blancrockExchangeApp').config(
 
       $httpProvider.interceptors.push(['$q', '$location', '$injector', '$log', function ($q, $location, $injector, $log) {
         return {
+
+          'response': function (response) {
+            var AuthService = $injector.get('AuthService'),
+              userInfo = AuthService.getUserInfo();
+
+            if (AuthService.isLoggedIn()) {
+              if (AuthService.isSessionExpired()) {
+                AuthService.logoutFromUI();
+              } else {
+                AuthService.updateSessionLogoutTime();
+              }
+            }
+
+            return response;
+          },
           'responseError': function (response) {
 
             var AuthService = $injector.get('AuthService');
 
             if (response.status === 401) {
               if (AuthService.isLoggedIn()) {
-                AuthService.logoutOnUI();
+                AuthService.logoutFromUI();
                 $location.path('/login');
               }
             } else if (response.status === 400) {
