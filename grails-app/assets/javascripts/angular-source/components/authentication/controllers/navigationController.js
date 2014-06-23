@@ -9,6 +9,7 @@ angular.module('auth').controller('NavigationController', ['$scope', '$location'
     };
 
     $scope.getUserName = function() {
-      return AuthService.getUserName();
+      var userInfo = AuthService.getUserInfo();
+      return userInfo.username;
     };
   }]);
