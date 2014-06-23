@@ -36,7 +36,7 @@
               <td class="nw" ng-click="setTradeId(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
                  <a href="#/account/trade/tradeDetails">{{trade.TradeId | limitTo : 8}}</a>
               </td>
-              <td class="nw" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy h:mm:ss'"></td>
+              <td class="nw" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy HH:mm:ss'"></td>
               <td class="nw ralign" ng-bind="trade.Price"></td>
               <td class="ralign" ng-bind="trade.Volume"></td>
               <td class="lalign" ng-bind="trade.CurrencyPair"></td>

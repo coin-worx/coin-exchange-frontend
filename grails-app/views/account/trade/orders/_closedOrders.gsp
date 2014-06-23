@@ -48,7 +48,7 @@
         <td>
           <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>
         </td>
-        <td class="nw" ng-bind="order.ClosingDateTime | date : 'MM-dd-yy h:mm:ss'"></td>
+        <td class="nw" ng-bind="order.ClosingDateTime | date : 'MM-dd-yy HH:mm:ss'"></td>
       </tr>
 
       <tr class="odd" ng-hide="filteredOrders.length">
