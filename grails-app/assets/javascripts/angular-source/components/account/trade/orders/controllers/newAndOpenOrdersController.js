@@ -58,8 +58,6 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         orders.forEach(function (order) {
           order['CostRem'] = +order['OpenQuantity'] * +order['Price'];
         });
-      } else {
-        alert('something wrong, orders is empty');
       }
     }
 

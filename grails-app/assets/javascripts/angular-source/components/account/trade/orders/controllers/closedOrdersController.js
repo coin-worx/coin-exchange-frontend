@@ -21,9 +21,9 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
         loaded = true;
       });
 
-        $scope.setOrderId = function (orderId) {
-            orderSharedService.setOrderIdOfOrder(orderId);
-        };
+    $scope.setOrderId = function (orderId) {
+      orderSharedService.setOrderIdOfOrder(orderId);
+    };
 
     $scope.isLoaded = function () {
       return !loaded;
@@ -49,8 +49,6 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
         orders.forEach(function (order) {
           order['Cost'] = +order['AveragePrice'] * +order['VolumeExecuted'];
         });
-      } else {
-        alert('something wrong, closed orders is empty');
       }
     }
 
