@@ -34,7 +34,7 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
 
         $scope.sort = {
             predicate: 'Time',
-            reverse: false
+            reverse: true
         };
 
         $scope.getSortingClass = function (columnName) {
