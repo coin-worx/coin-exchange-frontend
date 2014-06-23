@@ -14,21 +14,21 @@
                 <span>Account</span>
               </a>
             </li>
-            <li ng-class="{active: ('about' | routeSegmentStartsWith)}" ng-hide="isLoggedIn()">
+            %{--<li ng-class="{active: ('about' | routeSegmentStartsWith)}" ng-hide="isLoggedIn()">
               <a href="#/about">
                 <span>About</span>
               </a>
-            </li>
+            </li>--}%
             <li ng-class="{active: ('marketData' | routeSegmentStartsWith)}">
               <a href="#/marketData">
                 <span>Market Data</span>
               </a>
             </li>
-            <li ng-class="{active: ('help' | routeSegmentStartsWith)}">
+            %{--<li ng-class="{active: ('help' | routeSegmentStartsWith)}">
               <a href="#/help">
                 <span>Help</span>
               </a>
-            </li>
+            </li>--}%
           </ul>
         </div>
 

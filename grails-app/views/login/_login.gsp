@@ -76,9 +76,9 @@
         </form>
       </div>
 
-      <div class="vpad10">
+      %{--<div class="vpad10">
         <a href="#/signup">Need an account? Sign up now!</a>
-      </div>
+      </div>--}%
     </div>
   </div>
 </div>
