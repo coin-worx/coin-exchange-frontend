@@ -37,7 +37,7 @@
                          required=""
                          placeholder="Username" autocomplete="off">
 
-                  <p class="control-hint ralign"><a href="#/forgot-username">Forgot Username?</a></p>
+                  <p class="control-hint ralign">%{--<a href="#/forgot-username">Forgot Username?</a>--}%</p>
                 </div>
               </div>
 
@@ -46,13 +46,13 @@
                   <input type="password" tabindex="2" class="input-large" name="password" required=""
                          ng-model="credentials.password" autocomplete="off" placeholder="Password">
 
-                  <p class="control-hint ralign"><a href="#/forgot-password">Forgot Password?</a></p>
+                  <p class="control-hint ralign">%{--<a href="#/forgot-password">Forgot Password?</a>--}%</p>
                 </div>
               </div>
 
               <div class="control-group">
                 <div class="controls">
-                  <input type="password" tabindex="4" autocomplete="off" class="input-large"
+                  %{--<input type="password" tabindex="4" autocomplete="off" class="input-large"
                          name="otp" placeholder="One-time Password (optional)">
 
                   <p class="control-hint ralign"><a
@@ -61,7 +61,7 @@
                   <p class="control-hint ralign">
                     <a id="otp-hint" data-placement="right" rel="tooltip" href="#"
                        data-original-title="Optional generated passcode for two-factor auth.">What is this?</a>
-                  </p>
+                  </p>--}%
                 </div>
               </div>
 
