@@ -66,7 +66,7 @@
 
         <div class="span6" ng-show="isLoggedIn()">
           <div class="row">
-            <div class="span4 header-balance-wrap">
+            %{--<div class="span4 header-balance-wrap">
               <div class="header-balance-inner-wrap">
                 <div id="header-balance">
                   <div class="balance">
@@ -81,7 +81,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>--}%
 
             <div class="span2" id="user-menu">
               <ul class="nav pull-right">

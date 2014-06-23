@@ -3,11 +3,11 @@
     <li ng-class="{active : ('account.trade.newOrder.simple' | routeSegmentStartsWith)}">
       <a href="#/account/trade/newOrder/simple">Simple</a>
     </li>
-    <li ng-class="{active : ('account.trade.newOrder.intermediate' | routeSegmentStartsWith)}">
+    %{--<li ng-class="{active : ('account.trade.newOrder.intermediate' | routeSegmentStartsWith)}">
       <a href="#/account/trade/newOrder/intermediate">Intermediate</a>
     </li>
     <li ng-class="{active : ('account.trade.newOrder.advanced' | routeSegmentStartsWith)}">
       <a href="#/account/trade/newOrder/advanced">Advanced</a>
-    </li>
+    </li>--}%
   </ul>
 </div>

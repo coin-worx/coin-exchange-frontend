@@ -4,7 +4,7 @@
       <div class="span6">
         <div class="hpad20right">
           <h4 class="title">Trade Balances</h4>
-          <table class="stats-dots">
+          %{--<table class="stats-dots">
             <tbody><tr>
               <td class="k">Trade Balance</td>
               <td class="dots"></td>
@@ -54,14 +54,15 @@
             <tr>
               <td colspan="3" class="control-hint ralign">Percentage of available margin.</td>
             </tr>
-            </tbody></table>
+            </tbody></table>--}%
+          <p>Currently not available</p>
         </div>
       </div>
 
       <div class="span6">
         <div class="hpad20left">
           <h4 class="title">Position Valuation</h4>
-          <table class="stats-dots">
+          %{--<table class="stats-dots">
             <tbody><tr>
               <td class="k">Opening Cost</td>
               <td class="dots"></td>
@@ -91,7 +92,8 @@
             <tr>
               <td colspan="3" class="control-hint ralign">Paper profit/loss of all open positions.</td>
             </tr>
-            </tbody></table>
+            </tbody></table>--}%
+          <p>Currently not available</p>
         </div>
       </div>
     </div>

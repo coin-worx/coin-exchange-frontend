@@ -18,7 +18,7 @@
   </ul>
 
   <div class="pull-right">
-    <div class="feebar hidden2" style="display: block;">
+    %{--<div class="feebar hidden2" style="display: block;">
       <div class="fee-wrap">
         <span class="mono fee">0.1000%</span>
 
@@ -40,6 +40,6 @@
 
         <p class="nextfee-hint control-hint">Next Fee</p>
       </div>
-    </div>
+    </div>--}%
   </div>
 </div>
