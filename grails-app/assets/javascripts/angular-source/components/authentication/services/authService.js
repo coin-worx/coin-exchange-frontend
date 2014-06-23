@@ -82,6 +82,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
         userInfo.sessionLogoutTime = getSessionLogoutTime();
         localStorageService.set('userInfo', {username: userInfo.username, sessionLogoutTime: userInfo.sessionLogoutTime,
           lastLogin: userInfo.lastLogin});
-      }
+      },
+      userInfo : userInfo
     }
   }]);
