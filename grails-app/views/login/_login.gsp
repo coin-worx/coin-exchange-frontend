@@ -1,6 +1,6 @@
 <div class="container page-wrap" ng-controller="AuthController">
   <div class="row posrel">
-    <div class="secimg-wrap login">
+    %{--<div class="secimg-wrap login">
       <asset:image src="monsterid.png" alt="Security Image"/>
 
       <div class="caption">
@@ -16,7 +16,7 @@
           <a href="/help/faq#security-image">More info</a>.
         </p>
       </div>
-    </div>
+    </div>--}%
 
     <div class="center vpad10" ng-show="getErrors()">
       <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
