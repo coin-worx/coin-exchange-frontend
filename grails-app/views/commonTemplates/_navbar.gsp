@@ -40,14 +40,14 @@
               </a>
               </span>
               <span class="hmarg10right">
-                <a href="/login?setlang=en-gb">
+                %{--<a href="/login?setlang=en-gb">
                   <asset:image src="flags/GB.png"/>
-                </a>
+                </a>--}%
               </span>
               <span class="hmarg10right">
-                <a href="/login?setlang=ko">
+                %{--<a href="/login?setlang=ko">
                   <asset:image src="flags/KR.png"/>
-                </a>
+                </a>--}%
               </span>
             </div>
 
