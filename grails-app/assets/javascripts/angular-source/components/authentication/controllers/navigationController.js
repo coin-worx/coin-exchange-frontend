@@ -4,7 +4,7 @@
 
 angular.module('auth').controller('NavigationController', ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
-    var userInfo = AuthService.userInfo;
+    var userInfo = AuthService.getUserInfo();
 
     $scope.isLoggedIn = function () {
       return AuthService.isLoggedIn();
@@ -19,7 +19,7 @@ angular.module('auth').controller('NavigationController', ['$scope', '$location'
     };
 
     $scope.$watch(function () {
-      return AuthService.userInfo;
+      return AuthService.getUserInfo();
     }, function (newUserInfo) {
       userInfo = newUserInfo;
     });
