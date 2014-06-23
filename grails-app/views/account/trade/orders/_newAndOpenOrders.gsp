@@ -38,7 +38,7 @@
       <td>
         <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>
       </td>
-      <td class="nw" ng-bind="order.DateTime | date : 'MM-dd-yy h:mm:ss'"></td>
+      <td class="nw" ng-bind="order.DateTime | date : 'MM-dd-yy HH:mm:ss'"></td>
       <td class="center">
         <a name="cancel" ng-click="deleteOrder(order)" class="btn btn-danger thin tt btn-cancel">
           <i class="icon-remove icon-white"></i>
