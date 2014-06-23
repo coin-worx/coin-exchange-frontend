@@ -57,7 +57,7 @@
                   <a href="#/login">Log In</a>
                 </li>
                 <li ng-class="{active : ('signUp' | routeSegmentEqualsTo)}">
-                  <a href="#/signUp">Sign Up</a>
+                  %{--<a href="#/signUp">Sign Up</a>--}%
                 </li>
               </ul>
             </div>
