@@ -265,8 +265,10 @@ angular.module('marketData.orderBook').controller('DepthController', [
                     formatter: function() {
                         var s = [];
                         $.each(this.points, function(i, point) {
-                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
-                                point.y + '<br/>' + 'Price' + ' : ' + point.x + '<span>');
+                            if(point.x != null && point.x != undefined && point.y != null && point.y != undefined){
+                                s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
+                                    point.y + '<br/>' + 'Price' + ' : ' + point.x + '<span>');
+                            }
                         });
                         return s.join(' <br /> ');
                     },
