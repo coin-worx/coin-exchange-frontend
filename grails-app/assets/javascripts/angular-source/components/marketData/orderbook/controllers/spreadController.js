@@ -173,12 +173,9 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                         return Highcharts.dateFormat('{%H:%M:%S}', this.value);
                     }
                 },
-                //minRange: (3600000),
                 title: {text: 'Timeline'}
             },
             yAxis: {
-                //currentMin: 0,
-                //currentMax: 20,
                 title: {text: 'Bids/Asks'}
             },
             //size (optional) if left out the chart will default to size of the div or something sensible.
@@ -186,13 +183,6 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 width: 400,
                 height: 300
             },
-            /*tooltip: {
-                formatter: function() {return ' ' +
-                    'Locked: ' + this.point.x + '<br />' +
-                    'Unlocked: ' + this.point.y + '<br />' +
-                    'Potential: ' + this.point.y;
-                }
-            },*/
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: true
         }
@@ -252,8 +242,6 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 title: {text: 'Timeline'}
             },
             yAxis: {
-                //currentMin: 0,
-                //currentMax: 20,
                 title: {text: 'Bids/Asks'}
             },
             //size (optional) if left out the chart will default to size of the div or something sensible.
@@ -261,13 +249,6 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 width: 400,
                 height: 300
             },
-            /*tooltip: {
-             formatter: function() {return ' ' +
-             'Locked: ' + this.point.x + '<br />' +
-             'Unlocked: ' + this.point.y + '<br />' +
-             'Potential: ' + this.point.y;
-             }
-             },*/
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: true
         }

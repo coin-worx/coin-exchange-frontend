@@ -48,8 +48,6 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 });
         }
 
-        //---------------------------------------------------
-
         // Generate the data for the chart showing the Cummulative Volume data
         function generateCmVolChartData(bidsData, asksData){
             var series = [];
@@ -102,8 +100,6 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 series[seriesIndex].data.push(p);
             }
         }
-
-        //---------------------------------------------------
 
         // In order to HighCharts to work, we must provide x-Axis(price in this case) data in ascending order
         function reverseBids(sideList){
