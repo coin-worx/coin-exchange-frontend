@@ -1,13 +1,13 @@
-<div id="table-orderlist-open-wrap" class="vmarg40bot" ng-controller="AsksController">
+<div%{-- id="table-orderlist-open-wrap" class="vmarg40bot"--}% style="width: 155px" ng-controller="AsksController">
     <h4 class="title">Selling</h4>
 
     <table class="table table-hover table-striped dataTable">
         <thead>
         <tr role="row" ng-cloak>
             <th ng-click="updateSorting('AskPrice')" class="lalign nw"
-                ng-class="getSortingClass('AskPrice')" style="width: 55px;">Price</th>
+                ng-class="getSortingClass('AskPrice')" style="width: 65px;">Price</th>
             <th ng-click="updateSorting('AskVolume')" class="lalign nw"
-                ng-class="getSortingClass('AskVolume')" style="width: 165px;">Volume</th>
+                ng-class="getSortingClass('AskVolume')" style="width: 90px;">Volume</th>
         </tr>
         </thead>
 
