@@ -35,20 +35,20 @@
         <div class="span6" ng-hide="isLoggedIn()">
           <div class="row">
             <div class="span4 header-balance-wrap">
-              <span class="hmarg10right"><a href="/login?setlang=en-us">
+              %{--<span class="hmarg10right"><a href="/login?setlang=en-us">
                 <asset:image src="flags/US.png"/>
               </a>
               </span>
               <span class="hmarg10right">
-                %{--<a href="/login?setlang=en-gb">
+                <a href="/login?setlang=en-gb">
                   <asset:image src="flags/GB.png"/>
-                </a>--}%
+                </a>
               </span>
               <span class="hmarg10right">
-                %{--<a href="/login?setlang=ko">
+                <a href="/login?setlang=ko">
                   <asset:image src="flags/KR.png"/>
-                </a>--}%
-              </span>
+                </a>
+              </span>--}%
             </div>
 
             <div class="span2" id="user-menu">
