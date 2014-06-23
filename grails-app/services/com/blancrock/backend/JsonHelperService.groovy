@@ -204,6 +204,84 @@ class JsonHelperService {
         }
     }
 
+    String extractBidsCummulativeVolumeJson(String orderBookJson) {
+        try{
+            def orderBookJsonArray = JSON.parse(orderBookJson)
+            def bidBook = orderBookJsonArray["Bids"] as JSONArray
+
+            if (bidBook.any()){
+                double totalVolume = 0;
+                double totalPrice = 0;
+                JSONArray jsonArray = new JSONArray()
+                for (int i=0; i < bidBook.length(); i++){
+                    if (bidBook != null){
+                        JSONObject jsonObject = new JSONObject()
+
+                        if (bidBook[i] != null){
+                            jsonObject.put("BidVolume", bidBook[i].Volume)
+                            jsonObject.put("BidPrice", bidBook[i].Price)
+
+                            // Add the current volume to the total volume
+                            totalVolume += Double.valueOf(bidBook[i].Volume)
+                            jsonObject.put("CmVol", totalVolume)
+
+                            // Add the current price to the total price
+                            totalPrice += Double.valueOf(bidBook[i].Price)
+                            jsonObject.put("CmPrice", totalPrice)
+                        }
+                        jsonArray.put(jsonObject)
+                    }
+                }
+                return jsonArray as JSON
+            }
+            else{
+                return bidBook
+            }
+        }
+        catch(Exception ex){
+            return []
+        }
+    }
+
+    String extractAsksCummulativeVolumeJson(String orderBookJson) {
+        try {
+            def orderBookJsonArray = JSON.parse(orderBookJson)
+            def askBook = orderBookJsonArray["Asks"] as JSONArray
+
+            if (askBook.any()) {
+                double totalCost = 0;
+                double totalVolume = 0;
+                double totalPrice = 0;
+                JSONArray jsonArray = new JSONArray()
+                for (int i=0; i < askBook.length(); i++){
+                    if (askBook != null){
+                        JSONObject jsonObject = new JSONObject()
+
+                        if (askBook[i] != null){
+                            jsonObject.put("AskVolume", askBook[i].Volume)
+                            jsonObject.put("AskPrice", askBook[i].Price)
+                            // Add the current volume to the total volume
+                            totalVolume += Double.valueOf(askBook[i].Volume)
+                            jsonObject.put("CmVol", totalVolume)
+
+                            // Add the current volume to the total volume
+                            totalPrice += Double.valueOf(askBook[i].Price)
+                            jsonObject.put("CmPrice", totalPrice)
+                        }
+                        jsonArray.put(jsonObject)
+                    }
+                }
+                return jsonArray as JSON
+            }
+            else{
+                return askBook
+            }
+        }
+        catch(Exception ex){
+            return []
+        }
+    }
+
     private String updateCost(String json) {
         def jsonArray = JSON.parse(json)
 

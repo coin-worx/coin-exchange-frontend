@@ -152,6 +152,13 @@ class InteractionController {
         render queryResult.value
     }
 
+    def getOrderBookCummulativeVolume() {
+        Map queryResult = queryService.getOrderBookCummulativeVolume('XBTUSD')
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
     def getSpread() {
         Map queryResult = queryService.getSpread('XBTUSD')
 

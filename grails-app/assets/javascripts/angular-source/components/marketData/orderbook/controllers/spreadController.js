@@ -130,8 +130,17 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                     formatter: function() {
                         var s = [];
                         $.each(this.points, function(i, point) {
-                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ point.series.name +' : '+
-                                point.y +'<span>');
+                            var color = '';
+                            if(point.series.name === 'Bid'){
+                              color = '#B40404';
+                            }
+                            else if(point.series.name === 'Ask'){
+                                color = '#424242';
+                            }
+                            if(point.x != null && point.x != undefined && point.y != null && point.y != undefined){
+                                s.push('<span style="color:'+color+';font-weight:bold;">'+ point.series.name +' : '+
+                                    point.y +'<span>');
+                            }
                         });
                         return s.join(' <br /> ');
                     },
@@ -204,8 +213,10 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                     formatter: function() {
                         var s = [];
                         $.each(this.points, function(i, point) {
-                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ point.series.name +' : '+
-                                point.y +'<span>');
+                            if(point.x != null && point.x != undefined && point.y != null && point.y != undefined){
+                                s.push('<span style="color:#2E64FE;font-weight:bold;">'+ point.series.name +' : '+
+                                    point.y +'<span>');
+                            }
                         });
                         return s.join(' <br /> ');
                     },

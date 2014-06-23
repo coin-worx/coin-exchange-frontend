@@ -15,9 +15,9 @@ angular.module('marketData.orderBook').controller('DepthController', [
         depthService.query()
             .success(function (data) {
                 $scope.depth = data;
-                bids = $scope.depth['BidDepth'];
-                asks = $scope.depth['AskDepth'];
-                var originalSeries = generateDepthData();
+                bids = $scope.depth[0];
+                asks = $scope.depth[1];
+                var originalSeries = generateCmVolChartData(bids, asks)//generateDepthData();
                 $scope.chartConfig.series.splice(0,1);
                 $scope.chartConfig.series = originalSeries;
 
@@ -48,38 +48,45 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 });
         }
 
-        // In order to HighCharts to work, we must provide x-Axis(price in this case) data in ascending order
-        function reverseBids(sideList){
-            var newSideList = [];
-            for(var i = sideList.length - 1; i >=0; i--){
-                if(sideList[i] != null){
-                    newSideList.push(sideList[i])
-                }
-            }
-            return newSideList;
-        }
+        //---------------------------------------------------
 
-        function generateDepthData() {
+        // Generate the data for the chart showing the Cummulative Volume data
+        function generateCmVolChartData(bidsData, asksData){
             var series = [];
-            if(bids != null && bids != undefined && bids.length != 0)  {
-                var ascendingBids = reverseBids(bids);
-                makeDepthSeries('Bid', series, ascendingBids, ascendingBids.length, 0, '#B40404');
+            if(bidsData != null && bidsData != undefined && bidsData.Bids != null && bidsData.Bids != undefined && bidsData.Bids.length != 0)  {
+                var ascendingBids = reverseBids(bidsData.Bids);
+                makeCmVolumeSeries('Bid', series, ascendingBids, ascendingBids.length, 0, '#B40404');
             }
 
-            if(asks != null  && asks != undefined && asks.length != 0){
-                makeDepthSeries('Ask', series, asks, asks.length, 1, '#424242');
+            if(asksData != null  && asksData != undefined && asksData.Asks != null  && asksData.Asks != undefined && asksData.Asks.length != 0){
+                makeCmVolumeSeries('Ask', series, asksData.Asks, asksData.Asks.length, 1, '#424242');
             }
 
             return series;
         }
 
-        function makeDepthSeries(name, series, sideList, len, seriesIndex, colorCode){
+        function makeCmVolumeSeries(name, series, sideList, len, seriesIndex, colorCode){
             var  ps = [];
+            var priceTag = '';
+            var volumeTag = '';
+            var cmVolumeTag = 'CmVol';
+            var cmPriceTag = 'CmPrice';
+
+            // If the received array is of bids
+            if(seriesIndex === 0){
+                priceTag = 'BidPrice';
+                volumeTag = 'BidVolume';
+            }
+            else if(seriesIndex === 1){
+                priceTag = 'AskPrice';
+                volumeTag = 'AskVolume';
+            }
+
             for (var i = 0; i < len; i++) {
-                if(sideList[i] != null && sideList[i]['Price'] != null && sideList[i]['Volume']){
+                if(sideList[i] != null && sideList[i][priceTag] != null && sideList[i][cmVolumeTag]){
                     ps[i] = {
-                        x: sideList[i]['Price'],
-                        y: sideList[i]['Volume']
+                        x: sideList[i][priceTag],
+                        y: sideList[i][cmVolumeTag]
                     };
                 };
             }
@@ -94,6 +101,19 @@ angular.module('marketData.orderBook').controller('DepthController', [
 
                 series[seriesIndex].data.push(p);
             }
+        }
+
+        //---------------------------------------------------
+
+        // In order to HighCharts to work, we must provide x-Axis(price in this case) data in ascending order
+        function reverseBids(sideList){
+            var newSideList = [];
+            for(var i = sideList.length - 1; i >=0; i--){
+                if(sideList[i] != null){
+                    newSideList.push(sideList[i])
+                }
+            }
+            return newSideList;
         }
 
         function generateVolumeData(bids, asks) {
@@ -202,8 +222,10 @@ angular.module('marketData.orderBook').controller('DepthController', [
                     formatter: function() {
                         var s = [];
                         $.each(this.points, function(i, point) {
-                            s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
+                            if(point.x != null && point.x != undefined && point.y != null && point.y != undefined){
+                                s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
                                 point.y + '<br/>' + 'Price' + ' : ' + point.x + '<span>');
+                            }
                         });
                         return s.join(' <br /> ');
                     },
@@ -255,7 +277,7 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 //This is the Main Highcharts chart config. Any Highchart options are valid here.
                 //will be ovverriden by values specified below.
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 tooltip: {
                     style: {
@@ -266,7 +288,7 @@ angular.module('marketData.orderBook').controller('DepthController', [
                         var s = [];
                         $.each(this.points, function(i, point) {
                             if(point.x != null && point.x != undefined && point.y != null && point.y != undefined){
-                                s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Cm. Volume' +' : '+
+                                s.push('<span style="color:#D31B22;font-weight:bold;">'+ 'Volume' +' : '+
                                     point.y + '<br/>' + 'Price' + ' : ' + point.x + '<span>');
                             }
                         });
@@ -310,23 +332,6 @@ angular.module('marketData.orderBook').controller('DepthController', [
             size: {
                 width: 400,
                 height: 300
-            },
-            tooltip: {
-                formatter: function() {return ' ' +
-                    'Locked: ' + this.point.x + '<br />' +
-                    'Unlocked: ' + this.point.y + '<br />' +
-                    'Potential: ' + this.point.y;
-                },
-                backgroundColor: {
-                    linearGradient: [0, 0, 0, 60],
-                    stops: [
-                        [0, '#FFFFFF'],
-                        [1, '#E0E0E0']
-                    ]
-                },
-                borderWidth: 1,
-                borderColor: '#AAA',
-                crosshairs: [true]
             },
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: false

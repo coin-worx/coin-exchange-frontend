@@ -6,7 +6,7 @@ angular.module('marketData.orderBook').service('DepthService', [
     '$http', function ($http) {
         return {
             query: function () {
-                return $http.get('api/getDepth');
+                return $http.get('api/getOrderBookCummulativeVolume');
             }
         };
     } ]);

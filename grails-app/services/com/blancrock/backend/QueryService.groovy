@@ -1,4 +1,9 @@
 package com.blancrock.backend
+
+import grails.converters.JSON
+import net.sf.json.JSONObject
+import org.codehaus.groovy.grails.web.json.JSONArray
+
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -204,6 +209,28 @@ class QueryService {
         Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
         return [value: response.value, status: response.status]
+    }
+
+    Map getOrderBookCummulativeVolume(String currencyPair) {
+        String path = getPathWithPrefix('/marketdata/orderbook')
+        Map query = [currencyPair: currencyPair]
+
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        def jsonBids = jsonHelperService.extractBidsCummulativeVolumeJson(response.value)
+        def jsonAsks = jsonHelperService.extractAsksCummulativeVolumeJson(response.value)
+
+        JSONArray orderbookArray = new JSONArray()
+        JSONObject bidsObject = new JSONObject()
+        bidsObject.put("Bids", jsonBids)
+
+        JSONObject asksObject = new JSONObject()
+        asksObject.put("Asks", jsonAsks)
+
+        orderbookArray.put(bidsObject)
+        orderbookArray.put(asksObject)
+
+        return [status: response.status, value: orderbookArray as JSON]
     }
 
     Map getSpread(String currencyPair) {
