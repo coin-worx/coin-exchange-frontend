@@ -18,7 +18,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
       localStorageService.remove('userInfo');
     }
 
-    function getSessionLogoutTime() {
+    function getNewSessionLogoutTime() {
       var sessionExpiredTime = new Date();
       sessionExpiredTime.setMinutes(sessionExpiredTime.getMinutes() + 10); //todo: update this hardcoded value with value from response
 
@@ -36,7 +36,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
             $log.info('login response');
             $log.info(response);
 
-            var newSessionLogoutTime = getSessionLogoutTime();
+            var newSessionLogoutTime = getNewSessionLogoutTime();
 
             userInfo = {username: username, sessionLogoutTime: newSessionLogoutTime, lastLogin: response['lastLogin']};
 
@@ -79,7 +79,7 @@ angular.module('auth').factory('AuthService', ['$http', '$location', '$log', 'lo
         return new Date(userInfo.lastLogin);
       },
       updateSessionLogoutTime: function () {
-        userInfo.sessionLogoutTime = getSessionLogoutTime();
+        userInfo.sessionLogoutTime = getNewSessionLogoutTime();
         localStorageService.set('userInfo', {username: userInfo.username, sessionLogoutTime: userInfo.sessionLogoutTime,
           lastLogin: userInfo.lastLogin});
       },
