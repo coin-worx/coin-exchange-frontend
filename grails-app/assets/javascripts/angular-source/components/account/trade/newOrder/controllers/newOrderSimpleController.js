@@ -319,7 +319,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
             }
         }
 
-        function priceSetManually(ev){
+        $scope.priceSetManually = function (ev){
             if(!isPriceSetManually){
                isPriceSetManually = true;
             }
