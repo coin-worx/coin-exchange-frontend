@@ -25,7 +25,8 @@ angular.module('account.trade.newOrder').constant('constants', {
 
 angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
   [ '$scope', '$location', '$filter', 'constants', 'orderDetailsService', 'NewOrderSimpleBidsService', 'NewOrderSimpleAsksService',
-    function ($scope, $location, $filter, constants, orderDetailsService, bidsService, asksService) {
+    'CurrencyPairsService',
+    function ($scope, $location, $filter, constants, orderDetailsService, bidsService, asksService, currencyPairsService) {
 
       $scope.submitted = false;
       $scope.bids = null;
@@ -42,18 +43,20 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       };
       orderDetailsService.clearError();
 
-      //@todo: use global currencies
-      $scope.currency = {
-        from: 'XBT',
-        to: 'USD'
-      };
+      $scope.currency = {};
+      currencyPairsService.query().success(function (currencies) {
+        //@todo: update to get object instead of array
+        var currenciesInstance = currencies[0];
+        $scope.currency.to = currenciesInstance['BaseCurrency'];
+        $scope.currency.from = currenciesInstance['QuoteCurrency'];
+        $scope.currency.pair = currenciesInstance['CurrencyPairName'];
+        $scope.currency.amount = $scope.currency.from;
+        $scope.currency.price = $scope.currency.to;
+        $scope.currency.total = $scope.currency.to;
 
-      $scope.currency.amount = $scope.currency.from;
-      $scope.currency.price = $scope.currency.to;
-      $scope.currency.total = $scope.currency.to;
+      });
 
       $scope.changeType = function (type) {
-        console.log(type);
         $scope.parameters.type = type;
         $scope.submitted = false;
 
@@ -67,7 +70,6 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       };
 
       $scope.changeCurrency = function (currency) {
-        console.log(currency);
         $scope.parameters.status.isOpen = false;
         if (currency !== $scope.currency.amount) {
           $scope.currency.amount = currency;
@@ -110,14 +112,10 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         return {
           type: $scope.parameters.type,
           volume: $scope.volume,
-          pair: getCurrencyPair(),
+          pair: $scope.currency.pair,
           orderType: $scope.parameters.orderType,
           price: $scope.price
         };
-      }
-
-      function getCurrencyPair() {
-        return $scope.currency.from + $scope.currency.to;
       }
 
       $scope.$watchCollection('[volume, price]', function (newValues) {
