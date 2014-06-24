@@ -29,8 +29,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
     function ($scope, $location, $filter, constants, orderDetailsService, bidsService, asksService, currencyPairsService) {
 
       $scope.submitted = false;
-      $scope.bids = null;
-      $scope.asks = null;
+      $scope.bids = getBidsOrderBookUsingBidService();
+      $scope.asks = getAsksOrderBookUsingAsksService();
       $scope.parameters = {
         type: constants.type.BUY,
         btnClass: constants.btnClass.SUCCESS,
@@ -142,17 +142,19 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       });
 
       function getBidsOrderBookUsingBidService() {
-        if ($scope.bids === null) {
+        if ($scope.bids === null || $scope.bids === undefined) {
           bidsService.query().success(function (bids) {
             $scope.bids = bids;
+            setBestBidAsPrice();
           });
         }
       }
 
       function getAsksOrderBookUsingAsksService() {
-        if ($scope.asks === null) {
+        if ($scope.asks === null || $scope.asks === undefined) {
           asksService.query().success(function (asks) {
             $scope.asks = asks;
+            setBestAskAsPrice();
           });
         }
       }
@@ -271,4 +273,24 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
 
         return label;
       };
+
+        function setBestBidAsPrice(){
+            if($scope.parameters.type === constants.type.SELL){
+                if($scope.price === null || $scope.price === undefined || $scope.price === 0){
+                    if($scope.bids[0] != null || $scope.bids[0] != undefined){
+                        $scope.price = $scope.bids[0]['BidPrice'];
+                    }
+                }
+            }
+        }
+
+        function setBestAskAsPrice(){
+            if($scope.parameters.type === constants.type.BUY){
+                if($scope.price === null || $scope.price === undefined || $scope.price === 0){
+                    if($scope.asks[0] != null || $scope.asks[0] != undefined){
+                        $scope.price = $scope.asks[0]['AskPrice'];
+                    }
+                }
+            }
+        }
     }]);
