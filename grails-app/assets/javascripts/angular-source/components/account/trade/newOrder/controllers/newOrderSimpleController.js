@@ -135,6 +135,14 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         }
       });
 
+      $scope.$watch('parameters.sign', function (newSign) {
+        if (newSign === constants.sign.MULT) {
+          $scope.total = $scope.volume * $scope.price;
+        } else {
+          $scope.total = $scope.volume / $scope.price;
+        }
+      });
+
       function getBidsOrderBookUsingBidService() {
         if ($scope.bids === null) {
           bidsService.query().success(function (bids) {
