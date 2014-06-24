@@ -9,7 +9,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title><g:layoutTitle default="Grails"/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <asset:javascript src="application.js"/>
   <asset:stylesheet href="main.css"/>
   <asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
   <g:layoutHead/>
@@ -25,5 +24,7 @@
   </div>
 </div>
 <g:render template="/commonTemplates/footer"/>
+
+<asset:javascript src="application.js"/>
 </body>
 </html>

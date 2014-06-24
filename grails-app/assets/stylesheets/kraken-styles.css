@@ -6198,7 +6198,7 @@ table.stats-dots td, table.stats-dots th {
 
 table.stats-dots td.dots {
     text-align: center;
-    background: url("/img/dots-sep-lightgrey.png") repeat-x scroll left 12px transparent;
+    background: url("img/dots-sep-lightgrey.png") repeat-x scroll left 12px transparent;
     width: 90%
 }
 
@@ -7082,7 +7082,6 @@ ol.naked li .prefix, ul.naked li .prefix {
 .order-complete {
     padding-right: 10px;
     padding-left: 10px;
-    display: none;
 }
 
 .well-data-list {
@@ -8679,23 +8678,23 @@ table.dataTable td.center, table.dataTable td.dataTables_empty {
 }
 
 .sorting {
-    background: url('/img/sort_both.png') no-repeat center right;
+    background: url('img/sort_both.png') no-repeat center right;
 }
 
 .sorting_asc {
-    background: url('/img/sort_asc.png') no-repeat center right;
+    background: url('img/sort_asc.png') no-repeat center right;
 }
 
 .sorting_desc {
-    background: url('/img/sort_desc.png') no-repeat center right;
+    background: url('img/sort_desc.png') no-repeat center right;
 }
 
 .sorting_asc_disabled {
-    background: url('/img/sort_asc_disabled.png') no-repeat center right;
+    background: url('img/sort_asc_disabled.png') no-repeat center right;
 }
 
 .sorting_desc_disabled {
-    background: url('/img/sort_desc_disabled.png') no-repeat center right;
+    background: url('img/sort_desc_disabled.png') no-repeat center right;
 }
 
 table.dataTable th:active {

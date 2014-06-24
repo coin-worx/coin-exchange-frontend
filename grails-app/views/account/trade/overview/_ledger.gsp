@@ -3,7 +3,8 @@
     <div class="frame" style="width: 950px;">
       <h4 class="title">Ledger</h4>
 
-      <div id="DataTables_Table_5_wrapper" class="dataTables_wrapper form-inline" role="grid"><div
+      <p>Currently not available</p>
+      %{--<div id="DataTables_Table_5_wrapper" class="dataTables_wrapper form-inline" role="grid"><div
           class="dataTables_table_wrapper" style="min-height: 318px;"><table
             class="table table-hover table-striped dataTable table-ledger" id="DataTables_Table_5"
             aria-describedby="DataTables_Table_5_info">
@@ -144,7 +145,7 @@
               href="javascript: void(0);">1</a></li><li><a href="javascript: void(0);">2</a></li><li><a
               href="javascript: void(0);">›</a></li></ul></div></div>
 
-          <div class="clearfix"></div></div></div>
+          <div class="clearfix"></div></div></div>--}%
     </div>
 
     <div class="frame" style="width: 950px; visibility: hidden;">

@@ -139,5 +139,30 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-blancrock.key.api = 123456
-blancrock.key.secret = 'AuroraBitCoinExchange'
+grails.assets.excludes = ['bower_components/**/*.*']
+
+grails.assets.includes = []
+
+['jquery/dist/jquery',
+ 'jquery-migrate/jquery-migrate',
+ 'jquery-cookie/jquery.cookie',
+ 'big.js/big.js',
+ 'angular/angular',
+ 'angular-cookies/angular-cookies',
+ 'angular-resource/angular-resource',
+ 'angular-route/angular-route',
+ 'angular-route-segment/build/angular-route-segment',
+ 'angular-sanitize/angular-sanitize'].each {
+    grails.assets.includes << 'bower_components/' + it + '.js'
+}
+['css/*.css',
+ 'font/*.*',
+ '**/*.png'].each {
+    grails.assets.includes << 'bower_components/fontawesome/' + it
+}
+
+blancrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
+blancrock.backend.login.prefix = '/dev/v1'
+blancrock.backend.loginPath = blancrock.backend.login.prefix + '/admin/login'
+blancrock.backend.logoutPath = blancrock.backend.login.prefix + '/private/admin/logout'
+blancrock.auth.nounce = ''

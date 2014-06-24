@@ -3,24 +3,37 @@
     <header class="center vpad30top">
       <h1 class="headline clearfix"><span>Forex meets</span> <span class="highlight">Bitcoin Exchange</span></h1>
 
-      <p class="tagline vpad10">Now available on Bloomberg Terminal due to customer demand</p>
+      %{--<p class="tagline vpad10">Now available on Bloomberg Terminal due to customer demand</p>--}%
     </header>
 
     <div class="row vpad20">
       <div class="span4">
-        <div class="flist-wrap">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+
+        %{--<div class="flist-wrap">
           <ul class="flist">
-            <li>Secure platform on protected hardware</li><li>Advanced ordering platform</li><li>Fast deposits and withdrawals</li><li>Litecoin, Namecoin and Ripple (XRP) too</li>
+            <li>Secure platform on protected hardware</li><li>Advanced ordering platform</li><li>Fast deposits and withdrawals</li>
+            <li>Litecoin, Namecoin and Ripple (XRP) too</li>
           </ul>
         </div>
-        <a href="/signup" class="btn2 btn-call2action orange"><strong>Free Signup</strong> • <span
+        <a href="#/signUp" class="btn2 btn-call2action orange"><strong>Free Signup</strong> • <span
             class="hmarg10right">Start Trading</span>
           <asset:image src="arrow-circle-white.png"/>
-        </a>
+        </a>--}%
       </div>
 
       <div class="span8 screenshot-wrap">
-        <asset:image class="screenshot" alt="Intermediate Order Form" src="landing-ss-orderform-int.png"/>
+        %{--<asset:image class="screenshot" alt="Intermediate Order Form" src="landing-ss-orderform-int.png"/>--}%
       </div>
     </div>
   </div>
@@ -30,7 +43,7 @@
 <div class="container">
 <div class="row">
 <div class="span12">
-<div class="row">
+%{--<div class="row">
   <div class="span6">
     <h3 class="title">More than the average exchange</h3>
 
@@ -331,7 +344,7 @@
       <li>Stop Loss, Take Profit Limit</li>
     </ul>
   </div>
-</div>
+</div>--}%
 </div>
 </div>
 </div>
@@ -340,7 +353,7 @@
 <div class="hero3">
   <div class="container vpad20">
     <div class="center">
-      <a href="/signup" class="btn2 btn-call2action auto-width orange">Sign Up Now • Release the Kraken</a>
+      %{--<a href="/signup" class="btn2 btn-call2action auto-width orange">Sign Up Now • Release the Kraken</a>--}%
     </div>
   </div>
 </div>

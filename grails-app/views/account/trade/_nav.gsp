@@ -1,24 +1,24 @@
 <div id="trade-nav" class="clearfix subtab-wrap">
   <ul class="nav nav-pills nav-account dark spaced20 pull-left">
-    <li class="active">
-      <a href="#overview" data-toggle="tab" data-trigger-active="1">Overview</a>
+    <li ng-class="{active: ('account.trade.overview' | routeSegmentStartsWith)}">
+      <a href="#/account/trade/overview">Overview</a>
     </li>
-    <li class="">
-      <a href="#new-order" data-toggle="tab" data-trigger-active="1">New Order</a>
+    <li ng-class="{active: ('account.trade.newOrder' | routeSegmentStartsWith)}">
+      <a href="#/account/trade/newOrder">New Order</a>
     </li>
-    <li class="">
-      <a href="#orders" data-toggle="tab" data-trigger-active="1">Orders</a>
+    <li ng-class="{active: ('account.trade.orders' | routeSegmentStartsWith)}">
+      <a href="#/account/trade/orders">Orders</a>
     </li>
-    <li class="">
-      <a href="#positions" data-toggle="tab" data-trigger-active="1">Positions</a>
+    <li ng-class="{active: ('account.trade.positions' | routeSegmentStartsWith)}">
+      <a href="#/account/trade/positions">Positions</a>
     </li>
-    <li class="">
-      <a href="#trades" data-toggle="tab" data-trigger-active="1">Trades</a>
+    <li ng-class="{active: ('account.trade.trades' | routeSegmentStartsWith)}">
+      <a href="#/account/trade/trades">Trades</a>
     </li>
   </ul>
 
   <div class="pull-right">
-    <div class="feebar hidden2" style="display: block;">
+    %{--<div class="feebar hidden2" style="display: block;">
       <div class="fee-wrap">
         <span class="mono fee">0.1000%</span>
 
@@ -40,6 +40,6 @@
 
         <p class="nextfee-hint control-hint">Next Fee</p>
       </div>
-    </div>
+    </div>--}%
   </div>
 </div>

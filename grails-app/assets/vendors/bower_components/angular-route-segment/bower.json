@@ -1,0 +1,19 @@
+{
+  "name": "angular-route-segment",
+  "version": "1.3.0",
+  "main": "build/angular-route-segment.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "example",
+    "Gruntfile.js",
+    "karma-angular-1.1.5.conf.js",
+    "karma-angular-1.2.0rc1.conf.js",
+    "package.json",
+    "src",
+    "**/*.min.js"
+  ]
+}

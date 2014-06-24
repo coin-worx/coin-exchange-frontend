@@ -1,20 +1,38 @@
 <ul class="nav nav-tabs spaced10 " id="account-nav">
-  <li class="active">
-    <a href="/u/trade"><i class="icon-retweet"></i> Trade</a>
+  <li ng-class="{active : ('account.trade' | routeSegmentStartsWith)}">
+    <a href="#/account/trade">
+      <i class="icon-retweet"></i>
+      Trade
+    </a>
   </li>
-  <li class="">
-    <a href="/u/funding"><i class="icon-money"></i> Funding</a>
+  <li ng-class="{active : ('account.funding' | routeSegmentStartsWith)}">
+    <a href="#/account/funding">
+      <i class="icon-money"></i>
+      Funding
+    </a>
   </li>
-  <li class="">
-    <a href="/u/security"><i class="icon-lock"></i> Security</a>
+  <li ng-class="{active : ('account.security' | routeSegmentStartsWith)}">
+    <a href="#/account/security">
+      <i class="icon-lock"></i>
+      Security
+    </a>
   </li>
-  <li class="">
-    <a href="/u/settings"><i class="icon-wrench"></i> Settings</a>
+  <li ng-class="{active : ('account.settings' | routeSegmentStartsWith)}">
+    <a href="#/account/settings">
+      <i class="icon-wrench"></i>
+      Settings
+    </a>
   </li>
-  <li class="">
-    <a href="/u/history"><i class="icon-time"></i> History</a>
+  <li ng-class="{active : ('account.history' | routeSegmentStartsWith)}">
+    <a href="#/account/history">
+      <i class="icon-time"></i>
+      History
+    </a>
   </li>
-  <li class="">
-    <a href="/u/verify"><i class="icon-check"></i> Get Verified</a>
+  <li ng-class="{active : ('account.getVerified' | routeSegmentStartsWith)}">
+    <a href="#/account/getVerified">
+      <i class="icon-check"></i>
+      Get Verified
+    </a>
   </li>
 </ul>

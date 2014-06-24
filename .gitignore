@@ -74,19 +74,9 @@ Desktop.ini
 # Mac OSX
 ######################
 .DS_Store
-.svn
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-######################
-# Directories
-######################
-/build/
-/bin/
-
-*.class
+/target/
+/out/
+/web-app/plugins
+/web-app/WEB-INF/classes
+/.link_to_grails_plugins/
+/target-eclipse/

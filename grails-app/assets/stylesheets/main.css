@@ -1,4 +1,21 @@
 /*
 *= require kraken-styles
-*= require fontawesome/css/font-awesome.min
+*= require bower_components/fontawesome/css/font-awesome
+*= require_self
 */
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.ng-hide-add, .ng-hide-remove {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+}
+
+.fadein {
+    transition: 2s linear all;
+    -webkit-transition: 2s linear all;
+    -moz-transition: 2s linear all;
+    -o-transition: 2s linear all;
+}
