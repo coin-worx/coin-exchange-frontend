@@ -63,9 +63,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         if (type === constants.type.BUY) {
           $scope.parameters.btnClass = constants.btnClass.SUCCESS;
           $scope.parameters.type = constants.type.BUY;
+          setBestAskAsPrice();
         } else {
           $scope.parameters.btnClass = constants.btnClass.DANGER;
           $scope.parameters.type = constants.type.SELL;
+          setBestBidAsPrice();
         }
       };
 
@@ -281,6 +283,15 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
                         $scope.price = $scope.bids[0]['BidPrice'];
                     }
                 }
+                else if($scope.price != 0){
+                    if($scope.asks != null && $scope.asks != undefined){
+                        if($scope.price === $scope.asks[0]['AskPrice']){
+                            if($scope.bids[0] != null || $scope.bids[0] != undefined){
+                                $scope.price = $scope.bids[0]['BidPrice'];
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -289,6 +300,15 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
                 if($scope.price === null || $scope.price === undefined || $scope.price === 0){
                     if($scope.asks[0] != null || $scope.asks[0] != undefined){
                         $scope.price = $scope.asks[0]['AskPrice'];
+                    }
+                }
+                else if($scope.price != 0){
+                    if($scope.bids != null && $scope.bids != undefined){
+                        if($scope.price === $scope.bids[0]['BidPrice']){
+                            if($scope.asks[0] != null || $scope.asks[0] != undefined){
+                                $scope.price = $scope.asks[0]['AskPrice'];
+                            }
+                        }
                     }
                 }
             }
