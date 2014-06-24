@@ -218,4 +218,51 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       $scope.isTypeMatch = function (type) {
         return $scope.parameters.type === type;
       };
+
+      //@todo: move to directive
+      $scope.getAmountLabel = function () {
+        var label = 'Amount of ';
+
+        if ($scope.parameters.sign === constants.sign.MULT) {
+          label = label + $scope.currency.from + ' to ' + $scope.parameters.type.toLowerCase();
+        } else {
+          label = label + $scope.currency.to + ' to ';
+
+          if ($scope.parameters.type === constants.type.BUY) {
+            label = label + 'spend';
+          } else {
+            label = label + 'receive';
+          }
+        }
+
+        return label + '.';
+      };
+
+      //@todo: move to directive
+      $scope.getTotalLabel = function () {
+        var label = 'Estimated amount of ',
+          postfix = '';
+
+        if ($scope.parameters.sign === constants.sign.MULT) {
+          label = label + $scope.currency.to;
+
+          if ($scope.parameters.type === constants.type.BUY) {
+            postfix = 'spend';
+          } else {
+            postfix = 'receive';
+          }
+        } else {
+          label = label + $scope.currency.from;
+
+          if ($scope.parameters.type === constants.type.SELL) {
+            postfix = 'spend';
+          } else {
+            postfix = 'receive';
+          }
+        }
+
+        label = label + ' to ' + postfix + '.';
+
+        return label;
+      };
     }]);

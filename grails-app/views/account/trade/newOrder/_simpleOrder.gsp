@@ -41,9 +41,7 @@
             </div>
           </div>
 
-          <p class="control-hint"
-             ng-bind-template="Amount of {{currency.from}} to
-             {{isTypeMatch('Buy') ? 'sell' : 'buy'}}."></p>
+          <p class="control-hint" ng-bind="getAmountLabel()"></p>
         </div>
 
         <div class="ib symbol calc-op-symbol" ng-bind="parameters.sign"></div>
@@ -85,9 +83,7 @@
             <span class="add-on" ng-bind="currency.total"></span>
           </div>
 
-          <p class="control-hint" name="total-hint"
-             ng-bind-template="Estimated amount of {{currency.total}} to
-             {{isTypeMatch('Buy') ? 'spend' : 'receive'}}."></p>
+          <p class="control-hint" name="total-hint" ng-bind="getTotalLabel()"></p>
         </div>
 
         <div class="vmarg20top" ng-show="simpleOrderForm.$invalid && submitted || parameters.error">
