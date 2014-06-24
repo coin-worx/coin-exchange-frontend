@@ -275,7 +275,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       };
 
         function setBestBidAsPrice(){
-            if($scope.parameters.type === constants.type.SELL){
+            if($scope.parameters.type === constants.type.SELL && $scope.parameters.orderType === constants.orderType.LIMIT){
                 if($scope.price === null || $scope.price === undefined || $scope.price === 0){
                     if($scope.bids[0] != null || $scope.bids[0] != undefined){
                         $scope.price = $scope.bids[0]['BidPrice'];
@@ -285,7 +285,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         }
 
         function setBestAskAsPrice(){
-            if($scope.parameters.type === constants.type.BUY){
+            if($scope.parameters.type === constants.type.BUY && $scope.parameters.orderType === constants.orderType.LIMIT){
                 if($scope.price === null || $scope.price === undefined || $scope.price === 0){
                     if($scope.asks[0] != null || $scope.asks[0] != undefined){
                         $scope.price = $scope.asks[0]['AskPrice'];
