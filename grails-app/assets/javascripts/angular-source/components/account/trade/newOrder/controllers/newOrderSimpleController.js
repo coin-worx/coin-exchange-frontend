@@ -31,6 +31,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       $scope.submitted = false;
       $scope.bids = getBidsOrderBookUsingBidService();
       $scope.asks = getAsksOrderBookUsingAsksService();
+      var isPriceSetManually = false;
       $scope.parameters = {
         type: constants.type.BUY,
         btnClass: constants.btnClass.SUCCESS,
@@ -63,11 +64,15 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         if (type === constants.type.BUY) {
           $scope.parameters.btnClass = constants.btnClass.SUCCESS;
           $scope.parameters.type = constants.type.BUY;
-          setBestAskAsPrice();
+          if(!isPriceSetManually){
+            setBestAskAsPrice();
+          }
         } else {
           $scope.parameters.btnClass = constants.btnClass.DANGER;
           $scope.parameters.type = constants.type.SELL;
-          setBestBidAsPrice();
+          if(!isPriceSetManually){
+            setBestBidAsPrice();
+          }
         }
       };
 
@@ -311,6 +316,12 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
                         }
                     }
                 }
+            }
+        }
+
+        function priceSetManually(){
+            if(!isPriceSetManually){
+               isPriceSetManually = true;
             }
         }
     }]);
