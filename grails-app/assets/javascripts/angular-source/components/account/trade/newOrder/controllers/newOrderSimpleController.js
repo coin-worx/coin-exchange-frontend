@@ -127,11 +127,19 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
 
       $scope.$watchCollection('[volume, price]', function (newValues) {
         if ($scope.parameters.orderType === constants.orderType.LIMIT) {
-          if (newValues && newValues[0] && newValues[1]) {
-            $scope.total = newValues[0] * newValues[1];
-          } else {
-            $scope.total = null;
-          }
+            if($scope.parameters.sign === constants.sign.MULT){
+                  if (newValues && newValues[0] && newValues[1]) {
+                    $scope.total = newValues[0] * newValues[1];
+                  } else {
+                    $scope.total = null;
+                  }
+            } else if($scope.parameters.sign === constants.sign.DIV){
+                if (newValues && newValues[0] && newValues[1]) {
+                    $scope.total = newValues[0] / newValues[1];
+                } else {
+                    $scope.total = null;
+                }
+            }
         } else if ($scope.parameters.orderType === constants.orderType.MARKET) {
           getBidsOrderBookUsingBidService();
           getAsksOrderBookUsingAsksService();
@@ -139,6 +147,18 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
           updateOrderVariables(newValues);
         }
       });
+
+        // Update the volume when the value in the total text box changes
+        $scope.$watchCollection('[total]', function (newValues) {
+            if ($scope.parameters.orderType === constants.orderType.LIMIT) {
+                if($scope.parameters.sign === constants.sign.MULT){
+                    $scope.volume = newValues[0] / $scope.price;
+                }
+                else if($scope.parameters.sign === constants.sign.DIV){
+                    $scope.volume = newValues[0] * $scope.price;
+                }
+            };
+        });
 
       $scope.$watch('parameters.sign', function (newSign) {
         if (newSign === constants.sign.MULT) {
