@@ -3,23 +3,35 @@
 'use strict';
 
 angular.module('marketData.recentTrades').controller('RecentTradesController', [
-    '$scope', 'RecentTradesService', function ($scope, recentTradesService) {
+    '$scope', '$timeout', 'RecentTradesService', function ($scope, $timeout, recentTradesService) {
         var loaded = false;
 
-        recentTradesService.query()
-            .success(function (data) {
-                $scope.trades = data;
-                setPaginationParams();
+        function loadRecentTrades(){
+            recentTradesService.query()
+                .success(function (data) {
+                    $scope.trades = data;
+                    setPaginationParams();
 
-                $scope.$parent.recentTradesLoaded = true;
-                loaded = true;
+                    $scope.$parent.recentTradesLoaded = true;
+                    loaded = true;
 
-                recalculateMinAndMax();
-                filterCollection();
+                    recalculateMinAndMax();
+                    filterCollection();
 
-            }).error(function () {
-                $scope.trades = [];
-            });
+                }).error(function () {
+                    $scope.trades = [];
+                });
+        }
+
+        loadRecentTrades();
+        intervalFunction();
+
+        function intervalFunction(){
+            $timeout(function() {
+                loadRecentTrades();
+                intervalFunction()
+            }, 10000)
+        };
 
         $scope.deleteOrder = function (order) {
             var index = $scope.trades.indexOf(order);

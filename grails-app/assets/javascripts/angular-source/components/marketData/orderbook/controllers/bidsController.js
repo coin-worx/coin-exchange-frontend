@@ -3,22 +3,50 @@
 'use strict';
 
 angular.module('marketData.orderBook').controller('BidsController', [
-    '$scope', 'BidsService', function ($scope, bidsService) {
-        var loaded = false;
+    '$scope', '$timeout', 'BidsService', function ($scope, $timeout, bidsService) {
+        var loaded = false
+        $scope.customStyle = {};
 
-        bidsService.query()
-            .success(function (data) {
-                $scope.orderBook = data;
-                setPaginationParams();
-                recalculateMinAndMax();
-                filterCollection();
+        function loadBids(){
+            bidsService.query()
+                .success(function (data) {
+                    $scope.orderBook = data;
+                    setPaginationParams();
+                    recalculateMinAndMax();
+                    filterCollection();
 
-                $scope.$parent.bidsLoaded = true;
-                loaded = true;
+                    $scope.$parent.bidsLoaded = true;
+                    loaded = true;
 
-            }).error(function () {
-                $scope.orderBook = [];
-            });
+                }).error(function () {
+                    $scope.orderBook = [];
+                });
+        }
+
+        loadBids();
+        intervalFunction();
+
+        function intervalFunction(){
+            $timeout(function() {
+                loadBids();
+                intervalFunction()
+            }, 10000)
+        };
+
+        function colorFade(userOptions) {
+            // starting color, ending color, duration in ms
+            var options = $.extend({
+                start: "#0A2A0A",
+                end: "#000000",
+                time: 2000
+            }, userOptions || {});
+            $(this).css({
+                backgroundColor: options.start
+            }).animate({
+                    backgroundColor: options.end
+                }, options.time);
+            return this;
+        };
 
         $scope.deleteOrder = function (order) {
             var index = $scope.orderBook.indexOf(order);
