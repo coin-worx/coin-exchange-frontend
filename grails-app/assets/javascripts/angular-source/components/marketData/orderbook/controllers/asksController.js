@@ -6,18 +6,21 @@ angular.module('marketData.orderBook').controller('AsksController', [
     '$scope', '$timeout', 'AsksService', function ($scope, $timeout, asksService) {
         var loaded = false;
         $scope.customStyle = {};
+        $scope.previousOrderBook = [];
 
         function loadAsks(){
             asksService.query()
                 .success(function (data) {
-                    $scope.customStyle.style = colorFade();
                     $scope.orderBook = data;
+                    previousOrderBookCheck();
                     setPaginationParams();
                     recalculateMinAndMax();
                     filterCollection();
 
                     $scope.$parent.asksLoaded = true;
                     loaded = true;
+                    $scope.previousOrderBook = $scope.orderBook;
+                    //$scope.customStyle.style = {color : 'black'}
 
                 }).error(function () {
                     $scope.orderBook = [];
@@ -32,23 +35,24 @@ angular.module('marketData.orderBook').controller('AsksController', [
             $timeout(function() {
                 loadAsks();
                 intervalFunction()
-            }, 10000)
+            }, 30000)
         };
 
-        function colorFade(userOptions) {
-            // starting color, ending color, duration in ms
-            var options = $.extend({
-                start: "#0A2A0A",
-                end: "#000000",
-                time: 2000
-            }, userOptions || {});
-            $(this).css({
-                color: options.start
-            }).animate({
-                    color: options.end
-                }, options.time);
-            return this;
-        };
+        function previousOrderBookCheck(){
+            if($scope.previousOrderBook.length > 0){
+                for(var i = 0; i < $scope.orderBook.length; i++){
+                    if($scope.previousOrderBook[i]['AskPrice'] != $scope.orderBook[i]['AskPrice'] ||
+                        $scope.previousOrderBook[i]['AskVolume'] != $scope.orderBook[i]['AskVolume']){
+                        $scope.orderBook[i] = {AskPrice: $scope.orderBook[i]['AskPrice'], AskVolume: $scope.orderBook[i]['AskVolume'],
+                            changeColor: true};
+                    }
+                    else{
+                        $scope.orderBook[i] = {AskPrice: $scope.orderBook[i]['AskPrice'], AskVolume: $scope.orderBook[i]['AskVolume'],
+                            changeColor: false};
+                    }
+                }
+            }
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.orderBook.indexOf(order);

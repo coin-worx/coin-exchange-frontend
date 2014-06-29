@@ -5,11 +5,13 @@
 angular.module('marketData.recentTrades').controller('RecentTradesController', [
     '$scope', '$timeout', 'RecentTradesService', function ($scope, $timeout, recentTradesService) {
         var loaded = false;
+        $scope.previousTrades = [];
 
         function loadRecentTrades(){
             recentTradesService.query()
                 .success(function (data) {
                     $scope.trades = data;
+                    previousTradesBookCheck()
                     setPaginationParams();
 
                     $scope.$parent.recentTradesLoaded = true;
@@ -17,6 +19,8 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
 
                     recalculateMinAndMax();
                     filterCollection();
+
+                    $scope.previousTrades = $scope.trades;
 
                 }).error(function () {
                     $scope.trades = [];
@@ -30,8 +34,24 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
             $timeout(function() {
                 loadRecentTrades();
                 intervalFunction()
-            }, 10000)
+            }, 30000)
         };
+
+        function previousTradesBookCheck(){
+            if($scope.previousTrades.length > 0){
+                for(var i = 0; i < $scope.trades.length; i++){
+                    if($scope.previousTrades[i]['Price'] != $scope.trades[i]['Price'] ||
+                        $scope.previousTrades[i]['Volume'] != $scope.trades[i]['Volume']){
+                        $scope.trades[i] = {Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
+                            Time: $scope.trades[i]['Time'], ChangeColor: true};
+                    }
+                    else{
+                        $scope.trades[i] = {Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
+                            Time: $scope.trades[i]['Time'], ChangeColor: true};
+                    }
+                }
+            }
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.trades.indexOf(order);

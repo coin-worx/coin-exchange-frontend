@@ -7422,6 +7422,47 @@ ol.naked li .prefix, ul.naked li .prefix {
     text-align: right !important;
 }
 
+.changeralign{
+    text-align: right !important;
+    -webkit-animation: color-change 5s 1;
+    -moz-animation: color-change 1s 1;
+    -o-animation: color-change 1s 1;
+    -ms-animation: color-change 1s 1;
+    animation: color-change 5s 1;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: darkgreen }
+    25% { color: green}
+    50% { color: forestgreen}
+    75% { color: limegreen}
+    100% { color: black; }
+}
+
+@-moz-keyframes color-change {
+    0% { color: darkgreen }
+    25% { color: green}
+    50% { color: forestgreen}
+    75% { color: limegreen}
+    100% { color: black; }
+}
+
+@-o-keyframes color-change {
+    0% { color: darkgreen }
+    25% { color: green}
+    50% { color: forestgreen}
+    75% { color: limegreen}
+    100% { color: black; }
+}
+
+@-ms-keyframes color-change {
+    0% { color: darkgreen }
+    25% { color: green}
+    50% { color: forestgreen}
+    75% { color: limegreen}
+    100% { color: black; }
+}
+
 .lalign {
     text-align: left !important;
 }

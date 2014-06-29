@@ -6,17 +6,20 @@ angular.module('marketData.orderBook').controller('BidsController', [
     '$scope', '$timeout', 'BidsService', function ($scope, $timeout, bidsService) {
         var loaded = false
         $scope.customStyle = {};
+        $scope.previousOrderBook = [];
 
         function loadBids(){
             bidsService.query()
                 .success(function (data) {
                     $scope.orderBook = data;
+                    previousOrderBookCheck();
                     setPaginationParams();
                     recalculateMinAndMax();
                     filterCollection();
 
                     $scope.$parent.bidsLoaded = true;
                     loaded = true;
+                    $scope.previousOrderBook = $scope.orderBook;
 
                 }).error(function () {
                     $scope.orderBook = [];
@@ -30,23 +33,24 @@ angular.module('marketData.orderBook').controller('BidsController', [
             $timeout(function() {
                 loadBids();
                 intervalFunction()
-            }, 10000)
+            }, 30000)
         };
 
-        function colorFade(userOptions) {
-            // starting color, ending color, duration in ms
-            var options = $.extend({
-                start: "#0A2A0A",
-                end: "#000000",
-                time: 2000
-            }, userOptions || {});
-            $(this).css({
-                backgroundColor: options.start
-            }).animate({
-                    backgroundColor: options.end
-                }, options.time);
-            return this;
-        };
+        function previousOrderBookCheck(){
+            if($scope.previousOrderBook.length > 0){
+                for(var i = 0; i < $scope.orderBook.length; i++){
+                    if($scope.previousOrderBook[i]['BidPrice'] != $scope.orderBook[i]['BidPrice'] ||
+                        $scope.previousOrderBook[i]['BidVolume'] != $scope.orderBook[i]['BidVolume']){
+                        $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
+                            changeColor: true};
+                    }
+                    else{
+                        $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
+                            changeColor: false};
+                    }
+                }
+            }
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.orderBook.indexOf(order);
