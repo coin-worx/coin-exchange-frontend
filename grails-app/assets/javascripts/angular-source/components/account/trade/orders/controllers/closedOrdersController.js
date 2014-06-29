@@ -6,20 +6,27 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
   '$scope', 'ClosedOrdersService', 'OrdersSharedService', function ($scope, closedOrdersService, orderSharedService) {
     var loaded = false;
 
-    closedOrdersService.query()
-      .success(function (data) {
-        updateCost(data);
-        $scope.orders = data;
-        setPaginationParams();
-        recalculateMinAndMax();
-        filterCollection();
+    $scope.$on('refreshEvent', function(event, data) {
+        loadClosedOrders();
+    });
 
-        $scope.$parent.closedOrdersLoaded = true;
-        loaded = true;
-      }).error(function () {
-        $scope.orders = [];
-        loaded = true;
-      });
+    loadClosedOrders();
+    function loadClosedOrders(){
+        closedOrdersService.query()
+            .success(function (data) {
+                updateCost(data);
+                $scope.orders = data;
+                setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
+
+                $scope.$parent.closedOrdersLoaded = true;
+                loaded = true;
+            }).error(function () {
+                $scope.orders = [];
+                loaded = true;
+            });
+    }
 
     $scope.setOrderId = function (orderId) {
       orderSharedService.setOrderIdOfOrder(orderId);

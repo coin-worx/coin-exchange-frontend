@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.refreshData').controller('RefreshDataController', [
-    '$scope', '$route', '$timeout', '$location', '$window', function ($scope, $route, $timeout, $location, $window) {
+    '$scope', '$rootScope', '$route', '$timeout', '$location', '$window', function ($scope, $rootScope, $route, $timeout, $location, $window) {
 
         // Style of the last updated value
         $scope.customStyle = {};
@@ -23,7 +23,8 @@ angular.module('account.trade.refreshData').controller('RefreshDataController', 
                     intervalFunction();
                 }
                 else{
-                    $window.location.reload(false);
+                    resetCounter();
+                    intervalFunction();
                 }
             }, 1000)
         };
@@ -31,9 +32,16 @@ angular.module('account.trade.refreshData').controller('RefreshDataController', 
         $scope.currentTime = getDateTime();
         $scope.reload = function () {
             $scope.currentTime = getDateTime();
-            $window.location.reload(true);
-           // $route.reload();
+            resetCounter();
         };
+
+        function resetCounter(){
+            $scope.lastUpdatedSeconds = 'just now';
+            // Color at page load is green
+            $scope.customStyle.style = {"color":"green"};
+            $rootScope.$broadcast('refreshEvent');
+            secondsCounter = 0;
+        }
 
         function getDateTime(){
             var currentDate = new Date();

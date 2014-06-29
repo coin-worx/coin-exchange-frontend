@@ -6,19 +6,27 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleBidsControlle
     '$scope', 'NewOrderSimpleBidsService', function ($scope, bidsService) {
         var loaded = false;
 
-        bidsService.query()
-            .success(function (data) {
-                $scope.orderBook = data;
-                setPaginationParams();
-                recalculateMinAndMax();
-                filterCollection();
+        $scope.$on('refreshEvent', function(event, data) {
+            loadBids();
+        });
 
-                $scope.$parent.bidsLoaded = true;
-                loaded = true;
+        loadBids();
 
-            }).error(function () {
-                $scope.orderBook = [];
-            });
+        function loadBids(){
+            bidsService.query()
+                .success(function (data) {
+                    $scope.orderBook = data;
+                    setPaginationParams();
+                    recalculateMinAndMax();
+                    filterCollection();
+
+                    $scope.$parent.bidsLoaded = true;
+                    loaded = true;
+
+                }).error(function () {
+                    $scope.orderBook = [];
+                });
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.orderBook.indexOf(order);

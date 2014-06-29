@@ -6,19 +6,26 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
   '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
     var loaded = false;
 
-    newAndOpenOrdersService.query()
-      .success(function (data) {
-        updateCostRems(data);
-        $scope.orders = data;
-        setPaginationParams();
-        recalculateMinAndMax();
-        filterCollection();
+    $scope.$on('refreshEvent', function(event, data) {
+        loadOpenOrders();
+    });
 
-        $scope.$parent.newAndOpenOrdersLoaded = true;
-        loaded = true;
-      }).error(function () {
-        $scope.orders = [];
-      });
+    loadOpenOrders();
+    function loadOpenOrders(){
+        newAndOpenOrdersService.query()
+            .success(function (data) {
+                updateCostRems(data);
+                $scope.orders = data;
+                setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
+
+                $scope.$parent.newAndOpenOrdersLoaded = true;
+                loaded = true;
+            }).error(function () {
+                $scope.orders = [];
+            });
+    }
 
     $scope.deleteOrder = function (order) {
       var index = $scope.orders.indexOf(order);

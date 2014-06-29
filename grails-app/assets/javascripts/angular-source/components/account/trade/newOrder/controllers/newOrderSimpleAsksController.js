@@ -3,22 +3,30 @@
 'use strict';
 
 angular.module('account.trade.newOrder').controller('NewOrderSimpleAsksController', [
-    '$scope', 'NewOrderSimpleAsksService', function ($scope, asksService) {
+    '$scope', '$rootScope', 'NewOrderSimpleAsksService', function ($scope, $rootScope, asksService) {
         var loaded = false;
 
-        asksService.query()
-            .success(function (data) {
-                $scope.orderBook = data;
-                setPaginationParams();
-                recalculateMinAndMax();
-                filterCollection();
+        $scope.$on('refreshEvent', function(event, data) {
+            loadAsks();
+        });
 
-                $scope.$parent.asksLoaded = true;
-                loaded = true;
+        loadAsks();
 
-            }).error(function () {
-                $scope.orderBook = [];
-            });
+        function loadAsks(){
+            asksService.query()
+                .success(function (data) {
+                    $scope.orderBook = data;
+                    setPaginationParams();
+                    recalculateMinAndMax();
+                    filterCollection();
+
+                    $scope.$parent.asksLoaded = true;
+                    loaded = true;
+
+                }).error(function () {
+                    $scope.orderBook = [];
+                });
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.orderBook.indexOf(order);

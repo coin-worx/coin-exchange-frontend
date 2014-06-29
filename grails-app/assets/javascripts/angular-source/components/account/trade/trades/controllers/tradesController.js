@@ -7,17 +7,24 @@ angular.module('account.trade.trades').controller('TradesController', [
     $scope.loaded = false;
     $scope.filteredTrades = [];
 
-    tradesService.query()
-      .success(function (data) {
-        $scope.trades = data;
-        setPaginationParams();
-        recalculateMinAndMax();
-        filterCollection();
-        $scope.loaded = true;
-      }).error(function () {
-        $scope.trades = [];
-        $scope.loaded = true;
-      });
+    $scope.$on('refreshEvent', function(event, data) {
+        loadTrades();
+    });
+
+    loadTrades();
+    function loadTrades(){
+        tradesService.query()
+            .success(function (data) {
+                $scope.trades = data;
+                setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
+                $scope.loaded = true;
+            }).error(function () {
+                $scope.trades = [];
+                $scope.loaded = true;
+            });
+    }
 
       $scope.setTradeId = function (tradeId) {
           tradesSharedService.setTradeIdOfTrade(tradeId);
