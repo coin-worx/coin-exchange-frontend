@@ -6,16 +6,48 @@ angular.module('account.trade.trades').controller('TradesController', [
   '$scope', 'TradesService', 'TradesSharedService', function ($scope, tradesService, tradesSharedService) {
     $scope.loaded = false;
     $scope.filteredTrades = [];
+    var previousTrades = [];
 
     $scope.$on('refreshEvent', function(event, data) {
         loadTrades();
     });
+
+    function refreshTradesColorChange(){
+         if(previousTrades.length > 0){
+             for(var i = 0; i < $scope.trades.length; i++){
+                 var containsTrade = false;
+                 for(var j = 0; j < previousTrades.length; j++){
+                     if(previousTrades[j]['TradeId'] === $scope.trades[i]['TradeId']){
+                         containsTrade = true;
+                         break;
+                     }
+                 }
+                 if(!containsTrade){
+                     /*for(var k = $scope.previousTrades.length + 1; k >=0; k--){
+                         previousTrades[k](previousTrades[i] = {TradeId: $scope.trades[i]['TradeId'], Volume: $scope.trades[i]['Volume'],
+                             ExecutionDateTime: $scope.trades[i]['ExecutionDateTime'], CurrencyPair: $scope.trades[i]['CurrencyPair'],
+                             Cost: $scope.trades[i]['Cost'], TagNumber: i, ChangeColor: true});
+                     }*/
+                     $scope.trades[i] = {TradeId: $scope.trades[i]['TradeId'], Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
+                         ExecutionDateTime: $scope.trades[i]['ExecutionDateTime'], CurrencyPair: $scope.trades[i]['CurrencyPair'],
+                         Cost: $scope.trades[i]['Cost'], TagNumber: i, ChangeColor: true}
+                    previousTrades.push({TradeId: $scope.trades[i]['TradeId']});
+                 }
+             }
+         }
+        else{
+             for(var i = 0; i < $scope.trades.length; i++){
+                 previousTrades[i] = {TradeId: $scope.trades[i]['TradeId']}
+             }
+         }
+    }
 
     loadTrades();
     function loadTrades(){
         tradesService.query()
             .success(function (data) {
                 $scope.trades = data;
+                refreshTradesColorChange();
                 setPaginationParams();
                 recalculateMinAndMax();
                 filterCollection();

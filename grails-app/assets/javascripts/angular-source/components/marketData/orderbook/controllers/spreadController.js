@@ -3,30 +3,42 @@
 'use strict';
 
 angular.module('marketData.orderBook').controller('SpreadController', [
-    '$scope', 'DepthService', 'BidsService', 'AsksService', 'SpreadService', function ($scope, depthService, bidsService, asksService, spreadService) {
+    '$scope', '$timeout', 'DepthService', 'BidsService', 'AsksService', 'SpreadService', function ($scope, $timeout, depthService, bidsService, asksService, spreadService) {
         var loaded = false;
-        var spreadSeries = [];
 
         $scope.isLoaded = function () {
             return !loaded;
         };
 
-        spreadService.query()
-            .success(function (data) {
-                $scope.spread = data;
-                var bidsAskSeries = generateSpreadData(data);
-                $scope.bidAskChartConfig.series.splice(0,1);
-                $scope.bidAskChartConfig.series = bidsAskSeries;
+        loadSpread();
+        intervalFunction();
 
-                $scope.spreadChartConfig.series.splice(0,1);
-                $scope.spreadChartConfig.series = spreadSeries;
+        function intervalFunction(){
+            $timeout(function() {
+                loadSpread();
+                intervalFunction()
+            }, 30000)
+        };
 
-            }).error(function () {
-                $scope.spread = [];
-            });
+        function loadSpread(){
+            spreadService.query()
+                .success(function (data) {
+                    $scope.spread = data;
+                    var bidsAskSeries = generateSpreadData(data);
+                    $scope.bidAskChartConfig.series.splice(0,1);
+                    $scope.bidAskChartConfig.series = bidsAskSeries[0];
+
+                    $scope.spreadChartConfig.series.splice(0,1);
+                    $scope.spreadChartConfig.series = bidsAskSeries[1];
+
+                }).error(function () {
+                    $scope.spread = [];
+                });
+        }
 
         function generateSpreadData(data){
             var series = [];
+            var spreadSeries = [];
 
             var bidsData = [];
             var asksData = [];
@@ -107,7 +119,7 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 series[1].data.push(ask);
                 spreadSeries[0].data.push(spread);
             }
-            return series;
+            return [series, spreadSeries];
         }
 
         $scope.toggleLoading = function () {
@@ -242,7 +254,7 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 title: {text: 'Timeline'}
             },
             yAxis: {
-                title: {text: 'Bids/Asks'}
+                title: {text: 'Spread'}
             },
             //size (optional) if left out the chart will default to size of the div or something sensible.
             size: {

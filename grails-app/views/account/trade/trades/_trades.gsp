@@ -37,10 +37,10 @@
                  <a href="#/account/trade/tradeDetails">{{trade.TradeId | limitTo : 8}}</a>
               </td>
               <td class="nw" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy HH:mm:ss'"></td>
-              <td class="nw ralign" ng-bind="trade.Price"></td>
-              <td class="ralign" ng-bind="trade.Volume"></td>
-              <td class="lalign" ng-bind="trade.CurrencyPair"></td>
-              <td class="ralign" ng-bind="trade.Cost"></td>
+              <td class="nw ralign" ng-bind="trade.Price" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="ralign" ng-bind="trade.Volume" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="lalign" ng-bind="trade.CurrencyPair" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="ralign" ng-bind="trade.Cost" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
             </tr>
 
             <tr class="odd" ng-hide="trades.length">

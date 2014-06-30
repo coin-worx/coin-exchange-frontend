@@ -37,16 +37,18 @@ angular.module('marketData.orderBook').controller('BidsController', [
         };
 
         function previousOrderBookCheck(){
-            if($scope.previousOrderBook.length > 0){
+            if($scope.previousOrderBook != null && $scope.previousOrderBook.length > 0){
                 for(var i = 0; i < $scope.orderBook.length; i++){
-                    if($scope.previousOrderBook[i]['BidPrice'] != $scope.orderBook[i]['BidPrice'] ||
-                        $scope.previousOrderBook[i]['BidVolume'] != $scope.orderBook[i]['BidVolume']){
-                        $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
-                            changeColor: true};
-                    }
-                    else{
-                        $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
-                            changeColor: false};
+                    if($scope.previousOrderBook[i] != null && $scope.orderBook[i] != null){
+                        if($scope.previousOrderBook[i]['BidPrice'] != $scope.orderBook[i]['BidPrice'] ||
+                            $scope.previousOrderBook[i]['BidVolume'] != $scope.orderBook[i]['BidVolume']){
+                            $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
+                                changeColor: true};
+                        }
+                        else{
+                            $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
+                                changeColor: false};
+                        }
                     }
                 }
             }

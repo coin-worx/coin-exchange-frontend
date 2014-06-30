@@ -7422,6 +7422,24 @@ ol.naked li .prefix, ul.naked li .prefix {
     text-align: right !important;
 }
 
+th.nwchangeColor{
+    white-space: nowrap;
+    -webkit-animation: color-change 5s 1;
+    -moz-animation: color-change 1s 1;
+    -o-animation: color-change 1s 1;
+    -ms-animation: color-change 1s 1;
+    animation: color-change 5s 1;
+}
+
+.changelalign{
+    text-align: right !important;
+    -webkit-animation: color-change 5s 1;
+    -moz-animation: color-change 1s 1;
+    -o-animation: color-change 1s 1;
+    -ms-animation: color-change 1s 1;
+    animation: color-change 5s 1;
+}
+
 .changeralign{
     text-align: right !important;
     -webkit-animation: color-change 5s 1;

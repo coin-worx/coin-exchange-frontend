@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('marketData.orderBook').controller('DepthController', [
-    '$scope', 'DepthService', 'BidsService', 'AsksService', function ($scope, depthService, bidsService, asksService) {
+    '$scope', '$timeout', 'DepthService', 'BidsService', 'AsksService', function ($scope, $timeout, depthService, bidsService, asksService) {
         var loaded = false;
         var bids = null;
         var asks = null;
@@ -12,26 +12,38 @@ angular.module('marketData.orderBook').controller('DepthController', [
             return !loaded;
         };
 
-        depthService.query()
-            .success(function (data) {
-                $scope.depth = data;
-                bids = $scope.depth[0];
-                asks = $scope.depth[1];
-                var originalSeries = generateCmVolChartData(bids, asks)//generateDepthData();
-                $scope.chartConfig.series.splice(0,1);
-                $scope.chartConfig.series = originalSeries;
+        loadDepth();
+        intervalFunction();
 
-                bidsService.query()
-                    .success(function(bids){
-                        $scope.bids = bids;
-                        getAsksAndMakeSeries()
-                    }).error(function(){
-                        $scope.bids = null;
-                       getAsksAndMakeSeries()
-                    });
-            }).error(function () {
-                $scope.depth = [];
-            });
+        function intervalFunction(){
+            $timeout(function() {
+                loadDepth();
+                intervalFunction()
+            }, 30000)
+        };
+
+        function loadDepth(){
+            depthService.query()
+                .success(function (data) {
+                    $scope.depth = data;
+                    bids = $scope.depth[0];
+                    asks = $scope.depth[1];
+                    var originalSeries = generateCmVolChartData(bids, asks)//generateDepthData();
+                    $scope.chartConfig.series.splice(0,1);
+                    $scope.chartConfig.series = originalSeries;
+
+                    bidsService.query()
+                        .success(function(bids){
+                            $scope.bids = bids;
+                            getAsksAndMakeSeries()
+                        }).error(function(){
+                            $scope.bids = null;
+                            getAsksAndMakeSeries()
+                        });
+                }).error(function () {
+                    $scope.depth = [];
+                });
+        }
 
         function getAsksAndMakeSeries(){
             asksService.query()
