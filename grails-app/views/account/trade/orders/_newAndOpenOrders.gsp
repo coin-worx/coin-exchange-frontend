@@ -30,15 +30,15 @@
       <td class="nw" ng-click="setOrderId(order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
           <a href="#/account/trade/showOrderDetails">{{order.OrderId | limitTo : 8}}</a>
       </td>
-      <td class="nw" ng-bind-template="{{order.Type}}/{{order.Side}}"></td>
-      <td class="lalign" ng-bind="order.CurrencyPair"></td>
-      <td class="nw ralign" ng-bind="order.Price"></td>
-      <td class="ralign" ng-bind="order.OpenQuantity"></td>
-      <td class="ralign" ng-bind="order.CostRem"></td>
+      <td class="lalign" ng-bind-template="{{order.Type}}/{{order.Side}}"  ng-class="{'changeralign': order.ChangeColor}"></td>
+      <td class="lalign" ng-bind="order.CurrencyPair" ng-class="{'changeralign': order.ChangeColor}"></td>
+      <td class="nw ralign" ng-bind="order.Price" ng-class="{'changeralign': order.ChangeColor}"></td>
+      <td class="ralign" ng-bind="order.OpenQuantity" ng-class="{'changeralign': order.ChangeColor}"></td>
+      <td class="ralign" ng-bind="order.CostRem" ng-class="{'changeralign': order.ChangeColor}"></td>
       <td>
         <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>
       </td>
-      <td class="nw" ng-bind="order.DateTime | date : 'MM-dd-yy HH:mm:ss'"></td>
+      <td class="lalign" ng-bind="order.DateTime | date : 'MM-dd-yy HH:mm:ss'" ng-class="{'changeralign': order.ChangeColor}"></td>
       <td class="center">
         <a name="cancel" ng-click="deleteOrder(order)" class="btn btn-danger thin tt btn-cancel">
           <i class="icon-remove icon-white"></i>

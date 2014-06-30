@@ -5,6 +5,7 @@
 angular.module('account.trade.orders').controller('NewAndOpenOrdersController', [
   '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
     var loaded = false;
+    var previousOpenOrders = [];
 
     $scope.$on('refreshEvent', function(event, data) {
         loadOpenOrders();
@@ -16,15 +17,41 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
             .success(function (data) {
                 updateCostRems(data);
                 $scope.orders = data;
+                refreshTradesColorChange();
                 setPaginationParams();
                 recalculateMinAndMax();
                 filterCollection();
 
                 $scope.$parent.newAndOpenOrdersLoaded = true;
                 loaded = true;
+                previousOpenOrders = $scope.orders;
             }).error(function () {
                 $scope.orders = [];
             });
+    }
+
+    function refreshTradesColorChange(){
+        if(previousOpenOrders.length > 0){
+            for(var i = 0; i < $scope.orders.length; i++){
+                var containsTrade = false;
+                for(var j = 0; j < previousOpenOrders.length; j++){
+                    if(previousOpenOrders[j]['OrderId'] === $scope.orders[i]['OrderId']){
+                        containsTrade = true;
+                        break;
+                    }
+                }
+                if(!containsTrade){
+                    $scope.orders[i] = {Trades: $scope.orders[i]['Trades'], OpenQuantity: $scope.orders[i]['OpenQuantity'],
+                        ClosingDateTime: $scope.orders[i]['ClosingDateTime'],
+                        Type: $scope.orders[i]['Type'], Volume: $scope.orders[i]['Volume'],
+                        OrderId: $scope.orders[i]['OrderId'], TraderId: $scope.orders[i]['TraderId'],
+                        CurrencyPair: $scope.orders[i]['CurrencyPair'], Status: $scope.orders[i]['Status'],
+                        DateTime: $scope.orders[i]['DateTime'], Side: $scope.orders[i]['Side'],
+                        Price: $scope.orders[i]['Price'], AveragePrice: $scope.orders[i]['AveragePrice'],
+                        VolumeExecuted: $scope.orders[i]['VolumeExecuted'], CostRem: $scope.orders[i]['CostRem'], ChangeColor: true};
+                }
+            }
+        }
     }
 
     $scope.deleteOrder = function (order) {

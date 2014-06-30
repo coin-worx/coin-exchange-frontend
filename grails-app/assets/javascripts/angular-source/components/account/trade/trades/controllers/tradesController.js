@@ -23,21 +23,10 @@ angular.module('account.trade.trades').controller('TradesController', [
                      }
                  }
                  if(!containsTrade){
-                     /*for(var k = $scope.previousTrades.length + 1; k >=0; k--){
-                         previousTrades[k](previousTrades[i] = {TradeId: $scope.trades[i]['TradeId'], Volume: $scope.trades[i]['Volume'],
-                             ExecutionDateTime: $scope.trades[i]['ExecutionDateTime'], CurrencyPair: $scope.trades[i]['CurrencyPair'],
-                             Cost: $scope.trades[i]['Cost'], TagNumber: i, ChangeColor: true});
-                     }*/
                      $scope.trades[i] = {TradeId: $scope.trades[i]['TradeId'], Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
                          ExecutionDateTime: $scope.trades[i]['ExecutionDateTime'], CurrencyPair: $scope.trades[i]['CurrencyPair'],
-                         Cost: $scope.trades[i]['Cost'], TagNumber: i, ChangeColor: true}
-                    previousTrades.push({TradeId: $scope.trades[i]['TradeId']});
+                         Cost: $scope.trades[i]['Cost'], TagNumber: i, ChangeColor: true};
                  }
-             }
-         }
-        else{
-             for(var i = 0; i < $scope.trades.length; i++){
-                 previousTrades[i] = {TradeId: $scope.trades[i]['TradeId']}
              }
          }
     }
@@ -52,6 +41,7 @@ angular.module('account.trade.trades').controller('TradesController', [
                 recalculateMinAndMax();
                 filterCollection();
                 $scope.loaded = true;
+                previousTrades = $scope.trades;
             }).error(function () {
                 $scope.trades = [];
                 $scope.loaded = true;
