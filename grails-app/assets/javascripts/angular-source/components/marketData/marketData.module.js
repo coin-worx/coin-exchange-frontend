@@ -2,4 +2,4 @@
 
 'use strict';
 
-angular.module('marketData', ['marketData.orderBook', 'marketData.recentTrades', 'marketData.ticker']);
+angular.module('marketData', ['marketData.orderBook', 'marketData.recentTrades', 'marketData.ticker', 'marketData.ohlcSlideables', 'marketData.ohlc']);

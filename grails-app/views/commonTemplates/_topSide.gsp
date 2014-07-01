@@ -38,7 +38,12 @@
     <div class="row">
       <div class="span12">
         <div class="ticker-wrap clearfix">
-          <a href="javascript: void(0);" class="btn sparkline"><canvas width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;"></canvas></a>
+
+            <div id="derp" class="slideable" style="width: 1000px; height: 420px; margin: 0 auto" ng-controller="OhlcController">
+                <highchart id="ohlcChart" config="ohlcChartConfig"></highchart>
+            </div>
+            <a href="javascript: void(0);" slide-toggle="#derp" class="btn sparkline"><canvas width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;"></canvas></a>
+
           <div id="ticker-top" class="ticker" ng-controller="TickerController">
             <ul>
               <li class="keyval">

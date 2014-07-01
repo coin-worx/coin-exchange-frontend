@@ -261,13 +261,9 @@ angular.module('marketData.orderBook').controller('DepthController', [
             //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
             //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
             xAxis: {
-                //currentMin: 0,
-                //currentMax: 20,
                 title: {text: 'Price'}
             },
             yAxis: {
-                //currentMin: 0,
-                //currentMax: 20,
                 title: {text: 'Cummulative Volume'}
             },
             //size (optional) if left out the chart will default to size of the div or something sensible.

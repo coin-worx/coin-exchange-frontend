@@ -6,6 +6,13 @@ package com.blancrock.backend
 class InteractionController {
     def queryService
 
+    def getOhlcInfo() {
+        Map queryResult = queryService.getOhlcInfo('XBTUSD')
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
     def getTickerInfo() {
         Map queryResult = queryService.getTickerInfo('XBTUSD')
 

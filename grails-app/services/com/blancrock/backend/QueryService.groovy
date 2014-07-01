@@ -14,6 +14,21 @@ class QueryService {
     def jsonHelperService
     def grailsApplication
 
+    Map getOhlcInfo(String currencyPair) {
+        String path = getPathWithPrefix('/marketdata/ohlcinfo')
+
+        Map query = [currencyPair: currencyPair]
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        String tickerPath = getPathWithPrefix('/marketdata/tickerinfo')
+        Map tickerResponse = backendInteractionService.makeUnauthorizedGetRequest(tickerPath, query)
+
+        // ToDo: Send OHLC and Ticker in one go
+        def ohlcResponse = jsonHelperService.ohlcInfoStructuring(response.value, tickerResponse.value)
+        //return [status: response.status, value: [response.value, tickerResponse.value]]
+        return [status: response.status, value: response.value]
+    }
+
     Map getTickerInfo(String currencyPair) {
         String path = getPathWithPrefix('/marketdata/tickerinfo')
 
