@@ -6,6 +6,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
     '$scope', '$timeout', 'OhlcService', function ($scope, $timeout, ohlcService) {
         var loaded = false;
         var currencyPair = '';
+        var bbo = [];
 
         loadOhlc();
         intervalFunction();
@@ -20,15 +21,60 @@ angular.module('marketData.ohlc').controller('OhlcController', [
         function loadOhlc(){
             ohlcService.query()
                 .success(function (data) {
-                    $scope.ohlc = data;
+                    // Get the chart fror OHLC
+                    var chart = Highcharts.charts[0];
+                    bbo = data[0]['BBO'];
+                    // Draw lines for best Bid and Ask
+                    addBidAskPlotLines(chart, bbo.BestBidPrice, bbo.BestAskPrice);
+
+                    $scope.ohlc = data[0]['Ohlc'];
                     var arrangedOhlcArray = arrangeOhlcData($scope.ohlc);
                     $scope.ohlcChartConfig.series.splice(0,1);
-                    $scope.ohlcChartConfig.series = getOhlcSeries(arrangedOhlcArray[0], arrangedOhlcArray[1], arrangedOhlcArray[2]);
+                    $scope.ohlcChartConfig.series = getOhlcSeries(arrangedOhlcArray[0], arrangedOhlcArray[1], arrangedOhlcArray[2],
+                    arrangedOhlcArray[3]);
+
+                    drawOhlcOnCanvas(chart);
                     $scope.loaded = true;
 
                 }).error(function () {
                     $scope.ohlc = [];
                 });
+        }
+
+        function addBidAskPlotLines(chart, bestBidPrice, bestAskPrice){
+            // Add a plot line for Bid
+            chart.yAxis[0].addPlotLine({
+                color: '#B40404',
+                width: 2,
+                value: bestBidPrice,
+                dashStyle: 'solid',
+                id: 'bid-plot-line2'
+            });
+
+            // Add a plot line for Ask
+            chart.yAxis[0].addPlotLine({
+                color: '#424242',
+                width: 2,
+                value: bestAskPrice,
+                dashStyle: 'solid',
+                id: 'ask-plot-line'
+            });
+        }
+
+        function drawOhlcOnCanvas(chart){
+            var canvasElement = document.getElementById("ohlcCanvas");
+            var ohlcSvg = chart.getSVG();
+            // Get chart aspect ratio
+            var c_ar = chart.chartHeight / chart.chartWidth;
+            // Set canvas size
+            canvasElement.width = 72;
+            canvasElement.height = canvasElement.width * c_ar;
+
+            var canvgRender = canvg(canvasElement, ohlcSvg, {
+                ignoreDimensions: true,
+                scaleWidth: canvasElement.width,
+                scaleHeight: canvasElement.height
+            });
         }
 
         // Arrange the OHLC data so that it is in the format that can be understood by HighStocks
@@ -37,6 +83,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                 currencyPair = data['PairName'];
                 var volumeArray = [];
                 var arrangedArray = [];
+                var weightedAverageArray = [];
                 var ohlcArray = data['OhlcInfo'];
                 for(var i = 0; i < ohlcArray.length; i++){
                     var currentArrayElement = ohlcArray[i];
@@ -47,8 +94,11 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                     var arrangedArrayElement = [dateTime, currentArrayElement[0], currentArrayElement[1],
                         currentArrayElement[2], currentArrayElement[3]];
                     arrangedArray.push(arrangedArrayElement);
+
+                    var weightedAverageElement = [dateTime, currentArrayElement[6]];
+                    weightedAverageArray.push(weightedAverageElement);
                 }
-                return [currencyPair, arrangedArray, volumeArray];
+                return [currencyPair, arrangedArray, volumeArray, weightedAverageArray];
             }
         }
 
@@ -69,25 +119,38 @@ angular.module('marketData.ohlc').controller('OhlcController', [
             [1, 2, 3, 4, 6]
         ]];
 
-        function getOhlcSeries(currencyPair, data, volumeData){
+        function getOhlcSeries(currencyPair, data, volumeData, weightedAverageData){
             var series = [{
-                type: 'spline',
-                name: '.',
-                // ToDo: Provide Weighted Average here from TickerInfo
-                data: data,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            },{
                 type : 'candlestick',
                // name : 'Hourly Price History ' +currencyPair,
-                name : '.',
-                yAxis: 1,
+                name : ' ',
                 data : data,
                 dataGrouping : {
                     units : groupingUnits
-                }
-            }];
+                },
+                color: 'green',
+                upColor: 'red'
+            },
+                {
+                    type: 'spline',
+                    color: '#0099CC',
+                    name: 'Weighted Average',
+                    data: weightedAverageData,
+                    yAxis: 1,
+                    dataGrouping: {
+                        units: groupingUnits
+                    }
+                },
+                {
+                    type: 'area',
+                    name: 'Volume',
+                    color: 'orange',
+                    data: volumeData,
+                    yAxis: 2,
+                    dataGrouping: {
+                        units: groupingUnits
+                    }
+                }];
             return series;
         }
 
@@ -96,10 +159,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
         };
 
         $scope.ohlcChartConfig = {
-            //This is not a highcharts object. It just looks a little like one!
             options: {
-                //This is the Main Highcharts chart config. Any Highchart options are valid here.
-                //will be ovverriden by values specified below.
                 chart: {
                     type: 'area'
                 },
@@ -107,17 +167,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                     style: {
                         padding: 10,
                         fontWeight: 'bold'
-                    }/*,
-                    formatter: function() {
-                        var s = [];
-                        $.each(this.points, function(i, point) {
-                            if(point.x != null && point.x != undefined && point.y != null && point.y != undefined){
-                                s.push('<span style="color:#2E64FE;font-weight:bold;">'+ 'High: ' +' : '+
-                                    point.y + '<br/>' + 'Volume' + ' : ' + point.x +'<span>');
-                            }
-                        });
-                        return s.join(' <br /> ');
-                    }*/,
+                    },
                     shared:true
                 },
                 rangeSelector : {
@@ -127,12 +177,9 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                     enabled: false
                 }
             },
-            //The below properties are watched separately for changes.
-            //Series object (optional) - a list of series using normal highcharts series options.
             series: [{
                 data: []
             }],
-            //Title configuration (optional)
             title: {
                 text: 'Hourly Price History ' + currencyPair
             },
@@ -150,33 +197,46 @@ angular.module('marketData.ohlc').controller('OhlcController', [
             yAxis: [{
                 title: {
                     text: 'Price'},
+                height: 250,
                 labels: {
                 overflow: 'justify'
                 },
                 plotLines: [{
                     color: '#B40404',
                     width: 2,
-                    value: 290,
-                    dashStyle: 'solid'
+                    value: 0,
+                    dashStyle: 'solid',
+                    id: 'bid-plot-line'
                 },
                 {
                     text: 'Price',
                     color: '#424242',
                     width: 2,
-                    value: 310,
-                    dashStyle: 'solid'
+                    value: 0,
+                    dashStyle: 'solid',
+                    id: 'ask-plot-line'
                 }]//,
                // opposite: true
             },
                 {
                     linkedTo:0,
+                    height: 250,
                     title: {text: 'Weighted Average'},
                     opposite: false
-            }],
+            },
+                {
+                    title: {
+                        text: 'Volume'
+                    },
+                    top: 310,
+                    height: 85,
+                    offset: 0,
+                    lineWidth: 2
+                }],
             //size (optional) if left out the chart will default to size of the div or something sensible.
             size: {
                 width: 1000,
-                height: 400
+                height: 500
             },
             //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
             useHighStocks: true

@@ -38,11 +38,16 @@
     <div class="row">
       <div class="span12">
         <div class="ticker-wrap clearfix">
-
-            <div id="derp" class="slideable" style="width: 1000px; height: 420px; margin: 0 auto" ng-controller="OhlcController">
+            %{--<script src="http://code.highcharts.com/modules/exporting.js"></script>--}%
+            <script type="text/javascript" src="//canvg.googlecode.com/svn/trunk/canvg.js"></script>
+            <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+            <div id="ohlcSilder" class="slideable" style="width: 1000px; height: 420px; margin: 0 auto" ng-controller="OhlcController">
                 <highchart id="ohlcChart" config="ohlcChartConfig"></highchart>
             </div>
-            <a href="javascript: void(0);" slide-toggle="#derp" class="btn sparkline"><canvas width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;"></canvas></a>
+            <a href="javascript: void(0);" slide-toggle="#ohlcSilder" class="btn sparkline">
+                <canvas id="ohlcCanvas" width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;">
+                </canvas>
+            </a>
 
           <div id="ticker-top" class="ticker" ng-controller="TickerController">
             <ul>

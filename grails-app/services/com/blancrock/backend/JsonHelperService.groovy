@@ -10,15 +10,20 @@ import org.codehaus.groovy.grails.web.json.JSONArray
 class JsonHelperService {
     static transactional = false
 
-    String ohlcInfoStructuring(String ohlc, String tickerInfo) {
+    String ohlcInfoStructuring(String ohlc, String bbo) {
         try {
         JSONArray jsonArray = new JSONArray()
-        jsonArray.put(ohlc)
-        jsonArray.put(tickerInfo)
+        JSONObject ohlcObject = new JSONObject()
+        ohlcObject.put('Ohlc', ohlc)
+        JSONObject bboObject = new JSONObject()
+        ohlcObject.put('BBO', bbo)
 
-        return jsonArray
+        jsonArray.put(ohlcObject)
+        //jsonArray.put(bboObject)
+
+        return jsonArray as JSON
         }
-        catch (Exception ex){
+        catch(Exception ex){
             log.error(ex)
         }
     }

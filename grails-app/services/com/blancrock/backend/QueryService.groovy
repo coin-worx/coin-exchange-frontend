@@ -20,13 +20,11 @@ class QueryService {
         Map query = [currencyPair: currencyPair]
         Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
 
-        String tickerPath = getPathWithPrefix('/marketdata/tickerinfo')
-        Map tickerResponse = backendInteractionService.makeUnauthorizedGetRequest(tickerPath, query)
+        String bboInfo = getPathWithPrefix('/marketdata/bbo')
+        Map bbo = backendInteractionService.makeUnauthorizedGetRequest(bboInfo, query)
 
-        // ToDo: Send OHLC and Ticker in one go
-        def ohlcResponse = jsonHelperService.ohlcInfoStructuring(response.value, tickerResponse.value)
-        //return [status: response.status, value: [response.value, tickerResponse.value]]
-        return [status: response.status, value: response.value]
+        def ohlcResponse = jsonHelperService.ohlcInfoStructuring(response.value, bbo.value)
+        return [status: response.status, value: ohlcResponse]
     }
 
     Map getTickerInfo(String currencyPair) {
