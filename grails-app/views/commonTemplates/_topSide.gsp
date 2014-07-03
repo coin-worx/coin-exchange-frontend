@@ -44,7 +44,7 @@
             <div id="ohlcSilder" class="slideable" style="width: 1000px; height: 420px; margin: 0 auto" ng-controller="OhlcController">
                 <highchart id="ohlcChart" config="ohlcChartConfig"></highchart>
             </div>
-            <a href="javascript: void(0);" slide-toggle="#ohlcSilder" class="btn sparkline">
+            <a ng-click="loadOhlc()" slide-toggle="#ohlcSilder" class="btn sparkline" ng-controller="OhlcController">
                 <canvas id="ohlcCanvas" width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;">
                 </canvas>
             </a>

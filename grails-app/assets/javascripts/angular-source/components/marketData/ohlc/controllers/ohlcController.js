@@ -9,13 +9,17 @@ angular.module('marketData.ohlc').controller('OhlcController', [
         var bbo = [];
 
         loadOhlc();
-        intervalFunction();
+        //intervalFunction();
 
         function intervalFunction(){
             $timeout(function() {
-                loadOhlc();
+                //loadOhlc();
                 intervalFunction()
             }, 30000)
+        };
+
+        $scope.loadOhlc = function(){
+            loadOhlc();
         };
 
         function loadOhlc(){
@@ -33,12 +37,19 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                     $scope.ohlcChartConfig.series = getOhlcSeries(arrangedOhlcArray[0], arrangedOhlcArray[1], arrangedOhlcArray[2],
                     arrangedOhlcArray[3]);
 
-                    drawOhlcOnCanvas(chart);
                     $scope.loaded = true;
+                    loadFullCanvas(chart);
 
                 }).error(function () {
                     $scope.ohlc = [];
                 });
+        }
+
+        // Loads the image on canvas after 2 seconds so that the chart is rendered completely by then
+        function loadFullCanvas(chart){
+            $timeout(function() {
+                drawOhlcOnCanvas(chart);
+            }, 1000)
         }
 
         function addBidAskPlotLines(chart, bestBidPrice, bestAskPrice){
