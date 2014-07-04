@@ -16,14 +16,16 @@
         <th ng-click="updateSorting('OrderId')" class="lalign nw"
             ng-class="getSortingClass('OrderId')" style="width: 55px;">Order</th>
         <th ng-click="updateSorting('Type')" class="lalign nw"
-            ng-class="getSortingClass('Type')" style="width: 165px;">Order Type</th>
+            ng-class="getSortingClass('Type')" style="width: 120px;">Order Type</th>
         <th ng-click="updateSorting('CurrencyPair')" class="lalign"
             ng-class="getSortingClass('CurrencyPair')" style="width: 50px;">Pair</th>
         <th ng-click="updateSorting('Price')" class="ralign nw"
             ng-class="getSortingClass('Price')" style="width: 80px;">Price</th>
         <th ng-click="updateSorting('VolumeExecuted')" class="ralign"
-            ng-class="getSortingClass('VolumeExecuted')" style="width: 115px;">Volume Exec'd</th>
-        <th ng-click="updateSorting('Cost')" class="ralign" style="width: 115px;"
+            ng-class="getSortingClass('VolumeExecuted')" style="width: 105px;">Volume Exec'd</th>
+        <th ng-click="updateSorting('AveragePrice')" class="ralign"
+              ng-class="getSortingClass('AveragePrice')" style="width: 80px;">Avg. Ex. Pr</th>
+        <th ng-click="updateSorting('Cost')" class="ralign" style="width: 100px;"
             ng-class="getSortingClass('Cost')">Cost</th>
         <th ng-click="updateSorting('Status')" class="lalign"
             ng-class="getSortingClass('Status')" style="width: 65px;">Status</th>
@@ -44,6 +46,7 @@
         <td class="lalign" ng-bind="order.CurrencyPair"></td>
         <td class="nw ralign" ng-bind="order.Price"></td>
         <td class="ralign" ng-bind="order.VolumeExecuted"></td>
+          <td class="ralign" ng-bind="order.AveragePrice"></td>
         <td class="ralign" ng-bind="order.Cost"></td>
         <td>
           <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>
