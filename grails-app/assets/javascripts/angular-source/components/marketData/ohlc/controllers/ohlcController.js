@@ -174,6 +174,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                 chart: {
                     type: 'area'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,

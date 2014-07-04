@@ -134,6 +134,7 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 chart: {
                     type: 'line'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,
@@ -207,6 +208,7 @@ angular.module('marketData.orderBook').controller('SpreadController', [
                 chart: {
                     type: 'area'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,

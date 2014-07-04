@@ -222,6 +222,7 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 chart: {
                     type: 'area'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,
@@ -283,6 +284,7 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 chart: {
                     type: 'column'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,
