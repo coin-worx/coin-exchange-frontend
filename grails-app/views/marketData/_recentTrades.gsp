@@ -21,7 +21,7 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="trade in filteredTrades | orderBy:sort.predicate:sort.reverse"
+        <tr ng-repeat="trade in filteredTrades"
             ng-class="{even: $even, odd: $odd}" ng-cloak>
             <td class="nw ralign" ng-class="{'changeralign': trade.ChangeColor}" ng-bind="trade.Time"></td>
             %{--<td class="ralign" ng-bind="trade.Side"></td>--}%

@@ -31,7 +31,7 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="trade in filteredTrades | orderBy:sort.predicate:sort.reverse"
+            <tr ng-repeat="trade in filteredTrades"
                 ng-class="{even: $even, odd: $odd}" ng-cloak>
               <td class="nw" ng-click="setTradeId(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
                  <a href="#/account/trade/tradeDetails">{{trade.TradeId | limitTo : 8}}</a>

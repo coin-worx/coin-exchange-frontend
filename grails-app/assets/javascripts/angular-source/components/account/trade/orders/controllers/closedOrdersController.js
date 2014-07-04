@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('ClosedOrdersController', [
-  '$scope', 'ClosedOrdersService', 'OrdersSharedService', function ($scope, closedOrdersService, orderSharedService) {
+  '$scope', '$filter', 'ClosedOrdersService', 'OrdersSharedService', function ($scope, $filter, closedOrdersService, orderSharedService) {
     var loaded = false;
 
     $scope.$on('refreshEvent', function(event, data) {
@@ -16,6 +16,7 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
             .success(function (data) {
                 updateCost(data);
                 $scope.orders = data;
+                $scope.orders = $filter('orderBy')($scope.orders, $scope.sort.predicate, $scope.sort.reverse);
                 setPaginationParams();
                 recalculateMinAndMax();
                 filterCollection();
@@ -37,7 +38,7 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
     };
 
     $scope.sort = {
-      predicate: 'DateTime',
+      predicate: 'ClosingDateTime',
       reverse: true
     };
 
@@ -66,6 +67,11 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
         $scope.sort.predicate = columnName;
         $scope.sort.reverse = true;
       }
+
+        $scope.orders = $filter('orderBy')($scope.orders, columnName, $scope.sort.reverse);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
     };
 
     //Sorting params

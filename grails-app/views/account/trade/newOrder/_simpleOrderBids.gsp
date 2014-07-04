@@ -19,7 +19,7 @@
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="order in filteredOrderBook | orderBy:'BidPrice':sort.reverse"
+                <tr ng-repeat="order in filteredOrderBook"
                     ng-class="{even: $even, odd: $odd}" ng-cloak>
                     <td class="nw ralign" ng-bind="order.CmVol"></td>
                     <td class="nw ralign" ng-bind="order.CmCost"></td>

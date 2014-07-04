@@ -21,20 +21,20 @@
             ng-class="getSortingClass('CurrencyPair')" style="width: 50px;">Pair</th>
         <th ng-click="updateSorting('Price')" class="ralign nw"
             ng-class="getSortingClass('Price')" style="width: 80px;">Price</th>
-        <th ng-click="updateSorting('Volume')" class="ralign"
-            ng-class="getSortingClass('Volume')" style="width: 115px;">Volume Exec'd</th>
+        <th ng-click="updateSorting('VolumeExecuted')" class="ralign"
+            ng-class="getSortingClass('VolumeExecuted')" style="width: 115px;">Volume Exec'd</th>
         <th ng-click="updateSorting('Cost')" class="ralign" style="width: 115px;"
             ng-class="getSortingClass('Cost')">Cost</th>
         <th ng-click="updateSorting('Status')" class="lalign"
             ng-class="getSortingClass('Status')" style="width: 65px;">Status</th>
-        <th ng-click="updateSorting('DateTime')" class="lalign nw"
-            ng-class="getSortingClass('DateTime')" style="width: 160px;">Closed</th>
+        <th ng-click="updateSorting('ClosingDateTime')" class="lalign nw"
+            ng-class="getSortingClass('ClosingDateTime')" style="width: 160px;">Closed</th>
         <%--<th class="ralign center" style="width: 35px;">&nbsp;</th> --%>
       </tr>
       </thead>
 
       <tbody>
-      <tr ng-repeat="order in filteredOrders | orderBy:sort.predicate:sort.reverse"
+      <tr ng-repeat="order in filteredOrders"
           ng-class="{even: $even, odd: $odd}" ng-cloak>
         <td class="nw" ng-click="setOrderId(order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
            <a href="#/account/trade/showOrderDetails">{{order.OrderId | limitTo : 8}}</a>

@@ -19,7 +19,7 @@
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="order in filteredOrderBook | orderBy:'AskPrice':sort.reverse"
+                <tr ng-repeat="order in filteredOrderBook"
                     ng-class="{even: $even, odd: $odd}" ng-cloak>
                     <td class="nw ralign" ng-bind="order.AskPrice"></td>
                     <td class="ralign" ng-bind="order.AskVolume"></td>

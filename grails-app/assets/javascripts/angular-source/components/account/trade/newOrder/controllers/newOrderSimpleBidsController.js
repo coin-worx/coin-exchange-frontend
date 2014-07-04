@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.newOrder').controller('NewOrderSimpleBidsController', [
-    '$scope', 'NewOrderSimpleBidsService', function ($scope, bidsService) {
+    '$scope', '$filter', 'NewOrderSimpleBidsService', function ($scope, $filter, bidsService) {
         var loaded = false;
 
         $scope.$on('refreshEvent', function(event, data) {
@@ -60,6 +60,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleBidsControlle
                 $scope.sort.predicate = columnName;
                 $scope.sort.reverse = true;
             }
+
+            $scope.orderBook = $filter('orderBy')($scope.orderBook, columnName, $scope.sort.reverse);
+            setPaginationParams();
+            recalculateMinAndMax();
+            filterCollection();
         };
 
         //Sorting params

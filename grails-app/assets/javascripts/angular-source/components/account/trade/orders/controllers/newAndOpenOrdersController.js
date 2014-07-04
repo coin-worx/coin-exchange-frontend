@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('NewAndOpenOrdersController', [
-  '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
+  '$scope', '$filter', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, $filter, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
     var loaded = false;
     var previousOpenOrders = [];
 
@@ -17,6 +17,7 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
             .success(function (data) {
                 updateCostRems(data);
                 $scope.orders = data;
+                $scope.orders = $filter('orderBy')($scope.orders, $scope.sort.predicate, $scope.sort.reverse);
                 refreshTradesColorChange();
                 setPaginationParams();
                 recalculateMinAndMax();
@@ -102,6 +103,11 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         $scope.sort.predicate = columnName;
         $scope.sort.reverse = true;
       }
+
+        $scope.orders = $filter('orderBy')($scope.orders, columnName, $scope.sort.reverse);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
     };
 
     //Sorting params

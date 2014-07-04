@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('marketData.orderBook').controller('BidsController', [
-    '$scope', '$timeout', 'BidsService', function ($scope, $timeout, bidsService) {
+    '$scope', '$filter', '$timeout', 'BidsService', function ($scope, $filter, $timeout, bidsService) {
         var loaded = false
         $scope.customStyle = {};
         $scope.previousOrderBook = [];
@@ -86,6 +86,11 @@ angular.module('marketData.orderBook').controller('BidsController', [
                 $scope.sort.predicate = columnName;
                 $scope.sort.reverse = true;
             }
+
+            $scope.orderBook = $filter('orderBy')($scope.orderBook, columnName, $scope.sort.reverse);
+            setPaginationParams();
+            recalculateMinAndMax();
+            filterCollection();
         };
 
         //Sorting params

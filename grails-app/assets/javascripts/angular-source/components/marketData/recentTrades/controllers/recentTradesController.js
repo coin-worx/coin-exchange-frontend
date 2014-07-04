@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('marketData.recentTrades').controller('RecentTradesController', [
-    '$scope', '$timeout', 'RecentTradesService', function ($scope, $timeout, recentTradesService) {
+    '$scope', '$filter', '$timeout', 'RecentTradesService', function ($scope, $filter, $timeout, recentTradesService) {
         var loaded = false;
         $scope.previousTrades = [];
 
@@ -88,6 +88,11 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
                 $scope.sort.predicate = columnName;
                 $scope.sort.reverse = true;
             }
+
+            $scope.trades = $filter('orderBy')($scope.trades, columnName, $scope.sort.reverse);
+            setPaginationParams();
+            recalculateMinAndMax();
+            filterCollection();
         };
 
         //Sorting params

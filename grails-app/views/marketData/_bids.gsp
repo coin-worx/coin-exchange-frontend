@@ -12,7 +12,7 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat="order in filteredOrderBook | orderBy:'BidPrice':sort.reverse"
+    <tr ng-repeat="order in filteredOrderBook"
         ng-class="{even: $even, odd: $odd}" ng-cloak>
       <td class="nw ralign" ng-bind="order.BidPrice" ng-class="{'changeralign': order.changeColor}"></td>
       <td class="ralign" ng-bind="order.BidVolume" ng-class="{'changeralign': order.changeColor}"></td>

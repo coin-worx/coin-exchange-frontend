@@ -25,7 +25,7 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat="order in filteredOrders | orderBy:sort.predicate:sort.reverse"
+    <tr ng-repeat="order in filteredOrders"
         ng-class="{even: $even, odd: $odd}" ng-cloak>
       <td class="nw" ng-click="setOrderId(order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
           <a href="#/account/trade/showOrderDetails">{{order.OrderId | limitTo : 8}}</a>

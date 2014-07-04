@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.trades').controller('TradesController', [
-  '$scope', 'TradesService', 'TradesSharedService', function ($scope, tradesService, tradesSharedService) {
+  '$scope', '$filter', 'TradesService', 'TradesSharedService', function ($scope, $filter, tradesService, tradesSharedService) {
     $scope.loaded = false;
     $scope.filteredTrades = [];
     var previousTrades = [];
@@ -74,6 +74,11 @@ angular.module('account.trade.trades').controller('TradesController', [
         $scope.sort.predicate = columnName;
         $scope.sort.reverse = true;
       }
+
+        $scope.trades = $filter('orderBy')($scope.trades, columnName, $scope.sort.reverse);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
     };
 
     //Sorting params
