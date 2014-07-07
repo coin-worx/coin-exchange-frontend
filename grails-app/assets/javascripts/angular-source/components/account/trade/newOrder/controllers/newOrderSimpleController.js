@@ -98,27 +98,52 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         if (form.$invalid) {
           $scope.submitted = true;
         } else {
-          orderDetailsService.setData(
-            {
-              order: getOrderDetailsInfo(),
-              toSpend: {
-                currency: $scope.currency.total,
-                volume: $scope.total
-              },
-              toReceive: {
-                currency: $scope.currency.amount,
-                volume: $scope.volume
-              }
-            });
+            if($scope.parameters.sign === constants.sign.MULT){
+              orderDetailsService.setData(
+                {
+                  order: getOrderDetailsInfo(),
+                  toSpend: {
+                    currency: $scope.currency.total,
+                    volume: $scope.total
+                  },
+                  toReceive: {
+                    currency: $scope.currency.amount,
+                    volume: $scope.volume
+                  }
+                });
+            }
+            else if($scope.parameters.sign === constants.sign.DIV){
+                orderDetailsService.setData(
+                    {
+                        order: getOrderDetailsInfo(),
+                        toSpend: {
+                            currency: $scope.currency.amount,
+                            volume: $scope.volume
+                        },
+                        toReceive: {
+                            currency: $scope.currency.total,
+                            volume: $scope.total
+                        }
+                    });
+            }
 
           $location.path('/account/trade/newOrder/details');
         }
       };
 
       function getOrderDetailsInfo() {
+          var volumeToSend = '';
+          // If base currency is selected when the volume is entered, then send the volume entered by the user
+          if($scope.parameters.sign === constants.sign.MULT){
+             volumeToSend = $scope.volume;
+          }
+          // If quote currency is entered when the volume is entered, then we provide the [Price * Volume] value as the volume
+          else if($scope.parameters.sign === constants.sign.DIV){
+             volumeToSend = $scope.total;
+          }
         return {
           type: $scope.parameters.type,
-          volume: $scope.volume,
+          volume: volumeToSend,
           pair: $scope.currency.pair,
           orderType: $scope.parameters.orderType,
           price: $scope.price
@@ -130,6 +155,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
             if($scope.parameters.sign === constants.sign.MULT){
                   if (newValues && newValues[0] && newValues[1]) {
                     $scope.total = newValues[0] * newValues[1];
+                    $scope.total = parseFloat($scope.total.toFixed(5));
+
                   } else {
                     $scope.total = null;
                   }
@@ -153,9 +180,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
             if ($scope.parameters.orderType === constants.orderType.LIMIT) {
                 if($scope.parameters.sign === constants.sign.MULT){
                     $scope.volume = newValues[0] / $scope.price;
+                    $scope.volume = parseFloat($scope.volume.toFixed(8));
                 }
                 else if($scope.parameters.sign === constants.sign.DIV){
                     $scope.volume = newValues[0] * $scope.price;
+                    $scope.volume = parseFloat($scope.volume.toFixed(8));
                 }
             };
         });
