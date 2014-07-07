@@ -118,7 +118,9 @@ angular.module('marketData.ohlc').controller('OhlcController', [
             var dateArray = dateTimeArray[0].split('-');
             var timeZoneSplitArray = dateTimeArray[1].split('+');
             var timeArray = timeZoneSplitArray[0].split(':');
-            return Date.UTC(dateArray[0],dateArray[1], dateArray[2], timeArray[0], timeArray[1], timeArray[2].split('.')[0]);
+            // The months in highcharts start from 0 = January, 1= Febrauary and so on, so remove 1 from the month provided by
+            // the backend
+            return Date.UTC(dateArray[0], dateArray[1] - 1, dateArray[2], timeArray[0], timeArray[1], timeArray[2].split('.')[0]);
         }
 
         // set the allowed units for data grouping
@@ -127,7 +129,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
             [1]                             // allowed multiples
         ], [
             'month',
-            [1, 2, 3, 4, 6]
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         ]];
 
         function getOhlcSeries(currencyPair, data, volumeData, weightedAverageData){
