@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.trade.trades').controller('TradesController', [
-  '$scope', '$filter', 'TradesService', 'TradesSharedService', function ($scope, $filter, tradesService, tradesSharedService) {
+  '$scope', '$filter', '$location', 'TradesService', 'TradesSharedService', function ($scope, $filter, $location, tradesService, tradesSharedService) {
     $scope.loaded = false;
     $scope.filteredTrades = [];
     var previousTrades = [];
@@ -48,9 +48,9 @@ angular.module('account.trade.trades').controller('TradesController', [
             });
     }
 
-      $scope.setTradeId = function (tradeId) {
-          tradesSharedService.setTradeIdOfTrade(tradeId);
-      };
+      $scope.setTradeIdAsUrlParameter = function(tradeId){
+          $scope.locationPath = '#/account/trade/tradeDetails?tradeid=' + tradeId;
+      }
 
     $scope.sort = {
       predicate: 'ExecutionDateTime',
@@ -101,4 +101,14 @@ angular.module('account.trade.trades').controller('TradesController', [
       $scope.currentMinIndex = ($scope.currentPage - 1) * 10;
       $scope.currentMaxIndex = Math.min($scope.totalItems, $scope.currentPage * 10);
     }
-  }]);
+  }]).directive('tabRightClick',['$parse', function($parse) {
+        return function(scope, element, attrs) {
+            var fn = $parse(attrs.tabRightClick);
+            element.bind('contextmenu', function(event) {
+                scope.$apply(function() {
+                    //            event.preventDefault();
+                    fn(scope, {$event:event});
+                });
+            });
+        };
+    }]);

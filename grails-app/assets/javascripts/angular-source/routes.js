@@ -41,6 +41,7 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/trade/showOrderDetails', 'account.trade.showOrderDetails')
 
         .when('/account/trade/tradeDetails', 'account.trade.tradeDetails')
+        .when('/account/trade/tradeDetails:tradeid', 'account.trade.tradeDetails')
 
         .when('/account/funding', 'account.funding')
 

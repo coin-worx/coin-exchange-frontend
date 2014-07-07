@@ -33,8 +33,8 @@
             <tbody>
             <tr ng-repeat="trade in filteredTrades"
                 ng-class="{even: $even, odd: $odd}" ng-cloak>
-              <td class="nw" ng-click="setTradeId(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
-                 <a href="#/account/trade/tradeDetails">{{trade.TradeId | limitTo : 8}}</a>
+              <td class="nw" ng-click="setTradeIdAsUrlParameter(trade.TradeId)" tab-right-click="setTradeIdAsUrlParameter(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
+                 <a href="{{locationPath}}" >{{trade.TradeId | limitTo : 8}}</a>
               </td>
               <td class="lalign" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy HH:mm:ss'" ng-class="{'changeralign': trade.ChangeColor}"></td>
               <td class="nw ralign" ng-bind="trade.Price" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
