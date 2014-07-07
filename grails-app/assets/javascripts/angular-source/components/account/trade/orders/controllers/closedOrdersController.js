@@ -29,9 +29,9 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
             });
     }
 
-    $scope.setOrderId = function (orderId) {
-      orderSharedService.setOrderIdOfOrder(orderId);
-    };
+    $scope.setOrderIdAsUrlParameter = function(orderId){
+        $scope.locationPath = '#/account/trade/showOrderDetails?orderid=' + orderId;
+    }
 
     $scope.isLoaded = function () {
       return !loaded;
@@ -114,4 +114,14 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
 
       return className;
     };
-  }]);
+  }]).directive('tabRightClick',['$parse', function($parse) {
+        return function(scope, element, attrs) {
+            var fn = $parse(attrs.tabRightClick);
+            element.bind('contextmenu', function(event) {
+                scope.$apply(function() {
+                    //            event.preventDefault();
+                    fn(scope, {$event:event});
+                });
+            });
+        };
+    }]);

@@ -65,9 +65,9 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         })
     };
 
-    $scope.setOrderId = function (orderId) {
-      orderSharedService.setOrderIdOfOrder(orderId);
-    };
+    $scope.setOrderIdAsUrlParameter = function(orderId){
+        $scope.locationPath = '#/account/trade/showOrderDetails?orderid=' + orderId;
+    }
 
     $scope.isLoaded = function () {
       return !loaded;

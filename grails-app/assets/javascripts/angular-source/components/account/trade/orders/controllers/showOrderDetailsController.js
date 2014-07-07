@@ -3,23 +3,29 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('ShowOrderDetailsController', [
-    '$scope', '$location', 'ShowOrderDetailsService', 'OrdersSharedService', 'TradesSharedService', function ($scope, $location, showOrderDetailsService, ordersSharedService, tradesSharedService) {
-        var orderId = ordersSharedService.getOrderIdOfOrder();
+    '$scope', '$location', '$routeParams', 'ShowOrderDetailsService', 'OrdersSharedService', 'TradesSharedService', function ($scope, $location, $routeParams, showOrderDetailsService, ordersSharedService, tradesSharedService) {
+        var orderIdObject = '';
 
-        showOrderDetailsService.query(orderId)
-            .success(function (data) {
-                $scope.orderDetails = data;
-                showOrderDetailsService.tradesQuery(orderId)
-                    .success(function(trades){
-                        $scope.orderDetailsTrades = trades;
-                        setPaginationParams();
-                        recalculateMinAndMax();
-                        filterCollection();
-                    })
-                $scope.detailsLoaded = true;
-            }).error(function () {
-                $scope.orderDetails = [];
-            });
+        loadOrderDetails();
+        function loadOrderDetails(){
+            var orderId = $routeParams.orderid;
+            ordersSharedService.setOrderIdOfOrder(orderId);
+            orderIdObject = ordersSharedService.getOrderIdOfOrder();
+            showOrderDetailsService.query(orderIdObject)
+                .success(function (data) {
+                    $scope.orderDetails = data;
+                    showOrderDetailsService.tradesQuery(orderIdObject)
+                        .success(function(trades){
+                            $scope.orderDetailsTrades = trades;
+                            setPaginationParams();
+                            recalculateMinAndMax();
+                            filterCollection();
+                        })
+                    $scope.detailsLoaded = true;
+                }).error(function () {
+                    $scope.orderDetails = [];
+                });
+        }
 
         $scope.goToUrl = function (path) {
             $location.path( path );
