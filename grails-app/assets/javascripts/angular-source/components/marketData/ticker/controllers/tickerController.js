@@ -3,22 +3,79 @@
 'use strict';
 
 angular.module('marketData.ticker').controller('TickerController', [
-    '$scope', 'TickerService', function ($scope, tickerService) {
+    '$scope', '$timeout', 'TickerService', function ($scope, $timeout, tickerService) {
         var loaded = false;
+        var tradePrice = '';
+        var todaysHigh = '';
+        var todaysLow = '';
+        var last24HourVolume = '';
+        var todaysVolumeWeight = '';
 
-        tickerService.query()
-            .success(function (data) {
-                //updateCostRems(data);
-                $scope.ticker = data;
-                //setPaginationParams();
-                $scope.loaded = true;
+       /* $scope.ticker.TradePrice = '';
+        $scope.ticker.TodaysHigh = '';
+        $scope.ticker.TodaysLow = '';
+        $scope.ticker.Last24HourVolume = '';
+        $scope.ticker.TodaysVolumeWeight = '';*/
 
-                //recalculateMinAndMax();
-                //filterCollection();
+        loadTickerInfo();
+        intervalFunction();
 
-            }).error(function () {
-                $scope.ticker = [];
-            });
+        function intervalFunction(){
+            $timeout(function() {
+                loadTickerInfo();
+                intervalFunction()
+            }, 30000)
+        };
+
+        function loadTickerInfo(){
+            tickerService.query()
+                .success(function (data) {
+                    //$scope.ticker = data;
+                    updateValues(data);
+                    $scope.loaded = true;
+                }).error(function () {
+                    $scope.ticker = [];
+                });
+        }
+
+        // Checks if the current value of a variable is the same as different than the previous one
+        function updateValues(data){
+            var tradePriceArray = compareValues(data, tradePrice,'TradePrice');
+            tradePrice = tradePriceArray[0];
+            $scope.TradePrice = tradePriceArray[1];
+
+            var todaysHighArray = compareValues(data, todaysHigh,'TodaysHigh');
+            todaysHigh = todaysHighArray[0];
+            $scope.TodaysHigh = todaysHighArray[1];
+
+            var todaysLowArray = compareValues(data, todaysLow,'TodaysLow');
+            todaysLow = todaysLowArray[0];
+            $scope.TodaysLow = todaysLowArray[1];
+
+            var last24HourVolumeArray = compareValues(data, last24HourVolume,'Last24HourVolume');
+            last24HourVolume = last24HourVolumeArray[0];
+            $scope.Last24HourVolume = last24HourVolumeArray[1];
+
+            var todaysVolumeWeightArray = compareValues(data, todaysVolumeWeight,'TodaysVolumeWeight');
+            todaysVolumeWeight = todaysVolumeWeightArray[0];
+            $scope.TodaysVolumeWeight = todaysVolumeWeightArray[1];
+        }
+
+        // Compare the old values with the new ones
+        function compareValues(data, tempVariable, dataTag){
+           var scopeVariable = null;
+           if(tempVariable === ''){
+               tempVariable = data[dataTag];
+               scopeVariable = {Value: data[dataTag], ChangeColor: true};
+           }
+           else if(tempVariable === data[dataTag]){
+              scopeVariable = {Value: data[dataTag], ChangeColor: false};
+           }
+           else{
+               scopeVariable = {Value: data[dataTag], ChangeColor: true};
+           }
+            return [tempVariable, scopeVariable];
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.ticker.indexOf(order);

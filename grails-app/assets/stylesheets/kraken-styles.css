@@ -7449,6 +7449,14 @@ th.nwchangeColor{
     animation: color-change 5s 1;
 }
 
+.noalign{
+    -webkit-animation: color-change 5s 1;
+    -moz-animation: color-change 1s 1;
+    -o-animation: color-change 1s 1;
+    -ms-animation: color-change 1s 1;
+    animation: color-change 5s 1;
+}
+
 @-webkit-keyframes color-change {
     0% { color: darkgreen }
     25% { color: green}
