@@ -6,12 +6,13 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
     '$scope', '$filter', '$timeout', 'RecentTradesService', function ($scope, $filter, $timeout, recentTradesService) {
         var loaded = false;
         $scope.previousTrades = [];
+        var previousTrades = [];
 
         function loadRecentTrades(){
             recentTradesService.query()
                 .success(function (data) {
                     $scope.trades = data;
-                    previousTradesBookCheck()
+                    refreshTradesColorChange();
                     setPaginationParams();
 
                     $scope.$parent.recentTradesLoaded = true;
@@ -20,6 +21,7 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
                     recalculateMinAndMax();
                     filterCollection();
 
+                    previousTrades = $scope.trades;
                     $scope.previousTrades = $scope.trades;
 
                 }).error(function () {
@@ -37,19 +39,19 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
             }, 30000)
         };
 
-        function previousTradesBookCheck(){
-            if($scope.previousTrades != null && $scope.previousTrades.length > 0){
+        function refreshTradesColorChange(){
+            if(previousTrades.length > 0){
                 for(var i = 0; i < $scope.trades.length; i++){
-                    if($scope.previousTrades[i] != null && $scope.trades [i] != null){
-                        if($scope.previousTrades[i]['Price'] != $scope.trades[i]['Price'] ||
-                            $scope.previousTrades[i]['Volume'] != $scope.trades[i]['Volume']){
-                            $scope.trades[i] = {Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
-                                Time: $scope.trades[i]['Time'], ChangeColor: true};
+                    var containsOrder = false;
+                    for(var j = 0; j < previousTrades.length; j++){
+                        if(previousTrades[j]['Time'] === $scope.trades[i]['Time']){
+                            containsOrder = true;
+                            break;
                         }
-                        else{
-                            $scope.trades[i] = {Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
-                                Time: $scope.trades[i]['Time'], ChangeColor: false};
-                        }
+                    }
+                    if(!containsOrder){
+                        $scope.trades[i] = {Time: $scope.trades[i]['Time'], Price: $scope.trades[i]['Price'],
+                            Volume: $scope.trades[i]['Volume'], ChangeColor: true};
                     }
                 }
             }

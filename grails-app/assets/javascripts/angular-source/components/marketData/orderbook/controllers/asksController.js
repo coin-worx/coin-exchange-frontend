@@ -6,21 +6,20 @@ angular.module('marketData.orderBook').controller('AsksController', [
     '$scope', '$filter', '$timeout', 'AsksService', function ($scope, $filter, $timeout, asksService) {
         var loaded = false;
         $scope.customStyle = {};
-        $scope.previousOrderBook = [];
+        var previousAsks = [];
 
         function loadAsks(){
             asksService.query()
                 .success(function (data) {
                     $scope.orderBook = data;
-                    previousOrderBookCheck();
+                    refreshAsksColorChange();
                     setPaginationParams();
                     recalculateMinAndMax();
                     filterCollection();
 
                     $scope.$parent.asksLoaded = true;
                     loaded = true;
-                    $scope.previousOrderBook = $scope.orderBook;
-                    //$scope.customStyle.style = {color : 'black'}
+                    previousAsks = $scope.orderBook;
 
                 }).error(function () {
                     $scope.orderBook = [];
@@ -38,19 +37,19 @@ angular.module('marketData.orderBook').controller('AsksController', [
             }, 30000)
         };
 
-        function previousOrderBookCheck(){
-            if($scope.previousOrderBook != null && $scope.previousOrderBook.length > 0){
+        function refreshAsksColorChange(){
+            if(previousAsks.length > 0){
                 for(var i = 0; i < $scope.orderBook.length; i++){
-                    if($scope.previousOrderBook[i] != null && $scope.orderBook != null){
-                        if($scope.previousOrderBook[i]['AskPrice'] != $scope.orderBook[i]['AskPrice'] ||
-                            $scope.previousOrderBook[i]['AskVolume'] != $scope.orderBook[i]['AskVolume']){
-                            $scope.orderBook[i] = {AskPrice: $scope.orderBook[i]['AskPrice'], AskVolume: $scope.orderBook[i]['AskVolume'],
-                                changeColor: true};
+                    var containsOrder = false;
+                    for(var j = 0; j < previousAsks.length; j++){
+                        if(previousAsks[j]['AskPrice'] === $scope.orderBook[i]['AskPrice']){
+                            containsOrder = true;
+                            break;
                         }
-                        else{
-                            $scope.orderBook[i] = {AskPrice: $scope.orderBook[i]['AskPrice'], AskVolume: $scope.orderBook[i]['AskVolume'],
-                                changeColor: false};
-                        }
+                    }
+                    if(!containsOrder){
+                        $scope.orderBook[i] = {AskPrice: $scope.orderBook[i]['AskPrice'],
+                            AskVolume: $scope.orderBook[i]['AskVolume'], ChangeColor: true};
                     }
                 }
             }

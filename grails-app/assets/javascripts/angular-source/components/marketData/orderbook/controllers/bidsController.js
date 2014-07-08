@@ -6,20 +6,20 @@ angular.module('marketData.orderBook').controller('BidsController', [
     '$scope', '$filter', '$timeout', 'BidsService', function ($scope, $filter, $timeout, bidsService) {
         var loaded = false
         $scope.customStyle = {};
-        $scope.previousOrderBook = [];
+        var previousBids = [];
 
         function loadBids(){
             bidsService.query()
                 .success(function (data) {
                     $scope.orderBook = data;
-                    previousOrderBookCheck();
+                    refreshBidsColorChange();
                     setPaginationParams();
                     recalculateMinAndMax();
                     filterCollection();
 
                     $scope.$parent.bidsLoaded = true;
                     loaded = true;
-                    $scope.previousOrderBook = $scope.orderBook;
+                    previousBids = $scope.orderBook;
 
                 }).error(function () {
                     $scope.orderBook = [];
@@ -36,19 +36,19 @@ angular.module('marketData.orderBook').controller('BidsController', [
             }, 30000)
         };
 
-        function previousOrderBookCheck(){
-            if($scope.previousOrderBook != null && $scope.previousOrderBook.length > 0){
+        function refreshBidsColorChange(){
+            if(previousBids.length > 0){
                 for(var i = 0; i < $scope.orderBook.length; i++){
-                    if($scope.previousOrderBook[i] != null && $scope.orderBook[i] != null){
-                        if($scope.previousOrderBook[i]['BidPrice'] != $scope.orderBook[i]['BidPrice'] ||
-                            $scope.previousOrderBook[i]['BidVolume'] != $scope.orderBook[i]['BidVolume']){
-                            $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
-                                changeColor: true};
+                    var containsOrder = false;
+                    for(var j = 0; j < previousBids.length; j++){
+                        if(previousBids[j]['BidPrice'] === $scope.orderBook[i]['BidPrice']){
+                            containsOrder = true;
+                            break;
                         }
-                        else{
-                            $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'], BidVolume: $scope.orderBook[i]['BidVolume'],
-                                changeColor: false};
-                        }
+                    }
+                    if(!containsOrder){
+                        $scope.orderBook[i] = {BidPrice: $scope.orderBook[i]['BidPrice'],
+                            BidVolume: $scope.orderBook[i]['BidVolume'], ChangeColor: true};
                     }
                 }
             }

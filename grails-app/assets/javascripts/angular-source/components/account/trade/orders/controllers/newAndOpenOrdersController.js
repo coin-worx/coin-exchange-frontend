@@ -34,14 +34,14 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
     function refreshTradesColorChange(){
         if(previousOpenOrders.length > 0){
             for(var i = 0; i < $scope.orders.length; i++){
-                var containsTrade = false;
+                var containsOrder = false;
                 for(var j = 0; j < previousOpenOrders.length; j++){
                     if(previousOpenOrders[j]['OrderId'] === $scope.orders[i]['OrderId']){
-                        containsTrade = true;
+                        containsOrder = true;
                         break;
                     }
                 }
-                if(!containsTrade){
+                if(!containsOrder){
                     $scope.orders[i] = {Trades: $scope.orders[i]['Trades'], OpenQuantity: $scope.orders[i]['OpenQuantity'],
                         ClosingDateTime: $scope.orders[i]['ClosingDateTime'],
                         Type: $scope.orders[i]['Type'], Volume: $scope.orders[i]['Volume'],
