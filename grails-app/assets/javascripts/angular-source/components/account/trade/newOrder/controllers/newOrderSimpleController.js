@@ -168,10 +168,16 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
                 }
             }
         } else if ($scope.parameters.orderType === constants.orderType.MARKET) {
+          // Get the latest bids and asks to make the calculations for setting the price when sending the order
           getBidsOrderBookUsingBidService();
           getAsksOrderBookUsingAsksService();
 
-          updateOrderVariables(newValues);
+          if($scope.parameters.sign === constants.sign.MULT){
+            baseCurrencyMarketOrderUpdate(newValues);
+          }
+          else if($scope.parameters.sign === constants.sign.DIV){
+            quoteCurrencyMarketOrderUpdate(newValues);
+          }
         }
       });
 
@@ -215,7 +221,28 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         }
       }
 
-      function updateOrderVariables(newValues) {
+      // Update the variables when sending aa market order while the Quote currency is selected. E.g., in XBT/USD, USD is the Quote Currency,
+      // XBT is the base currency
+      function quoteCurrencyMarketOrderUpdate(newValues){
+          if ($scope.parameters.type === constants.type.SELL){
+              if($scope.bids != null && $scope.bids != undefined && $scope.bids.length > 0){
+                  $scope.total = newValues[0] / $scope.bids[0]['BidPrice'];
+                  // Fix the length of the decimal points of 'total' to 5
+                  $scope.total = parseFloat($scope.total.toFixed(5));
+              }
+          }
+          else if ($scope.parameters.type === constants.type.BUY){
+              if($scope.asks != null && $scope.asks != undefined && $scope.asks.length > 0){
+                  $scope.total = newValues[0] / $scope.asks[0]['AskPrice'];
+                  // Fix the length of the decimal points of 'total' to 5
+                  $scope.total = parseFloat($scope.total.toFixed(5));
+              }
+          }
+      }
+
+      // Update credentials for market order when the base currency is selected. E.g., in XBT/USD, USD is the Quote Currency,
+        // XBT is the base currency
+      function baseCurrencyMarketOrderUpdate(newValues) {
         var totalVolume = 0,
           totalCost = 0;
 
@@ -235,6 +262,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
                 bidVolume -= difference;
                 totalCost += bidPrice * bidVolume;
                 $scope.total = totalCost;
+                // Fix the length of the decimal points of 'total' to 5
+                $scope.total = parseFloat($scope.total.toFixed(5));
                 breakLoop = true;
               }
               // If the total volume plus the current volume is less than the user entered volume, then add the cost in
@@ -262,6 +291,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
                 askVolume -= difference;
                 totalCost += askPrice * askVolume;
                 $scope.total = totalCost;
+                // Fix the length of the decimal points of 'total' to 5
+                $scope.total = parseFloat($scope.total.toFixed(5));
                 breakLoop = true;
               }
               // If the total volume plus the current volume is less than the user entered volume, then add the cost in
@@ -330,6 +361,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
         return label;
       };
 
+        // Sets the best bid as the price when sending the order in case of a SELL limit order
         function setBestBidAsPrice(){
             if($scope.parameters.type === constants.type.SELL && $scope.parameters.orderType === constants.orderType.LIMIT){
                 if($scope.price === null || $scope.price === undefined || $scope.price === 0){
@@ -349,6 +381,7 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
             }
         }
 
+        // Sets the best Ask as the price when sending the order in case of a BUY limit order
         function setBestAskAsPrice(){
             if($scope.parameters.type === constants.type.BUY && $scope.parameters.orderType === constants.orderType.LIMIT){
                 if($scope.price === null || $scope.price === undefined || $scope.price === 0){
