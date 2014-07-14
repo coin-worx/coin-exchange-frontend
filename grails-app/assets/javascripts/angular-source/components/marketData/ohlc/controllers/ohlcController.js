@@ -141,8 +141,8 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                 dataGrouping : {
                     units : groupingUnits
                 },
-                color: 'green',
-                upColor: 'red'
+                color: 'red',
+                upColor: 'green'
             },
                 {
                     type: 'spline',
@@ -195,7 +195,7 @@ angular.module('marketData.ohlc').controller('OhlcController', [
                 data: []
             }],
             title: {
-                text: 'Hourly Price History ' + currencyPair
+                text: 'Minute Price History ' + currencyPair
             },
             //Boolean to control showng loading status on chart (optional)
             loading: false,
