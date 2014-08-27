@@ -172,4 +172,38 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def createNewDepositAddress(){
+        Map newAddressQueryResult = queryService.createNewDepositAddress('BTC')
+
+        response.status = newAddressQueryResult.status
+
+        Map addressListQueryResult =  queryService.getDepositAddresses('BTC')
+        response.status = addressListQueryResult.status
+
+        render addressListQueryResult.value
+    }
+
+    def getDepositLimits(){
+        Map queryResult = queryService.getDepositLimits('BTC')
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getDepositAddresses(){
+        Map queryResult = queryService.getDepositAddresses('BTC')
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getRecentDeposits(){
+        def depositParams = request.JSON
+        String currency = depositParams['currency']
+        Map queryResult = queryService.getRecentDeposits(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
 }

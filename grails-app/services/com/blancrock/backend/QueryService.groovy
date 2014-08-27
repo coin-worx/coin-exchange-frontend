@@ -255,6 +255,42 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map createNewDepositAddress(String currency){
+        String path = getPathWithPrefix('/funds/createdepositaddress')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getDepositLimits(String currency){
+        String path = getPathWithPrefix('/funds/getdepositlimits')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getDepositAddresses(String currency){
+        String path = getPathWithPrefix('/funds/getdepositaddresses')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getRecentDeposits(String currency){
+        String path = getPathWithPrefix('/funds/getrecentdeposits')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

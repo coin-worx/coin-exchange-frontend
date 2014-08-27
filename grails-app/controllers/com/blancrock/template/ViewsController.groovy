@@ -89,7 +89,11 @@ class ViewsController {
     }
 
     def accountFundingDeposit() {
-        render template: '/account/funding/deposit/deposit'
+        render template: '/account/funding/deposit/recentDepositsInterface'
+    }
+
+    def accountFundingDepositCurrency(){
+        render template: '/account/funding/deposit/depositDetailsInterface'
     }
 
     def accountSecurityPassword() {

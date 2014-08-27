@@ -2,4 +2,4 @@
 
 'use strict';
 
-angular.module('account', ['account.trade']);
+angular.module('account', ['account.trade', 'account.funding']);
