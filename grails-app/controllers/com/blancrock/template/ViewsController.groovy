@@ -85,7 +85,11 @@ class ViewsController {
     }
 
     def accountFundingWithdraw() {
-        render template: '/account/funding/withdraw/withdraw'
+        render template: '/account/funding/withdraw/recentWithdrawalsInterface'
+    }
+
+    def accountFundingWithdrawDetails(){
+        render template: '/account/funding/withdraw/withdrawDetailsInterface'
     }
 
     def accountFundingDeposit() {

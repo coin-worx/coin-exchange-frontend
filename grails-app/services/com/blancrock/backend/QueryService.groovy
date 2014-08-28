@@ -291,6 +291,42 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getRecentWithdrawals(String currency){
+        String path = getPathWithPrefix('/funds/getrecentwithdrawals')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map saveAddress(String currency, String address, String description){
+        String path = getPathWithPrefix('/funds/getrecentwithdrawals')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getWithdrawLimits(String currency){
+        String path = getPathWithPrefix('/funds/getwithdrawlimits')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getWithdrawAddresses(String currency){
+        String path = getPathWithPrefix('/funds/getwithdrawaddresses')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

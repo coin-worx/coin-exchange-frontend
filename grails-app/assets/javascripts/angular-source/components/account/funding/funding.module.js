@@ -2,4 +2,4 @@
 
 'use strict';
 
-angular.module('account.funding', ['account.funding.deposit']);
+angular.module('account.funding', ['account.funding.deposit', 'account.funding.withdraw']);

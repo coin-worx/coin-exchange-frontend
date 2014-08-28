@@ -1,33 +1,32 @@
-//=require angular-source/components/account/funding/deposit/deposit.module
+//=require angular-source/components/account/funding/withdraw/withdraw.module
 
 'use strict';
 
-angular.module('account.funding.deposit').controller('depositDetailsController', [
-    '$scope', '$routeParams', '$filter', 'depositDetailsService', function ($scope, $routeParams, $filter, depositDetailsService) {
-        var loaded = false;
+angular.module('account.funding.withdraw').controller('withdrawDetailsController', [
+    '$scope', '$routeParams', '$filter', 'withdrawDetailsService', function ($scope, $routeParams, $filter, withdrawDetailsService) {
         var currentCurrency = '';
 
-        loadDepositDetails();
+        loadWithdrawDetails();
 
-        function loadDepositDetails(){
+        function loadWithdrawDetails(){
             currentCurrency = $routeParams.currency;
             if(currentCurrency != null && currentCurrency != '' && currentCurrency != undefined){
-                depositDetailsService.getDepositLimits()
+                withdrawDetailsService.getWithdrawLimits({currency: currentCurrency})
                     .success(function (depositLimits) {
-                        $scope.depositLimits = depositLimits;
-                        $scope.depositLimitsLoaded = true;
-                        if($scope.depositLimits != null){
-                            depositDetailsService.getDepositAddresses()
-                                .success(function (depositAddresses){
-                                    assignDepositAddresses(depositAddresses)
+                        $scope.withdrawLimits = depositLimits;
+                        $scope.withdrawLimitsLoaded = true;
+                        if($scope.withdrawLimits != null){
+                            withdrawDetailsService.getWithdrawAddresses({currency: currentCurrency})
+                                .success(function (withdrawAddresses){
+                                    assignWithdrawAddresses(withdrawAddresses)
                                 }).error(function (){
-                                    $scope.depositAddresses = [];
-                                    $scope.depositAddressesLoaded = false;
+                                    $scope.withdrawAddresses = [];
+                                    $scope.withdrawAddressesLoaded = false;
                                 });
                         }
                     }).error(function () {
-                        $scope.depositLimits = null;
-                        $scope.depositLimitsLoaded = false;
+                        $scope.withdrawLimits = null;
+                        $scope.withdrawLimitsLoaded = false;
                     });
             }
             else{
@@ -35,24 +34,13 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
             }
         };
 
-        function assignDepositAddresses(depositAddresses){
-            $scope.depositAddresses = depositAddresses;
-            $scope.depositAddressesLoaded = true;
+        function assignWithdrawAddresses(withdrawAddresses){
+            $scope.withdrawAddresses = withdrawAddresses;
+            $scope.withdrawAddressesLoaded = true;
             setPaginationParams();
             recalculateMinAndMax();
             filterCollection();
         }
-
-        $scope.createNewDepositAddress = function(){
-            depositDetailsService.createNewAddress()
-                .success(function (depositAddress) {
-                    assignDepositAddresses(depositAddress)
-                })
-                .error(function (){
-                   $scope.depositAddresses = null;
-                    $scope.depositAddressesLoaded = false;
-                });
-        };
 
         $scope.sort = {
             reverse: false
@@ -76,7 +64,7 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
                 $scope.sort.reverse = true;
             }
 
-            $scope.depositAddresses = $filter('orderBy')($scope.depositAddresses, columnName, $scope.sort.reverse);
+            $scope.withdrawAddresses = $filter('orderBy')($scope.withdrawAddresses, columnName, $scope.sort.reverse);
             setPaginationParams();
             recalculateMinAndMax();
             filterCollection();
@@ -86,7 +74,7 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
         function setPaginationParams() {
             $scope.currentPage = 1;
             $scope.maxSize = 1;
-            $scope.totalItems = $scope.depositAddresses.length;
+            $scope.totalItems = $scope.withdrawAddresses.length;
         }
 
         $scope.pageChanged = function () {
@@ -95,7 +83,7 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
         };
 
         function filterCollection() {
-            $scope.filteredDepositAddresses = $scope.depositAddresses.slice($scope.currentMinIndex, $scope.currentMaxIndex);
+            $scope.filteredwithdrawAddresses = $scope.withdrawAddresses.slice($scope.currentMinIndex, $scope.currentMaxIndex);
         }
 
         function recalculateMinAndMax() {

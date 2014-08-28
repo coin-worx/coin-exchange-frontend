@@ -206,4 +206,51 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def getRecentWithdrawals(){
+        def withdrawParams = request.JSON
+        String currency = withdrawParams['currency']
+        Map queryResult = queryService.getRecentWithdrawals(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def saveAddress(){
+        def withdrawParams = request.JSON
+        String currency = withdrawParams['currency']
+        // ToDo: Provide and get the paarameters and pass them on
+        Map queryResult = queryService.saveAddress(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getWithdrawLimits(){
+        def withdrawParams = request.JSON
+        String currency = withdrawParams['currency']
+        Map queryResult = queryService.getWithdrawLimits(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getWithdrawAddresses(){
+        def withdrawParams = request.JSON
+        String currency = withdrawParams['currency']
+        Map queryResult = queryService.getWithdrawAddresses(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def commitWithdraw(){
+        def withdrawParams = request.JSON
+        String currency = withdrawParams['currency']
+        //ToDo
+       // Map queryResult = queryService.getWithdrawAddresses(currency)
+
+        //response.status = queryResult.status
+        //render queryResult.value
+    }
 }
