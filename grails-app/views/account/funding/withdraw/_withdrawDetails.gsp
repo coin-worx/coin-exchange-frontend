@@ -76,6 +76,26 @@
         <g:render template="/account/funding/withdraw/withdrawSuccessful"/>
     </div>
 
+    <div id="add-address-content" class="span10" data-locked="0" ng-show="showAddAddress">
+        <g:render template="/account/funding/withdraw/addAddressMain"/>
+    </div>
+
+    <div id="add-address-successful-content" class="span10" data-locked="0" ng-show="showAddAddressSuccessful">
+        <g:render template="/account/funding/withdraw/addAddressSuccessful"/>
+    </div>
+
+    <div id="manage-address-main-content" class="span10" data-locked="0" ng-show="showManageAddressesMain">
+        <g:render template="/account/funding/withdraw/manageAddressesMain"/>
+    </div>
+
+    <div id="confirm-address-delete-content" class="span10" data-locked="0" ng-show="showConfirmAddressDelete">
+        <g:render template="/account/funding/withdraw/confirmAddressDeletion"/>
+    </div>
+
+    <div id="address-delete-successful-content" class="span10" data-locked="0" ng-show="showDeleteSuccessful">
+        <g:render template="/account/funding/withdraw/deleteSuccessful"/>
+    </div>
+
 </div>
 </div>
 </div>

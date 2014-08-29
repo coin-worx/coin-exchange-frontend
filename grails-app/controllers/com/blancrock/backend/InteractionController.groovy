@@ -218,11 +218,13 @@ class InteractionController {
         render queryResult.value
     }
 
-    def saveAddress(){
+    def saveWithdrawAddress(){
         def withdrawParams = request.JSON
         String currency = withdrawParams['currency']
+        String bitcoinAddress = withdrawParams['bitcoinAddress']
+        String description = withdrawParams['description']
         // ToDo: Provide and get the paarameters and pass them on
-        Map queryResult = queryService.saveAddress(currency)
+        Map queryResult = queryService.saveWithdrawAddress(currency, bitcoinAddress, description)
 
         response.status = queryResult.status
         render queryResult.value
@@ -254,6 +256,15 @@ class InteractionController {
         String amountString = withdrawParams['amount']
         BigDecimal amount = amountString.toBigDecimal();
         Map queryResult = queryService.commitWithdraw(currency, bitcoinAddress, amount)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def deleteWithdrawAddress(){
+        def withdrawParams = request.JSON
+        String bitcoinAddress = withdrawParams['bitcoinAddress']
+        Map queryResult = queryService.deleteWithdrawAddress(bitcoinAddress)
 
         response.status = queryResult.status
         render queryResult.value

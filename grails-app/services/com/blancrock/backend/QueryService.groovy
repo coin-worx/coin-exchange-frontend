@@ -300,9 +300,9 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
-    Map saveAddress(String currency, String address, String description){
-        String path = getPathWithPrefix('/funds/getrecentwithdrawals')
-        Map query = [currency: currency]
+    Map saveWithdrawAddress(String currency, String address, String description){
+        String path = getPathWithPrefix('/funds/addwithdrawaddress')
+        Map query = [currency: currency, bitcoinAddress: address, description: description]
 
         Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
@@ -330,6 +330,15 @@ class QueryService {
     Map commitWithdraw(String currency, String bitcoinAddress, BigDecimal amount){
         String path = getPathWithPrefix('/funds/commitwithdraw')
         Map query = [currency: currency, isCryptoCurrency: true, bitcoinAddress: bitcoinAddress, amount: amount]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map deleteWithdrawAddress(String bitcoinAddress){
+        String path = getPathWithPrefix('/funds/deletewithdrawaddress')
+        Map query = [bitcoinAddress: bitcoinAddress]
 
         Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 

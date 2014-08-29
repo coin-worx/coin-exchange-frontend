@@ -13,8 +13,8 @@
                     </select>
                 </div><div class="ib top">
                 <div class="btn-toolbar vmarg0">
-                    <a class="btn btn-medium btn-primary show-address-add hmarg10right "><i class="icon icon-plus icon-white"></i> Add address</a>
-                    <a class="btn btn-medium show-address-list"><i class="icon icon-list"></i> Manage</a>
+                    <a class="btn btn-medium btn-primary show-address-add hmarg10right " ng-click="fromWithdrawFormToAddAddress()"><i class="icon icon-plus icon-white"></i> Add address</a>
+                    <a class="btn btn-medium show-address-list" ng-click="navigateToManageWithdraw()"><i class="icon icon-list"></i> Manage</a>
                 </div>
             </div>
                 <p class="control-hint">
@@ -31,7 +31,7 @@
                             <td class="k">Minimum</td>
                             <td class="dots"></td>
                             <td>
-                                <a class="amount-pop tt" ></a>
+                                <a class="amount-pop tt" ng-bind="withdrawLimits.MinimumAmount"></a>
                             </td>
                         </tr>
                         </tbody></table>

@@ -5,8 +5,8 @@
 angular.module('account.funding.withdraw').service('withdrawDetailsService',[
     '$http', function ($http) {
         return{
-            saveAddress : function(currency){
-                return $http.post('api/createNewDepositAddress', currency);
+            saveWithdrawAddress : function(address){
+                return $http.post('api/saveWithdrawAddress', address);
             }
             ,
             getWithdrawLimits : function(currency){
@@ -19,6 +19,10 @@ angular.module('account.funding.withdraw').service('withdrawDetailsService',[
             ,
             commitWithdraw : function(withdraw){
                 return $http.post('api/commitWithdraw', withdraw);
+            }
+            ,
+            deleteWithdrawAddress : function(bitcoinAddress){
+                return $http.post('api/deleteWithdrawAddress', bitcoinAddress);
             }
         }
     }]);

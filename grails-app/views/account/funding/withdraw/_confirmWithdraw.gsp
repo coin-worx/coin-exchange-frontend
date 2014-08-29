@@ -47,8 +47,8 @@
         </div>
         </div>
         <div class="btn-toolbar vpad20top center">
-            <button type="button" class="btn btn-danger btn-large back hmarg20right" autocomplete="off" ng-click="withdrawCancelled()">« Cancel</button>
-            <button type="submit" class="btn btn-success btn-large cancel" autocomplete="off" ng-click="withdrawConfirmed()">
+            <button type="button" class="btn btn-danger btn-large back hmarg20right" autocomplete="off" ng-click="navigateToWithdrawForm()">« Cancel</button>
+            <button type="submit" class="btn btn-success btn-large cancel" autocomplete="off" ng-click="commitWithdraw()">
                 <i class="icon icon-white icon-ok"></i> Confirm withdrawal
             </button>
         </div>

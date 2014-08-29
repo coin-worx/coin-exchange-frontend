@@ -8,6 +8,8 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
 
         var _errors = '';
         $scope.withdrawForm = true;
+        var fromManageToAddAddress = false;
+        var fromWithdrawFormToAddAddress = false;
         loadWithdrawDetails();
 
         function loadWithdrawDetails(){
@@ -53,27 +55,123 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
             }
             if($scope.amount !== undefined && $scope.amount !== null && $scope.amount !== '' && $scope.bitcoinAddress !== undefined &&
                 $scope.bitcoinAddress !== null){
-                $scope.withdrawForm = false;
-                $scope.reviewWithdraw = true;
-                $scope.withdrawSuccessful = false;
+                assignFlags(false, true, false, false, false, false, false, false);
                 $scope.withdrawNetTotal = $scope.amount - $scope.withdrawLimits.Fee;
             }
         }
 
-        $scope.withdrawCancelled = function(){
-            $scope.withdrawForm = true;
-            $scope.reviewWithdraw = false;
-            $scope.withdrawSuccessful = true;
+        $scope.navigateToWithdrawForm = function(){
+            assignFlags(true, false, false, false, false, false, false, false);
             _errors = '';
         }
 
-        $scope.withdrawConfirmed = function(){
-            $scope.withdrawForm = false;
-            $scope.reviewWithdraw = false;
-            $scope.withdrawSuccessful = true;
+        // Add Address navigates back to two places: withdraw Form screen and Manage Addresses screen, depending on from which screen
+        // the navigation was started from to get to AddAddress. When we start navigating, we will set appropriate flags to know from
+        // which screen we came to AddAddress
+        $scope.navigateFromAddAddress = function(){
+            if(fromWithdrawFormToAddAddress){
+                $scope.navigateToWithdrawForm();
+                fromWithdrawFormToAddAddress = false;
+            }
+            else if(fromManageToAddAddress){
+                $scope.navigateToManageWithdraw();
+                fromManageToAddAddress = false;
+            }
+        }
+
+        $scope.commitWithdraw = function(){
+            assignFlags(false, false, true, false, false, false, false, false);
             withdrawDetailsService.commitWithdraw({currency: currentCurrency, bitcoinAddress: $scope.bitcoinAddress.BitcoinAddress,
             amount: $scope.amount});
             _errors = '';
+        }
+
+        $scope.navigateToAddAddress = function(){
+            loadWithdrawDetails();
+            assignFlags(false, false, false, true, false, false, false, false);
+        }
+
+        $scope.addNewAddress = function(form){
+            _errors = '';
+            if($scope.withdrawAddressDescription !== undefined || $scope.newWithdrawAddress !== undefined) {
+                withdrawDetailsService.saveWithdrawAddress({currency: currentCurrency, bitcoinAddress: $scope.newWithdrawAddress,
+                    description: $scope.withdrawAddressDescription
+                }).success(function (addAddressResponse){
+                        if(addAddressResponse !== null && addAddressResponse.SaveSuccessful === true){
+                            assignFlags(false, false, false, false, true, false, false, false);
+                        }
+                        else{
+                            _errors = addAddressResponse.Description;
+                            assignFlags(false, false, false, true, false, false, false, false);
+                        }
+                    }).error(function (){
+                        $scope.withdrawAddresses = [];
+                        $scope.withdrawAddressesLoaded = false;
+
+                        assignFlags(false, false, false, true, false, false, false, false);
+                    });
+            }
+            else{
+                assignFlags(false, false, false, true, false, false, false, false);
+                _errors = "No address or description provided"
+            }
+        }
+
+        function assignFlags(withdrawForm, reviewWithdraw, withdrawSuccessful, showAddAddress, showAddAddressSuccessful,
+                             showManageAddressesMain, showConfirmAddressDelete, showDeleteSuccessful){
+            $scope.withdrawForm = withdrawForm;
+            $scope.reviewWithdraw = reviewWithdraw;
+            $scope.withdrawSuccessful = withdrawSuccessful;
+            $scope.showAddAddress = showAddAddress;
+            $scope.showAddAddressSuccessful = showAddAddressSuccessful;
+            $scope.showManageAddressesMain = showManageAddressesMain;
+            $scope.showConfirmAddressDelete = showConfirmAddressDelete;
+            $scope.showDeleteSuccessful = showDeleteSuccessful;
+        }
+
+        $scope.navigateToManageWithdraw = function(){
+            loadWithdrawDetails();
+            $scope.currentWithdrawAddress = null;
+            assignFlags(false,false,false,false, false, true, false, false);
+        }
+
+        $scope.navigateToConfirmDelete = function(address){
+            $scope.currentWithdrawAddress = address;
+            assignFlags(false,false,false,false, false, false, true, false);
+        }
+
+        $scope.fromManageToAddAddress = function(){
+            _errors = '';
+            $scope.newWithdrawAddress = null;
+            $scope.withdrawAddressDescription = null;
+            // This flag will let us know in the call to AddAddress was made from ManageAddresses, so we could go back to ManageAddresses
+            // in case Cancel is clicked on AddAddress screen
+            fromManageToAddAddress = true;
+            $scope.navigateToAddAddress();
+        }
+
+        $scope.fromWithdrawFormToAddAddress = function(){
+            // This flag will let us know in the call to AddAddress was made from WithdrawForm, so we could go back to WithdrawForm
+            // in case Cancel is clicked on AddAddress screen
+            fromWithdrawFormToAddAddress = true;
+            $scope.navigateToAddAddress();
+        }
+
+        $scope.deleteAddress = function(){
+            _errors = '';
+            if($scope.currentWithdrawAddress !== undefined){
+                withdrawDetailsService.deleteWithdrawAddress({bitcoinAddress: $scope.currentWithdrawAddress.BitcoinAddress})
+                    .success(function(deleteResponse){
+                        if(deleteResponse.DeleteSuccessful){
+                            assignFlags(false,false,false,false, false, false, false, true);
+                        }
+                        else{
+                            _errors = deleteResponse.Description;
+                        }
+                    }).error(function(){
+                        _errors = "Could not delete address"
+                    });
+            }
         }
 
         $scope.getErrors = function(){
@@ -121,7 +219,7 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
         };
 
         function filterCollection() {
-            $scope.filteredwithdrawAddresses = $scope.withdrawAddresses.slice($scope.currentMinIndex, $scope.currentMaxIndex);
+            $scope.filteredWithdrawAddresses = $scope.withdrawAddresses.slice($scope.currentMinIndex, $scope.currentMaxIndex);
         }
 
         function recalculateMinAndMax() {
