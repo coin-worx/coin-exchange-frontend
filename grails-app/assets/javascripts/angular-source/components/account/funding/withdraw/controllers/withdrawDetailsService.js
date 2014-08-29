@@ -17,8 +17,8 @@ angular.module('account.funding.withdraw').service('withdrawDetailsService',[
                 return $http.post('api/getWithdrawAddresses', currency);
             }
             ,
-            commitWithdraw : function(currency){
-                return $http.get('api/getDepositAddresses', currency);
+            commitWithdraw : function(withdraw){
+                return $http.post('api/commitWithdraw', withdraw);
             }
         }
     }]);

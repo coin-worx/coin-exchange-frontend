@@ -1,5 +1,7 @@
 package com.blancrock.backend
 
+import javax.persistence.Convert
+
 /**
  * Created by Vladimir Havenchyk.
  */
@@ -247,10 +249,13 @@ class InteractionController {
     def commitWithdraw(){
         def withdrawParams = request.JSON
         String currency = withdrawParams['currency']
-        //ToDo
-       // Map queryResult = queryService.getWithdrawAddresses(currency)
+        String bitcoinAddress = withdrawParams['bitcoinAddress']
 
-        //response.status = queryResult.status
-        //render queryResult.value
+        String amountString = withdrawParams['amount']
+        BigDecimal amount = amountString.toBigDecimal();
+        Map queryResult = queryService.commitWithdraw(currency, bitcoinAddress, amount)
+
+        response.status = queryResult.status
+        render queryResult.value
     }
 }

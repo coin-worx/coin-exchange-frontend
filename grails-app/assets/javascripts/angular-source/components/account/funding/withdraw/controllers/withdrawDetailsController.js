@@ -6,6 +6,8 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
     '$scope', '$routeParams', '$filter', 'withdrawDetailsService', function ($scope, $routeParams, $filter, withdrawDetailsService) {
         var currentCurrency = '';
 
+        var _errors = '';
+        $scope.withdrawForm = true;
         loadWithdrawDetails();
 
         function loadWithdrawDetails(){
@@ -40,6 +42,42 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
             setPaginationParams();
             recalculateMinAndMax();
             filterCollection();
+        }
+
+        $scope.reviewParamsBeforeCommit = function(){
+            if($scope.amount === undefined || $scope.amount === null || $scope.amount === ''){
+                _errors = "Invalid amount";
+            }
+            if($scope.bitcoinAddress === undefined || $scope.bitcoinAddress === null){
+                _errors = "No address selected";
+            }
+            if($scope.amount !== undefined && $scope.amount !== null && $scope.amount !== '' && $scope.bitcoinAddress !== undefined &&
+                $scope.bitcoinAddress !== null){
+                $scope.withdrawForm = false;
+                $scope.reviewWithdraw = true;
+                $scope.withdrawSuccessful = false;
+                $scope.withdrawNetTotal = $scope.amount - $scope.withdrawLimits.Fee;
+            }
+        }
+
+        $scope.withdrawCancelled = function(){
+            $scope.withdrawForm = true;
+            $scope.reviewWithdraw = false;
+            $scope.withdrawSuccessful = true;
+            _errors = '';
+        }
+
+        $scope.withdrawConfirmed = function(){
+            $scope.withdrawForm = false;
+            $scope.reviewWithdraw = false;
+            $scope.withdrawSuccessful = true;
+            withdrawDetailsService.commitWithdraw({currency: currentCurrency, bitcoinAddress: $scope.bitcoinAddress.BitcoinAddress,
+            amount: $scope.amount});
+            _errors = '';
+        }
+
+        $scope.getErrors = function(){
+           return _errors;
         }
 
         $scope.sort = {
