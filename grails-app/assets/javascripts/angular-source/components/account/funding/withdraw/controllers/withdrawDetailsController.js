@@ -80,9 +80,23 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
         }
 
         $scope.commitWithdraw = function(){
-            assignFlags(false, false, true, false, false, false, false, false);
+            _errors = '';
             withdrawDetailsService.commitWithdraw({currency: currentCurrency, bitcoinAddress: $scope.bitcoinAddress.BitcoinAddress,
-            amount: $scope.amount});
+            amount: $scope.amount})
+                .success(function (commitWithdrawResponse){
+                    if(!commitWithdrawResponse.CommitSuccessful){
+                        _errors = commitWithdrawResponse.Description;
+                        $scope.commitWithdrawId = null;
+                        $scope.commitWithdrawSuccessful = false;
+                    }
+                    else{
+                        assignFlags(false, false, true, false, false, false, false, false);
+                        $scope.commitWithdrawId = commitWithdrawResponse.WithdrawId;
+                        $scope.commitWithdrawSuccessful = true;
+                    }
+                }).error(function (){
+                    _errors = "An error occurred";
+                });
             _errors = '';
         }
 

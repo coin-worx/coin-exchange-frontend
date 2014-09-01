@@ -1,7 +1,6 @@
 <div class="frame review-wrap frame-active" style="width: 788px; visibility: visible; display: block;">
     <h5 class="title center">Confirm withdrawal</h5>
     <div class="review-result hidden2 center" style="display: none;">
-        <div class="alert alert-block alert-success"><i class="icon-ok"></i> <span class="msg-success"></span></div>
         <a href="/u/funding/withdraw?asset=XXBT" class="btn hmarg40right btn-large reload">« Back</a>
         <a href="/u/funding/withdraw" class="btn btn-large btn-primary">View withdrawals</a>
     </div>
