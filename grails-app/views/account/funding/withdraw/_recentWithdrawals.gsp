@@ -1,4 +1,4 @@
-<div class="hidden2" style="display: block;" ng-controller="recentWithdrawalsController">
+<div class="hidden2" style="display: block;"%{-- ng-controller="recentWithdrawalsController"--}%>
     <p>Select an asset to withdraw from the menu and follow the instructions on the displayed form. Please see the <a
             href="/help/faq#withdraws-and-withdrawals">FAQ</a> for questions or <a
             href="https://support.kraken.com">contact support</a> for any issues.</p>
@@ -9,8 +9,9 @@
                 <div class="clearfix vmarg10bot">
                     <h5 class="pull-left title vpad10top hmarg40right">Recent withdrawals</h5>
 
-                    <div class="pull-left vpad5 vmarg5 alert alert-block alert-error doc-error hidden2"
-                         style="display: none;"></div>
+                    <div class="center vpad10" ng-show="getErrors()">
+                        <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
+                    </div>
                 </div>
 
                 <div id="table-withdrawals_wrapper" class="dataTables_wrapper form-inline" role="grid">
@@ -51,6 +52,7 @@
                                 ng-class="getSortingClass('Fee')" style="width: 50px;">Fee</th>
                             <th ng-click="updateSorting('Status')" class="lalign"
                                 ng-class="getSortingClass('Status')" style="width: 50px;">Status</th>
+                            <th class="ralign center" style="width: 35px;">&nbsp;</th>
                         </tr>
                         </thead>
 
@@ -68,12 +70,21 @@
                             class="center"></td></tr>--}%
                         <tr ng-repeat="withdraw in filteredRecentWithdrawals"
                             ng-class="{even: $even, odd: $odd}" ng-cloak>
-                            <td class="lalign" ng-bind="withdraw.WithdrawId"></td>
+                            <td class="lalign" tab-right-click="navigateToRecentWithdrawDetails()" ng-click="navigateToRecentWithdrawDetails(withdraw)">
+                                <a href="">{{withdraw.WithdrawId | limitTo : 8}}</a>
+                            </td>
                             <td class="lalign" ng-bind="withdraw.DateTime"></td>
                             <td class="lalign" ng-bind="withdraw.Type"></td>
                             <td class="ralign" ng-bind="withdraw.Amount"></td>
                             <td class="ralign" ng-bind="withdraw.Fee"></td>
-                            <td class="lalign" ng-bind="withdraw.Status"></td>
+                            <td class="lalign">
+                                <span class="label mono" ng-class="setLabelStyles(withdraw.Status)" ng-bind="withdraw.Status"></span>
+                            </td>
+                            <td class="center">
+                                <a name="cancel" ng-if="withdraw.Status == 'Pending'" ng-click="cancelWithdraw(withdraw)" class="btn btn-danger thin tt btn-cancel">
+                                    <i class="icon-remove icon-white"></i>
+                                </a>
+                            </td>
                         </tr>
 
                         <tr class="odd" ng-hide="recentWithdrawals.length">

@@ -1,5 +1,7 @@
 <div class="hidden2" style="display: block;" ng-controller="withdrawDetailsController">
-<div class="alert alert-block alert-error hidden2"></div>
+    <div class="center vpad10" ng-show="getErrors()">
+        <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
+    </div>
 <div class="pull-right span4 hmarg20left vmarg20top">
     <div class="alert alert-info alert-even funding-info">
         <table class="stats-dots">

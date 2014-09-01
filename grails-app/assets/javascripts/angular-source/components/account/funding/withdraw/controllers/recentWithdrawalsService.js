@@ -8,5 +8,9 @@ angular.module('account.funding.withdraw').service('recentWithdrawalsService',[
             getRecentWithdrawals : function(currency){
                 return $http.post('api/getRecentWithdrawals', currency);
             }
+            ,
+            cancelWithdraw : function(withdrawId){
+                return $http.post('api/cancelWithdraw', withdrawId);
+            }
         }
     }]);

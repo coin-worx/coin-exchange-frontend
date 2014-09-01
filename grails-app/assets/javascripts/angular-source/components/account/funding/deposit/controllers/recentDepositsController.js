@@ -4,7 +4,8 @@
 
 angular.module('account.funding.deposit').controller('recentDepositsController', [
     '$scope', 'recentDepositsService', function ($scope, recentDepositsService) {
-        var loaded = false;
+
+        assignNavigationFlags(true, false);
         var currentCurrency = 'BTC';
 
         loadDepositLedgers();
@@ -22,6 +23,21 @@ angular.module('account.funding.deposit').controller('recentDepositsController',
                         $scope.depositLedgersLoaded = false;
                     })
         };
+
+        $scope.navigateToRecentDeposits = function(){
+            assignNavigationFlags(true, false);
+        }
+
+        $scope.navigateToRecentDepositDetails = function(deposit){
+            $scope.deposit = deposit;
+            assignNavigationFlags(false, true);
+        }
+
+        // Set flags which will describe that which template will be shown and which will not using ng-show
+        function assignNavigationFlags(showRecentDeposits, showRecentDepositDetails){
+            $scope.showRecentDeposits = showRecentDeposits;
+            $scope.showRecentDepositDetails = showRecentDepositDetails;
+        }
 
         $scope.sort = {
             reverse: false
@@ -71,4 +87,24 @@ angular.module('account.funding.deposit').controller('recentDepositsController',
             $scope.currentMinIndex = ($scope.currentPage - 1) * 10;
             $scope.currentMaxIndex = Math.min($scope.totalItems, $scope.currentPage * 10);
         }
+
+        $scope.setLabelStyles = function (label) {
+            var className = 'label-';
+            switch (label) {
+                case 'Cancelled':
+                    className += 'important';
+                    break;
+                case 'Confirmed':
+                    className += 'success';
+                    break;
+                case 'Pending':
+                    className += 'info';
+                    break;
+
+                default:
+                    className += 'inverse';
+            }
+
+            return className;
+        };
     }]);

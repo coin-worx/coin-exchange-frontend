@@ -1,3 +1,4 @@
+<div ng-controller="recentDepositsController">
 <div class="span2">
   <ul class="nav nav-list nav-sidebar auto-width vmarg0top hpad10right" id="withdraw-nav">
     <li class="bottom">
@@ -21,9 +22,13 @@
   </ul>
 </div>
 
-    <div id="deposit-content" %{--ng-show="!showDetails"--}% class="span10" data-locked="0">
+    <div id="deposit-content" class="span10" data-locked="0" ng-show="showRecentDeposits">
         <g:render template="/account/funding/deposit/recentDeposits"/>
     </div>
+
+<div id="deposit-details-content" class="span10" data-locked="0" ng-show="showRecentDepositDetails">
+    <g:render template="/account/funding/deposit/recentDepositDetails"/>
+</div>
 
 <div id="otp-popover" class="hidden2">
   <form method="post" autocomplete="off" class="center">
@@ -32,4 +37,5 @@
     <p class="control-hint vmarg10bot">Enter the one-time password required by two-factor authentication.</p>
     <button type="submit" class="btn btn-success btn-small center"></button>
   </form>
+</div>
 </div>

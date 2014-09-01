@@ -269,4 +269,13 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def cancelWithdraw(){
+        def withdrawParams = request.JSON
+        String bitcoinAddress = withdrawParams['withdrawId']
+        Map queryResult = queryService.cancelWithdraw(bitcoinAddress)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
 }

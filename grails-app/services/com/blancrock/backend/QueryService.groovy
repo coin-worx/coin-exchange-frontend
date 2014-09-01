@@ -345,6 +345,15 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map cancelWithdraw(String withdrawId){
+        String path = getPathWithPrefix('/funds/cancelWithdraw')
+        Map query = [withdrawId: withdrawId]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

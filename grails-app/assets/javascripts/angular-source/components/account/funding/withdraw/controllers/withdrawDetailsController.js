@@ -94,8 +94,8 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
                         $scope.commitWithdrawId = commitWithdrawResponse.WithdrawId;
                         $scope.commitWithdrawSuccessful = true;
                     }
-                }).error(function (){
-                    _errors = "An error occurred";
+                }).error(function (errorMessage){
+                    _errors = errorMessage;
                 });
             _errors = '';
         }
@@ -182,8 +182,8 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
                         else{
                             _errors = deleteResponse.Description;
                         }
-                    }).error(function(){
-                        _errors = "Could not delete address"
+                    }).error(function(errorMessage){
+                        _errors = errorMessage;
                     });
             }
         }

@@ -1,7 +1,8 @@
-<div ng-controller="recentDepositsController">
+<div>
 <p>Select an asset to deposit from the menu and follow the instructions on the displayed form. Please see the <a
         href="/help/faq#deposits-and-withdrawals">FAQ</a> for questions or <a
-        href="https://support.kraken.com">contact support</a> for any issues.</p>
+        href="https://support.kraken.com">contact support</a> for any issues.
+</p>
 
 <div class="vmarg40top slider" id="slider-deposit-list">
     <div class="transfer" style="width: 1576px;">
@@ -58,11 +59,15 @@
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                         <tr ng-repeat="deposit in filteredDepositLedgers"
                             ng-class="{even: $even, odd: $odd}" ng-cloak>
-                            <td class="lalign" ng-bind="deposit.DepositId"></td>
+                            <td class="lalign" ng-click="navigateToRecentDepositDetails(deposit)">
+                                <a href="">{{deposit.DepositId | limitTo : 8}}</a>
+                            </td>
                             <td class="lalign" ng-bind="deposit.Date"></td>
                             <td class="lalign" ng-bind="deposit.Description"></td>
                             <td class="ralign" ng-bind="deposit.Amount"></td>
-                            <td class="lalign" ng-bind="deposit.Status"></td>
+                            <td class="lalign">
+                                <span class="label mono" ng-class="setLabelStyles(deposit.Status)" ng-bind="deposit.Status"></span>
+                            </td>
                         </tr>
 
                         <tr class="odd" ng-hide="depositLedgers.length">

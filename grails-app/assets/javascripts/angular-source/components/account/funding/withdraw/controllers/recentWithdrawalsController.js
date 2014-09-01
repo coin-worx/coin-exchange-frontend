@@ -3,11 +3,23 @@
 'use strict';
 
 angular.module('account.funding.withdraw').controller('recentWithdrawalsController', [
-    '$scope', 'recentWithdrawalsService', function ($scope, recentWithdrawalsService) {
-        var loaded = false;
+    '$scope', '$timeout', 'recentWithdrawalsService', function ($scope, $timeout, recentWithdrawalsService) {
+
+        var _errors = '';
         var currentCurrency = 'BTC';
 
+        assignNavigationFlags(true, false);
+
         loadRecentWithdrawals();
+
+        intervalFunction();
+
+        function intervalFunction(){
+            $timeout(function() {
+                loadRecentWithdrawals();
+                intervalFunction()
+            }, 95000)
+        };
 
         function loadRecentWithdrawals(){
             recentWithdrawalsService.getRecentWithdrawals({currency: currentCurrency})
@@ -22,6 +34,43 @@ angular.module('account.funding.withdraw').controller('recentWithdrawalsControll
                     $scope.recentWithdrawalsLoaded = false;
                 })
         };
+
+        $scope.cancelWithdraw = function(withdraw){
+            recentWithdrawalsService.cancelWithdraw({withdrawId: withdraw.WithdrawId}).success(function (cancelWithdrawResponse){
+                if(cancelWithdrawResponse.CancelSuccessful){
+                    loadRecentWithdrawals();
+                }
+            }).error(function (errorMassage){
+                    _errors = errorMassage;
+                });
+        };
+
+        $scope.navigateToRecentWithdrawals = function(){
+            assignNavigationFlags(true, false);
+        }
+
+        $scope.navigateToRecentWithdrawDetails = function(withdraw){
+//            $scope.currentWithdrawId = withdraw.WithdrawId;
+//            $scope.currentWithdrawType = withdraw.Type;
+//            $scope.currentWithdrawDate = withdraw.DateTime;
+//            $scope.currentWithdrawAmount = withdraw.Amount;
+//            $scope.currentWithdrawFee = withdraw.Fee;
+//            $scope.currentWithdrawStatus = withdraw.Status;
+//            $scope.currentWithdrawAddress = withdraw.BitcoinAddress;
+//            $scope.currentWithdrawTxId = withdraw.TransactionId;
+            $scope.withdraw = withdraw;
+            assignNavigationFlags(false, true);
+        }
+
+        // Set flags which will describe that which template will be shown and which will not using ng-show
+        function assignNavigationFlags(showRecentWithdrawals, showRecentWithdrawDetails){
+            $scope.showRecentWithdrawals = showRecentWithdrawals;
+            $scope.showRecentWithdrawDetails = showRecentWithdrawDetails;
+        }
+
+        $scope.getErrors = function(){
+            return _errors;
+        }
 
         $scope.sort = {
             reverse: false
@@ -71,4 +120,24 @@ angular.module('account.funding.withdraw').controller('recentWithdrawalsControll
             $scope.currentMinIndex = ($scope.currentPage - 1) * 10;
             $scope.currentMaxIndex = Math.min($scope.totalItems, $scope.currentPage * 10);
         }
+
+        $scope.setLabelStyles = function (label) {
+            var className = 'label-';
+            switch (label) {
+                case 'Cancelled':
+                    className += 'important';
+                    break;
+                case 'Confirmed':
+                    className += 'success';
+                    break;
+                case 'Pending':
+                    className += 'info';
+                    break;
+
+                default:
+                    className += 'inverse';
+            }
+
+            return className;
+        };
     }]);
