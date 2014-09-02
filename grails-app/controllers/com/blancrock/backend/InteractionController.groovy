@@ -179,12 +179,15 @@ class InteractionController {
         Map newAddressQueryResult = queryService.createNewDepositAddress('BTC')
 
         response.status = newAddressQueryResult.status
+        if (newAddressQueryResult.status == 500 && newAddressQueryResult.value == ""){
+            render "Too many addresses";
+        }
+        else{
+            Map addressListQueryResult =  queryService.getDepositAddresses('BTC')
+            response.status = addressListQueryResult.status
 
-
-        Map addressListQueryResult =  queryService.getDepositAddresses('BTC')
-        response.status = addressListQueryResult.status
-
-        render addressListQueryResult.value
+            render addressListQueryResult.value
+        }
     }
 
     def getDepositLimits(){

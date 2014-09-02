@@ -47,21 +47,18 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
 
         $scope.createNewDepositAddress = function(){
             _errors = '';
-            if($scope.deposi)
             depositDetailsService.createNewAddress()
                 .success(function (depositAddress) {
                     assignDepositAddresses(depositAddress)
                 })
                 .error(function (errorMessage){
-                    $scope.depositAddresses = null;
-                    $scope.depositAddressesLoaded = false;
                     _errors = errorMessage;
                 });
         };
 
         $scope.getErrors = function(){
             return _errors;
-        }
+        };
 
         $scope.sort = {
             reverse: false

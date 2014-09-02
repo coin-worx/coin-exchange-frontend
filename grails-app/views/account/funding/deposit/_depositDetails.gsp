@@ -45,9 +45,6 @@
     </div>
 
     <div class="method-wrap" data-asset="XXBT" data-method="Bitcoin" ng-controller="depositDetailsController">
-        <div class="center vpad10" ng-show="getErrors()">
-            <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
-        </div>
         <div class="title-wrap">
             <h5 class="title">Bitcoin Deposit</h5>
             <p>Deposit Bitcoins to your account by sending them to one of the deposit addresses shown below. If no address appears, click "Generate New Address" to generate one.</p> <ul> <li>The deposit addresses can change from deposit to deposit. So each time you deposit, you'll need to visit this page to get your current deposit addresses. You can use the available button to generate new addresses.</li> <li>To help avoid mistakes in copying an address to your client, use the available buttons to either launch your client with the deposit address automatically entered (only available for Armory, Electrum, MultiBit, and Bitcoin-QT V0.7+ (Windows only) wallet software), or select the address for copy + paste to your client. Always double-check to make sure the address copied correctly. Please note that we are not responsible for coins mistakenly sent to the wrong address. </li> <li>Don't exceed your daily or monthly funding limits. If you exceed the limits, your account will be frozen until you get verified for higher limits, or until the funds are returned to you. </li> <li>Six confirmations are required before the funds are available for trading.</li> </ul> </div>
@@ -56,7 +53,11 @@
             <div class="address-wrap">
                 <div style="display: block;">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                        <div class="pull-right"><div class="dataTables_info" id="DataTables_Table_0_info"></div></div>
+                        <div class="pull-right"><div class="dataTables_info" id="DataTables_Table_0_info"></div>
+                        </div>
+                        <div class="center vpad10" ng-show="getErrors()">
+                            <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
+                        </div>
                         <div class="dataTables_table_wrapper">
                             <table class="table table-hover table-striped dataTable table-address" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                                 <thead>
