@@ -57,7 +57,10 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/security/tfa', 'account.security.tfa')
 
         .when('/account/settings', 'account.settings')
+
         .when('/account/history', 'account.history')
+        .when('/account/history/ledger', 'account.history.ledger')
+        .when('/account/history/ledgerDetails', 'account.history.ledgerDetails')
         .when('/account/getVerified', 'account.getVerified')
 
         .when('/market', 'market')
@@ -215,6 +218,20 @@ angular.module('blancrockExchangeApp').config(
           templateUrl: 'views/accountHistory',
           access: 'private'
         })
+
+          .within()
+
+          .segment('ledger', {
+              default: true,
+              templateUrl: 'views/accountHistoryLedgers'
+          })
+
+          .segment('ledgerDetails', {
+              default: true,
+              templateUrl: 'views/accountHistoryLedgersDetails'
+          })
+
+          .up()
 
         .segment('getVerified', {
           templateUrl: 'views/accountGetVerified',

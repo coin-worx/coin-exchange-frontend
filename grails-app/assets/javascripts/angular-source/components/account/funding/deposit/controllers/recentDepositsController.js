@@ -3,12 +3,21 @@
 'use strict';
 
 angular.module('account.funding.deposit').controller('recentDepositsController', [
-    '$scope', 'recentDepositsService', function ($scope, recentDepositsService) {
+    '$scope', '$timeout', 'recentDepositsService', function ($scope, $timeout, recentDepositsService) {
 
         assignNavigationFlags(true, false);
         var currentCurrency = 'BTC';
 
         loadDepositLedgers();
+
+        intervalFunction();
+
+        function intervalFunction(){
+            $timeout(function() {
+                loadDepositLedgers();
+                intervalFunction()
+            }, 30000)
+        };
 
         function loadDepositLedgers(){
                 recentDepositsService.getRecentDeposits({currency: currentCurrency})
@@ -99,6 +108,9 @@ angular.module('account.funding.deposit').controller('recentDepositsController',
                     break;
                 case 'Pending':
                     className += 'info';
+                    break;
+                case 'Suspended':
+                    className += 'important';
                     break;
 
                 default:

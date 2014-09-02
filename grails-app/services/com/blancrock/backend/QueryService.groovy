@@ -354,6 +354,24 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getLedgers(String currency){
+        String path = getPathWithPrefix('/funds/getledgers')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getLedgerDetails(String ledgerId){
+        String path = getPathWithPrefix('/funds/getledgerdetails')
+        Map query = [ledgerId: ledgerId]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

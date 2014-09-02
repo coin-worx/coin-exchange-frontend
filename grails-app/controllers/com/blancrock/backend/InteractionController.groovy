@@ -9,14 +9,14 @@ class InteractionController {
     def queryService
 
     def getOhlcInfo() {
-        Map queryResult = queryService.getOhlcInfo('XBTUSD')
+        Map queryResult = queryService.getOhlcInfo('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getTickerInfo() {
-        Map queryResult = queryService.getTickerInfo('XBTUSD')
+        Map queryResult = queryService.getTickerInfo('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
@@ -88,14 +88,14 @@ class InteractionController {
     }
 
     def newOrderSimpleBids() {
-        Map queryResult = queryService.newOrderSimpleBids('XBTUSD')
+        Map queryResult = queryService.newOrderSimpleBids('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def newOrderSimpleAsks() {
-        Map queryResult = queryService.newOrderSimpleAsks('XBTUSD')
+        Map queryResult = queryService.newOrderSimpleAsks('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
@@ -134,42 +134,42 @@ class InteractionController {
     }
 
     def getRecentTrades() {
-        Map queryResult = queryService.getRecentTrades('XBTUSD')
+        Map queryResult = queryService.getRecentTrades('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getBids() {
-        Map queryResult = queryService.getBids('XBTUSD')
+        Map queryResult = queryService.getBids('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getAsks() {
-        Map queryResult = queryService.getAsks('XBTUSD')
+        Map queryResult = queryService.getAsks('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getDepth() {
-        Map queryResult = queryService.getDepth('XBTUSD')
+        Map queryResult = queryService.getDepth('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getOrderBookCummulativeVolume() {
-        Map queryResult = queryService.getOrderBookCummulativeVolume('XBTUSD')
+        Map queryResult = queryService.getOrderBookCummulativeVolume('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getSpread() {
-        Map queryResult = queryService.getSpread('XBTUSD')
+        Map queryResult = queryService.getSpread('BTCUSD')
 
         response.status = queryResult.status
         render queryResult.value
@@ -179,6 +179,7 @@ class InteractionController {
         Map newAddressQueryResult = queryService.createNewDepositAddress('BTC')
 
         response.status = newAddressQueryResult.status
+
 
         Map addressListQueryResult =  queryService.getDepositAddresses('BTC')
         response.status = addressListQueryResult.status
@@ -274,6 +275,24 @@ class InteractionController {
         def withdrawParams = request.JSON
         String bitcoinAddress = withdrawParams['withdrawId']
         Map queryResult = queryService.cancelWithdraw(bitcoinAddress)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getLedgers(){
+        def ledgerParams = request.JSON
+        String currency = ledgerParams['currency']
+        Map queryResult = queryService.getLedgers(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getLedgerDetails(){
+        def ledgerParams = request.JSON
+        String ledgerId = ledgerParams['ledgerId']
+        Map queryResult = queryService.getLedgerDetails(ledgerId)
 
         response.status = queryResult.status
         render queryResult.value

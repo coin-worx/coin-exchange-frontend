@@ -18,7 +18,7 @@ angular.module('account.funding.withdraw').controller('recentWithdrawalsControll
             $timeout(function() {
                 loadRecentWithdrawals();
                 intervalFunction()
-            }, 95000)
+            }, 30000)
         };
 
         function loadRecentWithdrawals(){

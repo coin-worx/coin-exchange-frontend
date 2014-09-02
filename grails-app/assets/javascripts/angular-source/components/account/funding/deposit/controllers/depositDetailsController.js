@@ -4,12 +4,13 @@
 
 angular.module('account.funding.deposit').controller('depositDetailsController', [
     '$scope', '$routeParams', '$filter', 'depositDetailsService', function ($scope, $routeParams, $filter, depositDetailsService) {
-        var loaded = false;
+        var _errors = '';
         var currentCurrency = '';
 
         loadDepositDetails();
 
         function loadDepositDetails(){
+            _errors = '';
             currentCurrency = $routeParams.currency;
             if(currentCurrency != null && currentCurrency != '' && currentCurrency != undefined){
                 depositDetailsService.getDepositLimits()
@@ -25,9 +26,10 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
                                     $scope.depositAddressesLoaded = false;
                                 });
                         }
-                    }).error(function () {
+                    }).error(function (errorMessage) {
                         $scope.depositLimits = null;
                         $scope.depositLimitsLoaded = false;
+                        _errors = errorMessage;
                     });
             }
             else{
@@ -44,15 +46,22 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
         }
 
         $scope.createNewDepositAddress = function(){
+            _errors = '';
+            if($scope.deposi)
             depositDetailsService.createNewAddress()
                 .success(function (depositAddress) {
                     assignDepositAddresses(depositAddress)
                 })
-                .error(function (){
-                   $scope.depositAddresses = null;
+                .error(function (errorMessage){
+                    $scope.depositAddresses = null;
                     $scope.depositAddressesLoaded = false;
+                    _errors = errorMessage;
                 });
         };
+
+        $scope.getErrors = function(){
+            return _errors;
+        }
 
         $scope.sort = {
             reverse: false

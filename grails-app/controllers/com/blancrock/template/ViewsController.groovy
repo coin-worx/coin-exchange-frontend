@@ -73,7 +73,15 @@ class ViewsController {
     }
 
     def accountHistory() {
-        render template: '/account/history/index'
+        render template: '/account/history/history'
+    }
+
+    def accountHistoryLedgers() {
+        render template: '/account/history/ledgers/ledgers'
+    }
+
+    def accountHistoryLedgersDetails() {
+        render template: '/account/history/ledgers/ledgerDetails'
     }
 
     def accountGetVerified() {

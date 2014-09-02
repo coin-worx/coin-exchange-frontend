@@ -1,6 +1,5 @@
-<p>Select an asset to deposit from the menu and follow the instructions on the displayed form. Please see the <a
-        href="/help/faq#deposits-and-withdrawals">FAQ</a> for questions or <a
-        href="https://support.kraken.com">contact support</a> for any issues.
+<p>Select an asset to deposit from the menu and follow the instructions on the displayed form. Please see the FAQ for questions or
+contact support for any issues.
 </p>
 <div class="clearfix vmarg20bot">
     <h5 class="title vpad10top pull-left" ng-bind-template="Deposit {{deposit.DepositId}}"></h5>

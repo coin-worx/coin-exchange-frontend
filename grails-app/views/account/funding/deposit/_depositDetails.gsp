@@ -45,6 +45,9 @@
     </div>
 
     <div class="method-wrap" data-asset="XXBT" data-method="Bitcoin" ng-controller="depositDetailsController">
+        <div class="center vpad10" ng-show="getErrors()">
+            <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
+        </div>
         <div class="title-wrap">
             <h5 class="title">Bitcoin Deposit</h5>
             <p>Deposit Bitcoins to your account by sending them to one of the deposit addresses shown below. If no address appears, click "Generate New Address" to generate one.</p> <ul> <li>The deposit addresses can change from deposit to deposit. So each time you deposit, you'll need to visit this page to get your current deposit addresses. You can use the available button to generate new addresses.</li> <li>To help avoid mistakes in copying an address to your client, use the available buttons to either launch your client with the deposit address automatically entered (only available for Armory, Electrum, MultiBit, and Bitcoin-QT V0.7+ (Windows only) wallet software), or select the address for copy + paste to your client. Always double-check to make sure the address copied correctly. Please note that we are not responsible for coins mistakenly sent to the wrong address. </li> <li>Don't exceed your daily or monthly funding limits. If you exceed the limits, your account will be frozen until you get verified for higher limits, or until the funds are returned to you. </li> <li>Six confirmations are required before the funds are available for trading.</li> </ul> </div>
@@ -67,40 +70,7 @@
                                 </thead>
 
                                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                %{--<tr class="odd">
-                                    <td class="bigger">
-                                        <div id="addy-1CWLY42J5X69eJK8yiCfU2B3mrpmqFrUwa" class="vpad10">1CWLY42J5X69eJK8yiCfU2B3mrpmqFrUwa</div>
-                                    </td>
-                                    <td class="">
-                                        <span class="label label-success">New address</span>
-                                    </td>
-                                    <td class="ralign">
-                                        <div>
-                                            <button type="button" name="select" title="Select address" data-target-id="addy-1CWLY42J5X69eJK8yiCfU2B3mrpmqFrUwa" tabindex="-1" class="btn btn-select hmarg20right btn-primary thin">
-                                                <i class="icon-arrow-left"></i> Select</button><a name="launch" title="Launch client" tabindex="-1" href="bitcoin:1CWLY42J5X69eJK8yiCfU2B3mrpmqFrUwa?label=Kraken" class="btn btn-select thin">
-                                            <i class="icon-external-link"></i> Launch</a>
-                                        </div>
-                                    </td></tr>
-                                <tr class="even">
-                                    <td class="bigger"><div id="addy-1ECsU6vUdQ66Fosf4u9dgfDq7Q9VYUAjf4" class="vpad10">1ECsU6vUdQ66Fosf4u9dgfDq7Q9VYUAjf4</div></td>
-                                    <td class=""><span class="label label-success">New address</span></td><td class="ralign"><div>
-                                        <button type="button" name="select" title="Select address" data-target-id="addy-1ECsU6vUdQ66Fosf4u9dgfDq7Q9VYUAjf4" tabindex="-1" class="btn btn-select hmarg20right btn-primary thin">
-                                            <i class="icon-arrow-left"></i>
-                                            Select
-                                        </button>
-                                        <a name="launch" title="Launch client" tabindex="-1" href="bitcoin:1ECsU6vUdQ66Fosf4u9dgfDq7Q9VYUAjf4?label=Kraken" class="btn btn-select thin">
-                                            <i class="icon-external-link"></i>
-                                            Launch
-                                        </a>
-                                    </div>
-                                    </td></tr><tr class="odd">
-                                        <td class="bigger"><div id="addy-128LLjazfZH3LcVTf12GH6gHirotNXPo8d" class="vpad10">128LLjazfZH3LcVTf12GH6gHirotNXPo8d</div>
-                                    </td>
-                                    <td class=""><span class="label label-success">New address</span></td><td class="ralign"><div><button type="button" name="select" title="Select address" data-target-id="addy-128LLjazfZH3LcVTf12GH6gHirotNXPo8d" tabindex="-1" class="btn btn-select hmarg20right btn-primary thin"><i class="icon-arrow-left"></i> Select</button><a name="launch" title="Launch client" tabindex="-1" href="bitcoin:128LLjazfZH3LcVTf12GH6gHirotNXPo8d?label=Kraken" class="btn btn-select thin"><i class="icon-external-link"></i> Launch</a></div>
-                                    </td>
-                                </tr>
-                                <tr class="even"><td class="bigger"><div id="addy-15iHRFZXEcZNUiEEmF2tuTSyx2JRspzZNK" class="vpad10">15iHRFZXEcZNUiEEmF2tuTSyx2JRspzZNK</div></td><td class=""><span class="label label-success">New address</span></td><td class="ralign"><div><button type="button" name="select" title="Select address" data-target-id="addy-15iHRFZXEcZNUiEEmF2tuTSyx2JRspzZNK" tabindex="-1" class="btn btn-select hmarg20right btn-primary thin"><i class="icon-arrow-left"></i> Select</button><a name="launch" title="Launch client" tabindex="-1" href="bitcoin:15iHRFZXEcZNUiEEmF2tuTSyx2JRspzZNK?label=Kraken" class="btn btn-select thin"><i class="icon-external-link"></i> Launch</a></div></td></tr>
-                                --}%
+
                                 <tr ng-repeat="address in filteredDepositAddresses"
                                     ng-class="{even: $even, odd: $odd}" ng-cloak>
                                     <td class="bigger" ng-bind="address.Address"></td>

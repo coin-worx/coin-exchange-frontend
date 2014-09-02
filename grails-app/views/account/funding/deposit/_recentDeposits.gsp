@@ -35,13 +35,6 @@
                                                                 id="DataTables_Table_0"
                                                                 aria-describedby="DataTables_Table_0_info">
                         <thead>
-                        %{--<tr role="row"><th class="lalign sorting_disabled nw" role="columnheader" rowspan="1"
-                                           colspan="1">ID</th><th class="lalign sorting_disabled" role="columnheader" rowspan="1"
-                                                                  colspan="1">Date</th><th class="lalign sorting_disabled"
-                                                                                           role="columnheader" rowspan="1"
-                                                                                           colspan="1">Description</th><th
-                                class="ralign sorting_disabled nw" role="columnheader" rowspan="1" colspan="1">Amount</th><th
-                                class="lalign sorting_disabled" role="columnheader" rowspan="1" colspan="1">Status</th></tr>--}%
                         <tr role="row">
                             <th ng-click="updateSorting('DepositId')" class="lalign nw"
                                 ng-class="getSortingClass('DepositId')" style="width: 55px;">Id</th>
