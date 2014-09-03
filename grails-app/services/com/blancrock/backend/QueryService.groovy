@@ -372,6 +372,33 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getDepositTierLimits(){
+        String path = getPathWithPrefix('/funds/getDepositTierLimits')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getWithdrawTierLimits(){
+        String path = getPathWithPrefix('/funds/getWithdrawTierLimits')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTierStatus(){
+        String path = getPathWithPrefix('/private/user/tiers')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

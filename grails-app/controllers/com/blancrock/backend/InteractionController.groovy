@@ -300,4 +300,25 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def getDepositTierLimits(){
+        Map queryResult = queryService.getDepositTierLimits()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getWithdrawTierLimits(){
+        Map queryResult = queryService.getWithdrawTierLimits()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getTierStatus(){
+        Map queryResult = queryService.getTierStatus()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
 }
