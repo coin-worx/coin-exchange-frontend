@@ -48,8 +48,8 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleController',
       currencyPairsService.query().success(function (currencies) {
         //@todo: update to get object instead of array
         var currenciesInstance = currencies[0];
-        $scope.currency.to = currenciesInstance['BaseCurrency'];
-        $scope.currency.from = currenciesInstance['QuoteCurrency'];
+        $scope.currency.to = currenciesInstance['QuoteCurrency'];
+        $scope.currency.from = currenciesInstance['BaseCurrency'];
         $scope.currency.pair = currenciesInstance['CurrencyPairName'];
         $scope.currency.amount = $scope.currency.from;
         $scope.currency.price = $scope.currency.to;
