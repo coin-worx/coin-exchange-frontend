@@ -321,4 +321,63 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def getTier1Details(){
+        Map queryResult = queryService.getTier1Details()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getTier2Details(){
+        Map queryResult = queryService.getTier2Details()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getTier3Details(){
+        Map queryResult = queryService.getTier3Details()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def applyForTier1(){
+        def ledgerParams = request.JSON
+        String fullName = ledgerParams['fullName']
+        String dateOfBirth = ledgerParams['dateOfBirth']
+        String country = ledgerParams['country']
+        String phoneNumber = ledgerParams['phoneNumber']
+        Map queryResult = queryService.applyForTier1(fullName, dateOfBirth, country, phoneNumber)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def applyForTier2(){
+        def ledgerParams = request.JSON
+        String addressLine1 = ledgerParams['addressLine1']
+        String addressLine2 = ledgerParams['addressLine2']
+        String addressLine3 = ledgerParams['addressLine3']
+        String state = ledgerParams['state']
+        String city = ledgerParams['city']
+        String zip = ledgerParams['zip']
+        Map queryResult = queryService.applyForTier2(addressLine1, addressLine2, addressLine3, state, city, zip)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def applyForTier3(){
+        def ledgerParams = request.JSON
+        String nationalId = ledgerParams['nationalId']
+        String documentType = ledgerParams['documentType']
+        String fileName = ledgerParams['fileName']
+        String ssn = ledgerParams['ssn']
+        Map queryResult = queryService.applyForTier3(nationalId, documentType, fileName, ssn)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
 }

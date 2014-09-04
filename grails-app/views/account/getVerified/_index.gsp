@@ -269,43 +269,59 @@
     <p><i class="icon-circle-arrow-down"></i> Getting verified is easy - choose your tier(s) and submit the forms below.</p>
     <tabset>
         <tab heading="Tier 1">
-            <div ng-if="(tier1Status != 'Verified') && (tier1Status != 'PreVerified')">
+            <div ng-show="!tier1Verified" ng-hide="tier1Verified">
                 <g:render template="/account/getVerified/tier1Form"/>
             </div>
-            <div ng-if="tier1Status == 'Verified'">
+            <div ng-show="tier1Verified">
                 <g:render template="/account/getVerified/tier1Details"/>
+            </div>
+
+            <div ng-show="tier1ApplySuccessful">
+                <g:render template="/account/getVerified/applySuccessful"/>
+            </div>
+            <div ng-show="tier1ApplyFailure">
+                <g:render template="/account/getVerified/applyFailure"/>
             </div>
         </tab>
         <tab heading="Tier 2">
-            <div ng-if="(tier1Status.Status !== 'Verified')">
+            <div ng-show="tier2ShowProhibition">
                 <g:render template="/account/getVerified/tier2Prohibition"/>
             </div>
-            <div ng-if="(tier2Status.Status !== 'Verified') && (tier2Status.Status !== 'PreVerified')">
+            <div ng-show="tier2ShowForm">
                 <g:render template="/account/getVerified/tier2Form"/>
             </div>
-            <div ng-if="(tier2Status.Status === 'Verified') || (tier2Status.Status === 'PreVerified')">
+            <div ng-show="tier2Verified">
                 <g:render template="/account/getVerified/tier2Details"/>
+            </div>
+            <div ng-show="tier2ApplySuccessful">
+                <g:render template="/account/getVerified/applySuccessful"/>
+            </div>
+            <div ng-show="tier2ApplyFailure">
+                <g:render template="/account/getVerified/applyFailure"/>
             </div>
         </tab>
         <tab heading="Tier 3">
-            <div ng-if="(tier2Status.Status !== 'Verified')">
+            <div ng-show="tier3ShowProhibition">
                 <g:render template="/account/getVerified/tier3Prohibition"/>
             </div>
-            <div ng-if="(tier3Status.Status !== 'Verified') && (tier3Status.Status !== 'PreVerified')">
+            <div ng-show="tier3ShowForm">
                 <g:render template="/account/getVerified/tier3Form"/>
             </div>
-            <div ng-if="(tier2Status.Status === 'Verified') || (tier2Status.Status === 'PreVerified')">
+            <div ng-show="tier3Verified">
                 <g:render template="/account/getVerified/tier3Details"/>
+            </div>
+            <div ng-show="tier3ApplySuccessful">
+                <g:render template="/account/getVerified/applySuccessful"/>
+            </div>
+            <div ng-show="tier3ApplyFailure">
+                <g:render template="/account/getVerified/applyFailure"/>
             </div>
         </tab>
         <tab heading="Tier 4">
-            <div ng-if="(tier3Status.Status !== 'Verified')">
+            <div ng-show="tier4ShowProhibition">
                 <g:render template="/account/getVerified/tier4Prohibition"/>
             </div>
-            <div ng-if="(tier4Status.Status !== 'Verified') && (tier4Status.Status !== 'PreVerified')">
-                <g:render template="/account/getVerified/tier4Form"/>
-            </div>
-            <div ng-if="(tier4Status.Status === 'Verified') || (tier3Status.Status === 'PreVerified')">
+            <div ng-show="tier4Details">
                 <g:render template="/account/getVerified/tier4Details"/>
             </div>
         </tab>

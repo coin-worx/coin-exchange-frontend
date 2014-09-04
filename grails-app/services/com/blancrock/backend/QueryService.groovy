@@ -399,6 +399,61 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getTier1Details(){
+        String path = getPathWithPrefix('/private/user/tier1')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTier2Details(){
+        String path = getPathWithPrefix('/private/user/tier2')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTier3Details(){
+        String path = getPathWithPrefix('/private/user/tier3')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map applyForTier1(String fullName, String dateOfBirth, String country, String phoneNumber){
+        String path = getPathWithPrefix('/private/user/applyfortier1')
+
+        Map query = [fullName:fullName, dateOfBirth: dateOfBirth, country: country, phoneNumber: phoneNumber]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map applyForTier2(String addressLine1, String addressLine2, String addressLine3, String state, String city, String zipCode){
+        String path = getPathWithPrefix('/private/user/applyfortier2')
+
+        Map query = [addressLine1:addressLine1, addressLine2:addressLine2, addressLine3:addressLine3,
+                city: city, state: state, zipCode: zipCode]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map applyForTier3(String nationalId, String documentType, String fileName, String ssn){
+        String path = getPathWithPrefix('/private/user/applyfortier3')
+
+        Map query = [ssn:ssn, nin:nationalId, documentType: documentType, fileName: fileName]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 
