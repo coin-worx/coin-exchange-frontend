@@ -269,7 +269,7 @@
     <p><i class="icon-circle-arrow-down"></i> Getting verified is easy - choose your tier(s) and submit the forms below.</p>
     <tabset>
         <tab heading="Tier 1">
-            <div ng-show="!tier1Verified" ng-hide="tier1Verified">
+            <div ng-show="!tier1Verified">
                 <g:render template="/account/getVerified/tier1Form"/>
             </div>
             <div ng-show="tier1Verified">

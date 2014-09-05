@@ -69,7 +69,19 @@ class ViewsController {
     }
 
     def accountSettings() {
-        render template: '/account/settings/index'
+        render template: '/account/settings/settings'
+    }
+
+    def accountSettingsAccount() {
+        render template: '/account/settings/account'
+    }
+
+    def accountSettingsNotifications() {
+        render template: '/account/settings/notifications'
+    }
+
+    def accountSettingsApi() {
+        render template: '/account/settings/api'
     }
 
     def accountHistory() {

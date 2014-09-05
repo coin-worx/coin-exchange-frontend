@@ -344,11 +344,11 @@ class InteractionController {
     }
 
     def applyForTier1(){
-        def ledgerParams = request.JSON
-        String fullName = ledgerParams['fullName']
-        String dateOfBirth = ledgerParams['dateOfBirth']
-        String country = ledgerParams['country']
-        String phoneNumber = ledgerParams['phoneNumber']
+        def tier1Params = request.JSON
+        String fullName = tier1Params['fullName']
+        String dateOfBirth = tier1Params['dateOfBirth']
+        String country = tier1Params['country']
+        String phoneNumber = tier1Params['phoneNumber']
         Map queryResult = queryService.applyForTier1(fullName, dateOfBirth, country, phoneNumber)
 
         response.status = queryResult.status
@@ -356,13 +356,13 @@ class InteractionController {
     }
 
     def applyForTier2(){
-        def ledgerParams = request.JSON
-        String addressLine1 = ledgerParams['addressLine1']
-        String addressLine2 = ledgerParams['addressLine2']
-        String addressLine3 = ledgerParams['addressLine3']
-        String state = ledgerParams['state']
-        String city = ledgerParams['city']
-        String zip = ledgerParams['zip']
+        def tier2Params = request.JSON
+        String addressLine1 = tier2Params['addressLine1']
+        String addressLine2 = tier2Params['addressLine2']
+        String addressLine3 = tier2Params['addressLine3']
+        String state = tier2Params['state']
+        String city = tier2Params['city']
+        String zip = tier2Params['zip']
         Map queryResult = queryService.applyForTier2(addressLine1, addressLine2, addressLine3, state, city, zip)
 
         response.status = queryResult.status
@@ -370,12 +370,33 @@ class InteractionController {
     }
 
     def applyForTier3(){
-        def ledgerParams = request.JSON
-        String nationalId = ledgerParams['nationalId']
-        String documentType = ledgerParams['documentType']
-        String fileName = ledgerParams['fileName']
-        String ssn = ledgerParams['ssn']
+        def tier3Params = request.JSON
+        String nationalId = tier3Params['nationalId']
+        String documentType = tier3Params['documentType']
+        String fileName = tier3Params['fileName']
+        String ssn = tier3Params['ssn']
         Map queryResult = queryService.applyForTier3(nationalId, documentType, fileName, ssn)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getAccountSettings(){
+        Map queryResult = queryService.getAccountSettings()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def changeSettings(){
+        def settingsParams = request.JSON
+        String email = settingsParams['email']
+        String pgpPublicKey = settingsParams['pgpPublicKey']
+        String language = settingsParams['language']
+        String timeZone = settingsParams['timeZone']
+        String isDefaultAutoLogout = settingsParams['isDefaultAutoLogout']
+        String autoLogoutMinutes = settingsParams['autoLogoutMinutes']
+        Map queryResult = queryService.changeSettings(email, pgpPublicKey, language, timeZone, isDefaultAutoLogout, autoLogoutMinutes)
 
         response.status = queryResult.status
         render queryResult.value

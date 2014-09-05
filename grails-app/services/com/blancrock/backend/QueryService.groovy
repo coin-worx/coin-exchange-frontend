@@ -454,6 +454,26 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getAccountSettings(){
+        String path = getPathWithPrefix('/private/user/accountsettings')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map changeSettings(String email, String pgpPublicKey, String language, String timeZone, String isDefaultAutoLogout,
+                      String autoLogoutMinutes){
+        String path = getPathWithPrefix('/private/user/changesettings')
+
+        Map query = [email: email, pgpPublicKey: pgpPublicKey, language: language, timeZone: timeZone, isDefaultAutoLogout: isDefaultAutoLogout,
+        autoLogoutMinutes: autoLogoutMinutes]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

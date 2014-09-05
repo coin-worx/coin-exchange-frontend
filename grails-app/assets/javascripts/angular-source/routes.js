@@ -57,6 +57,9 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/security/tfa', 'account.security.tfa')
 
         .when('/account/settings', 'account.settings')
+        .when('/account/settings/account', 'account.settings.account')
+        .when('/account/settings/notifications', 'account.settings.notifications')
+        .when('/account/settings/api', 'account.settings.api')
 
         .when('/account/history', 'account.history')
         .when('/account/history/ledger', 'account.history.ledger')
@@ -213,6 +216,23 @@ angular.module('blancrockExchangeApp').config(
           templateUrl: 'views/accountSettings',
           access: 'private'
         })
+
+          .within()
+
+          .segment('account', {
+              default: true,
+              templateUrl: 'views/accountSettingsAccount'
+          })
+
+          .segment('notifications', {
+              templateUrl: 'views/accountSettingsNotifications'
+          })
+
+          .segment('api', {
+              templateUrl: 'views/accountSettingsApi'
+          })
+
+          .up()
 
         .segment('history', {
           templateUrl: 'views/accountHistory',
