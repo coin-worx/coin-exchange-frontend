@@ -31,7 +31,6 @@
             ng-class="getSortingClass('Status')" style="width: 65px;">Status</th>
         <th ng-click="updateSorting('ClosingDateTime')" class="lalign nw"
             ng-class="getSortingClass('ClosingDateTime')" style="width: 160px;">Closed</th>
-        <%--<th class="ralign center" style="width: 35px;">&nbsp;</th> --%>
       </tr>
       </thead>
 

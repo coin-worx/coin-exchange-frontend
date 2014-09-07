@@ -5,12 +5,12 @@
 angular.module('account.settings.api').service('settingsApiService',[
     '$http', function ($http) {
         return{
-            getRecentWithdrawals : function(currency){
-                return $http.post('api/getRecentWithdrawals', currency);
+            getSecurityKeys : function(){
+                return $http.get('api/getSecurityKeys');
             }
             ,
-            cancelWithdraw : function(withdrawId){
-                return $http.post('api/cancelWithdraw', withdrawId);
-            }
+            createNewKey : function(date){
+            return $http.post('api/createNewKey', date);
+        }
         }
     }]);

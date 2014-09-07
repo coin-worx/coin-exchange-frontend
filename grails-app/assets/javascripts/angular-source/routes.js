@@ -60,6 +60,7 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/settings/account', 'account.settings.account')
         .when('/account/settings/notifications', 'account.settings.notifications')
         .when('/account/settings/api', 'account.settings.api')
+        .when('/account/settings/generateNewKey', 'account.settings.generateNewKey')
 
         .when('/account/history', 'account.history')
         .when('/account/history/ledger', 'account.history.ledger')
@@ -232,6 +233,10 @@ angular.module('blancrockExchangeApp').config(
               templateUrl: 'views/accountSettingsApi'
           })
 
+          .segment('generateNewKey', {
+              templateUrl: 'views/accountSettingsGenerateNewKey'
+          })
+
           .up()
 
         .segment('history', {
@@ -247,7 +252,6 @@ angular.module('blancrockExchangeApp').config(
           })
 
           .segment('ledgerDetails', {
-              default: true,
               templateUrl: 'views/accountHistoryLedgersDetails'
           })
 

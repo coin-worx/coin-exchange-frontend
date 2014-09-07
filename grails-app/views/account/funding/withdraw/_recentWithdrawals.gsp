@@ -102,7 +102,7 @@
 
                             <div class="pull-left">
                                 <div class="dataTables_info" ng-cloak>
-                                    {{currentMinIndex + 1}} - {{currentMaxIndex}} of {{totalItems}} deposits
+                                    {{currentMinIndex + 1}} - {{currentMaxIndex}} of {{totalItems}} Withdrawals
                                 </div>
                             </div>
                         </div>

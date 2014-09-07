@@ -74,22 +74,6 @@
                         </div>
                     </div>
                 </div>
-                %{--<div class="control-group" id="settings-lock" data-locked="0" data-unlocking="0">
-                    <label class="control-label">Global Settings Lock</label>
-                    <div class="controls">
-                        <div class="ib top btn-group hmarg40right on-off-toggle" id="lock-toggle-wrap">
-                            <button type="button" value="0" class="btn active btn-danger" autocomplete="off">Off</button><button type="button" value="1" class="btn " autocomplete="off">On</button>
-                        </div>
-                        <div class="ib top">
-                            <span class="hmarg10right middle">Unlock process takes </span>
-                            <input id="locktime" class="ralign input-tiny" name="locktime" value="3" disabled="disabled" maxlength="2" type="text">
-                            <span class="middle"> days</span>
-                            <span class="ib control-hint hmarg10left">(max 30 days or 0 to require master key)</span>
-                        </div>
-                        <p class="control-hint vmarg10top">The Global Settings Lock prevents any changes to your account settings and hides the display of sensitive info. <a href="/help/faq#global-settings-lock">See FAQ</a> for more details.</p>
-                        <input id="lockaction" name="lockaction" value="" type="hidden">
-                    </div>
-                </div>--}%
                 <div class="center vpad10" ng-show="getErrors()">
                     <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
                 </div>

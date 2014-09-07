@@ -474,6 +474,39 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getSecurityKeys(){
+        String path = getPathWithPrefix('/private/user/api/list')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map createNewKey(String keyDescription, boolean enableExpirationDate, String expirationDateTime,
+                    boolean enableStartDate, String queryStartDateTime, boolean enableEndDate,
+                    String queryEndDateTime, List permissions){
+        String path = getPathWithPrefix('/private/user/api/create')
+
+        Map query = [keyDescription: keyDescription, enableExpirationDate: enableExpirationDate, expirationDateTime: expirationDateTime,
+                 enableStartDate: enableStartDate, startDateTime: queryStartDateTime, enableEndDate: enableEndDate,
+                endDateTime: queryEndDateTime, securityKeyPermissions: permissions]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map sendNotifications(boolean adminEmails, boolean newLetterEmails){
+        String path = getPathWithPrefix('/private/user/api/create')
+
+        Map query = [keyDescription: keyDescription, enableExpirationDate: enableExpirationDate, expirationDateTime: expirationDateTime,
+                enableStartDate: enableStartDate, startDateTime: queryStartDateTime, enableEndDate: enableEndDate,
+                endDateTime: queryEndDateTime, securityKeyPermissions: permissions]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

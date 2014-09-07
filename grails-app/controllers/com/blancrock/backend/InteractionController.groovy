@@ -401,4 +401,77 @@ class InteractionController {
         response.status = queryResult.status
         render queryResult.value
     }
+
+    def getSecurityKeys(){
+        Map queryResult = queryService.getSecurityKeys()
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def createNewKey(){
+        def params = request.JSON
+        String keyDescription = params['keyDescription']
+        boolean enableExpirationDate = params['enableExpirationDate']
+        String expirationDate = params['expirationDate']
+        String expirationTime = params['expirationTime']
+
+        boolean enableStartDate = params['enableStartDate']
+        String queryStartDate = params['queryStartDate']
+        String queryStartTime = params['queryStartTime']
+
+        boolean enableEndDate = params['enableEndDate']
+        String queryEndDate = params['queryEndDate']
+        String queryEndTime = params['queryEndTime']
+        List permissions = params['permissions']
+
+        def expirationDateTime = '';
+        def queryStartDateTime = '';
+        def queryEndDateTime = '';
+
+        if (enableExpirationDate){
+            expirationDateTime = parseDateTime(expirationDate, expirationTime)
+        }
+        else if (enableExpirationDate == 'undefined' || enableExpirationDate == 'null') {
+            enableExpirationDate = false;
+        }
+        if (enableStartDate){
+            queryStartDateTime = parseDateTime(queryStartDate, queryStartTime)
+            enableStartDate = true;
+        }
+        else if (enableStartDate == 'undefined' || enableStartDate == 'null') {
+            enableStartDate = false;
+        }
+        if (enableEndDate){
+            queryEndDateTime = parseDateTime(queryEndDate, queryEndTime)
+        }
+        else if (enableEndDate == 'undefined' || enableEndDate == 'null') {
+            enableEndDate = false;
+        }
+        Map queryResult = queryService.createNewKey(keyDescription, enableExpirationDate, expirationDateTime.toString(),
+                enableStartDate, queryStartDateTime.toString(), enableEndDate, queryEndDateTime.toString(), permissions)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def sendNotifications(){
+        def settingsParams = request.JSON
+        boolean adminEmails = settingsParams['adminEmails']
+        String newsLetterEmails = settingsParams['newsLetterEmails']
+        Map queryResult = queryService.sendNotifications(adminEmails, newsLetterEmails)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def parseDateTime(String date, String time){
+        def dateSplit = date.split('T')
+        def timeSplit = time.split('T')
+        def dateTemp = dateSplit[0]
+        def timeTemp = timeSplit[1].take(8)
+        return new StringBuilder().append(dateTemp)
+                .append(' ')
+                .append(timeTemp)
+    }
 }

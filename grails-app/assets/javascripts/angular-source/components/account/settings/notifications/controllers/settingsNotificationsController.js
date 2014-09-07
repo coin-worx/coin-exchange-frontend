@@ -12,16 +12,7 @@ angular.module('account.settings.notifications').controller('settingsNotificatio
 
         loadRecentWithdrawals();
 
-        intervalFunction();
-
-        function intervalFunction(){
-            $timeout(function() {
-                loadRecentWithdrawals();
-                intervalFunction()
-            }, 30000)
-        };
-
-        function loadRecentWithdrawals(){
+        $scope.sendNotifications = function(){
             settingsNotificationsService.getRecentWithdrawals({currency: currentCurrency})
                 .success(function (data){
                     $scope.recentWithdrawals = data;

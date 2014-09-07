@@ -84,6 +84,10 @@ class ViewsController {
         render template: '/account/settings/api'
     }
 
+    def accountSettingsGenerateNewKey() {
+        render template: '/account/settings/generateNewKey'
+    }
+
     def accountHistory() {
         render template: '/account/history/history'
     }
