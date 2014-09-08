@@ -458,8 +458,18 @@ class InteractionController {
     def sendNotifications(){
         def settingsParams = request.JSON
         boolean adminEmails = settingsParams['adminEmails']
-        String newsLetterEmails = settingsParams['newsLetterEmails']
+        boolean newsLetterEmails = settingsParams['newsLetterEmails']
         Map queryResult = queryService.sendNotifications(adminEmails, newsLetterEmails)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def changePassword(){
+        def settingsParams = request.JSON
+        String oldPassword = settingsParams['oldPassword']
+        String newPassword = settingsParams['newPassword']
+        Map queryResult = queryService.changePassword(oldPassword, newPassword)
 
         response.status = queryResult.status
         render queryResult.value

@@ -13,6 +13,7 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
         loadWithdrawDetails();
 
         function loadWithdrawDetails(){
+            _errors = '';
             currentCurrency = $routeParams.currency;
             if(currentCurrency != null && currentCurrency != '' && currentCurrency != undefined){
                 withdrawDetailsService.getWithdrawLimits({currency: currentCurrency})
@@ -31,10 +32,8 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
                     }).error(function () {
                         $scope.withdrawLimits = null;
                         $scope.withdrawLimitsLoaded = false;
+                        _errors = 'Error while fetching withdrawals';
                     });
-            }
-            else{
-                log.error("No currency provided to get the limits for")
             }
         };
 
@@ -47,6 +46,7 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
         }
 
         $scope.reviewParamsBeforeCommit = function(){
+            _errors = '';
             if($scope.amount === undefined || $scope.amount === null || $scope.amount === ''){
                 _errors = "Invalid amount";
             }
@@ -88,6 +88,7 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
                         _errors = commitWithdrawResponse.Description;
                         $scope.commitWithdrawId = null;
                         $scope.commitWithdrawSuccessful = false;
+                        _errors = 'Could not commit withdraw';
                     }
                     else{
                         assignFlags(false, false, true, false, false, false, false, false);
@@ -95,7 +96,7 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
                         $scope.commitWithdrawSuccessful = true;
                     }
                 }).error(function (errorMessage){
-                    _errors = errorMessage;
+                    _errors = 'Could not commit withdraw';
                 });
             _errors = '';
         }

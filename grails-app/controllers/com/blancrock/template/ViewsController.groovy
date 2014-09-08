@@ -68,6 +68,14 @@ class ViewsController {
         render template: '/account/security/index'
     }
 
+    def accountSecurityPassword() {
+        render template: '/account/security/password/index'
+    }
+
+    def accountSecurityTFA() {
+        render template: '/account/security/tfa/index'
+    }
+
     def accountSettings() {
         render template: '/account/settings/settings'
     }
@@ -122,14 +130,6 @@ class ViewsController {
 
     def accountFundingDepositCurrency(){
         render template: '/account/funding/deposit/depositDetailsInterface'
-    }
-
-    def accountSecurityPassword() {
-        render template: '/account/security/password/index'
-    }
-
-    def accountSecurityTFA() {
-        render template: '/account/security/tfa/index'
     }
 
     def accountTradeNewOrderOpenOrders() {

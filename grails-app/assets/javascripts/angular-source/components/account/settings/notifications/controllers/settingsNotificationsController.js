@@ -6,61 +6,27 @@ angular.module('account.settings.notifications').controller('settingsNotificatio
     '$scope', '$timeout', 'settingsNotificationsService', function ($scope, $timeout, settingsNotificationsService) {
 
         var _errors = '';
-        var currentCurrency = 'BTC';
+        var _response = '';
+        $scope.settingsSubmissionSuccessful = false;
 
-        assignNavigationFlags(true, false);
-
-        loadRecentWithdrawals();
-
-        $scope.sendNotifications = function(){
-            settingsNotificationsService.getRecentWithdrawals({currency: currentCurrency})
+        $scope.submitNotificationsForm = function(){
+            settingsNotificationsService.sendNotifications({adminEmails: $scope.adminEmails,
+                newsLetterEmails: $scope.newsLetterEmails})
                 .success(function (data){
-                    $scope.recentWithdrawals = data;
-                    $scope.recentWithdrawalsLoaded = true;
-                    setPaginationParams();
-                    recalculateMinAndMax();
-                    filterCollection();
+                    _response = "Settings submitted successfully";
+                    $scope.settingsSubmissionSuccessful = true;
                 }).error(function (){
-                    $scope.recentWithdrawals = [];
-                    $scope.recentWithdrawalsLoaded = false;
+                    _errors = "Settings could not be submitted";
+                    $scope.settingsSubmissionSuccessful = false;
                 })
         };
 
-        $scope.cancelWithdraw = function(withdraw){
-            settingsNotificationsService.cancelWithdraw({withdrawId: withdraw.WithdrawId}).success(function (cancelWithdrawResponse){
-                if(cancelWithdrawResponse.CancelSuccessful){
-                    loadRecentWithdrawals();
-                }
-            }).error(function (errorMassage){
-                    _errors = errorMassage;
-                });
-        };
-
-        $scope.navigateToRecentWithdrawals = function(){
-            assignNavigationFlags(true, false);
-        }
-
-        $scope.navigateToRecentWithdrawDetails = function(withdraw){
-//            $scope.currentWithdrawId = withdraw.WithdrawId;
-//            $scope.currentWithdrawType = withdraw.Type;
-//            $scope.currentWithdrawDate = withdraw.DateTime;
-//            $scope.currentWithdrawAmount = withdraw.Amount;
-//            $scope.currentWithdrawFee = withdraw.Fee;
-//            $scope.currentWithdrawStatus = withdraw.Status;
-//            $scope.currentWithdrawAddress = withdraw.BitcoinAddress;
-//            $scope.currentWithdrawTxId = withdraw.TransactionId;
-            $scope.withdraw = withdraw;
-            assignNavigationFlags(false, true);
-        }
-
-        // Set flags which will describe that which template will be shown and which will not using ng-show
-        function assignNavigationFlags(showRecentWithdrawals, showRecentWithdrawDetails){
-            $scope.showRecentWithdrawals = showRecentWithdrawals;
-            $scope.showRecentWithdrawDetails = showRecentWithdrawDetails;
-        }
-
         $scope.getErrors = function(){
             return _errors;
+        }
+
+        $scope.getResponse = function(){
+            return _response;
         }
 
         $scope.sort = {

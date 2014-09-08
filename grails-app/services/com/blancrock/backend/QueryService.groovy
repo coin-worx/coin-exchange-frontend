@@ -497,11 +497,18 @@ class QueryService {
     }
 
     Map sendNotifications(boolean adminEmails, boolean newLetterEmails){
-        String path = getPathWithPrefix('/private/user/api/create')
+        String path = getPathWithPrefix('/private/user/api/submitemailsettings')
 
-        Map query = [keyDescription: keyDescription, enableExpirationDate: enableExpirationDate, expirationDateTime: expirationDateTime,
-                enableStartDate: enableStartDate, startDateTime: queryStartDateTime, enableEndDate: enableEndDate,
-                endDateTime: queryEndDateTime, securityKeyPermissions: permissions]
+        Map query = [AdministrativeEmails: adminEmails, NewsLetterEmails: newLetterEmails]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map changePassword(String oldPassword, String newPassword){
+        String path = getPathWithPrefix('/private/user/changepassword')
+
+        Map query = [OldPassword: oldPassword, NewPassword: newPassword]
         Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
 
         return [value: response.value, status: response.status]

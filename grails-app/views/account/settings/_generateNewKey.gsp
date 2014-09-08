@@ -267,11 +267,4 @@ on                                <label class="btn btn-primary" ng-model="expir
 </div>
 </div>
 </div>
-<div id="otp-popover" class="hidden2">
-    <form method="post" autocomplete="off" class="center">
-        <input name="otp" class="input-large" autocomplete="off" type="password">
-        <p class="control-hint vmarg10bot">Enter the one-time password required by two-factor authentication.</p>
-        <button type="submit" class="btn btn-success btn-small center"></button>
-    </form>
-</div>
 </div>

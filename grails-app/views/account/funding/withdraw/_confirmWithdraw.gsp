@@ -1,11 +1,7 @@
 <div class="frame review-wrap frame-active" style="width: 788px; visibility: visible; display: block;">
     <h5 class="title center">Confirm withdrawal</h5>
-    <div class="review-result hidden2 center" style="display: none;">
-        <a href="/u/funding/withdraw?asset=XXBT" class="btn hmarg40right btn-large reload">« Back</a>
-        <a href="/u/funding/withdraw" class="btn btn-large btn-primary">View withdrawals</a>
-    </div>
     <form class="form-horizontal form-control-left no-left-margin" method="post" novalidate="novalidate">
-        <div class="alert alert-block alert-error hidden2" style="display: none;"></div>
+
         <div class="review-detail well vmarg20"><div>
             <table class="stats-dots">
                 <tbody>
@@ -44,6 +40,9 @@
                 </tbody>
             </table>
         </div>
+        </div>
+        <div class="center vpad10" ng-show="getErrors()">
+            <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
         </div>
         <div class="btn-toolbar vpad20top center">
             <button type="button" class="btn btn-danger btn-large back hmarg20right" autocomplete="off" ng-click="navigateToWithdrawForm()">« Cancel</button>
