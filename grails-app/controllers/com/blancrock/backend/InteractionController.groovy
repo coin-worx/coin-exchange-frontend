@@ -286,7 +286,14 @@ class InteractionController {
     def getLedgers(){
         def ledgerParams = request.JSON
         String currency = ledgerParams['currency']
-        Map queryResult = queryService.getLedgers(currency)
+        Map queryResult = queryService.getLedgersForCurrency(currency)
+
+        response.status = queryResult.status
+        render queryResult.value
+    }
+
+    def getAllLedgers(){
+        Map queryResult = queryService.getAllLedgers()
 
         response.status = queryResult.status
         render queryResult.value

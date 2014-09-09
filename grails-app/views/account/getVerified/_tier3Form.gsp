@@ -35,6 +35,12 @@
             </div>
         </div>
 
+        <div class="center vpad10" ng-show="getErrors()">
+            <div class="alert alert-block alert-error" ng-bind="getErrors()"></div>
+        </div>
+        <div class="center vpad10" ng-show="getResponse()">
+            <div class="alert alert-block alert-success" ng-bind="getResponse()"></div>
+        </div>
         <div class="control-group vpad20top">
             <div class="controls">
                 <button tabindex="11" class="btn btn-success btn-large" type="submit" autocomplete="off">

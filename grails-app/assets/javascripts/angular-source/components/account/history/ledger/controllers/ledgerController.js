@@ -8,7 +8,7 @@ angular.module('account.history.ledger').controller('ledgerController', [
         var currency = 'BTC'
 
         function loadLedgers(){
-            ledgerService.getLedgers({currency: currency})
+            ledgerService.getAllLedgers()
                 .success(function (data) {
                     $scope.ledgers = data;
                     setPaginationParams();

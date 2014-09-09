@@ -354,11 +354,20 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
-    Map getLedgers(String currency){
+    Map getLedgersForCurrency(String currency){
         String path = getPathWithPrefix('/funds/getledgers')
         Map query = [currency: currency]
 
         Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getAllLedgers(String currency){
+        String path = getPathWithPrefix('/funds/getallledgers')
+        Map query = [:]
+
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
 
         return [value: response.value, status: response.status]
     }

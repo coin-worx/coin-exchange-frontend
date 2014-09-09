@@ -3,6 +3,12 @@
         <div id="verify-wrap" class="tab-pane active">
             <form id="form-verify" action="/u/verify?subtab=tier1#verify-forms" class="jq-validate-form form-horizontal large form-control-left vpad10top hpad20" method="post" autocomplete="off">
                 <div class="control-group">
+                    <label class="control-label">Status</label>
+                    <div class="controls">
+                        <span class="readonly" ng-bind="tier1Status"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="control-group">
                     <label class="control-label">Full Name</label>
                     <div class="controls">
                         <span class="readonly" ng-bind="tier1Details.FullName"><strong></strong></span>

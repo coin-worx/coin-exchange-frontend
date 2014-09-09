@@ -5,6 +5,7 @@
 angular.module('account.getVerified').controller('getVerifiedController', [
     '$scope', '$timeout', 'getVerifiedService', function ($scope, $timeout, getVerifiedService) {
 
+        var _response = '';
         var _errors = '';
         $scope.tier2AddressLine1= '';
         $scope.tier2AddressLine2 = '';
@@ -141,6 +142,7 @@ angular.module('account.getVerified').controller('getVerifiedController', [
                       $scope.tier1ShowProhibition = false;
                       $scope.tier1ShowForm = false;
                       $scope.tier1Verified = true;
+                      _response = 'Tier 1 Application submitted Successfully';
                   }).error(function () {
                       _errors = 'Could not subscribe to Tier 1';
                       $scope.tier1ApplyFailure = true;
@@ -159,6 +161,7 @@ angular.module('account.getVerified').controller('getVerifiedController', [
                     $scope.tier2ShowProhibition = false;
                     $scope.tier2ShowForm = false;
                     $scope.tier2Verified = true;
+                    _response = 'Tier 2 Application submitted Successfully';
                 }).error(function () {
                     _errors = 'Could not subscribe to Tier 2';
                     $scope.tier2ApplyFailure = true;
@@ -176,6 +179,7 @@ angular.module('account.getVerified').controller('getVerifiedController', [
                     $scope.tier3ShowProhibition = false;
                     $scope.tier3ShowForm = false;
                     $scope.tier3Verified = true;
+                    _response = 'Tier 3 Application submitted Successfully';
                 }).error(function () {
                     _errors = 'Could not subscribe to Tier 3';
                     $scope.tier3ApplyFailure = true;
@@ -202,6 +206,14 @@ angular.module('account.getVerified').controller('getVerifiedController', [
         $scope.navigateToLedgerDetails = function(ledgerId){
             $scope.locationPath = '#/account/history/ledgerDetails?ledgerId=' + ledgerId;
         }
+
+        $scope.getErrors = function(){
+            return _errors;
+        };
+
+        $scope.getResponse = function(){
+            return _response;
+        };
 
         $scope.sort = {
             reverse: false
