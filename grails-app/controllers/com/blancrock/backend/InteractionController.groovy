@@ -9,14 +9,14 @@ class InteractionController {
     def queryService
 
     def getOhlcInfo() {
-        Map queryResult = queryService.getOhlcInfo('BTCUSD')
+        Map queryResult = queryService.getOhlcInfo('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getTickerInfo() {
-        Map queryResult = queryService.getTickerInfo('BTCUSD')
+        Map queryResult = queryService.getTickerInfo('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
@@ -88,14 +88,14 @@ class InteractionController {
     }
 
     def newOrderSimpleBids() {
-        Map queryResult = queryService.newOrderSimpleBids('BTCUSD')
+        Map queryResult = queryService.newOrderSimpleBids('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def newOrderSimpleAsks() {
-        Map queryResult = queryService.newOrderSimpleAsks('BTCUSD')
+        Map queryResult = queryService.newOrderSimpleAsks('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
@@ -134,42 +134,42 @@ class InteractionController {
     }
 
     def getRecentTrades() {
-        Map queryResult = queryService.getRecentTrades('BTCUSD')
+        Map queryResult = queryService.getRecentTrades('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getBids() {
-        Map queryResult = queryService.getBids('BTCUSD')
+        Map queryResult = queryService.getBids('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getAsks() {
-        Map queryResult = queryService.getAsks('BTCUSD')
+        Map queryResult = queryService.getAsks('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getDepth() {
-        Map queryResult = queryService.getDepth('BTCUSD')
+        Map queryResult = queryService.getDepth('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getOrderBookCummulativeVolume() {
-        Map queryResult = queryService.getOrderBookCummulativeVolume('BTCUSD')
+        Map queryResult = queryService.getOrderBookCummulativeVolume('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getSpread() {
-        Map queryResult = queryService.getSpread('BTCUSD')
+        Map queryResult = queryService.getSpread('BTCLTC')
 
         response.status = queryResult.status
         render queryResult.value
