@@ -5,8 +5,8 @@
 angular.module('account.funding.deposit').service('depositDetailsService',[
     '$http', function ($http) {
         return{
-            createNewAddress : function(){
-                return $http.get('api/createNewDepositAddress');
+            createNewAddress : function(currency){
+                return $http.post('api/createNewDepositAddress', currency);
             }
             ,
             getDepositLimits : function(currency){

@@ -11,7 +11,7 @@
                 <div class="vmarg10 alert alert-block alert-error doc-error hidden2"></div>
 
                 <div class="clearfix vmarg20top vmarg10bot">
-                    <h5 class="pull-left table-title title">Recent Bitcoin deposits</h5>
+                    <h5 class="pull-left table-title title">Recent deposits</h5>
 
                     <div class="pull-right">
                         <div class="input-prepend">
@@ -19,8 +19,10 @@
                             %{--<select name="select-asset" autocomplete="off" class="select-asset input-medium"><option
                                     selected="selected" value="XXBT">Bitcoin</option>
                             </select>--}%
-                            <select name="address" class="input-xmlarge select-address" autocomplete="off" ng-model="bitcoinAddress" ng-options="address.BitcoinAddress for address in withdrawAddresses">
-                                <option value="">Select Address</option>
+                            <select name="select-asset" autocomplete="off" class="select-asset input-medium"
+                                    ng-model="currentCurrency" ng-options="currency.name for currency in currencyDropDownList"
+                                    ng-selected="0" ng-change="loadDepositLedgers()">
+                                <option></option>
                             </select>
                         </div>
 

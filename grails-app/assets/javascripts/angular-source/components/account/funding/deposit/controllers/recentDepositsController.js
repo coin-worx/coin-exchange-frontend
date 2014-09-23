@@ -8,6 +8,9 @@ angular.module('account.funding.deposit').controller('recentDepositsController',
         assignNavigationFlags(true, false);
         var currentCurrency = 'BTC';
 
+        $scope.currencyDropDownList = [{name:'BTC'},{name:'LTC'}]
+        $scope.currentCurrency = $scope.currencyDropDownList[0];
+
         loadDepositLedgers();
 
         intervalFunction();
@@ -19,19 +22,26 @@ angular.module('account.funding.deposit').controller('recentDepositsController',
             }, 30000)
         };
 
-        function loadDepositLedgers(){
-                recentDepositsService.getRecentDeposits({currency: currentCurrency})
-                    .success(function (data){
-                        $scope.depositLedgers = data;
-                        $scope.depositLedgersLoaded = true;
-                        setPaginationParams();
-                        recalculateMinAndMax();
-                        filterCollection();
-                    }).error(function (){
-                        $scope.depositLedgers = [];
-                        $scope.depositLedgersLoaded = false;
-                    })
+        $scope.loadDepositLedgers = function(){
+            loadDepositLedgers();
         };
+
+        function loadDepositLedgers(){
+            if($scope.currentCurrency !== '' && $scope.currentCurrency !== undefined){
+                currentCurrency = $scope.currentCurrency.name;
+            }
+            recentDepositsService.getRecentDeposits({currency: currentCurrency})
+                .success(function (data){
+                    $scope.depositLedgers = data;
+                    $scope.depositLedgersLoaded = true;
+                    setPaginationParams();
+                    recalculateMinAndMax();
+                    filterCollection();
+                }).error(function (){
+                    $scope.depositLedgers = [];
+                    $scope.depositLedgersLoaded = false;
+                })
+        }
 
         $scope.navigateToRecentDeposits = function(){
             assignNavigationFlags(true, false);

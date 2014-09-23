@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.funding.withdraw').controller('withdrawDetailsController', [
-    '$scope', '$routeParams', '$filter', 'withdrawDetailsService', function ($scope, $routeParams, $filter, withdrawDetailsService) {
+    '$scope', '$routeParams', '$filter', '$window', 'withdrawDetailsService', function ($scope, $routeParams, $filter, $window, withdrawDetailsService) {
         var currentCurrency = '';
 
         var _errors = '';
@@ -58,6 +58,10 @@ angular.module('account.funding.withdraw').controller('withdrawDetailsController
                 assignFlags(false, true, false, false, false, false, false, false);
                 $scope.withdrawNetTotal = $scope.amount - $scope.withdrawLimits.Fee;
             }
+        }
+
+        $scope.setCurrency = function(){
+            $window.location = '#/account/funding/withdraw';
         }
 
         $scope.navigateToWithdrawForm = function(){

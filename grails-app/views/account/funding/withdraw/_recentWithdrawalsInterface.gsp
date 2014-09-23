@@ -4,6 +4,9 @@
         <li class="">
           <a href="#/account/funding/withdrawDetails?currency=BTC">Bitcoin (BTC)</a>
         </li>
+          <li class="">
+              <a href="#/account/funding/withdrawDetails?currency=LTC">Litecoin (LTC)</a>
+          </li>
         %{--<li class="">
           <a href="/u/funding/withdraw?asset=XXRP">Ripple (XRP)</a>
         </li>

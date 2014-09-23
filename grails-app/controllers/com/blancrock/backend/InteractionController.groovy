@@ -176,14 +176,16 @@ class InteractionController {
     }
 
     def createNewDepositAddress(){
-        Map newAddressQueryResult = queryService.createNewDepositAddress('BTC')
+        def depositParams = request.JSON
+        String currency = depositParams['currency']
+        Map newAddressQueryResult = queryService.createNewDepositAddress(currency)
 
         response.status = newAddressQueryResult.status
         if (newAddressQueryResult.status == 500 && newAddressQueryResult.value == ""){
             render "Too many addresses";
         }
         else{
-            Map addressListQueryResult =  queryService.getDepositAddresses('BTC')
+            Map addressListQueryResult =  queryService.getDepositAddresses(currency)
             response.status = addressListQueryResult.status
 
             render addressListQueryResult.value

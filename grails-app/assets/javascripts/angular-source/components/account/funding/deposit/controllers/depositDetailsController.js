@@ -48,7 +48,7 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
 
         $scope.createNewDepositAddress = function(){
             _errors = '';
-            depositDetailsService.createNewAddress()
+            depositDetailsService.createNewAddress({currency: currentCurrency})
                 .success(function (depositAddress) {
                     assignDepositAddresses(depositAddress)
                 })

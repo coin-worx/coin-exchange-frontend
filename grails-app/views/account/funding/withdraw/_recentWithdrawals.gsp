@@ -24,8 +24,8 @@
                                 ng-class="getSortingClass('WithdrawId')" style="width: 160px;">Id</th>
                             <th ng-click="updateSorting('DateTime')" class="lalign nw"
                                 ng-class="getSortingClass('DateTime')" style="width: 120px;">Date</th>
-                            <th ng-click="updateSorting('Type')" class="lalign nw"
-                                ng-class="getSortingClass('Type')" style="width: 80px;">Type</th>
+                            <th ng-click="updateSorting('Currency')" class="lalign nw"
+                                ng-class="getSortingClass('Currency')" style="width: 80px;">Coin</th>
                             <th ng-click="updateSorting('Amount')" class="ralign"
                                 ng-class="getSortingClass('Amount')" style="width: 50px;">Amount</th>
                             <th ng-click="updateSorting('Fee')" class="ralign"
@@ -43,7 +43,7 @@
                                 <a href="">{{withdraw.WithdrawId | limitTo : 8}}</a>
                             </td>
                             <td class="lalign" ng-bind="withdraw.DateTime"></td>
-                            <td class="lalign" ng-bind="withdraw.Type"></td>
+                            <td class="lalign" ng-bind="withdraw.Currency"></td>
                             <td class="ralign" ng-bind="withdraw.Amount"></td>
                             <td class="ralign" ng-bind="withdraw.Fee"></td>
                             <td class="lalign">
