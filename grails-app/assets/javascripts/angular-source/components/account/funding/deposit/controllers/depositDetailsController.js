@@ -3,7 +3,8 @@
 'use strict';
 
 angular.module('account.funding.deposit').controller('depositDetailsController', [
-    '$scope', '$routeParams', '$filter', 'depositDetailsService', function ($scope, $routeParams, $filter, depositDetailsService) {
+    '$scope', '$routeParams', '$location', '$window', '$filter', 'depositDetailsService',
+    function ($scope, $routeParams, $location, $window, $filter, depositDetailsService) {
         var _errors = '';
         var currentCurrency = '';
 
@@ -13,12 +14,12 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
             _errors = '';
             currentCurrency = $routeParams.currency;
             if(currentCurrency != null && currentCurrency != '' && currentCurrency != undefined){
-                depositDetailsService.getDepositLimits()
+                depositDetailsService.getDepositLimits({currency: currentCurrency})
                     .success(function (depositLimits) {
                         $scope.depositLimits = depositLimits;
                         $scope.depositLimitsLoaded = true;
                         if($scope.depositLimits != null){
-                            depositDetailsService.getDepositAddresses()
+                            depositDetailsService.getDepositAddresses({currency: currentCurrency})
                                 .success(function (depositAddresses){
                                     assignDepositAddresses(depositAddresses)
                                 }).error(function (){
@@ -73,6 +74,10 @@ angular.module('account.funding.deposit').controller('depositDetailsController',
 
             return className;
         };
+
+        $scope.setCurrency = function(path){
+            $window.location = '#/account/funding/deposit';
+        }
 
         $scope.updateSorting = function (columnName) {
             if ($scope.sort.predicate === columnName) {

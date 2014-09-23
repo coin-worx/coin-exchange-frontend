@@ -9,12 +9,12 @@ angular.module('account.funding.deposit').service('depositDetailsService',[
                 return $http.get('api/createNewDepositAddress');
             }
             ,
-            getDepositLimits : function(){
-                return $http.get('api/getDepositLimits');
+            getDepositLimits : function(currency){
+                return $http.post('api/getDepositLimits', currency);
             }
             ,
-            getDepositAddresses : function(){
-                return $http.get('api/getDepositAddresses');
+            getDepositAddresses : function(currency){
+                return $http.post('api/getDepositAddresses', currency);
             }
         }
     }]);

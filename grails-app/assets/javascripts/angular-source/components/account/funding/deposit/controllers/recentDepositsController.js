@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('account.funding.deposit').controller('recentDepositsController', [
-    '$scope', '$timeout', 'recentDepositsService', function ($scope, $timeout, recentDepositsService) {
+    '$scope', '$timeout', '$routeParams', 'recentDepositsService', function ($scope, $timeout, $routeParams, recentDepositsService) {
 
         assignNavigationFlags(true, false);
         var currentCurrency = 'BTC';

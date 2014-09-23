@@ -1,7 +1,10 @@
-<div class="span2" %{--ng-controller="depositDetailsController"--}%>
+<div class="span2" ng-controller="depositDetailsController">
     <ul class="nav nav-list nav-sidebar auto-width vmarg0top hpad10right" id="withdraw-nav">
         <li class="" ng-click="setCurrency('BTC')">
             <a href="#/account/funding/depositCurrency?currency=BTC">Bitcoin (BTC)</a>
+        </li>
+        <li class="" ng-click="setCurrency('LTC')">
+            <a href="#/account/funding/depositCurrency?currency=LTC">Litecoin (LTC)</a>
         </li>
         %{--<li class="">
             <a href="/u/funding/deposit?asset=XXRP">Ripple (XRP)</a>

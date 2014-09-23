@@ -48,6 +48,7 @@ angular.module('blancrockExchangeApp').config(
 
         .when('/account/funding/deposit', 'account.funding.deposit')
         .when('/account/funding/depositCurrency', 'account.funding.depositCurrency')
+        .when('/account/funding/depositCurrency:currency', 'account.funding.depositCurrency')
         .when('/account/funding/withdraw', 'account.funding.withdraw')
         .when('/account/funding/withdrawDetails', 'account.funding.withdrawDetails')
         .when('/account/funding/audit', 'account.funding.audit')

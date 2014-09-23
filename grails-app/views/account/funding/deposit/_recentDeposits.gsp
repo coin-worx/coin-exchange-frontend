@@ -16,12 +16,13 @@
                     <div class="pull-right">
                         <div class="input-prepend">
                             <span class="add-on">Asset</span>
-                            <select name="select-asset" autocomplete="off" class="select-asset input-medium"><option
+                            %{--<select name="select-asset" autocomplete="off" class="select-asset input-medium"><option
                                     selected="selected" value="XXBT">Bitcoin</option>
-                                    %{--<option value="XXRP">Ripple</option><option
-                                    value="XLTC">Litecoin</option><option value="XNMC">Namecoin</option><option
-                                    value="XXVN">Ven</option><option value="XXDG">Dogecoin</option>--}%
-                            </select></div>
+                            </select>--}%
+                            <select name="address" class="input-xmlarge select-address" autocomplete="off" ng-model="bitcoinAddress" ng-options="address.BitcoinAddress for address in withdrawAddresses">
+                                <option value="">Select Address</option>
+                            </select>
+                        </div>
 
                         <div class="input-prepend hidden2 hmarg20left">
                             <span class="add-on">Method</span>

@@ -4,6 +4,9 @@
     <li class="bottom">
       <a href="#/account/funding/depositCurrency?currency=BTC">Bitcoin (BTC)</a>
     </li>
+    <li class="bottom">
+        <a href="#/account/funding/depositCurrency?currency=LTC">Litecoin (LTC)</a>
+    </li>
     %{--<li class="">
       <a href="/u/funding/deposit?asset=XXRP">Ripple (XRP)</a>
     </li>

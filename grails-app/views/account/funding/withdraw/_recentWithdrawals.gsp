@@ -19,26 +19,6 @@
                                                                  class="table table-hover table-striped dataTable table-withdrawal"
                                                                  aria-describedby="table-withdrawals_info">
                         <thead>
-                        %{--<tr role="row"><th class="lalign nw sorting" role="columnheader" tabindex="0"
-                                           aria-controls="table-withdrawals" rowspan="1" colspan="1"
-                                           aria-label="ID: activate to sort column ascending">ID</th>
-                          <th class="lalign sorting_desc" role="columnheader" tabindex="0" aria-controls="table-withdrawals"
-                              rowspan="1" colspan="1" aria-sort="descending"
-                              aria-label="Date: activate to sort column ascending">Date</th>
-
-                          <th class="lalign sorting"
-                              role="columnheader" tabindex="0"
-                              aria-controls="table-withdrawals"
-                              rowspan="1" colspan="1"
-                              aria-label="Type: activate to sort column ascending">Type</th>
-                          <th class="ralign sorting" role="columnheader" tabindex="0" aria-controls="table-withdrawals"
-                              rowspan="1" colspan="1" aria-label="Amount: activate to sort column ascending">Amount</th>
-                          <th class="ralign sorting" role="columnheader" tabindex="0" aria-controls="table-withdrawals"
-                              rowspan="1" colspan="1" aria-label="Fee: activate to sort column ascending">Fee</th><th
-                            class="ralign lalign sorting" role="columnheader" tabindex="0" aria-controls="table-withdrawals"
-                            rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Status</th>
-                          <th class="sorting_disabled center" role="columnheader" rowspan="1" colspan="1" aria-label=""
-                              style="width: 40px;"></th></tr>--}%
                         <tr role="row">
                             <th ng-click="updateSorting('WithdrawId')" class="lalign nw"
                                 ng-class="getSortingClass('WithdrawId')" style="width: 160px;">Id</th>
@@ -57,17 +37,6 @@
                         </thead>
 
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
-                        %{--<tr class="odd">
-                          <td class="nw">
-                            <a href="javascript: void(0);" class="txid tt" title="" data-container="body"
-                               value="AGBHMT3-CSOASX-47ODLZ" data-original-title="AGBHMT3-CSOASX-47ODLZ">AGBHMT3
-                            </a>
-                          </td>
-                          <td class="">03-19-14 12:26:15 +0100</td><td class="">Bitcoin</td><td class="ralign">฿0.00050</td><td
-                            class="ralign"><div class="textAlignDecimal"><span>฿0</span><span>.</span><span>00050</span></div>
-                        </td><td class="lalign"><div class="textAlignDecimal"><span><span
-                            class="label label-success">Success</span></span><span></span><span></span></div></td><td
-                            class="center"></td></tr>--}%
                         <tr ng-repeat="withdraw in filteredRecentWithdrawals"
                             ng-class="{even: $even, odd: $odd}" ng-cloak>
                             <td class="lalign" tab-right-click="navigateToRecentWithdrawDetails()" ng-click="navigateToRecentWithdrawDetails(withdraw)">

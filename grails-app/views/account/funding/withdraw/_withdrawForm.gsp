@@ -11,7 +11,8 @@
                     <select name="address" class="input-xmlarge select-address" autocomplete="off" ng-model="bitcoinAddress" ng-options="address.BitcoinAddress for address in withdrawAddresses">
                         <option value="">Select Address</option>
                     </select>
-                </div><div class="ib top">
+                </div>
+                <div class="ib top">
                 <div class="btn-toolbar vmarg0">
                     <a class="btn btn-medium btn-primary show-address-add hmarg10right " ng-click="fromWithdrawFormToAddAddress()"><i class="icon icon-plus icon-white"></i> Add address</a>
                     <a class="btn btn-medium show-address-list" ng-click="navigateToManageWithdraw()"><i class="icon icon-list"></i> Manage</a>

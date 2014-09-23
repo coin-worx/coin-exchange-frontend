@@ -191,14 +191,18 @@ class InteractionController {
     }
 
     def getDepositLimits(){
-        Map queryResult = queryService.getDepositLimits('BTC')
+        def depositParams = request.JSON
+        String currency = depositParams['currency']
+        Map queryResult = queryService.getDepositLimits(currency)
 
         response.status = queryResult.status
         render queryResult.value
     }
 
     def getDepositAddresses(){
-        Map queryResult = queryService.getDepositAddresses('BTC')
+        def depositParams = request.JSON
+        String currency = depositParams['currency']
+        Map queryResult = queryService.getDepositAddresses(currency)
 
         response.status = queryResult.status
         render queryResult.value
