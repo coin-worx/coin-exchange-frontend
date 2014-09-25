@@ -26,7 +26,7 @@
             </tbody></table>
         <table class="stats-dots">
             <tbody><tr>
-                <td class="k">Current balance</td>
+                <td class="k">Available balance</td>
                 <td class="dots"></td>
                 <td ng-bind="withdrawLimits.CurrentBalance"></td>
             </tr>
