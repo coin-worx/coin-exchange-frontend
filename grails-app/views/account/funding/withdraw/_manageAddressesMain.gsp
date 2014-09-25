@@ -1,7 +1,7 @@
 <div class="frame manage-addresses" style="width: 760px; visibility: visible; display: block;">
     <div>
         <div class="vmarg10bot clearfix">
-            <h4 class="title pull-left hmarg40right">Bitcoin withdrawal addresses</h4>
+            <h4 class="title pull-left hmarg40right">Withdrawal addresses</h4>
             <div class="pull-left vpad5 vmarg10top vmarg0bot alert alert-block alert-error hidden2"></div>
         </div>
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline" role="grid"><div class="dataTables_table_wrapper"><table class="table table-hover table-striped dataTable" data-recordcount="_TOTAL_ addresses" data-norecords="No addresses available." id="DataTables_Table_0">

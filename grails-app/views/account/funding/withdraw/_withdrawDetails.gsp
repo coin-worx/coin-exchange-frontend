@@ -61,8 +61,8 @@
     </div>
 </div>
 <div class="title-wrap">
-    <h5 class="title">Bitcoin Withdrawal</h5>
-    <p>To add an address for Bitcoin withdrawals, click "Add address" below and fill in the address you'd like to withdraw to. After you've added the address, simply select it and enter the amount you wish to withdraw. </p> <ul> <li> We strongly recommend that you copy + paste the address to help avoid errors. Please note that we are not responsible for coins mistakenly sent to the wrong address.</li> <li>Don't exceed your daily or monthly funding limits. If you exceed the limits, your account will be frozen until you can get verified for higher limits.</li> </ul></div>
+    <h5 class="title">Withdrawal</h5>
+    <p>To add an address for withdrawals, click "Add address" below and fill in the address you'd like to withdraw to. After you've added the address, simply select it and enter the amount you wish to withdraw. </p> <ul> <li> We strongly recommend that you copy + paste the address to help avoid errors. Please note that we are not responsible for coins mistakenly sent to the wrong address.</li> <li>Don't exceed your daily or monthly funding limits. If you exceed the limits, your account will be frozen until you can get verified for higher limits.</li> </ul></div>
 <div class="clearfix"></div>
 <div class="slider vpad40top">
 <div class="transfer" style="width: 4728px;">
