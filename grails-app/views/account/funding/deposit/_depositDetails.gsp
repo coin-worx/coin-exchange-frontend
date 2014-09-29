@@ -5,7 +5,7 @@
                 <tbody><tr>
                     <td class="k">Daily limit</td>
                     <td class="dots"></td>
-                    <td ng-bind-template="{{depositLimits.DailyLimitUsed}} / $ {{depositLimits.DailyLimit}}"></td>
+                    <td ng-bind-template="{{depositLimits.DailyLimitUsed}} / {{depositLimits.DailyLimit}}"></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="control-hint ralign"></td>
@@ -15,7 +15,7 @@
                 <tbody><tr>
                     <td class="k">Monthly limit</td>
                     <td class="dots"></td>
-                    <td ng-bind-template="{{depositLimits.MonthlyLimitUsed}} / $ {{depositLimits.MonthlyLimit}}"></td>
+                    <td ng-bind-template="{{depositLimits.MonthlyLimitUsed}} / {{depositLimits.MonthlyLimit}}"></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="control-hint ralign"></td>
