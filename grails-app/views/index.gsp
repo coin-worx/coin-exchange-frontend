@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Welcome to BlancRock</title>
+  <title>Welcome to Crypgo</title>
 </head>
 
 <body>
