@@ -135,6 +135,9 @@ angular.module('account.settings.api').controller('settingsApiController', [
             var path = $location.path('/account/settings/generateNewKey');
         }
 
+        $scope.cancelKey = function(){
+                window.history.back();
+                }
         var _response = '';
         $scope.createNewKey = function(){
             _response = '';

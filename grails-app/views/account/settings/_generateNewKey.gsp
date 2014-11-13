@@ -208,7 +208,7 @@ on                                <label class="btn btn-primary" ng-model="expir
                     <div class="controls">
                         <p class="confirm-msg vpad20bot hidden2"></p>
                         <div class="btn-toolbar">
-                            <button autocomplete="off" type="button" class="btn-key-cancel btn btn-danger btn-large hmarg20right"><i class="icon-remove icon-white"></i> Cancel</button>
+                            <button autocomplete="off" type="button" class="btn-key-cancel btn btn-danger btn-large hmarg20right" ng-click="cancelKey()"><i class="icon-remove icon-white"></i> Cancel</button>
                             <button autocomplete="off" type="button" class="btn-key-save btn submit btn-success btn-large"
                             ng-click="createNewKey()">Generate Key</button>
                         </div>
