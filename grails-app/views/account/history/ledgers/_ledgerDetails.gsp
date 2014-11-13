@@ -1,7 +1,7 @@
 <div id="ledger-detail" ng-controller="ledgerDetailsController">
     <div class="clearfix vmarg20bot">
         <h4 class="title pull-left" ng-bind-template="Ledger {{ledger.LedgerId}}"></h4>
-        <div class="pull-right"> <button class="btn btn-small back">« Back</button>
+        <div class="pull-right"> <button class="btn btn-small back"ng-click="goBack()">« Back</button>
         </div>
     </div>
     <div class="row stats-dots-wrap">

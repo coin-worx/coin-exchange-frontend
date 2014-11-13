@@ -55,6 +55,11 @@ angular.module('account.history.ledger').controller('ledgerDetailsController', [
             filterCollection();
         };
 
+        //Go back to previous page
+         $scope.goBack = function(){
+                        window.history.back();
+                        }
+
         //Sorting params
         function setPaginationParams() {
             $scope.currentPage = 1;
