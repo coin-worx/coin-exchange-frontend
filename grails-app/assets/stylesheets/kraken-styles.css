@@ -3691,7 +3691,7 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 }
 
 .tab-content {
-    overflow: auto;
+    overflow: hidden;
 }
 
 .tabs-below > .nav-tabs, .tabs-right > .nav-tabs, .tabs-left > .nav-tabs {
