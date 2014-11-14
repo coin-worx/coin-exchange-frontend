@@ -267,8 +267,7 @@ angular.module('blancrockExchangeApp').config(
           .up()
 
         .segment('getVerified', {
-          templateUrl: 'views/accountGetVerified',
-          access: 'private'
+          templateUrl: 'views/accountGetVerified'
         })
 
         .up()
