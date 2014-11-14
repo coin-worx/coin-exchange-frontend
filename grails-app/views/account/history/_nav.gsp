@@ -7,7 +7,7 @@
             <a href="#/account/history/order">Closed Orders</a>
         </li>
         <li ng-class="{active: ('account.trade.orders' | routeSegmentStartsWith)}">
-            <a href="#/account/history/trade">Trades</a>
+            <a href="#/account/history/trades">Trades</a>
         </li>
     </ul>
 

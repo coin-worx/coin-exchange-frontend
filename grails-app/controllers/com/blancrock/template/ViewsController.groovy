@@ -108,6 +108,13 @@ class ViewsController {
         render template: '/account/history/ledgers/ledgerDetails'
     }
 
+    def accountHistoryTrades() {
+            render template: '/account/history/trades/trades'
+        }
+    def accountHistoryOrders() {
+                render template: '/account/history/orders/orders'
+            }
+
     def accountGetVerified() {
         render template: '/account/getVerified/index'
     }

@@ -65,6 +65,8 @@ angular.module('blancrockExchangeApp').config(
 
         .when('/account/history', 'account.history')
         .when('/account/history/ledger', 'account.history.ledger')
+        .when('/account/history/trades', 'account.history.trades')
+        .when('/account/history/order', 'account.history.order')
         .when('/account/history/ledgerDetails', 'account.history.ledgerDetails')
         .when('/account/getVerified', 'account.getVerified')
 
@@ -251,6 +253,12 @@ angular.module('blancrockExchangeApp').config(
               default: true,
               templateUrl: 'views/accountHistoryLedgers'
           })
+          .segment('trades', {
+                        templateUrl: 'views/accountHistoryTrades'
+                    })
+           .segment('order', {
+                                   templateUrl: 'views/accountHistoryOrders'
+                               })
 
           .segment('ledgerDetails', {
               templateUrl: 'views/accountHistoryLedgersDetails'
