@@ -308,8 +308,8 @@
         <tbody>
         <tr ng-repeat="trade in filteredTradesDetails | orderBy:sort.predicate:sort.reverse"
             ng-class="{even: $even, odd: $odd}" ng-cloak>
-            <td class="nw" ng-click="setTradeId(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
-                <a href="#/account/trade/tradeDetails">{{trade.TradeId}}</a>
+            <td class="nw" ng-click="setTradeIdAsUrlParameter(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
+                <a href="{{locationPath}}">{{trade.TradeId | limitTo : 8}}</a>
             </td>
             <td class="nw" ng-bind="trade.ExecutionDateTime"></td>
             <td class="lalign" ng-bind="trade.Price"></td>

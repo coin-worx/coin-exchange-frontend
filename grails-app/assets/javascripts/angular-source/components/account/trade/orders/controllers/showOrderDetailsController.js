@@ -63,6 +63,10 @@ angular.module('account.trade.orders').controller('ShowOrderDetailsController', 
             }
         };
 
+        $scope.setTradeIdAsUrlParameter = function(tradeId){
+                          $scope.locationPath = '#/account/trade/tradeDetails?tradeid=' + tradeId;
+                      };
+
         //Sorting params
         function setPaginationParams() {
             $scope.currentPage = 1;
