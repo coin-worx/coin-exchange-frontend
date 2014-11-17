@@ -49,8 +49,8 @@ angular.module('account.trade.trades').controller('TradesController', [
     }
 
       $scope.setTradeIdAsUrlParameter = function(tradeId){
-          $scope.locationPath = '#/account/trade/tradeDetails?tradeid=' + tradeId;
-      }
+                 $scope.locationPath = '#/account/trade/tradeDetails?tradeid=' + tradeId;
+             }
 
     $scope.sort = {
       predicate: 'ExecutionDateTime',

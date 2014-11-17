@@ -288,7 +288,7 @@ angular.module('blancrockExchangeApp').config(
           templateUrl: 'views/about'
         })
         .segment('index', {
-          templateUrl: 'views/index'
+          templateUrl: 'views/marketData'
         });
 
       $routeProvider.otherwise({

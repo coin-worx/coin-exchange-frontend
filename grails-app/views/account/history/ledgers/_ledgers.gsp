@@ -3,7 +3,7 @@
     <div class="pull-left">
         <h4 class="title">Ledger</h4>
     </div>
-    <div class="pull-right">
+    <!--<div class="pull-right">
         <div class="btn-toolbar">
             <a title="" data-original-title="" class="btn btn-small btn-primary btn-filter"><i class="icon-filter"></i> <span>Filters (0)</span></a>
             <div class="hidden2" id="filter-content">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <div>
     <div class="vpad10 vmarg10 alert alert-block alert-error hidden2"></div>

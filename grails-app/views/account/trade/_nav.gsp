@@ -9,9 +9,9 @@
     <li ng-class="{active: ('account.trade.orders' | routeSegmentStartsWith)}">
       <a href="#/account/trade/orders">Orders</a>
     </li>
-    <li ng-class="{active: ('account.trade.positions' | routeSegmentStartsWith)}">
+ <!--   <li ng-class="{active: ('account.trade.positions' | routeSegmentStartsWith)}">
       <a href="#/account/trade/positions">Positions</a>
-    </li>
+    </li> -->
     <li ng-class="{active: ('account.trade.trades' | routeSegmentStartsWith)}">
       <a href="#/account/trade/trades">Trades</a>
     </li>

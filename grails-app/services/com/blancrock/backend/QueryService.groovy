@@ -523,6 +523,14 @@ class QueryService {
         return [value: response.value, status: response.status]
     }
 
+    Map getBalance(){
+            String path = getPathWithPrefix('/funds/getbalance')
+            Map query = [:]
+            Map response = backendInteractionService.makeAuthorizedGetRequest(path,query);
+
+            return [value: response.value, status: response.status]
+        }
+
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix
 

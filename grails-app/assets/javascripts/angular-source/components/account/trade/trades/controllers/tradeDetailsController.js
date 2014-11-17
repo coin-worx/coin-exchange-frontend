@@ -25,6 +25,9 @@ angular.module('account.trade.trades').controller('TradeDetailsController', [
         $scope.setOrderId = function (orderId) {
             orderSharedService.setOrderIdOfOrder(orderId);
         };
+        $scope.setOrderIdAsUrlParameter = function(orderId){
+                  $scope.locationPath = '#/account/trade/showOrderDetails?orderid=' + orderId;
+              }
 
         $scope.goToUrl = function (path) {
             $location.path( path );
