@@ -2,9 +2,20 @@
 
 ## Icons
 ## Introduction
+The main aim of the platform is to provide a mobile based exchange facility for the up and coming digital currencies including Bitcoin, Litecoin and the ability to trade them against one another. The platform will be designed to be used by retail and institutional traders and investors. The platform will be available internationally as native app for iOS or Android
 ## Context
+The product serves as a platform for trading different digital currencies against one another. The digital currencies available in start for trading are going to be:
+- Bitcoin (BTC)
+- Litecoin (LTC)
+
+The platform will mostly be a self contained product with not much integration with external system(s). However, the billing module will have to support some different mechanisms for depositing and withdrawing money into user accounts that may include:
+- Bitcoin deposit / withdrawal
+- Litecon deposit / withdrawal
+
 ## Problem Statment
 ## Solution
+Our goal is to build a mobile based trading platform for crypto currencies and with the ability to buy and sell the digital currency against one another. It will be an independent exchange servicing both retail and institutional customers with starting with basic features like market & limit orders and then moving onto more complex ones.
+
 ### Technology Stack 
 - [Grails](https://grails.org/): Server side MVC, Backend REST Integration
 - [Spock](https://code.google.com/p/spock/): Spock is a testing and specification framework for Java and Groovy applications
@@ -22,6 +33,7 @@
 - [Bower](http://bower.io/): Client-side code package manager
 - Yeoman: Used for quickly & easily creating an angularJs based application
 #### Backend
+Backend code for coin exchange is kept here: https://github.com/coin-worx/coin-exchange-backend
 #### Frondend
 ### Testing
 #### Grails Unit Tests
