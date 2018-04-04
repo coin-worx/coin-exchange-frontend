@@ -80,3 +80,32 @@ Backend code for coin exchange is kept here: https://github.com/coin-worx/coin-e
   5. Run project always from console, not from IDE.
 ### Logs
   When running locally through `grails run-app`, then logs can be found under this location `...\coin-exchange-frontend\logs`.
+  
+## Help
+
+**Got a question?** 
+File a GitHub [issue](https://github.com/coin-worx/coin-exchange-frontend/issues), send us an email at info@aurorasolutions.io or reach out to us on social media [Twitter](https://twitter.com/aurora__sol?lang=en), [Facebook](https://www.facebook.com/AuroraSolutions/)
+
+## Contributing 
+
+### Bug Reports & Feature Requests
+
+Please use the [issue tracker](https://github.com/coin-worx/coin-exchange-frontend/issues) to report any bugs or file feature requests.
+
+#### Developing
+
+PRs are welcome. In general, we follow the "fork-and-pull" Git workflow.
+
+ 1. **Fork** the repo on GitHub
+ 2. **Clone** the project to your own machine
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull request** so that we can review your changes
+
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+
+## About
+The project is created and maintained by [Aurora Solutions](https://www.aurorasolutions.io/). Like it? Please let us know at info@aurorasolutions.io
+
+See our [other projects](https://www.aurorasolutions.io/#portfolio)
+  
