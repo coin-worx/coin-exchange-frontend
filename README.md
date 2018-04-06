@@ -2,9 +2,9 @@
 
 ## Icons
 ## Introduction
-The main aim of the platform is to provide a mobile based exchange facility for the up and coming digital currencies including Bitcoin, Litecoin and the ability to trade them against one another. The platform will be designed to be used by retail and institutional traders and investors. The platform will be available internationally as native app for iOS or Android
+The main aim of the platform is to provide an exchange facility for the up and coming digital currencies including Bitcoin, Litecoin and the ability to trade them against one another. The platform will be designed to be used by retail and institutional traders and investors. The platform will be available internationally as native app for iOS or Android
 ## Context
-The product serves as a platform for trading different digital currencies against one another. The digital currencies available in start for trading are going to be:
+The product serves as a platform for trading different digital currencies against one another. The digital currencies available for trading are:
 - Bitcoin (BTC)
 - Litecoin (LTC)
 
@@ -34,7 +34,6 @@ Our goal is to build a mobile based trading platform for crypto currencies and w
 - Yeoman: Used for quickly & easily creating an angularJs based application
 #### Backend
 Backend code for coin exchange is kept here: https://github.com/coin-worx/coin-exchange-backend
-#### Frondend
 ### Testing
 #### Grails Unit Tests
   - Grails Unit Tests are kept here: coin-exchange-frontend/test/unit
