@@ -1,7 +1,7 @@
 # Coin Exchange Frontend
 
 ## Introduction
-The main aim of the platform is to provide a web based exchange facility for the up and coming digital currencies including Bitcoin, Litecoin and the ability to trade them against standard fiat currencies. The platform will be designed to be used by retail and institutional traders and investors. The platform will be available internationally through web based platform and will be accessed using a web browser on a computer or mobile device.
+The main aim of the platform is to provide a web based exchange facility for the up and coming digital currencies including Bitcoin, Litecoin and the ability to trade them against standard fiat currencies. The platform has been designed to be used by retail and institutional traders and investors. The platform will be available internationally through web based platform and will be accessed using a web browser on a computer or mobile device.
 ## Context
 The product serves as a platform for trading different digital currencies for different fiat currencies. The digital currencies available for trading are going to be:
 - Bitcoin (BTC)
@@ -15,14 +15,15 @@ The major fiat currencies available for trading are going to be:
 - Swiss Franc (CHF)
 - Japanese Yen (JPY)
 
-The platform will mostly be a self contained product with not much integration with external system(s). However, the billing module will have to support some different mechanisms for depositing money into user accounts that may include:
+The platform is a self contained product with not much integration with external system(s). However, the billing module will have to support some different mechanisms for depositing money into user accounts that may include:
 - Paypal deposit
 - Bank/wire transfer deposit
-Bitcoin deposit
+- Bitcoin deposit
 
 ## Problem Statment
+Cryptocurrency market has been on rise in the recent years and has become a popular financial entity. The crypto market is decentralized it's not being controlled by any single authority offering more control to the users. Some of the cryptocurrencies can also be used by setting a fixed supply cap making them more imune to inflation. This makes the cryptocurrency market highly profitable.
 ## Solution
-Our goal is to build a mobile based trading platform for crypto currencies and with the ability to buy and sell the digital currency against one another. It will be an independent exchange servicing both retail and institutional customers with starting with basic features like market & limit orders and then moving onto more complex ones.
+To gain profit from cryptocurrency market apart from investing in trading cryptocurrencies itself one can take advantage from market liquidity by creating their own cryptocurrency exchange. Creating a cryptocurrency exchange offers the advantage of being a part of the cyrpto market itself and one can take advantage of the transaction fees to generate revenue.
 
 ### Technology Stack 
 - [Grails](https://grails.org/): Server side MVC, Backend REST Integration
@@ -45,9 +46,6 @@ Backend code for coin exchange is kept here: https://github.com/coin-worx/coin-e
 ### Testing
 #### Unit Tests
 Unit Tests details are kept here: [coin-exchange-frontend/test/javascript/unit](https://github.com/coin-worx/coin-exchange-frontend/tree/master/test/javascript/unit)
-  
-#### Functional/E2E Tests
-Functional/E2E Tests details are kept here: [coin-exchange-frontend/test/javascript/e2e/](https://github.com/coin-worx/coin-exchange-frontend/blob/master/test/javascript/e2e/)
 
 ## Usage
 ### Pre Requirements
