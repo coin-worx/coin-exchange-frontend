@@ -43,6 +43,15 @@ To gain profit from cryptocurrency market apart from investing in trading crypto
 - Yeoman: Used for quickly & easily creating an angularJs based application
 #### Backend
 Backend code for coin exchange is kept here: https://github.com/coin-worx/coin-exchange-backend
+#### Infrastructure
+Docker file for coin-exchange front end is kept here: [coin-exchange-frontend/Dockerfile](https://github.com/coin-worx/coin-exchange-frontend/blob/improvement/enable_working/Dockerfile)
+
+Following commands are used to build and run docker file
+
+Build: `docker build -t frontend -f Dockerfile .`
+
+Run: `docker run --net=host -p 8080:8080 -t frontend:latest `
+
 ### Testing
 #### Unit Tests
 Unit Tests details are kept here: [coin-exchange-frontend/test/javascript/unit](https://github.com/coin-worx/coin-exchange-frontend/tree/master/test/javascript/unit)
