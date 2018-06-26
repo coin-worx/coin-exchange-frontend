@@ -44,6 +44,24 @@ import org.codehaus.groovy.grails.web.json.JSONArray
 class JsonHelperService {
     static transactional = false
 
+    String ohlcInfoStructuring(String ohlc, String bbo) {
+        try {
+        JSONArray jsonArray = new JSONArray()
+        JSONObject ohlcObject = new JSONObject()
+        ohlcObject.put('Ohlc', ohlc)
+        JSONObject bboObject = new JSONObject()
+        ohlcObject.put('BBO', bbo)
+
+        jsonArray.put(ohlcObject)
+        //jsonArray.put(bboObject)
+
+        return jsonArray as JSON
+        }
+        catch(Exception ex){
+            log.error(ex)
+        }
+    }
+
     String extractRatesJson(String ratesJson) {
         JSONArray ratesJsonArray = JSON.parse(ratesJson)
 

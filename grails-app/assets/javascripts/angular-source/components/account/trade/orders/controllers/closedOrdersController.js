@@ -3,34 +3,42 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('ClosedOrdersController', [
-  '$scope', 'ClosedOrdersService', 'OrdersSharedService', function ($scope, closedOrdersService, orderSharedService) {
+  '$scope', '$filter', 'ClosedOrdersService', 'OrdersSharedService', function ($scope, $filter, closedOrdersService, orderSharedService) {
     var loaded = false;
 
-    closedOrdersService.query()
-      .success(function (data) {
-        updateCost(data);
-        $scope.orders = data;
-        setPaginationParams();
-        recalculateMinAndMax();
-        filterCollection();
+    $scope.$on('refreshEvent', function(event, data) {
+        loadClosedOrders();
+    });
 
-        $scope.$parent.closedOrdersLoaded = true;
-        loaded = true;
-      }).error(function () {
-        $scope.orders = [];
-        loaded = true;
-      });
+    loadClosedOrders();
+    function loadClosedOrders(){
+        closedOrdersService.query()
+            .success(function (data) {
+                updateCost(data);
+                $scope.orders = data;
+                $scope.orders = $filter('orderBy')($scope.orders, $scope.sort.predicate, $scope.sort.reverse);
+                setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
 
-    $scope.setOrderId = function (orderId) {
-      orderSharedService.setOrderIdOfOrder(orderId);
-    };
+                $scope.$parent.closedOrdersLoaded = true;
+                loaded = true;
+            }).error(function () {
+                $scope.orders = [];
+                loaded = true;
+            });
+    }
+
+    $scope.setOrderIdAsUrlParameter = function(orderId){
+        $scope.locationPath = '#/account/trade/showOrderDetails?orderid=' + orderId;
+    }
 
     $scope.isLoaded = function () {
       return !loaded;
     };
 
     $scope.sort = {
-      predicate: 'DateTime',
+      predicate: 'ClosingDateTime',
       reverse: true
     };
 
@@ -59,6 +67,11 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
         $scope.sort.predicate = columnName;
         $scope.sort.reverse = true;
       }
+
+        $scope.orders = $filter('orderBy')($scope.orders, columnName, $scope.sort.reverse);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
     };
 
     //Sorting params
@@ -101,4 +114,14 @@ angular.module('account.trade.orders').controller('ClosedOrdersController', [
 
       return className;
     };
-  }]);
+  }]).directive('tabRightClick',['$parse', function($parse) {
+        return function(scope, element, attrs) {
+            var fn = $parse(attrs.tabRightClick);
+            element.bind('contextmenu', function(event) {
+                scope.$apply(function() {
+                    //            event.preventDefault();
+                    fn(scope, {$event:event});
+                });
+            });
+        };
+    }]);

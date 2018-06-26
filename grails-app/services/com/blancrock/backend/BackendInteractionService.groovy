@@ -252,9 +252,10 @@ class BackendInteractionService {
             Integer responseStatus = ResponseStatus.OK.value()
             String responseValue = ''
             HTTPBuilder http = new HTTPBuilder(baseUrl)
-            http.request(Method.GET, ContentType.TEXT) {
+            http.request(Method.GET, CONTENT_TYPE) {
                 uri.path = path
                 uri.query = query
+                headers.Accept = CONTENT_TYPE
 
                 def session = RCH.currentRequestAttributes().session
 
@@ -269,7 +270,7 @@ class BackendInteractionService {
                 headers.Auth = requestGenerator.authParams
 
                 response.success = { resp, reader ->
-                    responseValue = reader
+                    responseValue = reader as JSON
                     responseStatus = resp.status
                 }
 

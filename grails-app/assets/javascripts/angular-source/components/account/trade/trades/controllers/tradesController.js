@@ -3,25 +3,54 @@
 'use strict';
 
 angular.module('account.trade.trades').controller('TradesController', [
-  '$scope', 'TradesService', 'TradesSharedService', function ($scope, tradesService, tradesSharedService) {
+  '$scope', '$filter', '$location', 'TradesService', 'TradesSharedService', function ($scope, $filter, $location, tradesService, tradesSharedService) {
     $scope.loaded = false;
     $scope.filteredTrades = [];
+    var previousTrades = [];
 
-    tradesService.query()
-      .success(function (data) {
-        $scope.trades = data;
-        setPaginationParams();
-        recalculateMinAndMax();
-        filterCollection();
-        $scope.loaded = true;
-      }).error(function () {
-        $scope.trades = [];
-        $scope.loaded = true;
-      });
+    $scope.$on('refreshEvent', function(event, data) {
+        loadTrades();
+    });
 
-      $scope.setTradeId = function (tradeId) {
-          tradesSharedService.setTradeIdOfTrade(tradeId);
-      };
+    function refreshTradesColorChange(){
+         if(previousTrades.length > 0){
+             for(var i = 0; i < $scope.trades.length; i++){
+                 var containsTrade = false;
+                 for(var j = 0; j < previousTrades.length; j++){
+                     if(previousTrades[j]['TradeId'] === $scope.trades[i]['TradeId']){
+                         containsTrade = true;
+                         break;
+                     }
+                 }
+                 if(!containsTrade){
+                     $scope.trades[i] = {TradeId: $scope.trades[i]['TradeId'], Price: $scope.trades[i]['Price'], Volume: $scope.trades[i]['Volume'],
+                         ExecutionDateTime: $scope.trades[i]['ExecutionDateTime'], CurrencyPair: $scope.trades[i]['CurrencyPair'],
+                         Cost: $scope.trades[i]['Cost'], TagNumber: i, ChangeColor: true};
+                 }
+             }
+         }
+    }
+
+    loadTrades();
+    function loadTrades(){
+        tradesService.query()
+            .success(function (data) {
+                $scope.trades = data;
+                refreshTradesColorChange();
+                setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
+                $scope.loaded = true;
+                previousTrades = $scope.trades;
+            }).error(function () {
+                $scope.trades = [];
+                $scope.loaded = true;
+            });
+    }
+
+      $scope.setTradeIdAsUrlParameter = function(tradeId){
+                 $scope.locationPath = '#/account/trade/tradeDetails?tradeid=' + tradeId;
+             }
 
     $scope.sort = {
       predicate: 'ExecutionDateTime',
@@ -45,6 +74,11 @@ angular.module('account.trade.trades').controller('TradesController', [
         $scope.sort.predicate = columnName;
         $scope.sort.reverse = true;
       }
+
+        $scope.trades = $filter('orderBy')($scope.trades, columnName, $scope.sort.reverse);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
     };
 
     //Sorting params
@@ -67,4 +101,14 @@ angular.module('account.trade.trades').controller('TradesController', [
       $scope.currentMinIndex = ($scope.currentPage - 1) * 10;
       $scope.currentMaxIndex = Math.min($scope.totalItems, $scope.currentPage * 10);
     }
-  }]);
+  }]).directive('tabRightClick',['$parse', function($parse) {
+        return function(scope, element, attrs) {
+            var fn = $parse(attrs.tabRightClick);
+            element.bind('contextmenu', function(event) {
+                scope.$apply(function() {
+                    //            event.preventDefault();
+                    fn(scope, {$event:event});
+                });
+            });
+        };
+    }]);

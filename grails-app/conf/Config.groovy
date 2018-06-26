@@ -195,8 +195,12 @@ grails.assets.includes = []
     grails.assets.includes << 'bower_components/fontawesome/' + it
 }
 
-blancrock.backend.baseUrl = 'http://rockblanc.cloudapp.net'
-blancrock.backend.login.prefix = '/dev/v1'
+// ToDo: Restore to the address and prefix when hosting the back-end. Currently localhost being used for testing purposes only
+//blancrock.backend.baseUrl = 'http://localhost:51780'
+//blancrock.backend.login.prefix = '/v1'
+//blancrock.backend.baseUrl = 'http://crypgo.cloudapp.net'
+blancrock.backend.baseUrl = 'http://localhost'
+blancrock.backend.login.prefix = '/test/v1'
 blancrock.backend.loginPath = blancrock.backend.login.prefix + '/admin/login'
 blancrock.backend.logoutPath = blancrock.backend.login.prefix + '/private/admin/logout'
 blancrock.auth.nounce = ''

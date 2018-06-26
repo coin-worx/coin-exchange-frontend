@@ -87,7 +87,7 @@
             <div class="input-append">
               <input type="number" placeholder="Price" min="0" tabindex="2" class="input-small ralign hmarg0right"
                      ng-disabled="isOrderTypeMatch('Market')" ng-model="price" ng-required="isOrderTypeMatch('Limit')"
-                     name="price" autocomplete="off">
+                     name="price" autocomplete="off" ng-keydown="priceSetManually(ev)">
               <span class="add-on" ng-bind="currency.to"></span>
             </div>
           </div>

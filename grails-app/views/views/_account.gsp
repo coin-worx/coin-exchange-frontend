@@ -36,6 +36,7 @@
 
 <div class="container page-wrap">
   <div class="clearfix">
+    <g:render template="/account/refreshDataRegion"/>
     <g:render template="/account/nav"/>
   </div>
 

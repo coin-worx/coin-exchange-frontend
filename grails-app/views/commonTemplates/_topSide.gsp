@@ -74,27 +74,37 @@
     <div class="row">
       <div class="span12">
         <div class="ticker-wrap clearfix">
-          <a href="javascript: void(0);" class="btn sparkline"><canvas width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;"></canvas></a>
+            %{--<script src="http://code.highcharts.com/modules/exporting.js"></script>--}%
+            <script type="text/javascript" src="//canvg.googlecode.com/svn/trunk/canvg.js"></script>
+            <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+            <div id="ohlcSilder" class="slideable" style="width: 1000px; height: 420px; margin: 0 auto" ng-controller="OhlcController">
+                <highchart id="ohlcChart" config="ohlcChartConfig"></highchart>
+            </div>
+            <a ng-click="loadOhlc()" slide-toggle="#ohlcSilder" class="btn sparkline" ng-controller="OhlcController">
+                <canvas id="ohlcCanvas" width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;">
+                </canvas>
+            </a>
+
           <div id="ticker-top" class="ticker" ng-controller="TickerController">
             <ul>
               <li class="keyval">
-                <div class="val mono" data-val="66100.001" name="last" ng-bind="ticker.TradePrice"></div>
+                <div class="val mono" data-val="66100.001" name="last" ng-class="{'noalign': TradePrice.ChangeColor}" ng-bind="TradePrice.Value"></div>
                 <div class="key">Last</div>
               </li>
               <li class="keyval">
-                <div class="val mono" data-val="77500.000" name="high24" ng-bind="ticker.TodaysHigh"><span class="deczeros">00</span></div>
+                <div class="val mono" data-val="77500.000" name="high24" ng-class="{'noalign': TodaysHigh.ChangeColor}" ng-bind="TodaysHigh.Value"><span class="deczeros">00</span></div>
                 <div class="key">High</div>
               </li>
               <li class="keyval">
-                <div class="val mono" data-val="63001.000" name="low24" ng-bind="ticker.TodaysLow"><span class="deczeros">00</span></div>
+                <div class="val mono" data-val="63001.000" name="low24" ng-class="{'noalign': TodaysLow.ChangeColor}" ng-bind="TodaysLow.Value"><span class="deczeros">00</span></div>
                 <div class="key">Low</div>
               </li>
               <li class="keyval">
-                <div class="val mono" data-val="12.98" name="volume24" ng-bind="ticker.Last24HourVolume"></div>
+                <div class="val mono" data-val="12.98" name="volume24" ng-class="{'noalign': Last24HourVolume.ChangeColor}" ng-bind="Last24HourVolume.Value"></div>
                 <div class="key">24 Hour Volume</div>
               </li>
               <li class="keyval">
-                <div class="val mono" data-val="67353.057" name="vwap24" ng-bind="ticker.TodaysVolumeWeight"></div>
+                <div class="val mono" data-val="67353.057" name="vwap24" ng-class="{'noalign': TodaysVolumeWeight.ChangeColor}" ng-bind="TodaysVolumeWeight.Value"></div>
                 <div class="key">Weighted Avg</div>
               </li>
             </ul>

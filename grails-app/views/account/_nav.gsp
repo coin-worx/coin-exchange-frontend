@@ -41,12 +41,12 @@
       Trade
     </a>
   </li>
-  <li ng-class="{active : ('account.funding' | routeSegmentStartsWith)}">
+ <!-- <li ng-class="{active : ('account.funding' | routeSegmentStartsWith)}">
     <a href="#/account/funding">
       <i class="icon-money"></i>
       Funding
     </a>
-  </li>
+  </li>      -->
   <li ng-class="{active : ('account.security' | routeSegmentStartsWith)}">
     <a href="#/account/security">
       <i class="icon-lock"></i>
@@ -65,10 +65,10 @@
       History
     </a>
   </li>
-  <li ng-class="{active : ('account.getVerified' | routeSegmentStartsWith)}">
+  <!--<li ng-class="{active : ('account.getVerified' | routeSegmentStartsWith)}">
     <a href="#/account/getVerified">
       <i class="icon-check"></i>
       Get Verified
     </a>
-  </li>
+  </li>   -->
 </ul>

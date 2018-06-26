@@ -39,13 +39,18 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/trade/positions', 'account.trade.positions')
         .when('/account/trade/trades', 'account.trade.trades')
         .when('/account/trade/showOrderDetails', 'account.trade.showOrderDetails')
+        .when('/account/trade/showOrderDetails:orderid', 'account.trade.showOrderDetails')
 
         .when('/account/trade/tradeDetails', 'account.trade.tradeDetails')
+        .when('/account/trade/tradeDetails:tradeid', 'account.trade.tradeDetails')
 
         .when('/account/funding', 'account.funding')
 
         .when('/account/funding/deposit', 'account.funding.deposit')
+        .when('/account/funding/depositCurrency', 'account.funding.depositCurrency')
+        .when('/account/funding/depositCurrency:currency', 'account.funding.depositCurrency')
         .when('/account/funding/withdraw', 'account.funding.withdraw')
+        .when('/account/funding/withdrawDetails', 'account.funding.withdrawDetails')
         .when('/account/funding/audit', 'account.funding.audit')
 
         .when('/account/security', 'account.security')
@@ -53,7 +58,16 @@ angular.module('blancrockExchangeApp').config(
         .when('/account/security/tfa', 'account.security.tfa')
 
         .when('/account/settings', 'account.settings')
+        .when('/account/settings/account', 'account.settings.account')
+        .when('/account/settings/notifications', 'account.settings.notifications')
+        .when('/account/settings/api', 'account.settings.api')
+        .when('/account/settings/generateNewKey', 'account.settings.generateNewKey')
+
         .when('/account/history', 'account.history')
+        .when('/account/history/ledger', 'account.history.ledger')
+        .when('/account/history/trades', 'account.history.trades')
+        .when('/account/history/order', 'account.history.order')
+        .when('/account/history/ledgerDetails', 'account.history.ledgerDetails')
         .when('/account/getVerified', 'account.getVerified')
 
         .when('/market', 'market')
@@ -166,9 +180,17 @@ angular.module('blancrockExchangeApp').config(
           templateUrl: 'views/accountFundingDeposit'
         })
 
+        .segment('depositCurrency', {
+           templateUrl: 'views/accountFundingDepositCurrency'
+        })
+
         .segment('withdraw', {
           templateUrl: 'views/accountFundingWithdraw'
         })
+
+          .segment('withdrawDetails', {
+              templateUrl: 'views/accountFundingWithdrawDetails'
+          })
 
         .segment('audit', {
           templateUrl: 'views/accountFundingAudit'
@@ -199,14 +221,53 @@ angular.module('blancrockExchangeApp').config(
           access: 'private'
         })
 
+          .within()
+
+          .segment('account', {
+              default: true,
+              templateUrl: 'views/accountSettingsAccount'
+          })
+
+          .segment('notifications', {
+              templateUrl: 'views/accountSettingsNotifications'
+          })
+
+          .segment('api', {
+              templateUrl: 'views/accountSettingsApi'
+          })
+
+          .segment('generateNewKey', {
+              templateUrl: 'views/accountSettingsGenerateNewKey'
+          })
+
+          .up()
+
         .segment('history', {
           templateUrl: 'views/accountHistory',
           access: 'private'
         })
 
+          .within()
+
+          .segment('ledger', {
+              default: true,
+              templateUrl: 'views/accountHistoryLedgers'
+          })
+          .segment('trades', {
+                        templateUrl: 'views/accountHistoryTrades'
+                    })
+           .segment('order', {
+                                   templateUrl: 'views/accountHistoryOrders'
+                               })
+
+          .segment('ledgerDetails', {
+              templateUrl: 'views/accountHistoryLedgersDetails'
+          })
+
+          .up()
+
         .segment('getVerified', {
-          templateUrl: 'views/accountGetVerified',
-          access: 'private'
+          templateUrl: 'views/accountGetVerified'
         })
 
         .up()
@@ -227,7 +288,7 @@ angular.module('blancrockExchangeApp').config(
           templateUrl: 'views/about'
         })
         .segment('index', {
-          templateUrl: 'views/index'
+          templateUrl: 'views/marketData'
         });
 
       $routeProvider.otherwise({

@@ -14,6 +14,7 @@
 //= require bower_components/angular-local-storage/angular-local-storage
 //= require bower_components/highstock-release/highstock.js
 //= require bower_components/highcharts-ng/dist/highcharts-ng.js
+//= require bower_components/highstock-release/modules/exporting.js
 //= require_tree views
 //= require_tree angular-source
 //= require kraken

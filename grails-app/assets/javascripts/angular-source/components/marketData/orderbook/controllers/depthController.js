@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('marketData.orderBook').controller('DepthController', [
-    '$scope', 'DepthService', 'BidsService', 'AsksService', function ($scope, depthService, bidsService, asksService) {
+    '$scope', '$timeout', 'DepthService', 'BidsService', 'AsksService', function ($scope, $timeout, depthService, bidsService, asksService) {
         var loaded = false;
         var bids = null;
         var asks = null;
@@ -12,26 +12,38 @@ angular.module('marketData.orderBook').controller('DepthController', [
             return !loaded;
         };
 
-        depthService.query()
-            .success(function (data) {
-                $scope.depth = data;
-                bids = $scope.depth[0];
-                asks = $scope.depth[1];
-                var originalSeries = generateCmVolChartData(bids, asks)//generateDepthData();
-                $scope.chartConfig.series.splice(0,1);
-                $scope.chartConfig.series = originalSeries;
+        loadDepth();
+        intervalFunction();
 
-                bidsService.query()
-                    .success(function(bids){
-                        $scope.bids = bids;
-                        getAsksAndMakeSeries()
-                    }).error(function(){
-                        $scope.bids = null;
-                       getAsksAndMakeSeries()
-                    });
-            }).error(function () {
-                $scope.depth = [];
-            });
+        function intervalFunction(){
+            $timeout(function() {
+                loadDepth();
+                intervalFunction()
+            }, 30000)
+        };
+
+        function loadDepth(){
+            depthService.query()
+                .success(function (data) {
+                    $scope.depth = data;
+                    bids = $scope.depth[0];
+                    asks = $scope.depth[1];
+                    var originalSeries = generateCmVolChartData(bids, asks)//generateDepthData();
+                    $scope.chartConfig.series.splice(0,1);
+                    $scope.chartConfig.series = originalSeries;
+
+                    bidsService.query()
+                        .success(function(bids){
+                            $scope.bids = bids;
+                            getAsksAndMakeSeries()
+                        }).error(function(){
+                            $scope.bids = null;
+                            getAsksAndMakeSeries()
+                        });
+                }).error(function () {
+                    $scope.depth = [];
+                });
+        }
 
         function getAsksAndMakeSeries(){
             asksService.query()
@@ -210,6 +222,7 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 chart: {
                     type: 'area'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,
@@ -249,13 +262,9 @@ angular.module('marketData.orderBook').controller('DepthController', [
             //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
             //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
             xAxis: {
-                //currentMin: 0,
-                //currentMax: 20,
                 title: {text: 'Price'}
             },
             yAxis: {
-                //currentMin: 0,
-                //currentMax: 20,
                 title: {text: 'Cummulative Volume'}
             },
             //size (optional) if left out the chart will default to size of the div or something sensible.
@@ -275,6 +284,7 @@ angular.module('marketData.orderBook').controller('DepthController', [
                 chart: {
                     type: 'column'
                 },
+                exporting: { enabled: false },
                 tooltip: {
                     style: {
                         padding: 10,

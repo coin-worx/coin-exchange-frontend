@@ -102,13 +102,52 @@ class ViewsController {
         render template: '/account/security/index'
     }
 
+    def accountSecurityPassword() {
+        render template: '/account/security/password/index'
+    }
+
+    def accountSecurityTFA() {
+        render template: '/account/security/tfa/index'
+    }
+
     def accountSettings() {
-        render template: '/account/settings/index'
+        render template: '/account/settings/settings'
+    }
+
+    def accountSettingsAccount() {
+        render template: '/account/settings/account'
+    }
+
+    def accountSettingsNotifications() {
+        render template: '/account/settings/notifications'
+    }
+
+    def accountSettingsApi() {
+        render template: '/account/settings/api'
+    }
+
+    def accountSettingsGenerateNewKey() {
+        render template: '/account/settings/generateNewKey'
     }
 
     def accountHistory() {
-        render template: '/account/history/index'
+        render template: '/account/history/history'
     }
+
+    def accountHistoryLedgers() {
+        render template: '/account/history/ledgers/ledgers'
+    }
+
+    def accountHistoryLedgersDetails() {
+        render template: '/account/history/ledgers/ledgerDetails'
+    }
+
+    def accountHistoryTrades() {
+            render template: '/account/history/trades/trades'
+        }
+    def accountHistoryOrders() {
+                render template: '/account/history/orders/orders'
+            }
 
     def accountGetVerified() {
         render template: '/account/getVerified/index'
@@ -119,19 +158,19 @@ class ViewsController {
     }
 
     def accountFundingWithdraw() {
-        render template: '/account/funding/withdraw/withdraw'
+        render template: '/account/funding/withdraw/recentWithdrawalsInterface'
+    }
+
+    def accountFundingWithdrawDetails(){
+        render template: '/account/funding/withdraw/withdrawDetailsInterface'
     }
 
     def accountFundingDeposit() {
-        render template: '/account/funding/deposit/deposit'
+        render template: '/account/funding/deposit/recentDepositsInterface'
     }
 
-    def accountSecurityPassword() {
-        render template: '/account/security/password/index'
-    }
-
-    def accountSecurityTFA() {
-        render template: '/account/security/tfa/index'
+    def accountFundingDepositCurrency(){
+        render template: '/account/funding/deposit/depositDetailsInterface'
     }
 
     def accountTradeNewOrderOpenOrders() {

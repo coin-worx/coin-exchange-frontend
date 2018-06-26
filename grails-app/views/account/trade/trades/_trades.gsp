@@ -67,16 +67,16 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="trade in filteredTrades | orderBy:sort.predicate:sort.reverse"
+            <tr ng-repeat="trade in filteredTrades"
                 ng-class="{even: $even, odd: $odd}" ng-cloak>
-              <td class="nw" ng-click="setTradeId(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
-                 <a href="#/account/trade/tradeDetails">{{trade.TradeId | limitTo : 8}}</a>
+              <td class="nw" ng-click="setTradeIdAsUrlParameter(trade.TradeId)" tab-right-click="setTradeIdAsUrlParameter(trade.TradeId)" ng-class="{active: ('account.trade.tradeDetails' | routeSegmentStartsWith)}">
+                 <a href="{{locationPath}}" >{{trade.TradeId | limitTo : 8}}</a>
               </td>
-              <td class="nw" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy HH:mm:ss'"></td>
-              <td class="nw ralign" ng-bind="trade.Price"></td>
-              <td class="ralign" ng-bind="trade.Volume"></td>
-              <td class="lalign" ng-bind="trade.CurrencyPair"></td>
-              <td class="ralign" ng-bind="trade.Cost"></td>
+              <td class="lalign" ng-bind="trade.ExecutionDateTime | date : 'MM-dd-yy HH:mm:ss'" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="nw ralign" ng-bind="trade.Price" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="ralign" ng-bind="trade.Volume" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="lalign" ng-bind="trade.CurrencyPair" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
+              <td class="ralign" ng-bind="trade.Cost" ng-style="customStyle.style" ng-class="{'changeralign': trade.ChangeColor}"></td>
             </tr>
 
             <tr class="odd" ng-hide="trades.length">

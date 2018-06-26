@@ -3,22 +3,30 @@
 'use strict';
 
 angular.module('account.trade.newOrder').controller('NewOrderSimpleBidsController', [
-    '$scope', 'NewOrderSimpleBidsService', function ($scope, bidsService) {
+    '$scope', '$filter', 'NewOrderSimpleBidsService', function ($scope, $filter, bidsService) {
         var loaded = false;
 
-        bidsService.query()
-            .success(function (data) {
-                $scope.orderBook = data;
-                setPaginationParams();
-                recalculateMinAndMax();
-                filterCollection();
+        $scope.$on('refreshEvent', function(event, data) {
+            loadBids();
+        });
 
-                $scope.$parent.bidsLoaded = true;
-                loaded = true;
+        loadBids();
 
-            }).error(function () {
-                $scope.orderBook = [];
-            });
+        function loadBids(){
+            bidsService.query()
+                .success(function (data) {
+                    $scope.orderBook = data;
+                    setPaginationParams();
+                    recalculateMinAndMax();
+                    filterCollection();
+
+                    $scope.$parent.bidsLoaded = true;
+                    loaded = true;
+
+                }).error(function () {
+                    $scope.orderBook = [];
+                });
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.orderBook.indexOf(order);
@@ -52,6 +60,11 @@ angular.module('account.trade.newOrder').controller('NewOrderSimpleBidsControlle
                 $scope.sort.predicate = columnName;
                 $scope.sort.reverse = true;
             }
+
+            $scope.orderBook = $filter('orderBy')($scope.orderBook, columnName, $scope.sort.reverse);
+            setPaginationParams();
+            recalculateMinAndMax();
+            filterCollection();
         };
 
         //Sorting params

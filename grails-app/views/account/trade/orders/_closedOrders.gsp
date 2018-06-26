@@ -52,34 +52,36 @@
         <th ng-click="updateSorting('OrderId')" class="lalign nw"
             ng-class="getSortingClass('OrderId')" style="width: 55px;">Order</th>
         <th ng-click="updateSorting('Type')" class="lalign nw"
-            ng-class="getSortingClass('Type')" style="width: 165px;">Order Type</th>
+            ng-class="getSortingClass('Type')" style="width: 120px;">Order Type</th>
         <th ng-click="updateSorting('CurrencyPair')" class="lalign"
             ng-class="getSortingClass('CurrencyPair')" style="width: 50px;">Pair</th>
         <th ng-click="updateSorting('Price')" class="ralign nw"
             ng-class="getSortingClass('Price')" style="width: 80px;">Price</th>
-        <th ng-click="updateSorting('Volume')" class="ralign"
-            ng-class="getSortingClass('Volume')" style="width: 115px;">Volume Exec'd</th>
-        <th ng-click="updateSorting('Cost')" class="ralign" style="width: 115px;"
+        <th ng-click="updateSorting('VolumeExecuted')" class="ralign"
+            ng-class="getSortingClass('VolumeExecuted')" style="width: 105px;">Volume Exec'd</th>
+        <th ng-click="updateSorting('AveragePrice')" class="ralign"
+              ng-class="getSortingClass('AveragePrice')" style="width: 80px;">Avg. Ex. Pr</th>
+        <th ng-click="updateSorting('Cost')" class="ralign" style="width: 100px;"
             ng-class="getSortingClass('Cost')">Cost</th>
         <th ng-click="updateSorting('Status')" class="lalign"
             ng-class="getSortingClass('Status')" style="width: 65px;">Status</th>
-        <th ng-click="updateSorting('DateTime')" class="lalign nw"
-            ng-class="getSortingClass('DateTime')" style="width: 160px;">Closed</th>
-        <%--<th class="ralign center" style="width: 35px;">&nbsp;</th> --%>
+        <th ng-click="updateSorting('ClosingDateTime')" class="lalign nw"
+            ng-class="getSortingClass('ClosingDateTime')" style="width: 160px;">Closed</th>
       </tr>
       </thead>
 
       <tbody>
-      <tr ng-repeat="order in filteredOrders | orderBy:sort.predicate:sort.reverse"
+      <tr ng-repeat="order in filteredOrders"
           ng-class="{even: $even, odd: $odd}" ng-cloak>
-        <td class="nw" ng-click="setOrderId(order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
-           <a href="#/account/trade/showOrderDetails">{{order.OrderId | limitTo : 8}}</a>
+        <td class="nw" ng-click="setOrderIdAsUrlParameter(order.OrderId)" tab-right-click="setOrderIdAsUrlParameter(order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
+           <a href="{{locationPath}}">{{order.OrderId | limitTo : 8}}</a>
         </td>
         </td>
         <td class="nw" ng-bind-template="{{order.Type}}/{{order.Side}}"></td>
         <td class="lalign" ng-bind="order.CurrencyPair"></td>
         <td class="nw ralign" ng-bind="order.Price"></td>
         <td class="ralign" ng-bind="order.VolumeExecuted"></td>
+          <td class="ralign" ng-bind="order.AveragePrice"></td>
         <td class="ralign" ng-bind="order.Cost"></td>
         <td>
           <span class="label mono" ng-class="setLabelStyles(order.Status)" ng-bind="order.Status"></span>

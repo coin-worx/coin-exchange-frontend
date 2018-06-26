@@ -3,22 +3,57 @@
 'use strict';
 
 angular.module('account.trade.orders').controller('NewAndOpenOrdersController', [
-  '$scope', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
+  '$scope', '$filter', 'NewAndOpenOrdersService', 'CancelOrderService', 'OrdersSharedService', function ($scope, $filter, newAndOpenOrdersService, cancelOrderService, orderSharedService) {
     var loaded = false;
+    var previousOpenOrders = [];
 
-    newAndOpenOrdersService.query()
-      .success(function (data) {
-        updateCostRems(data);
-        $scope.orders = data;
-        setPaginationParams();
-        recalculateMinAndMax();
-        filterCollection();
+    $scope.$on('refreshEvent', function(event, data) {
+        loadOpenOrders();
+    });
 
-        $scope.$parent.newAndOpenOrdersLoaded = true;
-        loaded = true;
-      }).error(function () {
-        $scope.orders = [];
-      });
+    loadOpenOrders();
+    function loadOpenOrders(){
+        newAndOpenOrdersService.query()
+            .success(function (data) {
+                updateCostRems(data);
+                $scope.orders = data;
+                $scope.orders = $filter('orderBy')($scope.orders, $scope.sort.predicate, $scope.sort.reverse);
+                refreshTradesColorChange();
+                setPaginationParams();
+                recalculateMinAndMax();
+                filterCollection();
+
+                $scope.$parent.newAndOpenOrdersLoaded = true;
+                loaded = true;
+                previousOpenOrders = $scope.orders;
+            }).error(function () {
+                $scope.orders = [];
+            });
+    }
+
+    function refreshTradesColorChange(){
+        if(previousOpenOrders.length > 0){
+            for(var i = 0; i < $scope.orders.length; i++){
+                var containsOrder = false;
+                for(var j = 0; j < previousOpenOrders.length; j++){
+                    if(previousOpenOrders[j]['OrderId'] === $scope.orders[i]['OrderId']){
+                        containsOrder = true;
+                        break;
+                    }
+                }
+                if(!containsOrder){
+                    $scope.orders[i] = {Trades: $scope.orders[i]['Trades'], OpenQuantity: $scope.orders[i]['OpenQuantity'],
+                        ClosingDateTime: $scope.orders[i]['ClosingDateTime'],
+                        Type: $scope.orders[i]['Type'], Volume: $scope.orders[i]['Volume'],
+                        OrderId: $scope.orders[i]['OrderId'], TraderId: $scope.orders[i]['TraderId'],
+                        CurrencyPair: $scope.orders[i]['CurrencyPair'], Status: $scope.orders[i]['Status'],
+                        DateTime: $scope.orders[i]['DateTime'], Side: $scope.orders[i]['Side'],
+                        Price: $scope.orders[i]['Price'], AveragePrice: $scope.orders[i]['AveragePrice'],
+                        VolumeExecuted: $scope.orders[i]['VolumeExecuted'], CostRem: $scope.orders[i]['CostRem'], ChangeColor: true};
+                }
+            }
+        }
+    }
 
     $scope.deleteOrder = function (order) {
       var index = $scope.orders.indexOf(order);
@@ -30,9 +65,9 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         })
     };
 
-    $scope.setOrderId = function (orderId) {
-      orderSharedService.setOrderIdOfOrder(orderId);
-    };
+    $scope.setOrderIdAsUrlParameter = function(orderId){
+        $scope.locationPath = '#/account/trade/showOrderDetails?orderid=' + orderId;
+    }
 
     $scope.isLoaded = function () {
       return !loaded;
@@ -68,6 +103,11 @@ angular.module('account.trade.orders').controller('NewAndOpenOrdersController', 
         $scope.sort.predicate = columnName;
         $scope.sort.reverse = true;
       }
+
+        $scope.orders = $filter('orderBy')($scope.orders, columnName, $scope.sort.reverse);
+        setPaginationParams();
+        recalculateMinAndMax();
+        filterCollection();
     };
 
     //Sorting params

@@ -57,12 +57,12 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="trade in filteredTrades | orderBy:sort.predicate:sort.reverse"
+        <tr ng-repeat="trade in filteredTrades"
             ng-class="{even: $even, odd: $odd}" ng-cloak>
-            <td class="nw ralign" ng-bind="trade.Time"></td>
+            <td class="nw ralign" ng-class="{'changeralign': trade.ChangeColor}" ng-bind="trade.Time"></td>
             %{--<td class="ralign" ng-bind="trade.Side"></td>--}%
-            <td class="ralign" ng-bind="trade.Price"></td>
-            <td class="ralign" ng-bind="trade.Volume"></td>
+            <td class="ralign" ng-class="{'changeralign': trade.ChangeColor}" ng-bind="trade.Price"></td>
+            <td class="ralign" ng-class="{'changeralign': trade.ChangeColor}" ng-bind="trade.Volume"></td>
         </tr>
         <tr class="odd" ng-hide="trades.length">
             <td valign="top" colspan="9" class="dataTables_empty">No trades currently available.</td>

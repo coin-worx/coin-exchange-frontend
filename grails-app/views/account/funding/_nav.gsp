@@ -48,11 +48,11 @@
         Withdraw
       </a>
     </li>
-    <li ng-class="{active: ('account.funding.audit' | routeSegmentStartsWith)}">
+   <!-- <li ng-class="{active: ('account.funding.audit' | routeSegmentStartsWith)}">
       <a href="#/account/funding/audit">
         <i class="icon icon-check"></i>
         Audit
       </a>
-    </li>
+    </li>    -->
   </ul>
 </div>

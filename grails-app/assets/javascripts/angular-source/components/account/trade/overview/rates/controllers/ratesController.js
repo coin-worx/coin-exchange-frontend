@@ -6,16 +6,23 @@ angular.module('account.trade.overview.rates').controller('RatesController', [
     '$scope', 'RatesService', function ($scope, ratesService) {
         var loaded = false;
 
-        ratesService.query()
-            .success(function (data) {
-                $scope.rates = data;
-                $scope.loaded = true;
-                $scope.$parent.ratesLoaded = true
+        $scope.$on('refreshEvent', function(event, data) {
+            loadRates();
+        });
 
-            }).error(function () {
-                $scope.rates = [];
-                loaded = true;
-            });
+        loadRates();
+        function loadRates(){
+            ratesService.query()
+                .success(function (data) {
+                    $scope.rates = data;
+                    $scope.loaded = true;
+                    $scope.$parent.ratesLoaded = true
+
+                }).error(function () {
+                    $scope.rates = [];
+                    loaded = true;
+                });
+        }
 
         $scope.isLoaded = function () {
             return !loaded;

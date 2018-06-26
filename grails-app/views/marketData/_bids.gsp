@@ -48,10 +48,10 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat="order in filteredOrderBook | orderBy:'BidPrice':sort.reverse"
+    <tr ng-repeat="order in filteredOrderBook"
         ng-class="{even: $even, odd: $odd}" ng-cloak>
-      <td ng-if="order.BidPrice != '0'" class="nw ralign" ng-bind="order.BidPrice"></td>
-      <td ng-if="order.BidVolume != '0'" class="ralign" ng-bind="order.BidVolume"></td>
+      <td class="nw ralign" ng-bind="order.BidPrice" ng-class="{'changeralign': order.ChangeColor}"></td>
+      <td class="ralign" ng-bind="order.BidVolume" ng-class="{'changeralign': order.ChangeColor}"></td>
     </tr>
     <tr class="odd" ng-hide="orderBook.length">
       <td valign="top" colspan="9" class="dataTables_empty">No bids currently available.</td>

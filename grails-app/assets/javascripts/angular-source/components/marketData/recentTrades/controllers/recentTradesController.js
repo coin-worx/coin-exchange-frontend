@@ -3,23 +3,59 @@
 'use strict';
 
 angular.module('marketData.recentTrades').controller('RecentTradesController', [
-    '$scope', 'RecentTradesService', function ($scope, recentTradesService) {
+    '$scope', '$filter', '$timeout', 'RecentTradesService', function ($scope, $filter, $timeout, recentTradesService) {
         var loaded = false;
+        $scope.previousTrades = [];
+        var previousTrades = [];
 
-        recentTradesService.query()
-            .success(function (data) {
-                $scope.trades = data;
-                setPaginationParams();
+        function loadRecentTrades(){
+            recentTradesService.query()
+                .success(function (data) {
+                    $scope.trades = data;
+                    refreshTradesColorChange();
+                    setPaginationParams();
 
-                $scope.$parent.recentTradesLoaded = true;
-                loaded = true;
+                    $scope.$parent.recentTradesLoaded = true;
+                    loaded = true;
 
-                recalculateMinAndMax();
-                filterCollection();
+                    recalculateMinAndMax();
+                    filterCollection();
 
-            }).error(function () {
-                $scope.trades = [];
-            });
+                    previousTrades = $scope.trades;
+                    $scope.previousTrades = $scope.trades;
+
+                }).error(function () {
+                    $scope.trades = [];
+                });
+        }
+
+        loadRecentTrades();
+        intervalFunction();
+
+        function intervalFunction(){
+            $timeout(function() {
+                loadRecentTrades();
+                intervalFunction()
+            }, 30000)
+        };
+
+        function refreshTradesColorChange(){
+            if(previousTrades.length > 0){
+                for(var i = 0; i < $scope.trades.length; i++){
+                    var containsOrder = false;
+                    for(var j = 0; j < previousTrades.length; j++){
+                        if(previousTrades[j]['Time'] === $scope.trades[i]['Time']){
+                            containsOrder = true;
+                            break;
+                        }
+                    }
+                    if(!containsOrder){
+                        $scope.trades[i] = {Time: $scope.trades[i]['Time'], Price: $scope.trades[i]['Price'],
+                            Volume: $scope.trades[i]['Volume'], ChangeColor: true};
+                    }
+                }
+            }
+        }
 
         $scope.deleteOrder = function (order) {
             var index = $scope.trades.indexOf(order);
@@ -54,6 +90,11 @@ angular.module('marketData.recentTrades').controller('RecentTradesController', [
                 $scope.sort.predicate = columnName;
                 $scope.sort.reverse = true;
             }
+
+            $scope.trades = $filter('orderBy')($scope.trades, columnName, $scope.sort.reverse);
+            setPaginationParams();
+            recalculateMinAndMax();
+            filterCollection();
         };
 
         //Sorting params

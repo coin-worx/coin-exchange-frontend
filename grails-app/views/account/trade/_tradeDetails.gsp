@@ -59,8 +59,8 @@
                     <tbody>
                     <tr>
                         <td class="k">Order</td>
-                        <td class="dots"></td> <td class="nw" ng-click="setOrderId(tradeDetails.Order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
-                            <a href="#/account/trade/showOrderDetails">{{tradeDetails.Order.OrderId}}</a>
+                        <td class="dots"></td> <td class="nw" ng-click="setOrderIdAsUrlParameter(tradeDetails.Order.OrderId)" ng-class="{active: ('account.trade.showOrderDetails' | routeSegmentStartsWith)}">
+                            <a href="{{locationPath}}">{{tradeDetails.Order.OrderId | limitTo : 8}}</a>
                         </td>
                     </tr>
                     <tr>

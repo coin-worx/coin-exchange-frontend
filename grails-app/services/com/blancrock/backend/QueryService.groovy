@@ -48,6 +48,19 @@ class QueryService {
     def jsonHelperService
     def grailsApplication
 
+    Map getOhlcInfo(String currencyPair) {
+        String path = getPathWithPrefix('/marketdata/ohlcinfo')
+
+        Map query = [currencyPair: currencyPair]
+        Map response = backendInteractionService.makeUnauthorizedGetRequest(path, query)
+
+        String bboInfo = getPathWithPrefix('/marketdata/bbo')
+        Map bbo = backendInteractionService.makeUnauthorizedGetRequest(bboInfo, query)
+
+        def ohlcResponse = jsonHelperService.ohlcInfoStructuring(response.value, bbo.value)
+        return [status: response.status, value: ohlcResponse]
+    }
+
     Map getTickerInfo(String currencyPair) {
         String path = getPathWithPrefix('/marketdata/tickerinfo')
 
@@ -275,6 +288,282 @@ class QueryService {
 
         return [value: response.value, status: response.status]
     }
+
+    Map createNewDepositAddress(String currency){
+        String path = getPathWithPrefix('/funds/createdepositaddress')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getDepositLimits(String currency){
+        String path = getPathWithPrefix('/funds/getdepositlimits')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getDepositAddresses(String currency){
+        String path = getPathWithPrefix('/funds/getdepositaddresses')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getRecentDeposits(String currency){
+        String path = getPathWithPrefix('/funds/getrecentdeposits')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getRecentWithdrawals(String currency){
+        String path = getPathWithPrefix('/funds/getrecentwithdrawals')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map saveWithdrawAddress(String currency, String address, String description){
+        String path = getPathWithPrefix('/funds/addwithdrawaddress')
+        Map query = [currency: currency, bitcoinAddress: address, description: description]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getWithdrawLimits(String currency){
+        String path = getPathWithPrefix('/funds/getwithdrawlimits')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getWithdrawAddresses(String currency){
+        String path = getPathWithPrefix('/funds/getwithdrawaddresses')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map commitWithdraw(String currency, String bitcoinAddress, BigDecimal amount){
+        String path = getPathWithPrefix('/funds/commitwithdraw')
+        Map query = [currency: currency, isCryptoCurrency: true, bitcoinAddress: bitcoinAddress, amount: amount]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map deleteWithdrawAddress(String bitcoinAddress){
+        String path = getPathWithPrefix('/funds/deletewithdrawaddress')
+        Map query = [bitcoinAddress: bitcoinAddress]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map cancelWithdraw(String withdrawId){
+        String path = getPathWithPrefix('/funds/cancelWithdraw')
+        Map query = [withdrawId: withdrawId]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getLedgersForCurrency(String currency){
+        String path = getPathWithPrefix('/funds/getledgers')
+        Map query = [currency: currency]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getAllLedgers(String currency){
+        String path = getPathWithPrefix('/funds/getallledgers')
+        Map query = [:]
+
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getLedgerDetails(String ledgerId){
+        String path = getPathWithPrefix('/funds/getledgerdetails')
+        Map query = [ledgerId: ledgerId]
+
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getDepositTierLimits(){
+        String path = getPathWithPrefix('/funds/getDepositTierLimits')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getWithdrawTierLimits(){
+        String path = getPathWithPrefix('/funds/getWithdrawTierLimits')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTierStatus(){
+        String path = getPathWithPrefix('/private/user/tiers')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTier1Details(){
+        String path = getPathWithPrefix('/private/user/tier1')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTier2Details(){
+        String path = getPathWithPrefix('/private/user/tier2')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getTier3Details(){
+        String path = getPathWithPrefix('/private/user/tier3')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map applyForTier1(String fullName, String dateOfBirth, String country, String phoneNumber){
+        String path = getPathWithPrefix('/private/user/applyfortier1')
+
+        Map query = [fullName:fullName, dateOfBirth: dateOfBirth, country: country, phoneNumber: phoneNumber]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map applyForTier2(String addressLine1, String addressLine2, String addressLine3, String state, String city, String zipCode){
+        String path = getPathWithPrefix('/private/user/applyfortier2')
+
+        Map query = [addressLine1:addressLine1, addressLine2:addressLine2, addressLine3:addressLine3,
+                city: city, state: state, zipCode: zipCode]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map applyForTier3(String nationalId, String documentType, String fileName, String ssn){
+        String path = getPathWithPrefix('/private/user/applyfortier3')
+
+        Map query = [ssn:ssn, nin:nationalId, documentType: documentType, fileName: fileName]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getAccountSettings(){
+        String path = getPathWithPrefix('/private/user/accountsettings')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map changeSettings(String email, String pgpPublicKey, String language, String timeZone, String isDefaultAutoLogout,
+                      String autoLogoutMinutes){
+        String path = getPathWithPrefix('/private/user/changesettings')
+
+        Map query = [email: email, pgpPublicKey: pgpPublicKey, language: language, timeZone: timeZone, isDefaultAutoLogout: isDefaultAutoLogout,
+        autoLogoutMinutes: autoLogoutMinutes]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getSecurityKeys(){
+        String path = getPathWithPrefix('/private/user/api/list')
+
+        Map query = [:]
+        Map response = backendInteractionService.makeAuthorizedGetRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map createNewKey(String keyDescription, boolean enableExpirationDate, String expirationDateTime,
+                    boolean enableStartDate, String queryStartDateTime, boolean enableEndDate,
+                    String queryEndDateTime, List permissions){
+        String path = getPathWithPrefix('/private/user/api/create')
+
+        Map query = [keyDescription: keyDescription, enableExpirationDate: enableExpirationDate, expirationDateTime: expirationDateTime,
+                 enableStartDate: enableStartDate, startDateTime: queryStartDateTime, enableEndDate: enableEndDate,
+                endDateTime: queryEndDateTime, securityKeyPermissions: permissions]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map sendNotifications(boolean adminEmails, boolean newLetterEmails){
+        String path = getPathWithPrefix('/private/user/api/submitemailsettings')
+
+        Map query = [AdministrativeEmails: adminEmails, NewsLetterEmails: newLetterEmails]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map changePassword(String oldPassword, String newPassword){
+        String path = getPathWithPrefix('/private/user/changepassword')
+
+        Map query = [OldPassword: oldPassword, NewPassword: newPassword]
+        Map response = backendInteractionService.makeAuthorizedPostRequest(path, query)
+
+        return [value: response.value, status: response.status]
+    }
+
+    Map getBalance(){
+            String path = getPathWithPrefix('/funds/getbalance')
+            Map query = [:]
+            Map response = backendInteractionService.makeAuthorizedGetRequest(path,query);
+
+            return [value: response.value, status: response.status]
+        }
 
     private String getPathWithPrefix(String path) {
         def prefix = grailsApplication.config.blancrock.backend.login.prefix

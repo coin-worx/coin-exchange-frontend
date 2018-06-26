@@ -48,10 +48,10 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="order in filteredOrderBook | orderBy:'AskPrice':sort.reverse"
+        <tr ng-repeat="order in filteredOrderBook"
             ng-class="{even: $even, odd: $odd}" ng-cloak>
-            <td ng-if="order.AskPrice != '0'" class="nw ralign" ng-bind="order.AskPrice"></td>
-            <td ng-if="order.AskVolume != '0'" class="ralign" ng-bind="order.AskVolume"></td>
+            <td ng-style="customStyle.style" class="nw ralign" ng-class="{'changeralign': order.ChangeColor}" ng-bind="order.AskPrice"></td>
+            <td ng-style="customStyle.style" class="ralign" ng-class="{'changeralign': order.ChangeColor}" ng-bind="order.AskVolume"></td>
         </tr>
         <tr class="odd" ng-hide="orderBook.length">
             <td valign="top" colspan="9" class="dataTables_empty">No asks currently available.</td>
