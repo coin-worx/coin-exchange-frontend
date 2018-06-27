@@ -80,3 +80,8 @@ Desktop.ini
 /web-app/WEB-INF/classes
 /.link_to_grails_plugins/
 /target-eclipse/
+
+######################
+# Cache
+######################
+.slcache/
