@@ -38,7 +38,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Welcome to Crypgo</title>
+  <title>Welcome to Coin Exchange</title>
 </head>
 
 <body>
