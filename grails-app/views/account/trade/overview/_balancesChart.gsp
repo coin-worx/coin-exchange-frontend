@@ -36,8 +36,8 @@
 
 <div class="span6" ng-controller="OverviewController">
     <div class="hpad20right">
-        <h4 class="title">Balances</h4>
-        <p>Currently not available</p>
+        %{--<h4 class="title">Balances</h4>
+        <p>Currently not available</p>--}%
 
      <!--   <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper form-inline" role="grid"><table class="table table-hover table-striped dataTable table-balance" id="DataTables_Table_2">
             <thead>
