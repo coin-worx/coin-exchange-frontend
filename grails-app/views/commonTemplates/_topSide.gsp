@@ -81,6 +81,7 @@
                 <highchart id="ohlcChart" config="ohlcChartConfig"></highchart>
             </div>
             <a ng-click="loadOhlc()" slide-toggle="#ohlcSilder" class="btn sparkline" ng-controller="OhlcController">
+              <i class="icon-bar-chart"></i>
                 <canvas id="ohlcCanvas" width="72" height="25" style="display: inline-block; width: 72px; height: 25px; vertical-align: top;">
                 </canvas>
             </a>

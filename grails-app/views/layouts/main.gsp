@@ -46,6 +46,7 @@
   <title><g:layoutTitle default="Grails"/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <asset:stylesheet href="main.css"/>
+  <asset:stylesheet href="bower_components/fontawesome/css/font-awesome.min.css"/>
   <asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
   <g:layoutHead/>
 </head>

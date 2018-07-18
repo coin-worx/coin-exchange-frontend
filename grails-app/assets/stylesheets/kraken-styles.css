@@ -5845,6 +5845,7 @@ ul.nav.spaced5 i:first-child, ul.nav.spaced10 li:first-child, ul.nav.spaced20 li
 }
 
 .ticker-wrap .btn.sparkline {
+    position: relative;
     width: 75px;
     min-height: 25px;
 }
@@ -5856,6 +5857,14 @@ ul.nav.spaced5 i:first-child, ul.nav.spaced10 li:first-child, ul.nav.spaced20 li
 
 .ticker-wrap .btn.sparkline:hover {
     outline: 0;
+}
+
+.ticker-wrap .btn.sparkline i{
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    top: 5px;
+    font-size: 20px;
 }
 
 .ticker .warn {
@@ -9266,3 +9275,4 @@ table.dataTable .textAlignDecimal > span:nth-child(3) {
 .control-group.success .fileupload .thumbnail {
     border-color: #468847;
 }
+
