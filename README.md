@@ -93,6 +93,10 @@ Unit Tests details are kept here: [coin-exchange-frontend/test/javascript/unit](
 ##### Trades
 ![History Trades](/../screenShots/screenShots/Account_History_Trades_Screen.PNG?raw=true "History Trades")
 
+#### Deposit/Withdrawl
+![Deposit](/../screenShots/screenShots/DepositScreen.PNG?raw=true "Deposit")
+![Withdrawal](/../screenShots/screenShots/WithdrawScreen.PNG?raw=true "Withdrawal")
+
 ## Usage
 ### Pre Requirements
   - Grails v2.3.8
