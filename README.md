@@ -103,6 +103,43 @@ PRs are welcome. In general, we follow the "fork-and-pull" Git workflow.
 
 NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
+## Screen Shots
+### Market Data
+![Market Data Spread](/../screenShots/screenShots/MarketData_SpreadScreenPortion.PNG?raw=true "Market Data Spread")
+![Market Data Depth](/../screenShots/screenShots/MarketData_DepthScreenPortion.PNG?raw=true "Market Data Depth")
+
+### Orders
+#### New Order
+![New Order with Open Orders view](/../screenShots/screenShots/Account_Trade_NewOrder_Screen_With_NewAndOpenOrders.PNG?raw=true "New Order with Open Orders view")
+
+![New Order with OrderBook view](/../screenShots/screenShots/Account_Trade_NewOrder_Screen_With_OrderBook.PNG?raw=true "New Order with OrderBook view")
+
+#### Orders List
+![Orders List](/../screenShots/screenShots/Account_Trade_Orders_Screen.PNG?raw=true "Orders List")
+
+#### Individual Order Details
+![Individual Order](/../screenShots/screenShots/Account_Trade_IndividualOrder_Screen.PNG?raw=true "Individual Order")
+
+### Trades
+#### Overview
+![Trades Overview](/../screenShots/screenShots/Account_Trade_Overview_Screen.PNG?raw=true "Trades Overview")
+
+#### Trades List
+![Trades List](/../screenShots/screenShots/Account_Trade_Trades_Screen.PNG?raw=true "Trades List")
+
+#### Individual Trade Details
+![Individual Trade](/../screenShots/screenShots/Account_Trade_IndividualTrade_Screen.PNG?raw=true "Individual Trade")
+
+### History
+#### Ledger
+![History Ledger](/../screenShots/screenShots/Account_History_Ledgers_Screen.PNG?raw=true "History Ledger")
+
+#### Closed Orders
+![History Closed Order](/../screenShots/screenShots/Account_History_ClosedOrders_Screen.PNG?raw=true "History Closed Order")
+
+#### Trades
+![History Trades](/../screenShots/screenShots/Account_History_Trades_Screen.PNG?raw=true "History Trades")
+
 ## About
 The project is created and maintained by [Aurora Solutions](https://www.aurorasolutions.io/). Like it? Please let us know at info@aurorasolutions.io
 
